@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H&M | HostelMart Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=HM+Sans:wght@300;400;700&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hm-red {
+            color: #E50012;
+        }
+
+        .bg-hm-red {
+            background-color: #E50012;
+        }
+
+        .border-hm-red {
+            border-color: #E50012;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .product-card:hover .quick-add {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .quick-add {
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .hm-logo-font {
+            font-family: sans-serif;
+            font-weight: 800;
+            font-style: italic;
+            letter-spacing: -2px;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 antialiased">
+
+    <!-- TOP ANNOUNCEMENT -->
+    <div class="bg-gray-100 py-2 text-center text-[10px] font-bold uppercase tracking-widest">
+        Free shipping for members on orders over $40
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start leading-none group cursor-pointer">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter text-black uppercase">
+                    Hostel<span class="text-gray-400 group-hover:text-black transition-colors">Mart</span>
+                </a>
+                <!-- H&M Logo Style -->
+                <div class="hm-logo-font text-2xl md:text-3xl hm-red mt-1">
+                    H&M
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex gap-8 text-xs font-bold uppercase tracking-tight">
+                <a href="#" class="hover:underline underline-offset-8 decoration-2">Ladies</a>
+                <a href="#" class="hover:underline underline-offset-8 decoration-2">Men</a>
+                <a href="#" class="hover:underline underline-offset-8 decoration-2">Divided</a>
+                <a href="#" class="hover:underline underline-offset-8 decoration-2">Baby</a>
+                <a href="#" class="hover:underline underline-offset-8 decoration-2">Kids</a>
+                <a href="#" class="hm-red">Sale</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-5 text-2xl text-gray-700">
+                <button class="hover:hm-red transition-colors"><ion-icon name="search-outline"></ion-icon></button>
+                <button class="hover:hm-red transition-colors"><ion-icon name="person-outline"></ion-icon></button>
+                <button class="hover:hm-red relative transition-colors">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span
+                        class="absolute -top-1 -right-1 bg-hm-red text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO CAMPAIGN -->
+        <section class="container mx-auto px-4 md:px-12 py-6">
+            <div class="relative rounded-sm overflow-hidden aspect-[16/9] md:aspect-[21/9] bg-[#F4EDDD]">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2000&auto=format&fit=crop"
+                    class="w-full h-full object-cover mix-blend-multiply opacity-90" alt="H&M Summer">
+                <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                    <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-4">Summer <br
+                            class="md:hidden"> Essentials</h2>
+                    <p class="text-sm md:text-lg mb-8 font-medium">Stylish pieces for the sunny days ahead.</p>
+                    <div class="flex gap-4">
+                        <a href="#shop"
+                            class="bg-white text-black px-8 py-3 font-bold uppercase text-xs hover:bg-gray-100 transition shadow-lg">Shop
+                            Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORY STRIP -->
+        <div
+            class="container mx-auto px-4 md:px-12 py-4 flex gap-6 overflow-x-auto no-scrollbar border-b border-gray-50 whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-gray-500">
+            <a href="#" class="text-black border-b border-black pb-1">View All</a>
+            <a href="#" class="hover:text-black transition">T-shirts & Tops</a>
+            <a href="#" class="hover:text-black transition">Shirts</a>
+            <a href="#" class="hover:text-black transition">Jeans</a>
+            <a href="#" class="hover:text-black transition">Trousers</a>
+            <a href="#" class="hover:text-black transition">Shorts</a>
+            <a href="#" class="hover:text-black transition">Accessories</a>
+        </div>
+
+        <!-- PRODUCT GRID (30 Items) -->
+        <section id="shop" class="container mx-auto px-4 md:px-12 py-16">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 md:gap-x-8 gap-y-12">
+
+                <script>
+                    const hmProducts = [
+                        { name: "Basic T-Shirt", price: "9.99", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" },
+                        { name: "Printed T-Shirt", price: "14.99", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500" },
+                        { name: "Oxford Shirt", price: "24.99", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500" },
+                        { name: "Formal Cotton Shirt", price: "29.99", img: "https://images.unsplash.com/photo-1621072156002-e2fcced0b170?w=500" },
+                        { name: "Straight Jeans", price: "34.99", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" },
+                        { name: "Slim Fit Jeans", price: "34.99", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" },
+                        { name: "Chilled Trousers", price: "29.99", img: "https://images.unsplash.com/photo-1624371414361-e6e9eaec612e?w=500" },
+                        { name: "Cotton Chinos", price: "24.99", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500" },
+                        { name: "Sweatshorts", price: "12.99", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500" },
+                        { name: "Unstructured Blazer", price: "69.99", img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500" },
+                        { name: "Slim Fit Suit", price: "119.00", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500" },
+                        { name: "Canvas Jacket", price: "49.99", img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?w=500" },
+                        { name: "Denim Jacket", price: "39.99", img: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=500" },
+                        { name: "Relaxed Hoodie", price: "24.99", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500" },
+                        { name: "Graphic Sweatshirt", price: "19.99", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500" },
+                        { name: "Cable-knit Sweater", price: "34.99", img: "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500" },
+                        { name: "Fine-knit Sweater", price: "29.99", img: "https://images.unsplash.com/photo-1611911813575-87134377b6fe?w=500" },
+                        { name: "Cotton Cardigan", price: "34.99", img: "https://images.unsplash.com/photo-1624462966581-bc6d768cbce5?w=500" },
+                        { name: "Pique Polo Shirt", price: "14.99", img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500" },
+                        { name: "Ribbed Tank Top", price: "7.99", img: "https://images.unsplash.com/photo-1583496661160-fb489b275271?w=500" },
+                        { name: "Linen-blend Pants", price: "34.99", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500" },
+                        { name: "Cargo Pants", price: "39.99", img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500" },
+                        { name: "Regular Fit Linen Shirt", price: "29.99", img: "https://images.unsplash.com/photo-1589310243389-96a5483213a8?w=500" },
+                        { name: "Corduroy Overshirt", price: "34.99", img: "https://images.unsplash.com/photo-1617114919297-3c8ddb01f599?w=500" },
+                        { name: "Slim Fit Joggers", price: "19.99", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=500" },
+                        { name: "Lounge Pants", price: "17.99", img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=500" },
+                        { name: "Patterned Pajamas", price: "24.99", img: "https://images.unsplash.com/photo-1517438476312-10d79c07750d?w=500" },
+                        { name: "3-pack Trunks", price: "12.99", img: "https://images.unsplash.com/photo-1582719202047-76d3432ee323?w=500" },
+                        { name: "5-pack Socks", price: "9.99", img: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=500" },
+                        { name: "Padded Winter Jacket", price: "59.99", img: "https://images.unsplash.com/photo-1544923246-77307dd654ca?w=500" }
+                    ];
+
+                    document.write(hmProducts.map(p => `
+                        <div class="product-card group cursor-pointer relative">
+                            <div class="aspect-[3/4] bg-gray-50 overflow-hidden mb-3 relative">
+                                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.name}">
+                                <div class="absolute inset-x-0 bottom-0 p-4 quick-add">
+                                    <button class="w-full bg-white/90 backdrop-blur py-2 text-[10px] font-black uppercase tracking-widest border border-gray-200 hover:bg-black hover:text-white transition-colors">Quick Add</button>
+                                </div>
+                                <button class="absolute top-3 right-3 text-2xl text-gray-400 hover:text-hm-red transition-colors"><ion-icon name="heart-outline"></ion-icon></button>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="text-[11px] font-medium text-gray-700">${p.name}</h3>
+                                <p class="text-xs font-black hm-red">$${p.price}</p>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+
+            </div>
+        </section>
+
+        <!-- SUSTAINABILITY BANNER -->
+        <section class="bg-[#EFEFEF] py-20 text-center">
+            <div class="max-w-2xl mx-auto px-4">
+                <h3 class="text-2xl font-black uppercase mb-4 tracking-tighter">Let's remake fashion</h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-8">We are committed to making fashion sustainable and
+                    sustainability fashionable. Discover our Conscious choice collection.</p>
+                <a href="#"
+                    class="inline-block border-2 border-black px-10 py-3 text-xs font-black uppercase hover:bg-black hover:text-white transition">Read
+                    More</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-100 pt-20 pb-12">
+        <div class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="hm-logo-font text-3xl hm-red">H&M</div>
+                <p class="text-xs text-gray-400 font-medium uppercase tracking-widest">A HostelMart Curated Store</p>
+                <div class="flex gap-6 text-xl text-gray-400">
+                    <a href="#" class="hover:text-black"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#" class="hover:text-black"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#" class="hover:text-black"><ion-icon name="logo-twitter"></ion-icon></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6">Shop</h4>
+                <ul class="text-xs space-y-4 text-gray-500 font-medium">
+                    <li><a href="#" class="hover:text-black">Ladies</a></li>
+                    <li><a href="#" class="hover:text-black">Men</a></li>
+                    <li><a href="#" class="hover:text-black">Divided</a></li>
+                    <li><a href="#" class="hover:text-black">Baby</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6">Corporate Info</h4>
+                <ul class="text-xs space-y-4 text-gray-500 font-medium">
+                    <li><a href="#" class="hover:text-black">Career at H&M</a></li>
+                    <li><a href="#" class="hover:text-black">Sustainability</a></li>
+                    <li><a href="#" class="hover:text-black">Press</a></li>
+                    <li><a href="#" class="hover:text-black">Investor Relations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6">Help</h4>
+                <ul class="text-xs space-y-4 text-gray-500 font-medium">
+                    <li><a href="#" class="hover:text-black">Customer Service</a></li>
+                    <li><a href="#" class="hover:text-black">My Account</a></li>
+                    <li><a href="#" class="hover:text-black">Legal & Privacy</a></li>
+                    <li><a href="#" class="hover:text-black">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-4 md:px-12 mt-20 pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">&copy; 2024 HostelMart x H&M. All
+                rights reserved.</p>
+            <div class="flex gap-6 grayscale opacity-40">
+                <img src="https://vignette.wikia.nocookie.net/logopedia/images/e/e0/PayPal_Logo_2014.svg/revision/latest?cb=20140523171305"
+                    alt="Payment" class="h-4">
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

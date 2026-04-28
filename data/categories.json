@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Dress & frock",
+    "amount": 11,
+    "icon": "./assets/images/icons/dress.svg"
+  },
+  {
+    "id": 2,
+    "name": "Winter wear",
+    "amount": 0,
+    "icon": "./assets/images/icons/coat.svg"
+  },
+  {
+    "id": 3,
+    "name": "Glasses & lens",
+    "amount": 0,
+    "icon": "./assets/images/icons/glasses.svg"
+  },
+  {
+    "id": 4,
+    "name": "Shorts & jeans",
+    "amount": 11,
+    "icon": "./assets/images/icons/shorts.svg"
+  },
+  {
+    "id": 5,
+    "name": "T-shirts",
+    "amount": 13,
+    "icon": "./assets/images/icons/tee.svg"
+  },
+  {
+    "id": 6,
+    "name": "Jacket",
+    "amount": 7,
+    "icon": "./assets/images/icons/jacket.svg"
+  },
+  {
+    "id": 7,
+    "name": "Watch",
+    "amount": 0,
+    "icon": "./assets/images/icons/watch.svg"
+  },
+  {
+    "id": 8,
+    "name": "Mobiles",
+    "amount": 271,
+    "icon": "./assets/images/icons/mobile.svg"
+  },
+  {
+    "id": 9,
+    "name": "Laptops",
+    "amount": 90,
+    "icon": "./assets/images/icons/laptop.svg"
+  },
+  {
+    "id": 10,
+    "name": "Audio",
+    "amount": 64,
+    "icon": "./assets/images/icons/audio.svg"
+  },
+  {
+    "id": 11,
+    "name": "Smartwatches",
+    "amount": 47,
+    "icon": "./assets/images/icons/watch.svg"
+  },
+  {
+    "id": 12,
+    "name": "Innerwear",
+    "amount": 5,
+    "icon": "./assets/images/icons/tee.svg"
+  }
+]

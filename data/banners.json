@@ -1,0 +1,62 @@
+[
+  {
+    "type": "standard",
+    "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
+    "subtitle": "Welcome",
+    "title": "SPRING SUMMER'26",
+    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px]"
+  },
+  {
+    "type": "featured",
+    "image": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80",
+    "icon": "https://img.icons8.com/color/96/000000/poppy.png",
+    "title": "Cool & casual picks!",
+    "description": "T-shirts, shirts...",
+    "price_info": "Under ₹499",
+    "bg_color": "#fff9c4",
+    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex"
+  },
+  {
+    "type": "featured_small",
+    "image": null,
+    "icon": "https://img.icons8.com/color/96/000000/poppy.png",
+    "title": "Cute little styles",
+    "description": "Kids' topwear",
+    "price_info": "From ₹99",
+    "bg_color": "#fff9c4",
+    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] bg-[#fff9c4]"
+  },
+  {
+    "type": "featured",
+    "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80",
+    "icon": "https://img.icons8.com/color/96/000000/poppy.png",
+    "title": "Trendy kicks you love",
+    "description": "Shoes, sneakers & more",
+    "price_info": "From ₹219",
+    "bg_color": "#fff9c4",
+    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex",
+    "section": "fashion"
+  },
+  {
+    "type": "featured",
+    "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=600&q=80",
+    "icon": "https://img.icons8.com/color/96/000000/leaves.png",
+    "title": "Deals on bestsellers",
+    "description": "Men's sunglasses",
+    "price_info": "Under ₹299",
+    "bg_color": "#fff9c4",
+    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex",
+    "section": "fashion"
+  },
+  {
+    "type": "featured",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80",
+    "icon": "https://img.icons8.com/color/96/000000/leaves.png",
+    "title": "Back to SCHOOL",
+    "description": "60-90% Off",
+    "price_info": "Limited time",
+    "bg_color": "#fbc02d",
+    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex",
+    "section": "fashion"
+  }
+]

@@ -1,0 +1,3351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Hub - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .category-card {
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: scale(1.02);
+        }
+
+        .deal-card {
+            transition: all 0.3s ease;
+        }
+
+        .deal-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .leaf-decoration {
+            position: absolute;
+            width: 40px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .leaf-tl { top: -10px; left: -10px; transform: rotate(-15deg); }
+        .leaf-br { bottom: -10px; right: -10px; transform: rotate(165deg); }
+
+        .discount-ribbon {
+            background: #fff3b0;
+            transform: rotate(-2deg);
+            padding: 4px 12px;
+            font-weight: 900;
+            display: inline-block;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.05);
+        }
+
+        .flower-accent {
+            position: absolute;
+            width: 50px;
+            bottom: -15px;
+            right: -10px;
+            z-index: 5;
+        }
+
+        /* NEW ARRIVAL STYLES */
+        .new-arrival-card {
+            width: 240px;
+            height: 300px;
+            position: relative;
+            border: 5px solid #ffce00;
+            border-radius: 30px;
+            overflow: hidden;
+            background: #000;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .new-arrival-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .new-arrival-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .brand-pill-container {
+            position: absolute;
+            bottom: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 6px 18px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .brand-pill-container span {
+            font-size: 10px;
+            font-weight: 800;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .arrival-discount-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            z-index: 5;
+        }
+
+        .new-arrival-leaf {
+            position: absolute;
+            width: 30px;
+            z-index: 15;
+        }
+
+        /* STYLE IN MOTION STYLES */
+        .motion-card {
+            width: 240px;
+            height: 300px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            scroll-snap-align: start;
+        }
+
+        .motion-card .image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .motion-card .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .motion-card .footer-info {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .motion-card .brand-box {
+            flex: 1;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #f0f0f0;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            min-height: 48px;
+            text-align: center;
+        }
+
+        .motion-card .offer-box {
+            padding: 10px 14px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .motion-card .corner-flower {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 24px;
+            z-index: 10;
+            opacity: 0.8;
+        }
+
+        /* GRID PRODUCT CARD STYLES */
+        .grid-product-card {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .grid-product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .grid-product-card .img-box {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f8f5f0;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .grid-product-card .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .grid-product-card:hover .img-box img {
+            transform: scale(1.1);
+        }
+
+        .grid-product-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #1a1a1a;
+        }
+
+        .grid-product-card p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* SHADE CARD STYLES */
+        .shade-card {
+            position: relative;
+            border-radius: 2rem;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: #f0f0f0;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .shade-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .shade-sticker {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: bottom;
+            z-index: 10;
+            filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px -2px 0px white) drop-shadow(2px -2px 0px white) drop-shadow(-2px 2px 0px white);
+        }
+
+        .shade-label {
+            position: absolute;
+            bottom: 3rem;
+            left: 1.5rem;
+            z-index: 20;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            min-width: 140px;
+        }
+
+        .shade-box {
+            width: 2.5rem;
+            height: 2.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .shade-name {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 11px;
+            line-height: 1;
+            color: #1a1a1a;
+            text-align: left;
+        }
+
+        .collage-bg {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2px;
+            opacity: 0.9;
+        }
+
+        .collage-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* PRICE-WISE CARD STYLES */
+        .price-wise-card {
+            width: 181.5px;
+            height: 181.5px;
+            flex-shrink: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .price-wise-card .price-text-box {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 20;
+            text-align: left;
+        }
+
+        .price-wise-card .under-label {
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: -2px;
+        }
+
+        .price-wise-card .price-val {
+            font-size: 40px;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .price-wise-card .model-img {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 85%;
+            height: 100%;
+            object-fit: contain;
+            object-position: bottom right;
+            z-index: 10;
+        }
+
+        .price-wise-card .action-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .price-wise-card .action-btn ion-icon {
+            font-size: 14px;
+        }
+
+        /* MOM TRENDS BANNER STYLES */
+        .mom-trends-banner {
+            width: 694px;
+            height: 154.22px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ffdce5, #fff1e6, #ffd8a8);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
+
+        .mom-trends-banner .label {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+            margin-bottom: -10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .mom-trends-banner .trends-text {
+            font-size: 80px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            color: #c2185b;
+            line-height: 1;
+            letter-spacing: -4px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .mom-trends-banner .flower-icon {
+            position: absolute;
+            top: 55%;
+            left: 36%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            z-index: 11;
+            opacity: 0.9;
+        }
+
+        /* TREND ITEM CARD STYLES */
+        .trend-item-card {
+            width: 224px;
+            height: 297.12px;
+            flex-shrink: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            position: relative;
+        }
+
+        .trend-item-card .image-box {
+            height: 70%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trend-item-card .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trend-item-card .pill-label {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #1a1a1a;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .trend-item-card .footer {
+            flex: 1;
+            padding: 12px 16px;
+            background: linear-gradient(to right, #fff1f2, #fff);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .trend-item-card .footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #c2185b;
+            margin-bottom: 2px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .trend-item-card .footer p {
+            font-size: 12px;
+            font-weight: 900;
+            color: #1a1a1a;
+            position: relative;
+            z-index: 2;
+        }
+
+        .trend-item-card .petal {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        /* CELEBRITY BANNER STYLES */
+        .celebrity-banner {
+            max-width: 100%;
+            width: 1092px;
+            height: 242.66px;
+            margin: 40px auto;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .celebrity-banner .flower-accent {
+            position: absolute;
+            top: 20%;
+            left: 18%;
+            width: 100px;
+            height: auto;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .celebrity-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(60px, 10vw, 150px);
+            font-weight: 900;
+            color: #000;
+            line-height: 0.75;
+            letter-spacing: -4px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .celebrity-banner p {
+            font-size: clamp(16px, 3vw, 40px);
+            font-weight: 900;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* CELEB ITEM CARD STYLES */
+        .celeb-item-card {
+            width: 400.5px;
+            height: 492.62px;
+            flex-shrink: 0;
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            background: white;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .celeb-item-card .person-side {
+            width: 55%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .celeb-item-card .person-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .celeb-item-card .info-side {
+            width: 45%;
+            height: 100%;
+            background: #fcf8e8;
+            padding: 32px 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .celeb-item-card .info-side h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 900;
+            color: #4a5d23;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .celeb-item-card .info-side p {
+            font-size: 15px;
+            font-weight: 700;
+            color: #4a5d23;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .celeb-item-card .flower-decor {
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+            width: 70px;
+            height: auto;
+            opacity: 0.7;
+        }
+
+        .celeb-item-card .brand-pill {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 4px 16px;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .celeb-item-card .brand-pill img {
+            height: 18px;
+            width: auto;
+        }
+
+        /* MOM GIFTS BANNER STYLES */
+        .mom-gifts-banner {
+            max-width: 100%;
+            width: 1092px;
+            height: 242.66px;
+            margin: 40px auto;
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ffdce5, #fff1e6, #ffd8a8);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
+
+        .mom-gifts-banner .label {
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+            margin-bottom: -15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .mom-gifts-banner .mom-text {
+            font-size: clamp(80px, 15vw, 160px);
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            color: #c2185b;
+            line-height: 1;
+            letter-spacing: -6px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .mom-gifts-banner .flower-icon {
+            position: absolute;
+            top: 55%;
+            left: 41%;
+            transform: translateY(-50%);
+            width: clamp(50px, 8vw, 90px);
+            height: auto;
+            z-index: 11;
+            opacity: 0.9;
+        }
+
+        /* HOTTEST TRENDS BANNER STYLES */
+        .hottest-trends-banner {
+            max-width: 100%;
+            width: 1060px;
+            height: 517.06px;
+            margin: 40px auto;
+            border-radius: 48px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+
+        .hottest-trends-banner .bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hottest-trends-banner .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hottest-trends-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(60px, 10vw, 130px);
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            line-height: 0.85;
+            letter-spacing: -4px;
+            text-shadow: 0 15px 45px rgba(0,0,0,0.4);
+        }
+
+        .hottest-trends-banner p {
+            font-size: clamp(30px, 5vw, 60px);
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-top: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .hottest-trends-banner .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #000;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        /* FOOD PRINT BANNER STYLES */
+        .food-print-banner {
+            max-width: 100%;
+            width: 1060px;
+            height: 517.06px;
+            margin: 40px auto;
+            border-radius: 48px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+
+        .food-print-banner .bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .food-print-banner .content-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding-right: 100px;
+            text-align: right;
+            color: white;
+        }
+
+        .food-print-banner .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 140px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 0.6;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .food-print-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.85;
+            margin-bottom: 10px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .food-print-banner .more-text {
+            font-size: 36px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .food-print-banner p.price {
+            font-size: 54px;
+            font-weight: 800;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* FADED BLUE BANNER STYLES */
+        .faded-cream-banner {
+            max-width: 100%;
+            width: 1060px;
+            height: 517.06px;
+            margin: 40px auto;
+            border-radius: 48px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+
+        .faded-cream-banner .bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .faded-cream-banner .content-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to left, rgba(0,0,0,0.05), rgba(0,0,0,0.6));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 100px;
+            text-align: left;
+            color: white;
+        }
+
+        .faded-cream-banner .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 140px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 0.6;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .faded-cream-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.85;
+            margin-bottom: 10px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .faded-cream-banner .more-text {
+            font-size: 36px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .faded-cream-banner p.offer {
+            font-size: 54px;
+            font-weight: 800;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* EMBROIDERED SHIRTS BANNER STYLES */
+        .embroidered-shirts-banner {
+            max-width: 100%;
+            width: 1060px;
+            height: 517.06px;
+            margin: 40px auto;
+            border-radius: 48px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+
+        .embroidered-shirts-banner .bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .embroidered-shirts-banner .content-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding-right: 100px;
+            text-align: right;
+            color: white;
+        }
+
+        .embroidered-shirts-banner .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 140px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 0.6;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .embroidered-shirts-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.85;
+            margin-bottom: 10px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .embroidered-shirts-banner .more-text {
+            font-size: 36px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .embroidered-shirts-banner p.price {
+            font-size: 54px;
+            font-weight: 800;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* PLATFORM SNEAKERS BANNER STYLES */
+        .platform-sneakers-banner {
+            max-width: 100%;
+            width: 1060px;
+            height: 517.06px;
+            margin: 40px auto;
+            border-radius: 48px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+
+        .platform-sneakers-banner .bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .platform-sneakers-banner .content-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to left, rgba(0,0,0,0.05), rgba(0,0,0,0.6));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 100px;
+            text-align: left;
+            color: white;
+        }
+
+        .platform-sneakers-banner .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 140px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 0.6;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .platform-sneakers-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.85;
+            margin-bottom: 10px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .platform-sneakers-banner .more-text {
+            font-size: 36px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .platform-sneakers-banner p.offer {
+            font-size: 54px;
+            font-weight: 800;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* CONQUER THE COOL BANNER STYLES */
+        .conquer-cool-banner {
+            max-width: 100%;
+            width: 1060px;
+            height: 517.06px;
+            margin: 40px auto;
+            border-radius: 48px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+
+        .conquer-cool-banner .bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .conquer-cool-banner .content-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding-right: 100px;
+            text-align: right;
+            color: white;
+        }
+
+        .conquer-cool-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 96px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.85;
+            margin-bottom: 20px;
+            text-shadow: 0 15px 45px rgba(0,0,0,0.4);
+        }
+
+        .conquer-cool-banner p {
+            font-size: 44px;
+            font-weight: 700;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* NEW ARRIVALS SECTION STYLES */
+        .new-arrivals-header {
+            text-align: center;
+            margin: 60px auto 30px;
+        }
+
+        .new-arrivals-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            color: #1a1a1a;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -2px;
+        }
+
+        .new-arrivals-header h2::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            width: 40px;
+            height: 40px;
+            background: url('https://img.icons8.com/color/96/000000/cherry.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .new-arrivals-header p {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: -10px;
+        }
+
+        .arrival-card {
+            width: 224px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .arrival-card .image-area {
+            width: 100%;
+            height: 280px;
+            background: #f8f8f8;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        /* Wavy sides effect */
+        .arrival-card .image-area::before,
+        .arrival-card .image-area::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            z-index: 10;
+        }
+
+        .arrival-card .image-area::before {
+            left: -10px;
+            background: radial-gradient(circle at 0px center, transparent 10px, #fff 11px);
+            background-size: 20px 40px;
+        }
+
+        .arrival-card .image-area::after {
+            right: -10px;
+            background: radial-gradient(circle at 20px center, transparent 10px, #fff 11px);
+            background-size: 20px 40px;
+        }
+
+        .arrival-card .top-tag {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffdb4d;
+            padding: 4px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 20;
+        }
+
+        .arrival-card .logo-box {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 20;
+            padding: 5px;
+        }
+
+        .arrival-card .logo-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .arrival-card .leaf-decor {
+            position: absolute;
+            bottom: -15px;
+            right: -10px;
+            width: 50px;
+            height: 50px;
+            z-index: 30;
+            opacity: 0.8;
+        }
+
+        .arrival-card .offer-text {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: 800;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        /* HOUSE OF BRANDS SECTION STYLES */
+        .house-brands-container {
+            display: flex;
+            gap: 24px;
+            margin: 60px auto;
+            align-items: stretch;
+        }
+
+        .house-brands-featured {
+            width: 320px;
+            height: 400px;
+            background: #eef2f3;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .house-brands-featured .header-text {
+            position: relative;
+            z-index: 10;
+        }
+
+        .house-brands-featured h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 0.85;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .house-brands-featured .sub-heading {
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444;
+        }
+
+        .house-brands-featured img.model-img {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+            object-position: top;
+            z-index: 5;
+        }
+
+        .house-brands-featured .circle-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 15;
+            cursor: pointer;
+        }
+
+        .brand-scroller-item {
+            width: 224px;
+            flex-shrink: 0;
+        }
+
+        .brand-scroller-item .img-container {
+            width: 100%;
+            height: 280px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            background: #f5f5f5;
+        }
+
+        .brand-scroller-item .logo-strip {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 8px 15px;
+            border-radius: 12px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        .brand-scroller-item .logo-strip img {
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .brand-scroller-item .logo-strip span {
+            font-weight: 900;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brand-scroller-item p.offer {
+            margin-top: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            text-align: center;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="index.html" class="text-2xl font-black tracking-tighter text-gray-900 shrink-0">Hostel<span
+                    class="text-[#5D4037]">Mart</span></a>
+
+            <div class="flex-1 max-w-xl relative hidden md:block group">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl">
+                    <ion-icon name="search-outline"></ion-icon>
+                </div>
+                <input type="search" placeholder="Search for brands, items..."
+                    class="w-full pl-12 pr-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:bg-white focus:border-[#5D4037] focus:ring-4 focus:ring-[#F5F5DC] transition-all outline-none text-sm font-medium">
+            </div>
+
+            <div class="flex items-center gap-6 text-2xl text-gray-700 shrink-0">
+                <a href="#" class="hover:text-[#5D4037] transition-colors hidden sm:block"><ion-icon name="person-outline"></ion-icon></a>
+                <a href="#" class="hover:text-[#5D4037] transition-colors relative">
+                    <ion-icon name="heart-outline"></ion-icon>
+                    <span class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                </a>
+                <a href="#" class="hover:text-[#5D4037] transition-colors relative">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="pb-24">
+
+        <!-- FASHION HERO SLIDER -->
+        <section class="container mx-auto px-4 py-6">
+            <div class="relative group/hero">
+                <div id="hero-slider" class="flex overflow-x-auto gap-4 no-scrollbar snap-x snap-mandatory scroll-smooth">
+                    <!-- Dynamic banners will be injected here -->
+                </div>
+                <!-- Navigation Buttons -->
+                <button onclick="document.getElementById('hero-slider').scrollBy({left: -600, behavior: 'smooth'})" 
+                    class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-2xl flex items-center justify-center z-20 opacity-0 group-hover/hero:opacity-100 transition-all hover:bg-[#5D4037] hover:text-white">
+                    <ion-icon name="chevron-back-outline" class="text-xl"></ion-icon>
+                </button>
+                <button onclick="document.getElementById('hero-slider').scrollBy({left: 600, behavior: 'smooth'})" 
+                    class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-2xl flex items-center justify-center z-20 opacity-0 group-hover/hero:opacity-100 transition-all hover:bg-[#5D4037] hover:text-white">
+                    <ion-icon name="chevron-forward-outline" class="text-xl"></ion-icon>
+                </button>
+            </div>
+        </section>
+
+    <!-- 3. CATEGORY BAR -->
+    <div class="bg-white border-b border-stone-100 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto px-4 flex items-center gap-6 md:gap-10 py-6 min-w-max">
+
+            <!-- For You -->
+            <a href="index.html" class="flex flex-col items-center gap-2 cursor-pointer group">
+                <div
+                    class="w-14 h-14 rounded-2xl bg-[#F8F4E1] flex items-center justify-center shadow-sm border border-stone-100 relative overflow-hidden group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-transparent"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#C5A059"
+                        stroke="#3E2723" stroke-width="1.5">
+                        <circle cx="12" cy="8" r="6" />
+                        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter text-[#3E2723]">For You</span>
+            </a>
+
+            <!-- Fashion -->
+            <a href="Fashion.html"
+                class="flex flex-col items-center gap-2 cursor-pointer group transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-[#C5A059] bg-white shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path
+                            d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter text-[#C5A059]">Fashion</span>
+            </a>
+
+            <!-- Mobiles -->
+            <a href="Mobile.html"
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                        <path d="M12 18h.01" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Mobiles</span>
+            </a>
+
+            <!-- Beauty -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                        <path d="M8 10.5c0 1.5 1 2.5 4 2.5s4-1 4-2.5" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Beauty</span>
+            </div>
+
+            <!-- Electronics -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <rect width="16" height="12" x="2" y="4" rx="2" />
+                        <path d="M8 20h8" />
+                        <path d="M12 16v4" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Electronics</span>
+            </div>
+
+            <!-- Home -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Home</span>
+            </div>
+
+            <!-- Appliances -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <rect width="18" height="14" x="3" y="3" rx="2" />
+                        <path d="M7 21h10" />
+                        <path d="M12 17v4" />
+                        <path d="M8 8h8" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Appliances</span>
+            </div>
+
+            <!-- Toys, baby... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                        <path d="M10 20c0-2.2 1.8-4 4-4s4 1.8 4 4" />
+                        <circle cx="7" cy="18" r="2" />
+                        <circle cx="17" cy="18" r="2" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Toys, baby...</span>
+            </div>
+
+            <!-- Food & H... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                        <circle cx="12" cy="11" r="3" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Food & H...</span>
+            </div>
+
+            <!-- Auto Acc... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path
+                            d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-1.1 0-2 .9-2 2v7c0 1.1.9 2 2 2h2" />
+                        <circle cx="7" cy="17" r="2" />
+                        <circle cx="17" cy="17" r="2" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Auto Acc...</span>
+            </div>
+
+            <!-- 2 Wheele... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <circle cx="5.5" cy="17.5" r="2.5" />
+                        <circle cx="18.5" cy="17.5" r="2.5" />
+                        <path d="M15 17.5 12 9l-4 3h7l-1.5-3" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">2 Wheele...</span>
+            </div>
+
+            <!-- Sports & ... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M4.93 4.93l14.14 14.14" />
+                        <path d="M14.14 4.93L4.93 19.07" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Sports & ...</span>
+            </div>
+
+            <!-- Books & ... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Books & ...</span>
+            </div>
+
+            <!-- Furniture -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <path d="M3 7h18" />
+                        <path d="M19 7v10" />
+                        <path d="M5 7v10" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Furniture</span>
+            </div>
+        </div>
+    </div>
+
+        <!-- SHOP FOR LOVED ONES -->
+        <section class="container mx-auto px-4 py-8">
+            <h2 class="text-xl font-bold mb-6">Shop for loved ones</h2>
+            <div class="grid grid-cols-3 gap-4">
+                <a href="#" class="category-card flex flex-col items-center gap-3">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-[#F5F5DC]">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" alt="Women" class="w-full h-full object-cover">
+                    </div>
+                    <span class="font-bold text-sm">Women</span>
+                </a>
+                <a href="#" class="category-card flex flex-col items-center gap-3">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-green-50 relative">
+                        <img src="https://images.unsplash.com/photo-1523381235312-da59b1399430?auto=format&fit=crop&w=400&q=80" alt="Gen Z" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#00ff41] px-4 py-1 rounded-full text-black font-black italic text-[10px]">spoyl</div>
+                    </div>
+                    <span class="font-bold text-sm text-center">Gen Z drips</span>
+                </a>
+                <a href="#" class="category-card flex flex-col items-center gap-3">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-[#F5F5DC]">
+                        <img src="https://images.unsplash.com/photo-1514315384763-ba401779410f?auto=format&fit=crop&w=400&q=80" alt="Kids" class="w-full h-full object-cover">
+                    </div>
+                    <span class="font-bold text-sm">Kids</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- FIRST TIME DISCOUNT SECTION -->
+        <section class="container mx-auto px-4 py-8 bg-[#e8f4fd] rounded-[40px] my-4 overflow-hidden relative">
+            <div class="flex flex-col md:flex-row gap-6 relative z-10 items-stretch">
+                
+                <!-- Main Banner Card -->
+                <div class="md:w-1/4 bg-white rounded-3xl p-6 flex flex-col justify-center items-center text-center relative overflow-hidden shrink-0">
+                    <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=100&q=80" class="absolute top-4 left-4 w-8 opacity-20" alt="">
+                    <div class="discount-ribbon text-[10px] mb-2 uppercase">First Time On</div>
+                    <div class="text-3xl font-black italic mb-4">DISCOUNT</div>
+                    <div class="text-5xl font-black text-gray-900 mb-6 leading-none">50-80%<br><span class="text-4xl uppercase">Off</span></div>
+                    <button class="bg-gray-900 text-white p-3 rounded-full flex items-center justify-center hover:bg-[#5D4037] transition-colors">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </button>
+                    <!-- Small orange slices for aesthetic -->
+                    <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-orange-400 rounded-full blur-xl opacity-30"></div>
+                </div>
+
+                <!-- Deal Cards Container with Slider -->
+                <div class="md:w-3/4 relative group/slider">
+                    <div id="deals-scroller" class="flex overflow-x-auto gap-4 no-scrollbar snap-x snap-mandatory scroll-smooth h-full pb-4">
+                        
+                        <!-- Card 1 -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80" alt="Shoes" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Min. 65% Off</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Sports shoes...</span>
+                            </div>
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-br" alt="">
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=300&q=80" alt="Jeans" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Under ₹499</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Jeans, trousers...</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 (Slides) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&w=300&q=80" alt="Slides" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">From ₹129</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Slides & Sandals</span>
+                            </div>
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-br" alt="">
+                        </div>
+
+                        <!-- Card 4 (Wallet) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=300&q=80" alt="Wallet" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Under ₹299</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Leather Belts & Wallets</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 (Bag) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80" alt="Bag" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Under ₹399</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Travel Duffel Bags</span>
+                            </div>
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-br" alt="">
+                        </div>
+
+                        <!-- Card 6 (Watch) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=300&q=80" alt="Watch" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Min. 80% Off</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Luxury Watches</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 7 (Jeans) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=300&q=80" alt="Jeans" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Min. 70% Off</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Denim Jeans</span>
+                            </div>
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-br" alt="">
+                        </div>
+
+                        <!-- Card 8 (Slip-on) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=300&q=80" alt="Slip-on" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">From ₹249</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Casual Slip-ons</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 9 (Kids) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=300&q=80" alt="Kids" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Min. 60% Off</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Kids' Collection</span>
+                            </div>
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-br" alt="">
+                        </div>
+
+                        <!-- Card 10 (Trousers) -->
+                        <div class="min-w-[180px] md:min-w-[220px] bg-white rounded-3xl p-4 flex flex-col items-center text-center relative group snap-start deal-card">
+                            <img src="https://img.icons8.com/color/96/000000/leaves.png" class="leaf-decoration leaf-tl" alt="">
+                            <div class="w-full aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-50">
+                                <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=300&q=80" alt="Trousers" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg">Under ₹299</span>
+                                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Formal Trousers</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Navigation Buttons -->
+                    <button onclick="document.getElementById('deals-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                        class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 -translate-x-5 opacity-0 group-hover/slider:opacity-100 transition-opacity">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                    </button>
+                    <button onclick="document.getElementById('deals-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                        class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/slider:opacity-100 transition-opacity">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Floating fruit/flower accents -->
+            <div class="absolute top-10 right-[-20px] w-20 h-20 bg-orange-200 rounded-full blur-3xl opacity-40"></div>
+        </section>
+
+        <!-- SALE STARTS ON 9TH MAY BANNER -->
+        <section class="container mx-auto px-4 py-4">
+            <div class="bg-[#3E2723] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between text-white relative overflow-hidden">
+                <div class="relative z-10 flex items-center gap-6">
+                    <div class="bg-yellow-400 text-[#3E2723] p-4 rounded-xl font-black text-3xl rotate-[-5deg] shadow-lg">SASA<br>SALE</div>
+                    <div>
+                        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter">SALE STARTS</h2>
+                        <p class="text-xl md:text-3xl font-bold text-yellow-400">ON 9<span class="text-sm">TH</span> MAY</p>
+                    </div>
+                </div>
+                <div class="mt-6 md:mt-0 relative z-10">
+                    <div class="text-4xl text-yellow-400 animate-bounce">
+                        <ion-icon name="sparkles"></ion-icon>
+                    </div>
+                </div>
+                <!-- Abstract patterns -->
+                <div class="absolute top-0 right-0 w-64 h-full bg-white/5 skew-x-[-20deg]"></div>
+            </div>
+        </section>
+
+        <!-- DEALS OF THE DAY -->
+        <section class="py-8">
+            <div class="container mx-auto px-4 flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold">Deals of the day</h2>
+                <a href="#" class="text-[#5D4037] font-bold text-sm">View All</a>
+            </div>
+            <div class="flex overflow-x-auto no-scrollbar gap-4 px-4 container mx-auto">
+                
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹699</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Campus, Asian...</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50 relative">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-[#00ff41] px-3 py-0.5 rounded-full text-black font-black italic text-[8px]">spoyl</div>
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹399</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Casual tees...</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">From ₹299</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Men's sneakers</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹399</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Jeans</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹399</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Cross-body bags</p>
+                    </div>
+                </div>
+
+                <!-- New Deal Cards -->
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹249</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Polo, Shirts</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">From ₹349</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Sports shoes</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹199</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Kids' bottomwear</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[200px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹399</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Men's sunglasses</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[220px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹299</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Classy watches</p>
+                    </div>
+                </div>
+
+                <div class="min-w-[160px] md:min-w-[220px] flex flex-col gap-2">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1621454523205-0219c6769730?auto=format&fit=crop&w=300&q=80" alt="Item" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-3 text-center -mt-8 relative z-10 shadow-sm">
+                        <p class="font-black text-sm">Under ₹299</p>
+                        <p class="text-[10px] text-gray-500 font-bold">Girls' frocks</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TRENDS OF THE SZN -->
+        <section class="container mx-auto px-4 py-8 relative group/trends">
+            <h2 class="text-xl font-bold mb-8">Trends of the SZN</h2>
+            
+            <div id="trends-scroller" class="flex overflow-x-auto gap-6 no-scrollbar snap-x snap-mandatory scroll-smooth pb-4">
+                
+                <!-- Item 1: Ribbed baggy -->
+                <div class="min-w-[200px] md:min-w-[240px] flex flex-col gap-3 group relative snap-start">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50 relative">
+                        <img src="assets/images/ribbed_baggy_jeans.png" alt="Ribbed baggy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 w-12 h-12 bg-[#fdf291] rounded-full flex flex-col items-center justify-center border-2 border-white shadow-lg rotate-[-10deg]">
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">Spring</span>
+                            <span class="text-[8px] font-black leading-none text-gray-800">TRENDS</span>
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">2024</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <p class="font-bold text-sm leading-tight">Ribbed<br>baggy</p>
+                        <p class="text-gray-900 font-black text-xs mt-1">Min. 50% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/poppy.png" class="flower-accent" alt="">
+                    </div>
+                </div>
+
+                <!-- Item 2: Soft stripe shirt -->
+                <div class="min-w-[200px] md:min-w-[240px] flex flex-col gap-3 group relative snap-start">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50 relative">
+                        <img src="assets/images/soft_stripe_shirt.png" alt="Soft stripe shirt" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 w-12 h-12 bg-[#fdf291] rounded-full flex flex-col items-center justify-center border-2 border-white shadow-lg rotate-[5deg]">
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">Spring</span>
+                            <span class="text-[8px] font-black leading-none text-gray-800">TRENDS</span>
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">2024</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <p class="font-bold text-sm leading-tight">Soft stripe<br>shirt</p>
+                        <p class="text-gray-900 font-black text-xs mt-1">Under ₹499</p>
+                        <img src="https://img.icons8.com/color/96/000000/spring-flower.png" class="flower-accent" alt="">
+                    </div>
+                </div>
+
+                <!-- Item 3: Relaxed chinos -->
+                <div class="min-w-[200px] md:min-w-[240px] flex flex-col gap-3 group relative snap-start">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50 relative">
+                        <img src="assets/images/relaxed_chinos.png" alt="Relaxed chinos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 w-12 h-12 bg-[#fdf291] rounded-full flex flex-col items-center justify-center border-2 border-white shadow-lg">
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">Spring</span>
+                            <span class="text-[8px] font-black leading-none text-gray-800">TRENDS</span>
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">2024</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <p class="font-bold text-sm leading-tight">Relaxed<br>chinos</p>
+                        <p class="text-gray-900 font-black text-xs mt-1">Up to 70% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/clover.png" class="flower-accent" alt="">
+                    </div>
+                </div>
+
+                <!-- Item 4: Mix metal watches -->
+                <div class="min-w-[200px] md:min-w-[240px] flex flex-col gap-3 group relative snap-start">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50 relative">
+                        <img src="assets/images/mix_metal_watch.png" alt="Mix metal watches" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 w-12 h-12 bg-[#fdf291] rounded-full flex flex-col items-center justify-center border-2 border-white shadow-lg rotate-[-5deg]">
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">Spring</span>
+                            <span class="text-[8px] font-black leading-none text-gray-800">TRENDS</span>
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">2024</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <p class="font-bold text-sm leading-tight">Mix metal<br>watches</p>
+                        <p class="text-gray-900 font-black text-xs mt-1">From ₹149</p>
+                        <img src="https://img.icons8.com/color/96/000000/tulip.png" class="flower-accent" alt="">
+                    </div>
+                </div>
+
+                <!-- Item 5: Extra wide jeans -->
+                <div class="min-w-[200px] md:min-w-[240px] flex flex-col gap-3 group relative snap-start">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-gray-50 relative">
+                        <img src="assets/images/extra_wide_jeans.png" alt="Extra wide jeans" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 w-12 h-12 bg-[#fdf291] rounded-full flex flex-col items-center justify-center border-2 border-white shadow-lg rotate-[10deg]">
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">Spring</span>
+                            <span class="text-[8px] font-black leading-none text-gray-800">TRENDS</span>
+                            <span class="text-[6px] font-black leading-none text-gray-500 uppercase">2024</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <p class="font-bold text-sm leading-tight">Extra wide<br>jeans</p>
+                        <p class="text-gray-900 font-black text-xs mt-1">Min. 50% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/poppy.png" class="flower-accent" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button onclick="document.getElementById('trends-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 -translate-x-5 opacity-0 group-hover/trends:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('trends-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/trends:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        </section>
+
+        <!-- NEW ARRIVALS -->
+        <section class="container mx-auto px-4 py-8 relative group/arrivals">
+            <h2 class="text-xl font-bold mb-8 uppercase tracking-widest">New Arrivals</h2>
+            
+            <div id="arrivals-scroller" class="flex overflow-x-auto gap-4 no-scrollbar snap-x snap-mandatory scroll-smooth pb-8">
+                
+                <!-- Card 1 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80" alt="Mast & Harbour">
+                    <div class="brand-pill-container">
+                        <span>Roadster & Mast</span>
+                    </div>
+                    <div class="arrival-discount-footer">Min. 75% Off</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="HRX">
+                    <div class="brand-pill-container">
+                        <span>HRX & ADRENEX</span>
+                    </div>
+                    <div class="arrival-discount-footer">Under ₹999</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80" alt="WROGN">
+                    <div class="brand-pill-container">
+                        <span>provogue & WROGN</span>
+                    </div>
+                    <div class="arrival-discount-footer">Min. 70% Off</div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80" alt="HRX Gym">
+                    <div class="brand-pill-container">
+                        <span>HRX</span>
+                    </div>
+                    <div class="arrival-discount-footer">Min. 70% Off</div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=400&q=80" alt="Killer Shoes">
+                    <div class="brand-pill-container">
+                        <span>Roadster & Killer</span>
+                    </div>
+                    <div class="arrival-discount-footer">Min. 70% Off</div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=400&q=80" alt="Metronaut">
+                    <div class="brand-pill-container">
+                        <span>METRONAUT & glitchiez</span>
+                    </div>
+                    <div class="arrival-discount-footer">Under ₹599</div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=400&q=80" alt="Killer Luggage">
+                    <div class="brand-pill-container">
+                        <span>METRONAUT & Killer</span>
+                    </div>
+                    <div class="arrival-discount-footer">Min. 70% Off</div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=400&q=80" alt="Invictus">
+                    <div class="brand-pill-container">
+                        <span>provogue & INVICTUS</span>
+                    </div>
+                    <div class="arrival-discount-footer">Min. 70% Off</div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="new-arrival-card snap-start">
+                    <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=400&q=80" alt="Provogue Wallet">
+                    <div class="brand-pill-container">
+                        <span>provogue</span>
+                    </div>
+                    <div class="arrival-discount-footer">Under ₹299</div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button onclick="document.getElementById('arrivals-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 -translate-x-5 opacity-0 group-hover/arrivals:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('arrivals-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/arrivals:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        </section>
+
+        <!-- STYLE IN MOTION -->
+        <section class="container mx-auto px-4 py-8 relative group/motion">
+            <h2 class="text-xl font-bold mb-8">Style in Motion</h2>
+            
+            <div id="motion-scroller" class="flex overflow-x-auto gap-6 no-scrollbar snap-x snap-mandatory scroll-smooth pb-8">
+                
+                <!-- Card 1 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=400&q=80" alt="Berrylicious">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box text-[#3E2723]">BERRYLICIOUS</div>
+                        <div class="offer-box">Min. 65% Off</div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80" alt="Atom">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box font-black italic">ATOM</div>
+                        <div class="offer-box">Min. 50% Off</div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=400&q=80" alt="Indo Era">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box text-orange-600">indo era</div>
+                        <div class="offer-box">Min. 75% Off</div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1621454523205-0219c6769730?auto=format&fit=crop&w=400&q=80" alt="Crocs">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box">crocs</div>
+                        <div class="offer-box">Up to 50% Off</div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=400&q=80" alt="Highlander">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box font-black">HIGHLANDER</div>
+                        <div class="offer-box">Min. 70% Off</div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80" alt="Virgio">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box tracking-tighter">VIRGIO</div>
+                        <div class="offer-box">Min. 50% Off</div>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=400&q=80" alt="Punya">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box bg-orange-600 text-white">Punya</div>
+                        <div class="offer-box">Min. 60% Off</div>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="motion-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1503919919749-646ddc465371?auto=format&fit=crop&w=400&q=80" alt="Pantaloons">
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="corner-flower" alt="">
+                    </div>
+                    <div class="footer-info">
+                        <div class="brand-box text-cyan-600">PANTALOONS</div>
+                        <div class="offer-box">Under ₹299</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button onclick="document.getElementById('motion-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 -translate-x-5 opacity-0 group-hover/motion:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('motion-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/motion:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        </section>
+
+        <!-- SUMMER SPECIALS BANNER -->
+        <section class="container mx-auto px-4 py-12">
+            <div class="bg-[#fcf8f0] rounded-2xl p-16 flex flex-col items-center justify-center relative overflow-hidden text-center border border-[#eee6d8]">
+                <!-- Top Left Decoration: Safety Pin and Tulip -->
+                <div class="absolute top-8 left-8 w-16 md:w-24">
+                    <img src="https://img.icons8.com/color/96/000000/safety-pin.png" class="w-full rotate-[-30deg] opacity-40" alt="">
+                    <img src="https://img.icons8.com/color/96/000000/tulip.png" class="absolute top-2 left-6 w-1/2 rotate-[10deg]" alt="">
+                </div>
+                
+                <!-- Center Text Content -->
+                <div class="relative z-10">
+                    <h2 class="text-7xl md:text-9xl font-['Playfair_Display'] text-gray-900 tracking-tight leading-none mb-4">SUMMER</h2>
+                    <p class="text-2xl md:text-4xl font-bold tracking-[0.4em] uppercase text-gray-800 opacity-90">SPECIALS</p>
+                </div>
+
+                <!-- Bottom Right Decoration: Leaves -->
+                <div class="absolute bottom-[-30px] right-[-30px] w-48 md:w-64 opacity-30 select-none pointer-events-none">
+                    <img src="https://img.icons8.com/color/240/000000/leaves.png" class="w-full rotate-[-15deg]" alt="">
+                </div>
+                
+                <!-- Extra floating petal -->
+                <div class="absolute bottom-20 left-20 w-8 h-8 bg-[#D7CCC8] rounded-full blur-xl opacity-50"></div>
+            </div>
+        </section>
+
+        <!-- PRODUCT GRID SECTION -->
+        <section class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-3 gap-x-4 gap-y-8 w-fit">
+                
+                <div class="grid-product-card group">
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=400&q=80" alt="Cotton shirts" class="group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Cotton shirts...</h3>
+                    <p class="font-black text-gray-800">Under ₹499</p>
+                </div>
+
+                <!-- Card 2: Men's Sandals -->
+                <div class="grid-product-card group">
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=400&q=80" alt="Men's sandals" class="group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Men's sandals...</h3>
+                    <p class="font-black text-gray-800">Under ₹249</p>
+                </div>
+
+                <!-- Card 3: PUMA, ADIDAS -->
+                <div class="grid-product-card group">
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Puma, Adidas" class="group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">PUMA, ADIDAS...</h3>
+                    <p class="font-black text-gray-800">Under ₹999</p>
+                </div>
+
+                <!-- Card 4: T-shirts -->
+                <div class="grid-product-card group">
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" alt="T-shirts" class="group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">T-shirts, shirts...</h3>
+                    <p class="font-black text-gray-800">Under ₹499</p>
+                </div>
+
+                <!-- Card 5: Men's Sunglasses -->
+                <div class="grid-product-card group">
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1511499767390-903390e6fbc4?auto=format&fit=crop&w=400&q=80" alt="Men's sunglasses" class="group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Men's sunglasses</h3>
+                    <p class="font-black text-gray-800">Min. 80% Off</p>
+                </div>
+
+                <!-- Card 6: Shades (with Spoyl badge) -->
+                <div class="grid-product-card group relative">
+                    <div class="img-box relative">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=400&q=80" alt="Shades" class="group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-2 left-2 bg-[#00ff41] px-2 py-0.5 rounded-md text-black font-black italic text-[7px] shadow-sm uppercase">spoyl</div>
+                    </div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Shades</h3>
+                    <p class="font-black text-gray-800">Min. 50% Off</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SHADES OF SPRING SUMMER '26 -->
+        <section class="container mx-auto px-4 py-20 text-center">
+            <div class="mb-16">
+                <h2 class="text-8xl md:text-[10rem] font-['Playfair_Display'] text-gray-900 tracking-tighter leading-none mb-2">SHADES</h2>
+                <p class="text-2xl md:text-4xl font-bold uppercase tracking-[0.3em] text-gray-800">OF SPRING SUMMER '26</p>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                
+                <!-- Card 1: Cloud Dancer -->
+                <div class="shade-card group">
+                    <div class="collage-bg">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1605246811037-7a815fa646e4?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1542060717-d67b86c87895?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1589156229687-496a31ad1d1f?auto=format&fit=crop&w=300&q=80" alt="">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80" class="shade-sticker" alt="Cloud Dancer Model">
+                    <div class="shade-label">
+                        <div class="shade-box bg-[#f2efeb]"></div>
+                        <div class="shade-name">CLOUD<br>DANCER</div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Basic Brown -->
+                <div class="shade-card group">
+                    <div class="collage-bg">
+                        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1511422220302-05efd75ca336?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80" alt="">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80" class="shade-sticker" alt="Basic Brown Model">
+                    <div class="shade-label">
+                        <div class="shade-box bg-[#5d4037]"></div>
+                        <div class="shade-name">BASIC<br>BROWN</div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Amber Haze -->
+                <div class="shade-card group">
+                    <div class="collage-bg">
+                        <img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1588602283250-6a75f1df649e?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1514517220677-8404278850f1?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=300&q=80" alt="">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" class="shade-sticker" alt="Amber Haze Model">
+                    <div class="shade-label">
+                        <div class="shade-box bg-[#d4af37]"></div>
+                        <div class="shade-name">AMBER<br>HAZE</div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Jelly Mint -->
+                <div class="shade-card group">
+                    <div class="collage-bg">
+                        <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1550966842-28c407aa0f09?auto=format&fit=crop&w=300&q=80" alt="">
+                        <img src="https://images.unsplash.com/photo-1495121605193-b116b5b9c5fe?auto=format&fit=crop&w=300&q=80" alt="">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1503919919749-646ddc465371?auto=format&fit=crop&w=600&q=80" class="shade-sticker" alt="Jelly Mint Model">
+                    <div class="shade-label">
+                        <div class="shade-box bg-[#a8e6cf]"></div>
+                        <div class="shade-name">JELLY<br>MINT</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PRICE-WISE COOL COLLECTIONS -->
+        <section class="container mx-auto px-4 py-16 text-center">
+            <div class="mb-12 relative inline-block">
+                <div class="absolute -top-10 -left-10 text-[#d4af37] text-5xl animate-pulse">
+                    <ion-icon name="sparkles"></ion-icon>
+                </div>
+                <h2 class="text-6xl md:text-8xl font-['Playfair_Display'] text-gray-900 tracking-tight leading-none mb-2">PRICE-WISE</h2>
+                <p class="text-lg md:text-xl font-bold uppercase tracking-[0.3em] text-gray-800 opacity-90">COOL COLLECTIONS</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+                
+                <!-- Card 1: Under 299 -->
+                <div class="price-wise-card group">
+                    <div class="absolute inset-0 bg-[#fdf8e1]">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-20 mix-blend-multiply rotate-180" alt="">
+                    </div>
+                    <div class="price-text-box text-[#8a7a2a]">
+                        <p class="under-label">UNDER</p>
+                        <p class="price-val">299</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" class="model-img transition-transform duration-500 group-hover:scale-105" alt="">
+                    <div class="action-btn"><ion-icon name="arrow-forward"></ion-icon></div>
+                </div>
+
+                <!-- Card 2: Under 399 -->
+                <div class="price-wise-card group">
+                    <div class="absolute inset-0 bg-[#fcf1f5]">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-20 mix-blend-multiply" alt="">
+                    </div>
+                    <div class="price-text-box text-[#b54a62]">
+                        <p class="under-label">UNDER</p>
+                        <p class="price-val">399</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" class="model-img transition-transform duration-500 group-hover:scale-105" alt="">
+                    <div class="action-btn"><ion-icon name="arrow-forward"></ion-icon></div>
+                </div>
+
+                <!-- Card 3: Under 599 -->
+                <div class="price-wise-card group">
+                    <div class="absolute inset-0 bg-[#fcf1f5]">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-20 mix-blend-multiply" alt="">
+                    </div>
+                    <div class="price-text-box text-[#b54a62]">
+                        <p class="under-label">UNDER</p>
+                        <p class="price-val">599</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?auto=format&fit=crop&w=400&q=80" class="model-img transition-transform duration-500 group-hover:scale-105" alt="">
+                    <div class="action-btn"><ion-icon name="arrow-forward"></ion-icon></div>
+                </div>
+
+                <!-- Card 4: Under 799 -->
+                <div class="price-wise-card group">
+                    <div class="absolute inset-0 bg-[#fdf8e1]">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-20 mix-blend-multiply rotate-180" alt="">
+                    </div>
+                    <div class="price-text-box text-[#8a7a2a]">
+                        <p class="under-label">UNDER</p>
+                        <p class="price-val">799</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=80" class="model-img transition-transform duration-500 group-hover:scale-105" alt="">
+                    <div class="action-btn"><ion-icon name="arrow-forward"></ion-icon></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MOM-APPROVED TRENDS BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="mom-trends-banner">
+                <p class="label">MOM-APPROVED</p>
+                <div class="relative">
+                    <h2 class="trends-text">TRENDS</h2>
+                    <img src="https://img.icons8.com/color/96/000000/cherry.png" class="flower-icon" alt="">
+                </div>
+                
+                <!-- Decorations -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-[#c2185b]/5 rounded-full blur-2xl -ml-10 -mb-10"></div>
+            </div>
+        </section>
+
+        <!-- MOM-APPROVED TRENDS ITEMS -->
+        <section class="container mx-auto px-4 py-8 relative group/trends">
+            <div id="trends-scroller" class="flex overflow-x-auto gap-6 no-scrollbar pb-8 justify-start">
+                
+                <!-- Card 1: Day out -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1617175548993-470003920c9e?auto=format&fit=crop&w=400&q=80" alt="Jaipuri chikankari">
+                        <div class="pill-label">Day out</div>
+                    </div>
+                    <div class="footer">
+                        <h3>Jaipuri, chikankari...</h3>
+                        <p>Min. 50% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal rotate-12" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 2: Classic vibes -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1610030482713-392900742f56?auto=format&fit=crop&w=400&q=80" alt="Banarasi brocade">
+                        <div class="pill-label">Classic vibes</div>
+                    </div>
+                    <div class="footer">
+                        <h3>Banarasi, brocade...</h3>
+                        <p>Min. 60% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal -rotate-12" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 3: Travel-ready -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=400&q=80" alt="Pastel printed sets">
+                        <div class="pill-label">Travel-ready</div>
+                    </div>
+                    <div class="footer">
+                        <h3>Pastel, printed sets...</h3>
+                        <p>Min. 50% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 4: Work look -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" alt="Solid co-ords">
+                        <div class="pill-label">Work look</div>
+                    </div>
+                    <div class="footer">
+                        <h3>Solid co-ords & more</h3>
+                        <p>From ₹249</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal rotate-45" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 5: Fitness freak -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="Activity sets">
+                        <div class="pill-label">Fitness freak</div>
+                    </div>
+                    <div class="footer">
+                        <h3>Activity sets & more</h3>
+                        <p>Up to 70% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal -rotate-45" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button onclick="document.getElementById('trends-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 -translate-x-5 opacity-0 group-hover/trends:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('trends-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/trends:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        <!-- CELEBRITY FEATURED BRANDS ITEMS -->
+        <section class="container mx-auto px-4 py-8 relative group/celeb">
+            <div id="celeb-scroller" class="flex overflow-x-auto gap-8 no-scrollbar pb-12 justify-start">
+                
+                <!-- Card 1: Ayushmann Khurrana (ZOOM) -->
+                <div class="celeb-item-card group">
+                    <div class="person-side">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="Ayushmann Khurrana">
+                    </div>
+                    <div class="info-side">
+                        <h3>Ayushmann Khurrana</h3>
+                        <p>Canvas shoes<br>Min. 50% Off</p>
+                        <img src="https://img.icons8.com/color/240/000000/bouquet.png" class="flower-decor" alt="">
+                    </div>
+                    <div class="brand-pill">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Zoom_app_icon.png/600px-Zoom_app_icon.png" class="grayscale invert brightness-0" alt="ZOOM">
+                        <span class="ml-1 font-black text-red-600 text-xs italic">ZOOM</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Vikrant Massey -->
+                <div class="celeb-item-card group">
+                    <div class="person-side">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80" alt="Vikrant Massey">
+                    </div>
+                    <div class="info-side">
+                        <h3>Vikrant Massey</h3>
+                        <p>Textured polos<br>From ₹249</p>
+                        <img src="https://img.icons8.com/color/240/000000/bouquet.png" class="flower-decor" alt="">
+                    </div>
+                    <div class="brand-pill">
+                        <span class="font-black text-red-600 text-[10px] tracking-tighter">FILMFARE</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Ayushmann Khurrana -->
+                <div class="celeb-item-card group">
+                    <div class="person-side">
+                        <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80" alt="Ayushmann Khurrana">
+                    </div>
+                    <div class="info-side">
+                        <h3>Ayushmann Khurrana</h3>
+                        <p>Abstract shirts<br>From ₹299</p>
+                        <img src="https://img.icons8.com/color/240/000000/bouquet.png" class="flower-decor" alt="">
+                    </div>
+                    <div class="brand-pill">
+                        <span class="font-black text-red-600 text-[10px] tracking-tighter">FILMFARE</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Aditya Roy Kapur -->
+                <div class="celeb-item-card group">
+                    <div class="person-side">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" alt="Aditya Roy Kapur">
+                    </div>
+                    <div class="info-side">
+                        <h3>Aditya Roy Kapur</h3>
+                        <p>Shackets<br>From ₹349</p>
+                        <img src="https://img.icons8.com/color/240/000000/bouquet.png" class="flower-decor" alt="">
+                    </div>
+                    <div class="brand-pill">
+                        <span class="font-black text-red-600 text-[10px] tracking-tighter">FILMFARE</span>
+                    </div>
+                </div>
+
+                <!-- Card 5: Rajkummar Rao -->
+                <div class="celeb-item-card group">
+                    <div class="person-side">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=400&q=80" alt="Rajkummar Rao">
+                    </div>
+                    <div class="info-side">
+                        <h3>Rajkummar Rao</h3>
+                        <p>Classy shirts<br>From ₹249</p>
+                        <img src="https://img.icons8.com/color/240/000000/bouquet.png" class="flower-decor" alt="">
+                    </div>
+                    <div class="brand-pill">
+                        <span class="font-black text-red-600 text-[10px] tracking-tighter">FILMFARE</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button onclick="document.getElementById('celeb-scroller').scrollBy({left: -400, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center z-20 -translate-x-6 opacity-0 group-hover/celeb:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('celeb-scroller').scrollBy({left: 400, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center z-20 translate-x-6 opacity-0 group-hover/celeb:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        <!-- SPECIAL GIFTS FOR MOM BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="mom-gifts-banner">
+                <p class="label">SPECIAL GIFTS FOR</p>
+                <div class="relative">
+                    <h2 class="mom-text">MOM</h2>
+                    <img src="https://img.icons8.com/color/96/000000/cherry.png" class="flower-icon" alt="">
+                </div>
+                
+                <!-- Decorations -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-[#c2185b]/5 rounded-full blur-2xl -ml-10 -mb-10"></div>
+            </div>
+        </section>
+
+        <!-- SPECIAL GIFTS FOR MOM ITEMS -->
+        <section class="container mx-auto px-4 py-8 relative group/mom-gifts">
+            <div id="mom-gifts-scroller" class="flex overflow-x-auto gap-6 no-scrollbar pb-8 justify-start">
+                
+                <!-- Card 1: Indie footwear -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80" alt="Indie footwear">
+                    </div>
+                    <div class="footer items-center text-center">
+                        <h3 class="font-sans text-[#1a1a1a] text-sm font-semibold">Indie footwear</h3>
+                        <p class="text-[#c2185b]">Min. 60% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal rotate-12" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 2: Rajwadi kadas -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=400&q=80" alt="Rajwadi kadas">
+                    </div>
+                    <div class="footer items-center text-center">
+                        <h3 class="font-sans text-[#1a1a1a] text-sm font-semibold">Rajwadi kadas</h3>
+                        <p class="text-[#c2185b]">From ₹199</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal -rotate-12" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 3: Enamel bangles -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=400&q=80" alt="Enamel bangles">
+                    </div>
+                    <div class="footer items-center text-center">
+                        <h3 class="font-sans text-[#1a1a1a] text-sm font-semibold">Enamel bangles</h3>
+                        <p class="text-[#c2185b]">Min. 50% Off</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 4: Sleek chain watches -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1524592091214-8f97ad332c97?auto=format&fit=crop&w=400&q=80" alt="Sleek chain watches">
+                    </div>
+                    <div class="footer items-center text-center">
+                        <h3 class="font-sans text-[#1a1a1a] text-sm font-semibold">Sleek chain watches</h3>
+                        <p class="text-[#c2185b]">From ₹149</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal rotate-45" alt="">
+                    </div>
+                </div>
+
+                <!-- Card 5: Diamond stud watches -->
+                <div class="trend-item-card group">
+                    <div class="image-box">
+                        <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=400&q=80" alt="Diamond stud watches">
+                    </div>
+                    <div class="footer items-center text-center">
+                        <h3 class="font-sans text-[#1a1a1a] text-sm font-semibold">Diamond stud watches</h3>
+                        <p class="text-[#c2185b]">From ₹149</p>
+                        <img src="https://img.icons8.com/color/96/000000/cherry.png" class="petal -rotate-45" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button onclick="document.getElementById('mom-gifts-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 -translate-x-5 opacity-0 group-hover/mom-gifts:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('mom-gifts-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/mom-gifts:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        </section>
+
+        <!-- HOTTEST TRENDS FOR SUMMER BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="hottest-trends-banner group">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" class="bg-img" alt="Summer Trends Background">
+                <div class="overlay">
+                    <h2>HOTTEST TRENDS</h2>
+                    <p>FOR SUMMER</p>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="nav-btn left-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+                <div class="nav-btn right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOD PRINT T-SHIRTS BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="food-print-banner group">
+                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=80" class="bg-img" alt="Food Print T-shirts">
+                <div class="content-overlay">
+                    <div class="number">1.</div>
+                    <h2>FOOD PRINT<br>T-SHIRTS</h2>
+                    <div class="more-text">& more</div>
+                    <p class="price">From ₹149</p>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="nav-btn left-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+                <div class="nav-btn right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOD PRINT T-SHIRTS PRODUCTS -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Burger Print Tee</h3>
+                    <p class="font-black text-gray-800">₹249</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Pizza Print Tee</h3>
+                    <p class="font-black text-gray-800">₹299</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Sushi Print Tee</h3>
+                    <p class="font-black text-gray-800">₹249</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Taco Print Tee</h3>
+                    <p class="font-black text-gray-800">₹299</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Ice Cream Tee</h3>
+                    <p class="font-black text-gray-800">₹249</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Donut Print Tee</h3>
+                    <p class="font-black text-gray-800">₹299</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FADED BLUE BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="faded-cream-banner group">
+                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1200&q=80" class="bg-img" alt="Faded Blue Jeans">
+                <div class="content-overlay">
+                    <div class="number">2.</div>
+                    <h2>FADED<br>BLUE</h2>
+                    <div class="more-text">& more</div>
+                    <p class="offer">Min. 50% Off</p>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="nav-btn left-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+                <div class="nav-btn right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+        </section>
+
+        <!-- FADED BLUE PRODUCTS -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Slim Fit Faded</h3>
+                    <p class="font-black text-gray-800">Under ₹599</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Relaxed Light Wash</h3>
+                    <p class="font-black text-gray-800">Under ₹799</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1555689502-c4b22d76c56f?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Bootcut Vintage</h3>
+                    <p class="font-black text-gray-800">Under ₹899</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Skinny High Waist</h3>
+                    <p class="font-black text-gray-800">Under ₹699</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Straight Leg Faded</h3>
+                    <p class="font-black text-gray-800">Under ₹599</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1604176354204-926873ff34b1?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Distressed Light</h3>
+                    <p class="font-black text-gray-800">Under ₹999</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EMBROIDERED SHIRTS BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="embroidered-shirts-banner group">
+                <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1200&q=80" class="bg-img" alt="Embroidered Shirts">
+                <div class="content-overlay">
+                    <div class="number">3.</div>
+                    <h2>EMBROIDERED<br>SHIRTS</h2>
+                    <div class="more-text">& more</div>
+                    <p class="price">From ₹199</p>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="nav-btn left-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+                <div class="nav-btn right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+        </section>
+
+        <!-- EMBROIDERED SHIRTS PRODUCTS -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Floral White</h3>
+                    <p class="font-black text-gray-800">₹399</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1598033129183-c4f50c7176c8?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Dragon Motif Black</h3>
+                    <p class="font-black text-gray-800">₹449</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1589310243389-96a5483213a8?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Bird Navy</h3>
+                    <p class="font-black text-gray-800">₹349</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1603252109303-2751441dd15e?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Ethnic Cream</h3>
+                    <p class="font-black text-gray-800">₹499</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Rose Pink</h3>
+                    <p class="font-black text-gray-800">₹399</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1589310243389-96a5483213a8?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Geo Olive</h3>
+                    <p class="font-black text-gray-800">₹449</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLATFORM SNEAKERS BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="platform-sneakers-banner group">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1200&q=80" class="bg-img" alt="Platform Sneakers">
+                <div class="content-overlay">
+                    <div class="number">4.</div>
+                    <h2>PLATFORM<br>SNEAKERS</h2>
+                    <div class="more-text">& more</div>
+                    <p class="offer">Min. 60% Off</p>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="nav-btn left-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+                <div class="nav-btn right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLATFORM SNEAKERS PRODUCTS -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Chunky White</h3>
+                    <p class="font-black text-gray-800">₹1,299</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Pastel Pink</h3>
+                    <p class="font-black text-gray-800">₹1,499</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Gothic Black</h3>
+                    <p class="font-black text-gray-800">₹1,699</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Holographic</h3>
+                    <p class="font-black text-gray-800">₹1,899</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Suede Beige</h3>
+                    <p class="font-black text-gray-800">₹1,499</p>
+                </div>
+                <div class="grid-product-card group">
+                    <div class="img-box"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt=""></div>
+                    <h3 class="font-['Playfair_Display'] text-gray-900">Neon Accent</h3>
+                    <p class="font-black text-gray-800">₹1,599</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONQUER THE COOL BANNER -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="conquer-cool-banner group">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80" class="bg-img" alt="Conquer The Cool">
+                <div class="content-overlay">
+                    <h2>CONQUER<br>THE COOL !</h2>
+                    <p>Spring Summer '26 looks</p>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="nav-btn left-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+                <div class="nav-btn right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW ARRIVALS SECTION -->
+        <section class="container mx-auto px-4 py-8 relative group/arrivals">
+            <div class="new-arrivals-header">
+                <h2>NEW ARRIVALS</h2>
+                <p>EXCITING DEALS</p>
+            </div>
+
+            <div id="arrivals-scroller" class="flex overflow-x-auto gap-8 no-scrollbar pb-12 justify-start px-4">
+                
+                <!-- Card 1: Nike -->
+                <div class="arrival-card">
+                    <div class="image-area">
+                        <div class="top-tag">NEW LAUNCHES</div>
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Nike">
+                        <div class="logo-box">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike Logo">
+                        </div>
+                        <img src="https://img.icons8.com/color/96/000000/leaf.png" class="leaf-decor" alt="">
+                    </div>
+                    <p class="offer-text">Shop Now</p>
+                </div>
+
+                <!-- Card 2: Lotto -->
+                <div class="arrival-card">
+                    <div class="image-area">
+                        <div class="top-tag">NEW LAUNCHES</div>
+                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Lotto">
+                        <div class="logo-box">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Lotto_Logo.svg" alt="Lotto Logo">
+                        </div>
+                        <img src="https://img.icons8.com/color/96/000000/leaf.png" class="leaf-decor" alt="">
+                    </div>
+                    <p class="offer-text">Shop Now</p>
+                </div>
+
+                <!-- Card 3: US Polo -->
+                <div class="arrival-card">
+                    <div class="image-area">
+                        <div class="top-tag">NEW LAUNCHES</div>
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="US Polo">
+                        <div class="logo-box">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/U.S._Polo_Assn._logo.svg" alt="USPA Logo">
+                        </div>
+                        <img src="https://img.icons8.com/color/96/000000/leaf.png" class="leaf-decor" alt="">
+                    </div>
+                    <p class="offer-text">Shop Now</p>
+                </div>
+
+                <!-- Card 4: Boldfit -->
+                <div class="arrival-card">
+                    <div class="image-area">
+                        <div class="top-tag">NEW LAUNCHES</div>
+                        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Boldfit">
+                        <div class="logo-box">
+                            <span class="font-black italic text-lg tracking-tighter">BOLDFIT</span>
+                        </div>
+                        <img src="https://img.icons8.com/color/96/000000/leaf.png" class="leaf-decor" alt="">
+                    </div>
+                    <p class="offer-text">Min. 50% Off</p>
+                </div>
+
+                <!-- Card 5: Carlington -->
+                <div class="arrival-card">
+                    <div class="image-area">
+                        <div class="top-tag">NEW LAUNCHES</div>
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Watch">
+                        <div class="logo-box">
+                            <span class="font-serif font-bold text-xs uppercase">Carlington</span>
+                        </div>
+                        <img src="https://img.icons8.com/color/96/000000/leaf.png" class="leaf-decor" alt="">
+                    </div>
+                    <p class="offer-text">40-60% Off</p>
+                </div>
+
+                <!-- Card 6: Hopscotch -->
+                <div class="arrival-card">
+                    <div class="image-area">
+                        <div class="top-tag">NEW LAUNCHES</div>
+                        <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Kids">
+                        <div class="logo-box">
+                            <span class="text-purple-600 font-bold">HOPSCOTCH</span>
+                        </div>
+                        <img src="https://img.icons8.com/color/96/000000/leaf.png" class="leaf-decor" alt="">
+                    </div>
+                    <p class="offer-text">Up to 50% Off</p>
+                </div>
+
+            </div>
+
+            <!-- Navigation -->
+            <button onclick="document.getElementById('arrivals-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center z-20 -translate-x-6 opacity-0 group-hover/arrivals:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('arrivals-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center z-20 translate-x-6 opacity-0 group-hover/arrivals:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        </section>
+
+        <!-- HOUSE OF BRANDS SECTION -->
+        <section class="container mx-auto px-4 py-8 relative group/brands">
+            <div class="house-brands-container">
+                
+                <!-- Featured Card -->
+                <div class="house-brands-featured" style="background: #e1f5fe;">
+                    <div class="header-text">
+                        <p class="sub-heading">HOUSE OF</p>
+                        <h2>BRANDS</h2>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1539109132374-348058a18f03?auto=format&fit=crop&w=400&q=80" class="model-img" alt="Featured Brand">
+                    <div class="circle-arrow">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <!-- Brand Scroller -->
+                <div id="brands-scroller" class="flex overflow-x-auto gap-6 no-scrollbar items-start py-2 px-4">
+                    
+                    <!-- Brand 1: Roadster -->
+                    <div class="brand-scroller-item">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1516822246374-6e093f2f083e?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Roadster">
+                            <div class="logo-strip">
+                                <span class="font-serif italic text-sm">Roadster</span>
+                                <span class="text-xs text-gray-400">|</span>
+                                <span class="text-xs">MAST & HARBOUR</span>
+                            </div>
+                        </div>
+                        <p class="offer">Min. 70% Off</p>
+                    </div>
+
+                    <!-- Brand 2: HRX -->
+                    <div class="brand-scroller-item">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="HRX">
+                            <div class="logo-strip">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/HRX_Logo.png" style="height: 20px;" alt="">
+                                <span class="font-black">HRX</span>
+                            </div>
+                        </div>
+                        <p class="offer">Min. 70% Off</p>
+                    </div>
+
+                    <!-- Brand 3: Wrogn -->
+                    <div class="brand-scroller-item">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Wrogn">
+                            <div class="logo-strip">
+                                <span class="font-bold">WROGN</span>
+                                <span class="bg-black text-white px-2 rounded">PROVOGUE</span>
+                            </div>
+                        </div>
+                        <p class="offer">Min. 70% Off</p>
+                    </div>
+
+                    <!-- Brand 4: Roadster Life -->
+                    <div class="brand-scroller-item">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1603487759130-80325c758295?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Roadster Life">
+                            <div class="logo-strip">
+                                <span class="font-serif italic">The Roadster</span>
+                            </div>
+                        </div>
+                        <p class="offer">Min. 75% Off</p>
+                    </div>
+
+                    <!-- Brand 5: Invicta -->
+                    <div class="brand-scroller-item">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1449241743080-c4481561fad2?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Invicta">
+                            <div class="logo-strip">
+                                <span class="font-bold">PROVOGUE</span>
+                                <span class="text-xs">INVICTA</span>
+                            </div>
+                        </div>
+                        <p class="offer">Min. 75% Off</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <button onclick="document.getElementById('brands-scroller').scrollBy({left: -300, behavior: 'smooth'})" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center z-20 translate-x-12 opacity-0 group-hover/brands:opacity-100 transition-opacity">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button onclick="document.getElementById('brands-scroller').scrollBy({left: 300, behavior: 'smooth'})" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center z-20 -translate-x-6 opacity-0 group-hover/brands:opacity-100 transition-opacity">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        </section>
+
+    </main>
+
+    <!-- DESKTOP FOOTER -->
+    <footer class="hidden md:block bg-gray-900 text-white pt-20 pb-10 mt-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-4 gap-12 border-b border-white/10 pb-16">
+                <div class="space-y-6">
+                    <a href="index.html" class="text-3xl font-black tracking-tighter uppercase">Hostel<span class="text-[#5D4037]">Mart</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">The ultimate fashion destination for the modern lifestyle. Curating trends, delivering excellence.</p>
+                    <div class="flex gap-4 text-2xl">
+                        <ion-icon name="logo-instagram" class="hover:text-[#5D4037] cursor-pointer"></ion-icon>
+                        <ion-icon name="logo-facebook" class="hover:text-[#5D4037] cursor-pointer"></ion-icon>
+                        <ion-icon name="logo-twitter" class="hover:text-[#5D4037] cursor-pointer"></ion-icon>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Shop by Dept.</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Men's Fashion</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Women's Fashion</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Kids' Wear</a></li>
+                        <li><a href="Jewelry.html" class="hover:text-white transition-colors">Fine Jewellery</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Footwear</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Customer Care</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Returns & Refunds</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Store Locator</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Newsletter</h4>
+                    <p class="text-gray-400 text-sm mb-6">Get 10% off your first order when you sign up.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email Address" class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm flex-1 outline-none focus:border-[#5D4037]">
+                        <button class="bg-[#5D4037] text-white px-6 py-2 rounded-xl font-bold text-sm hover:bg-[#3E2723] transition-colors">JOIN</button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-10 text-xs text-gray-500 uppercase tracking-widest font-bold">
+                <p>&copy; 2024 HOSTELMART RETAIL PVT LTD. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MOBILE NAVIGATION BOTTOM -->
+    <div
+        class="fixed bottom-4 left-4 right-4 bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl p-3 flex justify-around z-50 md:hidden">
+        <a href="index.html" class="text-2xl p-3 text-gray-700 hover:text-[#5D4037] transition-colors"><ion-icon name="home-outline"></ion-icon></a>
+        <button class="text-2xl p-3 text-gray-700 hover:text-[#5D4037] transition-colors"><ion-icon name="grid-outline"></ion-icon></button>
+        <button class="text-2xl p-3 text-gray-900 bg-gray-100 rounded-xl relative"><ion-icon name="shirt"></ion-icon></button>
+        <button class="text-2xl p-3 text-gray-700 hover:text-[#5D4037] transition-colors"><ion-icon name="heart-outline"></ion-icon></button>
+        <button class="text-2xl p-3 text-gray-700 hover:text-[#5D4037] transition-colors"><ion-icon name="person-outline"></ion-icon></button>
+    </div>
+
+    <script>
+        // Fetch and inject banners
+        async function loadBanners() {
+            try {
+                const response = await fetch('data/banners.json');
+                const banners = await response.json();
+                const slider = document.getElementById('hero-slider');
+                
+                if (!slider) return;
+
+                slider.innerHTML = banners.map(banner => {
+                    if (banner.type === 'standard') {
+                        return `
+                            <div class="${banner.classes}">
+                                <img src="${banner.image}" class="w-full h-full object-cover" alt="${banner.title}">
+                                <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex flex-col justify-center px-10 text-white">
+                                    <p class="text-xs uppercase tracking-widest font-bold mb-2 opacity-80">${banner.subtitle}</p>
+                                    <h2 class="text-4xl font-black leading-tight mb-4">${banner.title}</h2>
+                                    <button class="w-fit bg-white text-black px-6 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#5D4037] hover:text-white transition-all">Shop Now</button>
+                                </div>
+                            </div>
+                        `;
+                    } else if (banner.type === 'featured') {
+                        return `
+                            <div class="${banner.classes}" style="background-color: ${banner.bg_color || '#fdf8e1'}">
+                                <div class="w-1/2 p-8 flex flex-col justify-center">
+                                    <img src="${banner.icon}" class="w-10 h-10 mb-4" alt="">
+                                    <h2 class="text-2xl font-black text-gray-900 leading-tight mb-2">${banner.title}</h2>
+                                    <p class="text-gray-500 text-xs mb-4">${banner.description}</p>
+                                    <p class="text-[#3E2723] font-black text-xl mb-6">${banner.price_info}</p>
+                                    <button class="w-fit bg-gray-900 text-white px-6 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#5D4037] transition-all">Explore</button>
+                                </div>
+                                <div class="w-1/2 relative overflow-hidden">
+                                    <img src="${banner.image}" class="w-full h-full object-cover" alt="${banner.title}">
+                                    <div class="absolute inset-0 bg-gradient-to-l from-transparent to-black/5"></div>
+                                </div>
+                            </div>
+                        `;
+                    } else if (banner.type === 'featured_small') {
+                         return `
+                            <div class="${banner.classes}" style="background-color: ${banner.bg_color || '#fdf8e1'}">
+                                <div class="p-8 flex flex-col items-center justify-center text-center h-full">
+                                    <img src="${banner.icon}" class="w-12 h-12 mb-4" alt="">
+                                    <h2 class="text-2xl font-black text-gray-900 mb-2">${banner.title}</h2>
+                                    <p class="text-gray-500 text-sm mb-4">${banner.description}</p>
+                                    <p class="text-[#3E2723] font-black text-2xl mb-6">${banner.price_info}</p>
+                                    <button class="bg-gray-900 text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-[#5D4037] transition-all">Check Now</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    return '';
+                }).join('');
+            } catch (error) {
+                console.error('Error loading banners:', error);
+            }
+        }
+
+        loadBanners();
+
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (!target) return;
+                
+                const offset = 100;
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = target.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelMart - Cream & Brown Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .cream-bg {
+            background-color: #FDFBF7;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .dark-brown-text {
+            color: #3E2723;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        /* Custom shadows and transitions */
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .brand-btn.active {
+            background-color: #3E2723;
+            color: white;
+            border-color: #3E2723;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- 1. TOP UTILITY NAV -->
+    <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200">
+        <div
+            class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest overflow-x-auto no-scrollbar">
+            <a href="index.html"
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap hover:bg-stone-50 transition-colors">
+                <span class="italic text-stone-400">Hostel</span><span class="font-black dark-brown-text">Mart</span>
+            </a>
+            <div
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap cursor-pointer hover:bg-stone-50">
+                <div class="dark-brown-bg text-white px-1.5 py-0.5 rounded text-[9px]">6</div>
+                <span>Minutes</span>
+            </div>
+            <div
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap cursor-pointer hover:bg-stone-50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                </svg>
+                <span>Travel</span>
+            </div>
+            <div
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap cursor-pointer hover:bg-stone-50">
+                <span class="dark-brown-bg text-white px-1 rounded-[2px] text-[7px]">XTRASAVER</span>
+                <span>Grocery</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. MAIN HEADER -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 py-3 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between gap-4 md:gap-8">
+
+                <!-- Logo & Location (Mobile hidden) -->
+                <div class="hidden lg:block relative min-w-[200px]">
+                    <div class="flex items-center gap-1 text-[9px] text-stone-500 font-bold uppercase absolute -top-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span>Reva University, Bengaluru 560064</span>
+                    </div>
+                    <a href="index.html" class="block">
+                        <h1 class="text-xl font-black tracking-tighter dark-brown-text">
+                            HOSTEL<span class="accent-gold">MART</span>
+                        </h1>
+                    </a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                    </div>
+                    <input type="text" id="search-input" oninput="handleSearch(this.value)"
+                        placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F8F7F4] border border-stone-200 rounded-xl py-2.5 pl-11 pr-4 focus:ring-2 focus:ring-[#C5A059] focus:bg-white outline-none transition-all text-sm">
+                </div>
+
+                <!-- User Actions -->
+                <div class="flex items-center gap-4 md:gap-6 font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#C5A059]">
+                        <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                        <span>Shashank</span>
+                    </div>
+                    <div
+                        class="relative flex items-center gap-2 cursor-pointer dark-brown-bg text-white px-4 py-2 rounded-xl hover:opacity-90 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="8" cy="21" r="1" />
+                            <circle cx="19" cy="21" r="1" />
+                            <path
+                                d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                        </svg>
+                        <span class="hidden sm:inline">Cart</span>
+                        <span
+                            class="absolute -top-1.5 -right-1.5 accent-gold-bg border-2 border-white text-white text-[9px] rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. CATEGORY BAR -->
+    <div class="bg-white border-b border-stone-100 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto px-4 flex items-center gap-6 md:gap-10 py-6 min-w-max">
+
+            <!-- For You -->
+            <a href="index.html" class="flex flex-col items-center gap-2 cursor-pointer group">
+                <div
+                    class="w-14 h-14 rounded-2xl bg-[#F8F4E1] flex items-center justify-center shadow-sm border border-stone-100 relative overflow-hidden group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-transparent"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#C5A059"
+                        stroke="#3E2723" stroke-width="1.5">
+                        <circle cx="12" cy="8" r="6" />
+                        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter dark-brown-text">For You</span>
+            </a>
+
+            <!-- Fashion -->
+            <a href="Fashion.html"
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path
+                            d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Fashion</span>
+            </a>
+
+            <!-- Mobiles -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                        <path d="M12 18h.01" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Mobiles</span>
+            </div>
+
+            <!-- Beauty -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                        <path d="M8 10.5c0 1.5 1 2.5 4 2.5s4-1 4-2.5" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Beauty</span>
+            </div>
+
+            <!-- Electronics -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <rect width="16" height="12" x="2" y="4" rx="2" />
+                        <path d="M8 20h8" />
+                        <path d="M12 16v4" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Electronics</span>
+            </div>
+
+            <!-- Home -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Home</span>
+            </div>
+
+            <!-- Appliances -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <rect width="18" height="14" x="3" y="3" rx="2" />
+                        <path d="M7 21h10" />
+                        <path d="M12 17v4" />
+                        <path d="M8 8h8" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Appliances</span>
+            </div>
+
+            <!-- Toys, baby... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                        <path d="M10 20c0-2.2 1.8-4 4-4s4 1.8 4 4" />
+                        <circle cx="7" cy="18" r="2" />
+                        <circle cx="17" cy="18" r="2" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Toys, baby...</span>
+            </div>
+
+            <!-- Food & H... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                        <circle cx="12" cy="11" r="3" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Food & H...</span>
+            </div>
+
+            <!-- Auto Acc... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path
+                            d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-1.1 0-2 .9-2 2v7c0 1.1.9 2 2 2h2" />
+                        <circle cx="7" cy="17" r="2" />
+                        <circle cx="17" cy="17" r="2" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Auto Acc...</span>
+            </div>
+
+            <!-- 2 Wheele... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <circle cx="5.5" cy="17.5" r="2.5" />
+                        <circle cx="18.5" cy="17.5" r="2.5" />
+                        <path d="M15 17.5 12 9l-4 3h7l-1.5-3" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">2 Wheele...</span>
+            </div>
+
+            <!-- Sports & ... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M4.93 4.93l14.14 14.14" />
+                        <path d="M14.14 4.93L4.93 19.07" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Sports & ...</span>
+            </div>
+
+            <!-- Books & ... -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Books & ...</span>
+            </div>
+
+            <!-- Furniture -->
+            <div
+                class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
+                <div
+                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#3E2723" stroke-width="2">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <path d="M3 7h18" />
+                        <path d="M19 7v10" />
+                        <path d="M5 7v10" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-tighter">Furniture</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 4. HERO SECTION -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <!-- Big Banner -->
+            <div
+                class="lg:col-span-8 relative dark-brown-bg rounded-[40px] p-8 md:p-14 overflow-hidden flex flex-col justify-center min-h-[360px]">
+                <div
+                    class="absolute top-[-40px] right-[-40px] w-64 h-64 accent-gold-bg opacity-20 blur-[100px] rounded-full">
+                </div>
+
+                <div class="relative z-10 space-y-6">
+                    <h2 class="text-white text-4xl md:text-6xl font-black leading-tight">
+                        Watch Out for the <br>
+                        <span class="accent-gold italic">Biggest Sale</span> <br>
+                        of the Season!
+                    </h2>
+                    <button
+                        class="accent-gold-bg text-white px-8 py-4 rounded-2xl font-extrabold text-lg hover:scale-105 active:scale-95 transition-transform flex items-center gap-2 w-fit">
+                        Explore Now
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div
+                    class="absolute right-8 bottom-8 w-40 h-40 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 flex items-center justify-center rotate-6 shadow-2xl hidden md:flex">
+                    <div class="text-center">
+                        <div class="accent-gold font-black text-3xl uppercase leading-none">SASA</div>
+                        <div class="text-white font-black text-3xl uppercase leading-none">LELE</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Banner -->
+            <div
+                class="lg:col-span-4 accent-gold-bg rounded-[40px] p-8 flex flex-col justify-between text-white overflow-hidden relative group cursor-pointer">
+                <div class="relative z-10">
+                    <span
+                        class="text-[10px] font-black uppercase tracking-widest bg-white/20 px-2 py-1 rounded-md">Upcoming
+                        Sale</span>
+                    <h3 class="text-3xl font-black mt-4">iPhone 17</h3>
+                    <p class="text-sm font-semibold opacity-90 mt-2">Sale Starts Tomorrow, 12AM</p>
+                </div>
+                <div class="relative z-10 mt-6">
+                    <p class="text-2xl font-black">₹76,900*</p>
+                    <p class="text-[10px] line-through opacity-60">₹82,900</p>
+                </div>
+                <!-- Abstract visual placeholder -->
+                <div
+                    class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/20 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500">
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MOBILE STORE -->
+        <section id="mobile-store" class="space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
+                <div>
+                    <h3 class="text-3xl font-black tracking-tight uppercase dark-brown-text">Mobile Store</h3>
+                    <div class="h-1.5 w-20 accent-gold-bg rounded-full mt-2"></div>
+                </div>
+
+                <!-- Brand Filter -->
+                <div class="w-full md:w-auto overflow-x-auto no-scrollbar pb-2">
+                    <div id="brand-filter" class="flex items-center gap-3 min-w-max">
+                        <button onclick="filterProducts('All')"
+                            class="brand-btn active px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all border-2 border-stone-100 hover:border-[#C5A059] bg-white">All</button>
+                        <!-- Brands will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Product Grid -->
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Products will be injected here by JS -->
+            </div>
+
+            <!-- Load More (Optional) -->
+            <div id="load-more-container" class="flex justify-center pt-10">
+                <button onclick="showMore()"
+                    class="dark-brown-bg text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform">Load
+                    More Products</button>
+            </div>
+        </section>
+
+        <!-- 6. EMI PROMO (Screenshot 2026-04-28 at 16.51.14.jpg) -->
+        <section
+            class="bg-white border border-stone-200 rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+            <div class="flex items-center gap-6 divide-x divide-stone-200">
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-10 h-10 accent-gold-bg rounded-full flex items-center justify-center text-white font-black">
+                        B</div>
+                    <span class="font-black text-sm uppercase">BOBCARD</span>
+                </div>
+                <div class="flex items-center gap-2 pl-6">
+                    <span class="text-blue-600 font-black italic text-sm">YES BANK</span>
+                </div>
+            </div>
+            <div class="text-center md:text-right">
+                <h4 class="text-xl md:text-2xl font-black">10% Instant Discount*</h4>
+                <p class="text-xs font-bold text-stone-400 uppercase tracking-widest">On Credit Card EMI Transactions
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-100 border-t border-stone-200 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+                <h2 class="text-sm font-black dark-brown-text uppercase tracking-[.3em] mb-4">HostelMart</h2>
+            </a>
+            <p class="text-xs text-stone-500 font-medium max-w-md mx-auto">Premium shopping experience for the modern
+                student and traveler. Quality you can afford.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/mobile_products.js"></script>
+    <script>
+        let currentFilter = 'All';
+        let currentSearch = '';
+        let itemsShown = 15;
+        const itemsPerLoad = 15;
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+
+            // Filter by brand AND search query
+            const filtered = mobileProducts.filter(p => {
+                const matchesBrand = currentFilter === 'All' || p.brand === currentFilter;
+                const matchesSearch = p.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    p.brand.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchesBrand && matchesSearch;
+            });
+
+            const toShow = filtered.slice(0, itemsShown);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-20 text-center space-y-4">
+                        <div class="w-20 h-20 bg-stone-50 rounded-full flex items-center justify-center mx-auto text-stone-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.3-4.3" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold dark-brown-text">No products found</h3>
+                        <p class="text-stone-400 text-sm">Try adjusting your search or brand filter</p>
+                    </div>
+                `;
+                document.getElementById('load-more-container').classList.add('hidden');
+                return;
+            }
+
+            grid.innerHTML = toShow.map(product => `
+                <div class="bg-white border border-stone-100 rounded-[32px] p-5 hover-lift flex flex-col group h-full">
+                    <div class="bg-[#F8F7F4] rounded-[24px] aspect-square flex items-center justify-center relative mb-5 overflow-hidden">
+                        ${product.price > 80000 ? '<div class="absolute top-3 left-3 bg-amber-100 text-amber-700 text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Premium</div>' : ''}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                            stroke="#C5A059" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                            class="opacity-40 group-hover:scale-110 transition-transform duration-500">
+                            <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                            <path d="M12 18h.01" />
+                        </svg>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <div class="space-y-2 flex-1">
+                        <div class="flex justify-between items-start">
+                            <p class="text-[10px] font-black accent-gold uppercase tracking-[.15em]">${product.brand}</p>
+                            <div class="flex items-center gap-1 bg-stone-50 px-2 py-0.5 rounded-lg">
+                                <span class="text-[10px] font-bold">${product.rating}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="#C5A059" stroke="none">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-base leading-tight dark-brown-text line-clamp-2 min-h-[2.5rem]">${product.name}</h4>
+                        <div class="pt-3 flex items-center justify-between">
+                            <span class="text-xl font-black dark-brown-text">₹${product.price.toLocaleString()}</span>
+                            <button class="w-10 h-10 rounded-full border border-stone-100 flex items-center justify-center hover:bg-[#3E2723] hover:text-white transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M12 5v14M5 12h14" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const loadMoreBtn = document.getElementById('load-more-container');
+            if (itemsShown >= filtered.length) {
+                loadMoreBtn.classList.add('hidden');
+            } else {
+                loadMoreBtn.classList.remove('hidden');
+            }
+        }
+
+        function handleSearch(query) {
+            currentSearch = query;
+            itemsShown = 15;
+            renderProducts();
+
+            // Scroll to results if searching
+            if (query.trim().length > 0) {
+                document.getElementById('mobile-store').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function filterProducts(brand) {
+            currentFilter = brand;
+            itemsShown = 15;
+
+            // Update UI
+            document.querySelectorAll('.brand-btn').forEach(btn => {
+                if (btn.innerText === brand || (brand === 'All' && btn.innerText === 'ALL')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            renderProducts();
+        }
+
+        function showMore() {
+            itemsShown += itemsPerLoad;
+            renderProducts();
+        }
+
+        // Initialize brands
+        function initBrands() {
+            const brands = [...new Set(mobileProducts.map(p => p.brand))].sort();
+            const filterContainer = document.getElementById('brand-filter');
+            brands.forEach(brand => {
+                const btn = document.createElement('button');
+                btn.className = 'brand-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all border-2 border-stone-100 hover:border-[#C5A059] bg-white';
+                btn.innerText = brand;
+                btn.onclick = () => filterProducts(brand);
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        window.onload = () => {
+            initBrands();
+            renderProducts();
+        };
+    </script>
+</body>
+
+</html>

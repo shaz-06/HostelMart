@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike. Just Do It. Nike.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nike-grid-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .category-title {
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: black;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .transition-soft {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+    <!-- TOP BAR -->
+    <div
+        class="bg-[#F5F5F5] py-2 px-6 md:px-12 flex justify-between items-center text-[11px] font-medium border-b border-gray-200">
+        <div class="flex gap-4">
+            <a href="#" class="hover:opacity-60 transition"><img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Jumpman_logo.svg/1200px-Jumpman_logo.svg.png"
+                    class="h-4" alt="Jordan"></a>
+        </div>
+        <div class="flex gap-4">
+            <a href="#" class="hover:opacity-60 transition">Find a Store</a>
+            <span>|</span>
+            <a href="#" class="hover:opacity-60 transition">Help</a>
+            <span>|</span>
+            <a href="#" class="hover:opacity-60 transition">Join Us</a>
+            <span>|</span>
+            <a href="#" class="hover:opacity-60 transition">Sign In</a>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between">
+        <!-- Logo Branding: HostelMart + Nike Swoosh -->
+        <div class="flex flex-col items-start leading-none group cursor-pointer">
+            <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter text-black uppercase">
+                Hostel<span class="text-gray-500 group-hover:text-black transition-colors">Mart</span>
+            </a>
+            <div class="w-10 md:w-12 mt-0.5">
+                <svg viewBox="0 0 24 24" fill="black" class="w-full h-auto">
+                    <path
+                        d="M21 8.719L7.836 14.303C6.74 14.768 5.818 15 5.075 15c-.836 0-1.445-.295-1.819-.884-.485-.76-.273-1.982.559-3.272.494-.754 1.122-1.446 1.734-2.108-.144.234-1.415 2.349-.025 3.345.275.2.666.298 1.147.298.386 0 .829-.063 1.316-.19L21 8.719z">
+                    </path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex gap-8 font-bold text-sm tracking-tight">
+            <a href="#" class="nav-link">New & Featured</a>
+            <a href="#" class="nav-link">Men</a>
+            <a href="#" class="nav-link">Women</a>
+            <a href="#" class="nav-link">Kids</a>
+            <a href="#" class="nav-link">Sale</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center bg-gray-100 rounded-full px-4 py-2 hover:bg-gray-200 transition">
+                <ion-icon name="search-outline" class="text-xl"></ion-icon>
+                <input type="text" placeholder="Search"
+                    class="bg-transparent border-none outline-none pl-2 text-sm w-32">
+            </div>
+            <button class="text-2xl hover:bg-gray-100 p-2 rounded-full transition"><ion-icon
+                    name="heart-outline"></ion-icon></button>
+            <button class="text-2xl hover:bg-gray-100 p-2 rounded-full transition relative">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+                <span
+                    class="absolute top-2 right-2 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-white">0</span>
+            </button>
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-3xl"><ion-icon
+                    name="menu-outline"></ion-icon></button>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobileMenu"
+        class="fixed inset-0 bg-white z-[60] translate-x-full transition-transform duration-500 flex flex-col p-8 lg:hidden">
+        <div class="flex justify-end mb-8">
+            <button onclick="toggleMobileMenu()" class="text-4xl"><ion-icon name="close-outline"></ion-icon></button>
+        </div>
+        <ul class="space-y-6 text-2xl font-black lowercase tracking-tighter italic">
+            <li><a href="#" class="hover:text-gray-500 transition">new & featured</a></li>
+            <li><a href="#" class="hover:text-gray-500 transition">men</a></li>
+            <li><a href="#" class="hover:text-gray-500 transition">women</a></li>
+            <li><a href="#" class="hover:text-gray-500 transition">kids</a></li>
+            <li><a href="#" class="hover:text-gray-500 transition">sale</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="px-4 md:px-12 py-6">
+            <div class="relative w-full h-[500px] md:h-[700px] rounded-sm overflow-hidden bg-black flex items-end">
+                <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=2000&auto=format&fit=crop"
+                    class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Nike Training">
+                <div class="relative z-10 p-8 md:p-16 text-white max-w-2xl">
+                    <p class="font-bold text-sm uppercase mb-2 tracking-widest">Nike Training</p>
+                    <h1 class="text-5xl md:text-8xl font-black uppercase category-title leading-none mb-6">MOVE.
+                        UNSTOPPABLE.</h1>
+                    <p class="text-lg mb-8 opacity-90">Engineered for the athlete in you. From the pitch to the gym,
+                        explore the latest in performance gear.</p>
+                    <div class="flex gap-4">
+                        <a href="#shop"
+                            class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition">Shop
+                            Now</a>
+                        <a href="#"
+                            class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-black transition">Explore
+                            More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORY NAVIGATION (Horizontal scroll on mobile) -->
+        <div
+            class="px-6 md:px-12 py-4 border-b border-gray-100 sticky top-[72px] md:top-[88px] bg-white z-40 overflow-x-auto no-scrollbar">
+            <div class="flex gap-8 text-[12px] font-bold uppercase tracking-widest whitespace-nowrap">
+                <a href="#apparel" class="text-black border-b-2 border-black pb-1">Apparel</a>
+                <a href="#performance" class="text-gray-400 hover:text-black transition">Performance</a>
+                <a href="#accessories" class="text-gray-400 hover:text-black transition">Accessories</a>
+                <a href="#team" class="text-gray-400 hover:text-black transition">Team Sports</a>
+            </div>
+        </div>
+
+        <!-- MAIN PRODUCT GRID -->
+        <section id="shop" class="px-6 md:px-12 py-16">
+            <div class="flex justify-between items-end mb-10">
+                <h2 class="text-4xl font-black uppercase category-title">Shop by Product</h2>
+                <div class="flex gap-2">
+                    <button class="p-2 border rounded-full hover:bg-gray-50"><ion-icon
+                            name="options-outline"></ion-icon> Filter</button>
+                </div>
+            </div>
+
+            <!-- The Grid of 30 Products -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 gap-y-12">
+                <script>
+                    const products = [
+                        { name: "T-Shirts", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80", type: "Classic Performance" },
+                        { name: "Polo T-Shirts", img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=400&q=80", type: "Court Style" },
+                        { name: "Hoodies", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80", type: "Tech Fleece" },
+                        { name: "Sweatshirts", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&q=80", type: "Warmth & Comfort" },
+                        { name: "Track Pants", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80", type: "Sideline Gear" },
+                        { name: "Joggers", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=400&q=80", type: "Modern Fit" },
+                        { name: "Shorts", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&q=80", type: "Flex Mobility" },
+                        { name: "Sports Jackets", img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?w=400&q=80", type: "Shield Weather" },
+                        { name: "Windbreakers", img: "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=400&q=80", type: "Lightweight Protection" },
+                        { name: "Compression Wear", img: "https://images.unsplash.com/photo-1517438476312-10d79c07750d?w=400&q=80", type: "Recovery Pro" },
+                        { name: "Training Tights", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80", type: "Seamless Power" },
+                        { name: "Gym Vests", img: "https://images.unsplash.com/photo-1583454110351-3cd76d7d005f?w=400&q=80", type: "Core Cooling" },
+                        { name: "Dri-FIT Shirts", img: "https://images.unsplash.com/photo-1516222338250-863216ce01fa?w=400&q=80", type: "Advanced Cooling" },
+                        { name: "Running Shorts", img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400&q=80", type: "Marathon Ready" },
+                        { name: "Basketball Jerseys", img: "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=400&q=80", type: "Authentic Team" },
+                        { name: "Football Jerseys", img: "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=400&q=80", type: "Stadium Edition" },
+                        { name: "Sports Bras", img: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400&q=80", type: "High Support" },
+                        { name: "Leggings", img: "https://images.unsplash.com/photo-1483721310020-03333e577078?w=400&q=80", type: "Yoga & Studio" },
+                        { name: "Training Jackets", img: "https://images.unsplash.com/photo-1548883354-94bcfe321cbb?w=400&q=80", type: "Versatile Layers" },
+                        { name: "Casual Pants", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&q=80", type: "Off-Duty Comfort" },
+                        { name: "Caps", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&q=80", type: "Heritage Style" },
+                        { name: "Socks", img: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&q=80", type: "Everyday Cushioned" },
+                        { name: "Swimwear", img: "https://images.unsplash.com/photo-1502389614483-e475fc3340b7?w=400&q=80", type: "Pool & Beach" },
+                        { name: "Innerwear", img: "https://images.unsplash.com/photo-1582719202047-76d3432ee323?w=400&q=80", type: "Underwear Essentials" },
+                        { name: "Base Layers", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80", type: "Pro Combat" },
+                        { name: "Winter Jackets", img: "https://images.unsplash.com/photo-1544923246-77307dd654ca?w=400&q=80", type: "Down Fill" },
+                        { name: "Half-Zip Pullovers", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&q=80", type: "Running Layers" },
+                        { name: "Sleeveless Tees", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80", type: "Range of Motion" },
+                        { name: "Performance Tees", img: "https://images.unsplash.com/photo-1515462277126-2dd0c162007a?w=400&q=80", type: "Elite Training" },
+                        { name: "Athleisure Sets", img: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&q=80", type: "Lifestyle Co-ords" }
+                    ];
+
+                    document.write(products.map(p => `
+                        <div class="nike-grid-item group cursor-pointer overflow-hidden">
+                            <div class="aspect-square bg-[#F6F6F6] rounded-sm overflow-hidden mb-4 relative">
+                                <img src="${p.img}" class="w-full h-full object-cover transition-soft" alt="${p.name}">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all"></div>
+                            </div>
+                            <div class="space-y-0.5">
+                                <h3 class="font-bold text-sm tracking-tight text-gray-900 uppercase">${p.name}</h3>
+                                <p class="text-xs text-gray-500 font-medium">${p.type}</p>
+                                <button class="mt-4 text-[10px] font-black uppercase tracking-widest border-b-2 border-black pb-0.5 opacity-0 group-hover:opacity-100 transition-all">View Details</button>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- PERFORMANCE BANNER -->
+        <section class="bg-black text-white py-20 px-6 md:px-12 text-center">
+            <div class="max-w-4xl mx-auto space-y-6">
+                <h2 class="text-6xl md:text-8xl font-black uppercase category-title leading-tight italic">WIN FROM
+                    WITHIN.</h2>
+                <p class="text-lg opacity-80 max-w-2xl mx-auto">Nike Pro compression wear and base layers are designed
+                    to lock you in and keep you cool under pressure.</p>
+                <div class="pt-6">
+                    <button
+                        class="bg-white text-black px-12 py-4 rounded-full font-black uppercase tracking-tighter hover:bg-gray-200 transition text-sm">Shop
+                        Performance Wear</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white pt-16 pb-12">
+        <div class="container mx-auto px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-gray-800 pb-12">
+                <div class="space-y-4">
+                    <h4 class="font-black text-xs uppercase tracking-[0.1em]">Find a Store</h4>
+                    <h4 class="font-black text-xs uppercase tracking-[0.1em]">Become a Member</h4>
+                    <h4 class="font-black text-xs uppercase tracking-[0.1em]">Sign Up for Email</h4>
+                    <h4 class="font-black text-xs uppercase tracking-[0.1em]">Send Us Feedback</h4>
+                </div>
+                <div class="space-y-3">
+                    <h4 class="font-black text-xs uppercase tracking-[0.1em] text-white">Get Help</h4>
+                    <ul class="text-[11px] text-gray-400 space-y-3 font-medium">
+                        <li><a href="#" class="hover:text-white transition">Order Status</a></li>
+                        <li><a href="#" class="hover:text-white transition">Shipping & Delivery</a></li>
+                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition">Payment Options</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-3">
+                    <h4 class="font-black text-xs uppercase tracking-[0.1em] text-white">About Nike</h4>
+                    <ul class="text-[11px] text-gray-400 space-y-3 font-medium">
+                        <li><a href="#" class="hover:text-white transition">News</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Investors</a></li>
+                        <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                            name="logo-twitter"></ion-icon></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                            name="logo-facebook"></ion-icon></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                            name="logo-youtube"></ion-icon></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                            name="logo-instagram"></ion-icon></a>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center py-8 gap-6">
+                <div class="flex items-center gap-2 text-[10px] font-bold">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>United States</span>
+                    <span class="text-gray-500 ml-4 font-normal tracking-normal">© 2024 Nike, Inc. All Rights
+                        Reserved</span>
+                </div>
+                <div class="flex gap-6 text-[10px] text-gray-500 font-medium">
+                    <a href="#" class="hover:text-white transition">Guides</a>
+                    <a href="#" class="hover:text-white transition">Terms of Sale</a>
+                    <a href="#" class="hover:text-white transition">Terms of Use</a>
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+
+</html>

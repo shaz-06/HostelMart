@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jewellery Collection | HostelMart Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .luxury-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #f9f295 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .item-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .item-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .item-card:hover .overlay-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .overlay-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .sticky-brand-nav {
+            top: 88px;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-brand-nav {
+                top: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#fafafa] text-gray-900 antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col items-center justify-center">
+            <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none">
+                Hostel<span class="text-[#d4af37]">Mart</span>
+            </a>
+            <span class="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] text-gray-400 mt-2">Jewellery
+                Department</span>
+        </div>
+    </header>
+
+    <!-- LUXURY BRAND NAV -->
+    <nav
+        class="sticky sticky-brand-nav bg-white/80 backdrop-blur-xl z-40 border-b border-amber-50 overflow-x-auto no-scrollbar">
+        <div
+            class="container mx-auto px-4 flex justify-start md:justify-center items-center gap-8 md:gap-16 py-4 whitespace-nowrap">
+            <a href="Tanishq.html" class="luxury-font text-lg font-bold hover:text-[#d4af37] transition-colors">Tanishq</a>
+            <a href="Malabar.html" class="luxury-font text-lg font-bold hover:text-[#d4af37] transition-colors">Malabar Gold</a>
+            <a href="#kalyan" class="luxury-font text-lg font-bold hover:text-[#d4af37] transition-colors">Kalyan
+                Jewellers</a>
+            <a href="#pandora" class="luxury-font text-lg font-bold hover:text-[#d4af37] transition-colors">Pandora</a>
+            <a href="#swarovski"
+                class="luxury-font text-lg font-bold hover:text-[#d4af37] transition-colors">Swarovski</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO VIDEO/IMAGE SECTION -->
+        <section class="relative h-[50vh] md:h-[70vh] bg-black overflow-hidden flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a1886a10110?q=80&w=2000&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Jewellery Hero">
+            <div class="relative z-10 text-center text-white px-4">
+                <h1 class="luxury-font text-5xl md:text-8xl italic mb-4">Timeless Elegance</h1>
+                <p class="text-xs md:text-sm uppercase tracking-[0.5em] opacity-80">Curating the world's finest
+                    craftsmanship</p>
+            </div>
+        </section>
+
+        <div class="brand-sections space-y-32 py-20">
+
+            <!-- TANISHQ SECTION -->
+            <section id="tanishq" class="container mx-auto px-4 md:px-12">
+                <div class="flex flex-col items-center mb-16">
+                    <a href="Tanishq.html" class="hover:opacity-80 transition-opacity"><h2 class="luxury-font text-4xl md:text-6xl text-[#83272d]">Tanishq</h2></a>
+                    <div class="w-24 h-0.5 bg-[#83272d] mt-4"></div>
+                    <p class="mt-4 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Bridal & Gold
+                        Excellence</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-10">
+                    <script>
+                        const tanishqItems = ["Gold Necklaces", "Diamond Necklaces", "Pendant Sets", "Mangalsutras", "Gold Chains", "Diamond Chains", "Chokers", "Bridal Sets", "Earrings", "Stud Earrings", "Jhumkas", "Hoops", "Bangles", "Gold Bangles", "Diamond Bangles", "Bracelets", "Kada", "Rings", "Diamond Rings", "Engagement Rings", "Nose Rings", "Nose Pins", "Anklets", "Toe Rings", "Waist Chains", "Temple Jewellery", "Antique Jewellery", "Kundan Jewellery", "Polki Jewellery", "Platinum Jewellery"];
+                        document.write(tanishqItems.map((item, i) => `
+                            <div class="item-card group cursor-pointer">
+                                <div class="aspect-square bg-white border border-gray-100 p-6 flex flex-col items-center justify-center relative overflow-hidden shadow-sm hover:shadow-xl rounded-2xl">
+                                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&sig=t${i}" class="w-full h-full object-contain mb-4 group-hover:scale-110 transition-transform duration-700" alt="${item}">
+                                    <div class="absolute inset-0 bg-white/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4 text-center">
+                                        <a href="Tanishq.html" class="overlay-btn bg-[#83272d] text-white px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-full">Explore</a>
+                                    </div>
+                                </div>
+                                <p class="mt-4 text-[11px] font-bold uppercase tracking-widest text-center text-gray-600">${item}</p>
+                            </div>
+                        `).join(''));
+                    </script>
+                </div>
+            </section>
+
+            <!-- MALABAR SECTION -->
+            <section id="malabar" class="bg-[#f2f7f2] py-24">
+                <div class="container mx-auto px-4 md:px-12">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                        <div>
+                            <a href="Malabar.html" class="hover:opacity-80 transition-opacity"><h2 class="luxury-font text-5xl md:text-7xl text-[#1b4332]">Malabar</h2></a>
+                            <p class="text-sm font-bold text-[#1b4332] uppercase tracking-[0.3em] mt-2">Gold & Diamonds
+                            </p>
+                        </div>
+                        <p class="max-w-md text-xs text-gray-500 uppercase leading-relaxed font-semibold">Celebrate your
+                            moments with certified purity and unparalleled traditional designs.</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                        <script>
+                            const malabarItems = ["Gold Necklaces", "Diamond Necklaces", "Bridal Necklaces", "Pendant Sets", "Mangalsutras", "Gold Chains", "Chokers", "Earrings", "Stud Earrings", "Jhumkas", "Hoops", "Bangles", "Gold Bangles", "Diamond Bangles", "Bracelets", "Kada", "Rings", "Diamond Rings", "Engagement Rings", "Nose Rings", "Nose Pins", "Anklets", "Toe Rings", "Waist Chains", "Temple Jewellery", "Antique Jewellery", "Kundan Jewellery", "Polki Jewellery", "Platinum Jewellery", "Gemstone Jewellery"];
+                            document.write(malabarItems.map((item, i) => `
+                                <div class="group cursor-pointer">
+                                    <div class="relative aspect-[4/5] bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                                        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&sig=m${i}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#1b4332]/80 to-transparent flex items-end p-4">
+                                            <h3 class="text-white text-[9px] font-black uppercase tracking-widest">${item}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join(''));
+                        </script>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KALYAN SECTION -->
+            <section id="kalyan" class="container mx-auto px-4 md:px-12">
+                <div class="flex flex-col items-center mb-16 text-center">
+                    <span class="text-[10px] font-black uppercase tracking-[0.5em] text-amber-500 mb-2">The Muhurat
+                        Collection</span>
+                    <h2 class="luxury-font text-5xl md:text-7xl text-gray-900">Kalyan Jewellers</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                    <script>
+                        const kalyanItems = ["Gold Necklaces", "Diamond Necklaces", "Bridal Sets", "Pendant Sets", "Mangalsutras", "Gold Chains", "Chokers", "Earrings", "Stud Earrings", "Jhumkas", "Hoops", "Bangles", "Gold Bangles", "Diamond Bangles", "Bracelets", "Kada", "Rings", "Diamond Rings", "Engagement Rings", "Nose Rings", "Nose Pins", "Anklets", "Toe Rings", "Waist Chains", "Temple Jewellery", "Antique Jewellery", "Kundan Jewellery", "Polki Jewellery", "Platinum Jewellery", "Gemstone Jewellery"];
+                        document.write(kalyanItems.map((item, i) => `
+                            <div class="group cursor-pointer border-b border-gray-100 pb-4">
+                                <div class="aspect-square bg-gray-50 mb-4 overflow-hidden rounded-full border-4 border-white shadow-lg">
+                                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&sig=k${i}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                </div>
+                                <h3 class="text-[10px] font-black uppercase tracking-tighter text-gray-500 group-hover:text-amber-600 text-center">${item}</h3>
+                            </div>
+                        `).join(''));
+                    </script>
+                </div>
+            </section>
+
+            <!-- PANDORA SECTION -->
+            <section id="pandora" class="bg-[#fff0f3] py-24">
+                <div class="container mx-auto px-4 md:px-12">
+                    <div class="text-center mb-16">
+                        <h2 class="luxury-font text-5xl md:text-7xl text-pink-900">Pandora</h2>
+                        <p class="text-pink-500 font-bold uppercase tracking-widest text-xs mt-4">Unforgettable Moments
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <script>
+                            const pandoraItems = ["Charm Bracelets", "Charms", "Pendant Necklaces", "Chokers", "Chains", "Rings", "Stackable Rings", "Engagement Rings", "Earrings", "Stud Earrings", "Hoop Earrings", "Drop Earrings", "Bracelets", "Bangles", "Anklets", "Layered Necklaces", "Heart Jewellery", "Birthstone Jewellery", "Silver Jewellery", "Gold-Plated Jewellery", "Rose Gold Jewellery", "Minimal Jewellery", "Personalized Jewellery", "Letter Charms", "Beaded Bracelets", "Slider Bracelets", "Clip Charms", "Safety Chains", "Dangle Charms", "Gift Sets"];
+                            document.write(pandoraItems.map((item, i) => `
+                                <div class="bg-white p-4 rounded-3xl shadow-sm hover:shadow-xl transition-all group">
+                                    <div class="aspect-square overflow-hidden mb-3">
+                                        <img src="https://images.unsplash.com/photo-1596944210900-34d19360e20d?w=400&sig=p${i}" class="w-full h-full object-contain group-hover:rotate-12 transition-transform">
+                                    </div>
+                                    <h3 class="text-[9px] font-black uppercase tracking-widest text-pink-900/60 group-hover:text-pink-600 transition-colors">${item}</h3>
+                                </div>
+                            `).join(''));
+                        </script>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SWAROVSKI SECTION -->
+            <section id="swarovski" class="container mx-auto px-4 md:px-12">
+                <div class="bg-[#002b5c] p-12 md:p-20 rounded-[4rem] text-white overflow-hidden relative mb-20">
+                    <div class="relative z-10">
+                        <h2 class="luxury-font text-5xl md:text-8xl italic">Swarovski</h2>
+                        <p class="text-[10px] uppercase tracking-[0.8em] mt-4 opacity-70">Ignite your dreams</p>
+                    </div>
+                    <!-- Decorative background element -->
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 border-[20px] border-white/5 rounded-full">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-16">
+                    <script>
+                        const swarovskiItems = ["Crystal Necklaces", "Pendant Necklaces", "Chokers", "Chains", "Earrings", "Stud Earrings", "Hoop Earrings", "Drop Earrings", "Bracelets", "Bangles", "Rings", "Cocktail Rings", "Engagement Rings", "Anklets", "Layered Necklaces", "Statement Jewellery", "Crystal Sets", "Bridal Jewellery", "Silver Jewellery", "Gold-Plated Jewellery", "Rose Gold Jewellery", "Minimal Jewellery", "Party Jewellery", "Fashion Jewellery", "Designer Jewellery", "Luxury Jewellery", "Gift Sets", "Crystal Charms", "Hair Accessories", "Brooches"];
+                        document.write(swarovskiItems.map((item, i) => `
+                            <div class="group cursor-pointer">
+                                <div class="aspect-[3/4] bg-white overflow-hidden border-b-2 border-gray-100 group-hover:border-[#002b5c] transition-colors relative">
+                                    <img src="https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?w=500&sig=s${i}" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-[#002b5c]/0 group-hover:bg-[#002b5c]/5 transition-colors"></div>
+                                </div>
+                                <h3 class="mt-4 text-[10px] font-black uppercase tracking-widest text-gray-800">${item}</h3>
+                                <p class="text-[9px] text-gray-400 font-bold mt-1 uppercase tracking-tighter italic">Iconic Collection</p>
+                            </div>
+                        `).join(''));
+                    </script>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#111] text-white pt-24 pb-12">
+        <div
+            class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-16 border-b border-white/5 pb-16">
+            <div class="space-y-6">
+                <a href="#" class="text-2xl font-black tracking-tighter uppercase">Hostel<span
+                        class="text-[#d4af37]">Mart</span></a>
+                <p class="text-xs text-gray-500 font-medium leading-relaxed uppercase tracking-widest">The ultimate
+                    curated destination for luxury ornaments. Discover brilliance, delivered.</p>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl text-[#d4af37] mb-8">Heritage Brands</h4>
+                <ul class="text-[10px] font-bold uppercase space-y-4 text-gray-400">
+                    <li><a href="Tanishq.html" class="hover:text-white transition-colors">Tanishq</a></li>
+                    <li><a href="Malabar.html" class="hover:text-white transition-colors">Malabar Gold</a></li>
+                    <li><a href="#kalyan" class="hover:text-white transition-colors">Kalyan Jewellers</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl text-[#d4af37] mb-8">Global Brands</h4>
+                <ul class="text-[10px] font-bold uppercase space-y-4 text-gray-400">
+                    <li><a href="#pandora" class="hover:text-white transition-colors">Pandora</a></li>
+                    <li><a href="#swarovski" class="hover:text-white transition-colors">Swarovski</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl text-[#d4af37] mb-8">Concierge</h4>
+                <p class="text-[10px] font-bold text-gray-500 mb-6 uppercase tracking-widest">Join our circle of
+                    excellence</p>
+                <form class="flex gap-2 border-b border-white/20 pb-2">
+                    <input type="email" placeholder="YOUR EMAIL"
+                        class="flex-1 bg-transparent border-none text-[10px] outline-none focus:ring-0">
+                    <button class="text-[10px] font-black tracking-[0.2em] text-[#d4af37]">JOIN</button>
+                </form>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-[9px] font-bold text-gray-600 uppercase tracking-[0.3em]">&copy; 2024 HostelMart Jewellery
+                Group. Authenticity Guaranteed.</p>
+            <div class="flex gap-8 text-xl text-gray-600">
+                <ion-icon name="logo-instagram" class="hover:text-[#d4af37] cursor-pointer"></ion-icon>
+                <ion-icon name="logo-facebook" class="hover:text-[#d4af37] cursor-pointer"></ion-icon>
+                <ion-icon name="logo-youtube" class="hover:text-[#d4af37] cursor-pointer"></ion-icon>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll brand selection
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const offset = 140; // Adjust for sticky headers
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = target.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZARA | HostelMart Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@200;300;400;600&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+        }
+
+        .zara-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Zara specific minimalist scrollbar */
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #000;
+        }
+
+        .product-card img {
+            transition: opacity 0.5s ease;
+        }
+
+        .product-card:hover img {
+            opacity: 0.8;
+        }
+
+        .sticky-subnav {
+            top: 88px;
+            /* Offset for the main header */
+        }
+
+        /* Typography for that high-end look */
+        .editorial-title {
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+        }
+
+        .zara-logo-svg {
+            letter-spacing: -3px;
+            font-weight: 900;
+            transform: scaleY(1.2);
+        }
+    </style>
+</head>
+
+<body class="text-black antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-5 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter uppercase leading-none">
+                    Hostel<span class="text-gray-400">Mart</span>
+                </a>
+                <!-- Zara Logo (Typographic Style) -->
+                <div class="zara-font text-2xl md:text-3xl zara-logo-svg mt-1 leading-none select-none">
+                    ZARA
+                </div>
+            </div>
+
+            <!-- Desktop Nav (Zara style: simple and spaced) -->
+            <nav class="hidden lg:flex gap-10 text-[10px] font-medium uppercase tracking-[0.2em]">
+                <a href="#" class="hover:underline underline-offset-4">Collection</a>
+                <a href="#" class="hover:underline underline-offset-4">New In</a>
+                <a href="#" class="hover:underline underline-offset-4">Stories</a>
+                <a href="#" class="text-gray-400">Sale</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-6 text-xl">
+                <button class="text-sm font-light uppercase tracking-widest hidden md:block">Search</button>
+                <button class="hover:opacity-50"><ion-icon name="person-outline"></ion-icon></button>
+                <button class="hover:opacity-50 relative">
+                    <ion-icon name="bag-outline"></ion-icon>
+                    <span
+                        class="absolute -top-1 -right-1 bg-black text-white text-[8px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+                <button class="lg:hidden text-2xl"><ion-icon name="menu-outline"></ion-icon></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO EDITORIAL SECTION -->
+        <section class="relative h-[85vh] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2000&auto=format&fit=crop"
+                class="w-full h-full object-cover" alt="Zara Campaign">
+            <div class="absolute inset-0 bg-black/5 flex flex-col justify-end p-8 md:p-20 text-white">
+                <div class="max-w-4xl">
+                    <h2 class="zara-font text-6xl md:text-9xl italic font-normal editorial-title mb-6">The
+                        New<br>Standard</h2>
+                    <p class="text-xs md:text-sm uppercase tracking-[0.4em] font-light">Spring Summer 2024 Collection
+                    </p>
+                    <div class="mt-10 flex gap-8">
+                        <a href="#collection"
+                            class="text-[10px] font-bold uppercase border-b border-white pb-2 hover:opacity-70 transition">View
+                            Collection</a>
+                        <a href="#"
+                            class="text-[10px] font-bold uppercase border-b border-white pb-2 hover:opacity-70 transition">Campaign
+                            Film</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUB NAVIGATION (Categories) -->
+        <nav class="bg-white border-b border-gray-100 sticky z-40 sticky-subnav overflow-x-auto no-scrollbar">
+            <div
+                class="container mx-auto px-6 py-4 flex md:justify-center gap-8 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                <a href="#" class="text-black border-b border-black pb-1">View All</a>
+                <a href="#" class="hover:text-black transition">Suits</a>
+                <a href="#" class="hover:text-black transition">Shirts</a>
+                <a href="#" class="hover:text-black transition">Basics</a>
+                <a href="#" class="hover:text-black transition">Denim</a>
+                <a href="#" class="hover:text-black transition">Accessories</a>
+            </div>
+        </nav>
+
+        <!-- PRODUCT GRID (30 Items) -->
+        <section id="collection" class="container mx-auto px-4 md:px-12 py-20">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
+
+                <script>
+                    const zaraProducts = [
+                        { name: "Basic T-Shirt", price: "19.90", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600" },
+                        { name: "Printed Abstract Tee", price: "25.90", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600" },
+                        { name: "Linen Blend Shirt", price: "49.90", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600" },
+                        { name: "Formal Poplin Shirt", price: "45.90", img: "https://images.unsplash.com/photo-1621072156002-e2fcced0b170?w=600" },
+                        { name: "Straight Fit Jeans", price: "59.90", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600" },
+                        { name: "Slim Fit Blue Denim", price: "59.90", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600" },
+                        { name: "Pleated Trousers", price: "69.90", img: "https://images.unsplash.com/photo-1624371414361-e6e9eaec612e?w=600" },
+                        { name: "Cotton Chinos", price: "49.90", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600" },
+                        { name: "Tailored Shorts", price: "39.90", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600" },
+                        { name: "Double Breasted Blazer", price: "129.00", img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600" },
+                        { name: "Slim Fit Suit Jacket", price: "159.00", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600" },
+                        { name: "Technical Jacket", price: "89.90", img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?w=600" },
+                        { name: "Faux Leather Biker", price: "99.90", img: "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=600" },
+                        { name: "Wool Blend Coat", price: "199.00", img: "https://images.unsplash.com/photo-1544923246-77307dd654ca?w=600" },
+                        { name: "Oversized Hoodie", price: "45.90", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600" },
+                        { name: "Basic Sweatshirt", price: "35.90", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600" },
+                        { name: "Ribbed Knitwear", price: "59.90", img: "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=600" },
+                        { name: "Cashmere Sweater", price: "119.00", img: "https://images.unsplash.com/photo-1611911813575-87134377b6fe?w=600" },
+                        { name: "Buttoned Cardigan", price: "69.90", img: "https://images.unsplash.com/photo-1624462966581-bc6d768cbce5?w=600" },
+                        { name: "Structured Polo", price: "35.90", img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600" },
+                        { name: "Ribbed Tank Top", price: "17.90", img: "https://images.unsplash.com/photo-1583496661160-fb489b275271?w=600" },
+                        { name: "Relaxed Pants", price: "49.90", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=600" },
+                        { name: "Denim Trucker Jacket", price: "69.90", img: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=600" },
+                        { name: "Textured Overshirt", price: "59.90", img: "https://images.unsplash.com/photo-1617114919297-3c8ddb01f599?w=600" },
+                        { name: "Cargo Pocket Pants", price: "59.90", img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600" },
+                        { name: "Linen Pocket Shirt", price: "49.90", img: "https://images.unsplash.com/photo-1589310243389-96a5483213a8?w=600" },
+                        { name: "Satin Party Shirt", price: "55.90", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600" },
+                        { name: "Puffer Winter Coat", price: "129.00", img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600" },
+                        { name: "Soft Lounge Pants", price: "35.90", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600" },
+                        { name: "Essential White Tee", price: "19.90", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600" }
+                    ];
+
+                    document.write(zaraProducts.map(p => `
+                        <div class="product-card group cursor-pointer">
+                            <div class="aspect-[3/4] bg-gray-50 overflow-hidden mb-4">
+                                <img src="${p.img}" class="w-full h-full object-cover" alt="${p.name}">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <h3 class="text-[11px] font-normal uppercase tracking-wider text-gray-800">${p.name}</h3>
+                                <p class="text-[11px] font-semibold">${p.price} USD</p>
+                            </div>
+                            <button class="mt-4 text-[9px] font-black uppercase tracking-[0.2em] border border-black px-4 py-2 opacity-0 group-hover:opacity-100 transition-all duration-300 w-full hover:bg-black hover:text-white">Add to bag</button>
+                        </div>
+                    `).join(''));
+                </script>
+
+            </div>
+        </section>
+
+        <!-- EDITORIAL QUOTE SECTION -->
+        <section class="py-40 bg-gray-50 text-center">
+            <div class="max-w-2xl mx-auto px-6">
+                <span class="text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-8 block">Ethics & Aesthetics</span>
+                <h2 class="zara-font text-4xl italic leading-snug">"Sustainability and fashion can coexist through
+                    thoughtful design and responsible production."</h2>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER (Consistent with Zara's minimalist footer) -->
+    <footer class="bg-white border-t border-gray-100 py-20">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <div class="zara-font text-3xl zara-logo-svg mb-6">ZARA</div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-400">HostelMart Curated</p>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-bold uppercase tracking-widest mb-6">Help</h4>
+                <ul class="text-[10px] uppercase tracking-widest space-y-3 text-gray-500 font-medium">
+                    <li><a href="#" class="hover:text-black">Shop at Zara.com</a></li>
+                    <li><a href="#" class="hover:text-black">Product Info</a></li>
+                    <li><a href="#" class="hover:text-black">Payment</a></li>
+                    <li><a href="#" class="hover:text-black">Returns</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-bold uppercase tracking-widest mb-6">Follow Us</h4>
+                <ul class="text-[10px] uppercase tracking-widest space-y-3 text-gray-500 font-medium">
+                    <li><a href="#" class="hover:text-black">Instagram</a></li>
+                    <li><a href="#" class="hover:text-black">TikTok</a></li>
+                    <li><a href="#" class="hover:text-black">Pinterest</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-bold uppercase tracking-widest mb-6">Newsletter</h4>
+                <form class="border-b border-black flex items-center py-1">
+                    <input type="email" placeholder="ENTER YOUR EMAIL"
+                        class="bg-transparent border-none text-[10px] uppercase tracking-widest outline-none w-full">
+                    <button class="text-[10px] font-bold">JOIN</button>
+                </form>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-6 mt-20 pt-8 border-t border-gray-50 text-[9px] uppercase tracking-[0.3em] text-gray-400 flex flex-col md:flex-row justify-between gap-4">
+            <p>&copy; 2024 HostelMart x ZARA. All rights reserved.</p>
+            <div class="flex gap-8">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

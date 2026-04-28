@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levi's | HostelMart Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .levis-red {
+            color: #E1261C;
+        }
+
+        .bg-levis-red {
+            background-color: #E1261C;
+        }
+
+        .levis-font {
+            font-family: 'Archivo', sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .product-card:hover .levis-tab {
+            transform: translateX(0);
+        }
+
+        .levis-tab {
+            transition: transform 0.3s ease;
+            transform: translateX(100%);
+        }
+
+        /* Mock distressed denim texture for specific elements */
+        .denim-bg {
+            background-color: #1a2a44;
+            background-image: url("https://www.transparenttextures.com/patterns/denim.png");
+        }
+
+        .batwing-clip {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50 border-b-4 border-levis-red">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start leading-none group cursor-pointer">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter text-black uppercase">
+                    Hostel<span class="text-gray-400 group-hover:text-black transition-colors">Mart</span>
+                </a>
+                <!-- Levi's Batwing Logo Simulation -->
+                <div
+                    class="mt-1 bg-levis-red text-white px-2 py-0.5 text-xs font-black italic batwing-clip tracking-tighter">
+                    LEVI'S®
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex gap-8 text-[11px] font-black uppercase tracking-widest">
+                <a href="#" class="hover:text-levis-red">Men</a>
+                <a href="#" class="hover:text-levis-red">Women</a>
+                <a href="#" class="hover:text-levis-red">501® Series</a>
+                <a href="#" class="hover:text-levis-red">Sustainability</a>
+                <a href="#" class="text-levis-red">Sale</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-5 text-2xl text-gray-700">
+                <button class="hover:text-levis-red transition-colors"><ion-icon
+                        name="search-outline"></ion-icon></button>
+                <button class="hover:text-levis-red relative transition-colors">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span
+                        class="absolute -top-1 -right-1 bg-levis-red text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+                <button class="lg:hidden"><ion-icon name="menu-outline"></ion-icon></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative h-[60vh] md:h-[70vh] bg-black">
+            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=2000&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Levi's Heritage">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div class="container mx-auto px-6 relative h-full flex flex-col justify-center items-start text-white">
+                <p class="text-levis-red font-black uppercase tracking-[0.3em] mb-4">The Denim Icon</p>
+                <h1 class="levis-font text-5xl md:text-8xl font-black mb-6 leading-[0.9]">LIVE IN<br>LEVI'S.</h1>
+                <p class="text-lg md:text-xl max-w-lg mb-8 opacity-90 italic">Since 1873, we’ve been making clothes that
+                    are built to last and made for everyone.</p>
+                <div class="flex gap-4">
+                    <a href="#shop"
+                        class="bg-levis-red text-white px-10 py-4 font-black uppercase text-xs hover:bg-white hover:text-levis-red transition duration-300">Shop
+                        Icons</a>
+                    <a href="#"
+                        class="border border-white text-white px-10 py-4 font-black uppercase text-xs hover:bg-white hover:text-black transition duration-300">Learn
+                        More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORY STRIP -->
+        <div class="bg-gray-100 overflow-x-auto no-scrollbar">
+            <div
+                class="container mx-auto px-4 md:px-12 flex gap-10 py-4 whitespace-nowrap text-[10px] font-black uppercase tracking-widest text-gray-500">
+                <a href="#" class="text-black border-b-2 border-levis-red pb-1">All Products</a>
+                <a href="#" class="hover:text-levis-red">501® Original</a>
+                <a href="#" class="hover:text-levis-red">Trucker Jackets</a>
+                <a href="#" class="hover:text-levis-red">Graphic Tees</a>
+                <a href="#" class="hover:text-levis-red">Accessories</a>
+            </div>
+        </div>
+
+        <!-- PRODUCT GRID (30 Items) -->
+        <section id="shop" class="container mx-auto px-4 md:px-12 py-16">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 gap-y-12">
+
+                <script>
+                    const levisProducts = [
+                        { name: "501® Original Jeans", price: "98.00", cat: "Denim Jeans", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600" },
+                        { name: "511™ Slim Fit", price: "89.50", cat: "Slim Fit Jeans", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600" },
+                        { name: "710™ Super Skinny", price: "79.50", cat: "Skinny Jeans", img: "https://images.unsplash.com/photo-1555529733-0e670560f7e1?w=600" },
+                        { name: "505™ Regular Straight", price: "69.50", cat: "Straight Fit Jeans", img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=600" },
+                        { name: "527™ Slim Bootcut", price: "79.50", cat: "Bootcut Jeans", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600" },
+                        { name: "Housemark Tee", price: "25.00", cat: "T-Shirts", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600" },
+                        { name: "Vintage Graphic Tee", price: "30.00", cat: "Graphic Tees", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600" },
+                        { name: "Classic Western Shirt", price: "69.50", cat: "Shirts", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600" },
+                        { name: "Barstow Denim Shirt", price: "79.50", cat: "Denim Shirts", img: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=600" },
+                        { name: "Utility Field Jacket", price: "128.00", cat: "Jackets", img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?w=600" },
+                        { name: "Sherpa Denim Jacket", price: "148.00", cat: "Denim Jackets", img: "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=600" },
+                        { name: "Original Trucker", price: "98.00", cat: "Trucker Jackets", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600" },
+                        { name: "Relaxed Fit Hoodie", price: "65.00", cat: "Hoodies", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600" },
+                        { name: "Logo Sweatshirt", price: "55.00", cat: "Sweatshirts", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600" },
+                        { name: "Carrier Cargo Shorts", price: "54.50", cat: "Shorts", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600" },
+                        { name: "Utility Cargo", price: "68.00", cat: "Cargo Shorts", img: "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?w=600" },
+                        { name: "XX Chino Standard", price: "78.00", cat: "Casual Pants", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600" },
+                        { name: "Slim Taper Chinos", price: "78.00", cat: "Chinos", img: "https://images.unsplash.com/photo-1624371414361-e6e9eaec612e?w=600" },
+                        { name: "Heritage Overalls", price: "118.00", cat: "Overalls", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600" },
+                        { name: "Denim Dungarees", price: "108.00", cat: "Dungarees", img: "https://images.unsplash.com/photo-1584273143981-43c2910f33cc?w=600" },
+                        { name: "Solid Pique Polo", price: "35.00", cat: "Polo Shirts", img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600" },
+                        { name: "Essential Tank", price: "20.00", cat: "Tank Tops", img: "https://images.unsplash.com/photo-1583496661160-fb489b275271?w=600" },
+                        { name: "Puffer Down Jacket", price: "168.00", cat: "Winter Jackets", img: "https://images.unsplash.com/photo-1544923246-77307dd654ca?w=600" },
+                        { name: "Wool Blend Coat", price: "220.00", cat: "Coats", img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600" },
+                        { name: "Tapered Joggers", price: "58.00", cat: "Joggers", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=600" },
+                        { name: "Lounge Trousers", price: "45.00", cat: "Lounge Pants", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600" },
+                        { name: "2-Pack Boxer Briefs", price: "28.00", cat: "Innerwear", img: "https://images.unsplash.com/photo-1582719202047-76d3432ee323?w=600" },
+                        { name: "Cushioned Crew Socks", price: "15.00", cat: "Socks", img: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=600" },
+                        { name: "Classic Batwing Cap", price: "25.00", cat: "Caps", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600" },
+                        { name: "Bridle Leather Belt", price: "45.00", cat: "Belts", img: "https://images.unsplash.com/photo-1624222247344-550fb869c43a?w=600" }
+                    ];
+
+                    document.write(levisProducts.map(p => `
+                        <div class="product-card group relative bg-white border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
+                            <div class="aspect-[3/4] overflow-hidden relative bg-gray-50">
+                                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${p.name}">
+                                
+                                <!-- Iconic Levi's Red Tab on Product -->
+                                <div class="absolute top-1/2 right-0 w-3 h-6 bg-levis-red levis-tab flex items-center justify-center">
+                                    <span class="text-[6px] text-white font-black rotate-90">LEVI'S</span>
+                                </div>
+                            </div>
+                            <div class="p-5">
+                                <p class="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 mb-1">${p.cat}</p>
+                                <h3 class="font-bold text-sm tracking-tight text-gray-800 truncate">${p.name}</h3>
+                                <div class="mt-4 flex justify-between items-baseline">
+                                    <span class="font-black text-base">$${p.price}</span>
+                                    <button class="text-xs font-bold uppercase tracking-widest text-levis-red border-b border-levis-red hover:text-black hover:border-black transition-colors">Quick Buy</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+
+            </div>
+        </section>
+
+        <!-- 501® SERIES BANNER -->
+        <section class="denim-bg text-white py-24 relative">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
+                <div class="space-y-8">
+                    <div
+                        class="bg-levis-red inline-block px-4 py-1 text-xs font-black uppercase tracking-widest italic">
+                        The Original</div>
+                    <h2 class="levis-font text-5xl md:text-8xl font-black italic tracking-tighter">501® JEANS.</h2>
+                    <p class="text-lg opacity-80 max-w-md">Button fly. Straight leg. The blueprint for every pair of
+                        jeans in existence since May 20, 1873.</p>
+                    <button
+                        class="bg-white text-black px-12 py-4 font-black uppercase text-xs hover:bg-levis-red hover:text-white transition duration-500">Discover
+                        501®</button>
+                </div>
+                <div class="hidden md:block relative">
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?q=80&w=1000"
+                        class="rounded shadow-2xl rotate-2" alt="501 Denim">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white pt-20 pb-12">
+        <div class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-800 pb-12">
+            <div class="space-y-6">
+                <div class="flex flex-col items-start leading-none">
+                    <div class="text-2xl font-black tracking-tighter uppercase">HostelMart</div>
+                    <div class="mt-1 bg-levis-red text-white px-2 py-0.5 text-[10px] font-black italic batwing-clip">
+                        LEVI'S®</div>
+                </div>
+                <p class="text-[11px] text-gray-500 leading-relaxed uppercase tracking-widest">Built on authenticity and
+                    heritage. A curated Levi's experience.</p>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6">Explore</h4>
+                <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-levis-red">501® Original</a></li>
+                    <li><a href="#" class="hover:text-levis-red">Trucker Jackets</a></li>
+                    <li><a href="#" class="hover:text-levis-red">Sustainability</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6">Support</h4>
+                <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-levis-red">Track Order</a></li>
+                    <li><a href="#" class="hover:text-levis-red">Size Guide</a></li>
+                    <li><a href="#" class="hover:text-levis-red">Returns</a></li>
+                </ul>
+            </div>
+            <div class="flex gap-6 text-2xl text-gray-500">
+                <a href="#" class="hover:text-white"><ion-icon name="logo-instagram"></ion-icon></a>
+                <a href="#" class="hover:text-white"><ion-icon name="logo-facebook"></ion-icon></a>
+                <a href="#" class="hover:text-white"><ion-icon name="logo-youtube"></ion-icon></a>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.2em] text-gray-600">
+            <p>© 2024 HostelMart x Levi Strauss & Co. All rights reserved.</p>
+            <div class="flex gap-8">
+                <a href="#" class="hover:text-white">Privacy</a>
+                <a href="#" class="hover:text-white">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

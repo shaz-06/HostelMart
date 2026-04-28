@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adidas Store | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .adidas-font {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .has-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .has-scrollbar::-webkit-scrollbar-thumb {
+            background: #000;
+        }
+
+        /* The Three Stripes Motif */
+        .three-stripes {
+            background: linear-gradient(90deg, #000 0% 15%, transparent 15% 20%, #000 20% 35%, transparent 35% 40%, #000 40% 55%, transparent 55% 100%);
+        }
+
+        .product-card:hover .hover-overlay {
+            opacity: 1;
+        }
+
+        .product-card .hover-overlay {
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        /* Skew effect for that sporty look */
+        .skew-link {
+            transform: skewX(-10deg);
+        }
+
+        .skew-link span {
+            transform: skewX(10deg);
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+                    Hostel<span class="text-gray-400">Mart</span>
+                </a>
+                <!-- Adidas Performance Logo -->
+                <div class="mt-1">
+                    <svg height="24" width="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M24 20.688h-4.385l-7.37-12.747-3.847 6.643H12.78l-2.41 4.167H0l8.245-14.25L10.638 0l2.392 4.137 10.97 18.966z"
+                            fill="black" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex gap-8 text-[11px] font-black uppercase tracking-widest">
+                <a href="#" class="hover:border-b-2 border-black pb-1">Men</a>
+                <a href="#" class="hover:border-b-2 border-black pb-1">Women</a>
+                <a href="#" class="hover:border-b-2 border-black pb-1">Kids</a>
+                <a href="#" class="text-red-600">Outlet</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4 text-2xl">
+                <button class="hover:opacity-50"><ion-icon name="search-outline"></ion-icon></button>
+                <button class="hover:opacity-50"><ion-icon name="heart-outline"></ion-icon></button>
+                <button class="hover:opacity-50 relative">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span
+                        class="absolute -top-1 -right-1 bg-black text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative h-[60vh] md:h-[80vh] overflow-hidden bg-black flex items-center">
+            <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=2000&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover opacity-70" alt="Adidas Performance">
+            <div class="container mx-auto px-6 relative z-10 text-white">
+                <div class="max-w-xl space-y-6">
+                    <h2 class="adidas-font text-5xl md:text-7xl leading-none">Made for<br>the athlete.</h2>
+                    <p class="text-lg font-medium opacity-90 italic">Push your limits with the latest in Adidas
+                        performance technology. From the track to the street.</p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#products"
+                            class="bg-white text-black px-8 py-4 font-black uppercase text-sm skew-link"><span>Shop All
+                                Gear</span></a>
+                        <a href="#"
+                            class="border border-white text-white px-8 py-4 font-black uppercase text-sm skew-link hover:bg-white hover:text-black transition"><span>Explore
+                                Stories</span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Striped Background Motif -->
+            <div
+                class="absolute bottom-0 right-0 w-64 h-64 three-stripes opacity-10 rotate-45 transform translate-x-1/2 translate-y-1/2">
+            </div>
+        </section>
+
+        <!-- CATEGORY QUICK LINKS -->
+        <section class="bg-black text-white py-4 overflow-x-auto no-scrollbar border-b border-white/10">
+            <div class="flex justify-center min-w-max gap-12 px-6 text-[10px] font-black uppercase tracking-[0.3em]">
+                <a href="#" class="hover:text-gray-400">Running</a>
+                <a href="#" class="hover:text-gray-400">Training</a>
+                <a href="#" class="hover:text-gray-400">Football</a>
+                <a href="#" class="hover:text-gray-400">Basketball</a>
+                <a href="#" class="hover:text-gray-400">Originals</a>
+            </div>
+        </section>
+
+        <!-- PRODUCT GRID -->
+        <section id="products" class="container mx-auto px-4 py-16">
+            <div class="flex items-center justify-between mb-12 border-l-8 border-black pl-6">
+                <h2 class="adidas-font text-3xl md:text-4xl">The Collection</h2>
+                <div class="hidden md:block h-[2px] flex-1 bg-gray-100 mx-8"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
+                <script>
+                    const adidasProducts = [
+                        { name: "T-Shirts", type: "Performance", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
+                        { name: "Polo Shirts", type: "Club Wear", img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=400" },
+                        { name: "Hoodies", type: "Tech Fleece", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400" },
+                        { name: "Sweatshirts", type: "Essentials", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400" },
+                        { name: "Track Pants", type: "Tiro 23", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400" },
+                        { name: "Joggers", type: "Sportswear", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=400" },
+                        { name: "Shorts", type: "Aeroready", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400" },
+                        { name: "Sports Jackets", type: "All-Weather", img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?w=400" },
+                        { name: "Windbreakers", type: "Lightweight", img: "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=400" },
+                        { name: "Training Tights", type: "Techfit", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400" },
+                        { name: "Gym Vests", type: "Breathable", img: "https://images.unsplash.com/photo-1583454110351-3cd76d7d005f?w=400" },
+                        { name: "Football Jerseys", type: "Stadium", img: "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=400" },
+                        { name: "Basketball Jerseys", type: "League", img: "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=400" },
+                        { name: "Running Shorts", type: "Adizero", img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400" },
+                        { name: "Sports Bras", type: "Support Pro", img: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400" },
+                        { name: "Leggings", type: "Yoga", img: "https://images.unsplash.com/photo-1483721310020-03333e577078?w=400" },
+                        { name: "Casual Pants", type: "Daily", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400" },
+                        { name: "Tracksuits", type: "Originals", img: "https://images.unsplash.com/photo-1509533357591-6677f5165977?w=400" },
+                        { name: "Caps", type: "Accessories", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400" },
+                        { name: "Socks", type: "Cushioned", img: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400" },
+                        { name: "Swimwear", type: "Beach", img: "https://images.unsplash.com/photo-1502389614483-e475fc3340b7?w=400" },
+                        { name: "Innerwear", type: "Cotton", img: "https://images.unsplash.com/photo-1582719202047-76d3432ee323?w=400" },
+                        { name: "Base Layers", type: "Alphaskin", img: "https://images.unsplash.com/photo-1517438476312-10d79c07750d?w=400" },
+                        { name: "Winter Jackets", type: "Puffy", img: "https://images.unsplash.com/photo-1544923246-77307dd654ca?w=400" },
+                        { name: "Half-Zip Sweatshirts", type: "Quarter Zip", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400" },
+                        { name: "Sleeveless Tees", type: "Workout", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400" },
+                        { name: "Performance Tees", type: "Elite", img: "https://images.unsplash.com/photo-1515462277126-2dd0c162007a?w=400" },
+                        { name: "Training Sets", type: "Co-ord", img: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400" },
+                        { name: "Athleisure Wear", type: "Lifestyle", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400" },
+                        { name: "Rain Jackets", type: "Terrex", img: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=400" }
+                    ];
+
+                    document.write(adidasProducts.map(p => `
+                        <div class="product-card group relative bg-[#F5F5F5] overflow-hidden border-b-4 border-transparent hover:border-black transition-all duration-300">
+                            <div class="aspect-[3/4] overflow-hidden relative">
+                                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${p.name}">
+                                <div class="hover-overlay absolute inset-0 bg-white/20 backdrop-blur-[2px] flex items-center justify-center">
+                                    <button class="bg-black text-white px-6 py-2 font-black uppercase text-[10px] skew-link"><span>Quick Add</span></button>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-white">
+                                <h3 class="font-black text-xs uppercase tracking-tight">${p.name}</h3>
+                                <p class="text-[10px] text-gray-500 font-semibold uppercase mt-1 tracking-widest">${p.type}</p>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <span class="font-black text-sm">$${(Math.random() * 50 + 20).toFixed(2)}</span>
+                                    <ion-icon name="heart-outline" class="text-xl hover:text-red-500 cursor-pointer"></ion-icon>
+                                </div>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- THREE STRIPES PROMO -->
+        <section class="bg-[#EBEDEE] py-24 relative overflow-hidden">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
+                <div class="space-y-8 z-10">
+                    <h2 class="adidas-font text-5xl md:text-8xl">Join the<br>club.</h2>
+                    <p class="text-lg font-bold italic">Unlock the best of Adidas. Early access, exclusive drops, and
+                        member-only events.</p>
+                    <button class="bg-black text-white px-10 py-5 font-black uppercase text-sm skew-link"><span>Sign Up
+                            For Free</span></button>
+                </div>
+                <div class="relative group">
+                    <img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?q=80&w=1000"
+                        class="rounded shadow-2xl group-hover:-translate-y-4 transition-transform duration-500"
+                        alt="Members Only">
+                    <div class="absolute -bottom-6 -left-6 w-32 h-32 three-stripes"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white pt-20 pb-12">
+        <div
+            class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-16 border-b border-gray-800 pb-12">
+            <div class="space-y-4">
+                <h4 class="adidas-font text-lg">HostelMart</h4>
+                <p class="text-xs text-gray-500 leading-loose uppercase tracking-widest">The ultimate curated brand
+                    experience. High-quality essentials delivered to your door.</p>
+            </div>
+            <div class="space-y-6">
+                <h4 class="adidas-font text-sm">Products</h4>
+                <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-white transition">Shoes</a></li>
+                    <li><a href="#" class="hover:text-white transition">Clothing</a></li>
+                    <li><a href="#" class="hover:text-white transition">Accessories</a></li>
+                    <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+                </ul>
+            </div>
+            <div class="space-y-6">
+                <h4 class="adidas-font text-sm">Company Info</h4>
+                <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                    <li><a href="#" class="hover:text-white transition">Press</a></li>
+                </ul>
+            </div>
+            <div class="space-y-6">
+                <h4 class="adidas-font text-sm">Follow the stripes</h4>
+                <div class="flex gap-6 text-2xl">
+                    <a href="#" class="hover:opacity-60"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#" class="hover:opacity-60"><ion-icon name="logo-tiktok"></ion-icon></a>
+                    <a href="#" class="hover:opacity-60"><ion-icon name="logo-twitter"></ion-icon></a>
+                </div>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.2em] text-gray-600">
+            <p>© 2024 HostelMart x Adidas. All rights reserved.</p>
+            <div class="flex gap-8 mt-4 md:mt-0">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Cookie Settings</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

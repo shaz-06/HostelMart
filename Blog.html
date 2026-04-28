@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelMart Blog | Style, Trends & Lifestyle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .signature-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Reading Progress Bar */
+        #progress-container {
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        #progress-bar {
+            height: 4px;
+            background: #ec4899;
+            /* pink-500 */
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Interactive Blog Cards */
+        .blog-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-container img {
+            transition: transform 0.8s ease;
+        }
+
+        /* Glow effects */
+        .cat-pill {
+            transition: all 0.3s ease;
+        }
+
+        .cat-pill.active {
+            background-color: #ec4899;
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Text reveal animation */
+        .reveal-text {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reveal-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ec4899;
+            transition: width 0.3s ease;
+        }
+
+        .blog-card:hover .reveal-text::after {
+            width: 100%;
+        }
+
+        /* Detail View Animation */
+        #blog-detail-view {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #blog-detail-view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-[#fafafa] text-gray-900 antialiased">
+
+    <!-- READING PROGRESS -->
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col items-center">
+            <a href="index.html"
+                class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none text-black">
+                Hostel<span class="text-pink-500">Mart</span>
+            </a>
+            <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400 mt-1">Blog & Lifestyle</span>
+        </div>
+    </header>
+
+    <!-- MAIN BLOG LIST VIEW -->
+    <main id="blog-list-view">
+        <!-- FEATURED POST HERO (Now clickable container) -->
+        <section class="container mx-auto px-4 md:px-12 py-8">
+            <div onclick="openArticle('featured')"
+                class="group relative bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row h-auto lg:h-[550px] border border-gray-50 cursor-pointer transition-all duration-500 hover:shadow-pink-100">
+                <div class="lg:w-3/5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600&auto=format&fit=crop"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                        alt="Featured">
+                </div>
+                <div class="lg:w-2/5 p-8 md:p-16 flex flex-col justify-center bg-white relative">
+                    <div
+                        class="absolute top-8 left-8 bg-pink-500 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
+                        Featured</div>
+                    <p class="text-pink-500 font-bold text-xs uppercase tracking-widest mb-4">Fashion • 5 Min Read</p>
+                    <h2 class="text-3xl md:text-5xl font-black leading-tight mb-6 text-gray-900">The 2024 Style Edit:
+                        Global Trends You Need to Know</h2>
+                    <p class="text-gray-500 text-sm md:text-base leading-relaxed mb-4">From the runways of Paris to the
+                        streets of Tokyo, we dive deep into the silhouettes and colors defining this season's wardrobe.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100"
+                            class="w-10 h-10 rounded-full object-cover" alt="Author">
+                        <div>
+                            <p class="text-xs font-black text-gray-900">Alex Rivera</p>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Editor-in-Chief
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOUNDER'S STORY SECTION -->
+        <section class="container mx-auto px-4 md:px-12 py-16">
+            <div
+                class="bg-white border border-pink-100 rounded-[3rem] p-8 md:p-16 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center gap-12">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-pink-50 rounded-full -mr-16 -mt-16"></div>
+                <div class="w-full md:w-1/3 flex flex-col items-center">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-pink-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop"
+                            class="relative w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-8 border-white shadow-2xl"
+                            alt="Shashank Shetty">
+                    </div>
+                    <div class="mt-6 text-center">
+                        <h4 class="text-xl font-black text-gray-900">Shashank Shetty</h4>
+                        <p class="text-xs font-bold text-pink-500 uppercase tracking-[0.2em]">Founder, HostelMart</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3 space-y-6 text-gray-900">
+                    <svg class="w-12 h-12 text-pink-200" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C15.4647 8 15.017 8.44772 15.017 9V11C15.017 11.5523 14.5693 12 14.017 12H12.017C11.4647 12 11.017 11.5523 11.017 11V9C11.017 6.23858 13.2556 4 16.017 4H19.017C21.7784 4 24.017 6.23858 24.017 9V15C24.017 18.3137 21.3307 21 18.017 21H14.017ZM0 21L0 18C0 16.8954 0.895431 16 2 16H5C5.55228 16 6 15.5523 6 15V9C6 8.44772 5.55228 8 5 8H2C1.44772 8 1 8.44772 1 9V11C1 11.5523 0.552285 12 0 12H-2C-2.55228 12 -3 11.5523 -3 11V9C-3 6.23858 -0.761424 4 2 4H5C7.76142 4 10 6.23858 10 9V15C10 18.3137 7.31371 21 4 21H0Z" />
+                    </svg>
+                    <h3 class="text-2xl md:text-4xl font-black uppercase tracking-tighter leading-tight">
+                        "I don't want others to <span class="text-pink-500">struggle</span> like I did."
+                    </h3>
+                    <div class="space-y-4 text-gray-600 leading-relaxed italic">
+                        <p class="text-lg">
+                            As a former hostel student, I know the daily challenges—from finding the right products to
+                            the time wasted travelling for basic needs. It wasn't just about shopping; it was about the
+                            struggle to manage life and studies simultaneously.
+                        </p>
+                        <p class="text-lg">
+                            I created <strong>HostelMart</strong> to be the solution I never had. We are introducing a
+                            <span class="text-gray-900 font-bold underline decoration-pink-500 decoration-4">Doorstep
+                                Service</span>
+                            specifically designed for students. We bring the store to you, so you can focus on what
+                            truly matters.
+                        </p>
+                    </div>
+                    <div class="pt-4">
+                        <p class="signature-font text-3xl text-gray-900">Shashank Shetty</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORY SELECTOR -->
+        <section class="container mx-auto px-4 md:px-12 py-10">
+            <div
+                class="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-4 mb-8 gap-4">
+                <h3 class="text-lg font-black uppercase tracking-tighter">Explore Topics</h3>
+                <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                    <button
+                        class="cat-pill active px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border border-gray-100"
+                        onclick="filterCat('all')">All</button>
+                    <button
+                        class="cat-pill px-5 py-2 rounded-full bg-white text-gray-500 text-[10px] font-black uppercase tracking-widest border border-gray-100 hover:border-pink-200"
+                        onclick="filterCat('style')">Style</button>
+                    <button
+                        class="cat-pill px-5 py-2 rounded-full bg-white text-gray-500 text-[10px] font-black uppercase tracking-widest border border-gray-100 hover:border-pink-200"
+                        onclick="filterCat('tech')">Tech</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12" id="blog-grid">
+                <!-- Blog Card 1 -->
+                <article class="blog-card group cursor-pointer" data-category="style" onclick="openArticle('layering')">
+                    <div class="image-container aspect-[16/10] overflow-hidden rounded-3xl mb-6 shadow-lg relative">
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800"
+                            class="w-full h-full object-cover" alt="Post">
+                        <div class="absolute bottom-4 left-4 flex gap-2">
+                            <span
+                                class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[9px] font-black uppercase">Style</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-pink-500 font-bold mb-2">March 12, 2024 • 4 Min Read</p>
+                    <h3 class="text-xl font-black leading-tight mb-3 reveal-text text-gray-900">Mastering the Art of
+                        Layering for Spring</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">Learn how to combine textures and
+                        colors for the perfect transitional weather outfit.</p>
+                </article>
+
+                <!-- Blog Card 2 -->
+                <article class="blog-card group cursor-pointer" data-category="tech" onclick="openArticle('tech')">
+                    <div class="image-container aspect-[16/10] overflow-hidden rounded-3xl mb-6 shadow-lg relative">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800"
+                            class="w-full h-full object-cover" alt="Post">
+                        <div class="absolute bottom-4 left-4 flex gap-2">
+                            <span
+                                class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[9px] font-black uppercase">Tech</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-pink-500 font-bold mb-2">March 10, 2024 • 6 Min Read</p>
+                    <h3 class="text-xl font-black leading-tight mb-3 reveal-text text-gray-900">Wearable Tech: Fashion's
+                        New Frontier</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">How smart jewelry and haptic fabrics
+                        are changing the way we interact with our clothes.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- BLOG DETAIL VIEW (Hidden by default) -->
+    <main id="blog-detail-view" class="container mx-auto px-4 md:px-12 py-12">
+        <button onclick="closeArticle()"
+            class="mb-8 flex items-center gap-2 font-black uppercase text-xs tracking-widest text-gray-400 hover:text-pink-500 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                </path>
+            </svg>
+            Back to Feed
+        </button>
+
+        <div class="max-w-4xl mx-auto">
+            <header class="text-center mb-12">
+                <p id="detail-category" class="text-pink-500 font-bold text-xs uppercase tracking-[0.4em] mb-4"></p>
+                <h1 id="detail-title"
+                    class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-8 text-gray-900">
+                </h1>
+                <div
+                    class="flex items-center justify-center gap-6 text-gray-400 text-xs font-bold uppercase tracking-widest">
+                    <span id="detail-author"></span>
+                    <span>•</span>
+                    <span id="detail-date"></span>
+                </div>
+            </header>
+
+            <div class="rounded-[3rem] overflow-hidden shadow-2xl mb-16 aspect-[21/9]">
+                <img id="detail-image" src="" class="w-full h-full object-cover" alt="Detail">
+            </div>
+
+            <article id="detail-content"
+                class="prose prose-lg prose-pink mx-auto text-gray-600 leading-loose space-y-8 text-lg">
+                <!-- Content will be injected here -->
+            </article>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-100 pt-20 pb-12">
+        <div
+            class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-50 pb-12">
+            <div class="space-y-6">
+                <a href="#" class="text-2xl font-black tracking-tighter text-gray-900 uppercase">HostelMart</a>
+                <p class="text-xs text-gray-400 font-medium leading-relaxed uppercase tracking-widest">Your daily source
+                    for style inspiration and lifestyle wisdom. Curated for the modern shopper.</p>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6 text-gray-900">Explore</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-4 text-gray-500">
+                    <li><a href="#" class="hover:text-pink-500 transition-colors">Men's Store</a></li>
+                    <li><a href="#" class="hover:text-pink-500 transition-colors">Women's Store</a></li>
+                    <li><a href="#" class="hover:text-pink-500 transition-colors">Jewellery</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6 text-gray-900">Service</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-4 text-gray-500">
+                    <li><a href="#" class="hover:text-pink-500">Doorstep Delivery</a></li>
+                    <li><a href="#" class="hover:text-pink-500">Student Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6 text-gray-900">Connect</h4>
+                <div class="flex gap-6 text-2xl text-gray-400">
+                    <a href="#" class="hover:text-pink-500">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-4 md:px-12 py-8 flex justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+            <p>&copy; 2024 HostelMart Lifestyle. Founded by Shashank Shetty.</p>
+            <div class="flex gap-6">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        class="fixed bottom-8 right-8 bg-black text-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-2xl hover:bg-pink-500 transition-all transform hover:scale-110 active:scale-95 z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        const articles = {
+            featured: {
+                title: "The 2024 Style Edit: Global Trends You Need to Know",
+                category: "Fashion",
+                author: "Alex Rivera",
+                date: "March 15, 2024",
+                img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600",
+                content: `
+                    <p>The fashion world is shifting. This year, we're seeing a massive move towards "functional elegance"—clothes that look like they belong on a runway but perform like they belong on a commute. Hostels are the breeding ground for this style, where comfort meets the need to look presentable for that 9 AM lecture.</p>
+                    <h3 class="text-2xl font-black text-gray-900 mt-12 mb-4 uppercase tracking-tighter">1. The Return of Oversized Silhouettes</h3>
+                    <p>Volume is back. From wide-leg trousers to massive tech-fleece hoodies, the goal is comfort without sacrificing a sharp silhouette. We recommend pairing oversized tops with more structured bottoms to maintain a balanced aesthetic.</p>
+                    <h3 class="text-2xl font-black text-gray-900 mt-12 mb-4 uppercase tracking-tighter">2. Sustainable Tech Fabrics</h3>
+                    <p>Fabrics are getting smarter. Recycled nylons that are both waterproof and breathable are becoming the standard. At HostelMart, we are sourcing brands that prioritize these materials, ensuring your wardrobe lasts longer than just a semester.</p>
+                    <p>In conclusion, 2024 is about expressing your personality through textures and layers. Don't be afraid to experiment with bold colors against neutral bases.</p>
+                `
+            },
+            layering: {
+                title: "Mastering the Art of Layering for Spring",
+                category: "Style",
+                author: "Sarah Chen",
+                date: "March 12, 2024",
+                img: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1600",
+                content: `<p>Spring is the season of unpredictable weather. One moment you're basked in sunlight, the next you're caught in a brisk breeze. Layering is your secret weapon.</p>`
+            },
+            tech: {
+                title: "Wearable Tech: Fashion's New Frontier",
+                category: "Tech",
+                author: "Marcus Thorne",
+                date: "March 10, 2024",
+                img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1600",
+                content: `<p>Technology isn't just in our pockets anymore; it's woven into our sleeves.</p>`
+            }
+        };
+
+        function openArticle(id) {
+            const data = articles[id];
+            if (!data) return;
+
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-category').innerText = data.category;
+            document.getElementById('detail-author').innerText = `By ${data.author}`;
+            document.getElementById('detail-date').innerText = data.date;
+            document.getElementById('detail-image').src = data.img;
+            document.getElementById('detail-content').innerHTML = data.content;
+
+            document.getElementById('blog-list-view').style.display = 'none';
+            const detailView = document.getElementById('blog-detail-view');
+            detailView.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeArticle() {
+            document.getElementById('blog-detail-view').classList.remove('active');
+            document.getElementById('blog-list-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onscroll = function () {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+
+        function filterCat(category) {
+            const pills = document.querySelectorAll('.cat-pill');
+            pills.forEach(pill => {
+                pill.classList.remove('active');
+                pill.classList.add('bg-white', 'text-gray-500');
+            });
+
+            if (event) {
+                event.target.classList.add('active');
+                event.target.classList.remove('bg-white', 'text-gray-500');
+            }
+
+            const articles_cards = document.querySelectorAll('.blog-card');
+            articles_cards.forEach(article => {
+                article.style.opacity = '0';
+                article.style.transform = 'scale(0.9)';
+
+                setTimeout(() => {
+                    if (category === 'all' || article.getAttribute('data-category') === category) {
+                        article.style.display = 'block';
+                        setTimeout(() => {
+                            article.style.opacity = '1';
+                            article.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        article.style.display = 'none';
+                    }
+                }, 300);
+            });
+        }
+    </script>
+</body>
+
+</html>

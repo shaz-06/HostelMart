@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malabar Gold & Diamonds | HostelMart Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafaf8;
+        }
+
+        .luxury-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .malabar-green {
+            color: #004225;
+        }
+
+        .bg-malabar-green {
+            background-color: #004225;
+        }
+
+        .border-malabar-green {
+            border-color: #004225;
+        }
+
+        .gold-accent {
+            color: #d4af37;
+        }
+
+        .bg-gold {
+            background-color: #d4af37;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .product-card {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+        }
+
+        .glow-gold:hover {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .category-overlay {
+            background: linear-gradient(to top, rgba(0, 66, 37, 0.9) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover .category-overlay {
+            opacity: 1;
+        }
+
+        .ornament-border {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .ornament-border::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="text-gray-900 antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col items-center">
+            <!-- Brand Identity -->
+            <a href="index.html"
+                class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none text-black">
+                Hostel<span class="text-pink-600">Mart</span>
+            </a>
+            <!-- Malabar Sub-Brand -->
+            <div class="mt-1 flex items-center gap-3">
+                <div class="h-[1px] w-8 bg-gold/50"></div>
+                <span class="luxury-font text-lg md:text-xl font-bold malabar-green tracking-[0.15em]">MALABAR</span>
+                <div class="h-[1px] w-8 bg-gold/50"></div>
+            </div>
+            <p class="text-[8px] uppercase tracking-[0.3em] gold-accent font-bold mt-1">Gold & Diamonds</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SHOWCASE -->
+        <section class="relative h-[65vh] md:h-[80vh] flex items-center overflow-hidden bg-[#001a0f]">
+            <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=2000&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover opacity-50 scale-110" alt="Malabar Heritage">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#001a0f] via-transparent to-transparent"></div>
+            <div class="container mx-auto px-6 relative z-10 text-white">
+                <div class="max-w-3xl space-y-6">
+                    <p class="luxury-font text-xl md:text-2xl italic gold-accent">The Art of Gifting Excellence</p>
+                    <h1 class="luxury-font text-5xl md:text-8xl font-medium leading-none tracking-tight">Celebrate Your
+                        <br> Golden Moments.</h1>
+                    <p class="text-sm md:text-lg opacity-80 max-w-lg leading-relaxed font-light italic">Discover the
+                        Mine Diamond and Era Uncut collections, where every piece is a testament to timeless beauty.</p>
+                    <div class="flex gap-4 pt-4">
+                        <a href="#shop"
+                            class="bg-gold text-white px-10 py-3.5 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-malabar-green transition duration-500 shadow-2xl">View
+                            Collection</a>
+                        <a href="#"
+                            class="border border-white/30 text-white px-10 py-3.5 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition duration-500">Our
+                            Heritage</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUB NAV -->
+        <nav
+            class="bg-white border-b border-gray-100 sticky top-[92px] md:top-[104px] z-40 overflow-x-auto no-scrollbar">
+            <div
+                class="container mx-auto px-4 md:px-12 flex justify-start md:justify-center items-center gap-10 py-4 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                <a href="#earrings" class="hover:text-malabar-green transition-colors">Earrings</a>
+                <a href="#rings" class="hover:text-malabar-green transition-colors">Rings</a>
+                <a href="#necklaces" class="hover:text-malabar-green transition-colors">Necklaces</a>
+                <a href="#bangles" class="hover:text-malabar-green transition-colors">Bangles & Bracelets</a>
+                <a href="#bridal" class="text-malabar-green">Bridal Sets</a>
+                <a href="#investment" class="hover:text-malabar-green transition-colors">Gold Coins</a>
+            </div>
+        </nav>
+
+        <!-- PRODUCT GRID -->
+        <section id="shop" class="container mx-auto px-4 md:px-12 py-24">
+            <div class="flex flex-col items-center text-center mb-20">
+                <h2 class="luxury-font text-4xl md:text-6xl text-malabar-green italic">Exquisite Artistry</h2>
+                <div class="w-16 h-[1px] bg-gold mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-10">
+                <script>
+                    const malabarProducts = [
+                        { name: "Stud Earrings", cat: "Earrings", img: "https://images.unsplash.com/photo-1590548784585-645d8b756271?w=500" },
+                        { name: "Jhumkas", cat: "Traditional", img: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=500" },
+                        { name: "Chandbali Earrings", cat: "Antique", img: "https://images.unsplash.com/photo-1629227352217-ef021884399e?w=500" },
+                        { name: "Drop & Dangle", cat: "Elegant", img: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500" },
+                        { name: "Engagement Rings", cat: "Rings", img: "https://images.unsplash.com/photo-1586104182373-108a70515154?w=500" },
+                        { name: "Solitaire Rings", cat: "Diamond", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" },
+                        { name: "Cocktail Rings", cat: "Statement", img: "https://images.unsplash.com/photo-1622398476015-50868d608297?w=500" },
+                        { name: "Casual Bands", cat: "Daily Wear", img: "https://images.unsplash.com/photo-1613507111812-70b13888365a?w=500" },
+                        { name: "Chokers", cat: "Necklaces", img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" },
+                        { name: "Haram", cat: "Long Necklace", img: "https://images.unsplash.com/photo-1611085583191-a3b13e24424a?w=500" },
+                        { name: "Pendant Necklaces", cat: "Pendants", img: "https://images.unsplash.com/photo-1596944210900-34d19360e20d?w=500" },
+                        { name: "Mangalsutra", cat: "Traditional", img: "https://images.unsplash.com/photo-1613843513331-50e50a4cc833?w=500" },
+                        { name: "Gold Bangles", cat: "Bangles", img: "https://images.unsplash.com/photo-1627253509425-63533ec7c81d?w=500" },
+                        { name: "Diamond Bangles", cat: "Mine Diamond", img: "https://images.unsplash.com/photo-1619119069152-a2b331eb392a?w=500" },
+                        { name: "Charm Bracelets", cat: "Bracelets", img: "https://images.unsplash.com/photo-1611591437248-c20e24100068?w=500" },
+                        { name: "Tennis Bracelets", cat: "Premium", img: "https://images.unsplash.com/photo-1515562141207-7a1886a10110?w=500" },
+                        { name: "Maang Tikka", cat: "Bridal", img: "https://images.unsplash.com/photo-1599643477877-537ef527848b?w=500" },
+                        { name: "Nose Pins", cat: "Accessories", img: "https://images.unsplash.com/photo-1613843793081-36423c11f71a?w=500" },
+                        { name: "Anklets", cat: "Foot Jewellery", img: "https://images.unsplash.com/photo-1632292226330-0fc17cc11943?w=500" },
+                        { name: "Armlets (Vanki)", cat: "Traditional", img: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=500" },
+                        { name: "Waist Chains", cat: "Vaddanam", img: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=500" },
+                        { name: "Temple Jewellery", cat: "Divine Heritage", img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" },
+                        { name: "Kundan Sets", cat: "Ethnic", img: "https://images.unsplash.com/photo-1611085583191-a3b13e24424a?w=500" },
+                        { name: "Platinum Bands", cat: "Platinum", img: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=500" },
+                        { name: "Gemstone Rings", cat: "Precious", img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500" },
+                        { name: "Gold Coins & Bars", cat: "Investment", img: "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=500" }
+                    ];
+
+                    document.write(malabarProducts.map((p, i) => `
+                        <div class="product-card group cursor-pointer bg-white rounded-2xl overflow-hidden ornament-border shadow-sm">
+                            <div class="aspect-square overflow-hidden relative">
+                                <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="${p.name}">
+                                <div class="category-overlay absolute inset-0 flex flex-col justify-end p-6">
+                                    <button class="bg-gold text-white py-2.5 text-[9px] font-black uppercase tracking-widest rounded-lg shadow-xl">Explore Category</button>
+                                </div>
+                            </div>
+                            <div class="p-6 text-center">
+                                <span class="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 block">${p.cat}</span>
+                                <h3 class="luxury-font text-lg font-bold text-malabar-green truncate">${p.name}</h3>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- BRIDAL PROMO -->
+        <section id="bridal" class="bg-malabar-green text-white py-24 relative overflow-hidden">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 items-center gap-16 relative z-10">
+                <div class="space-y-8">
+                    <div
+                        class="inline-block border border-gold px-4 py-1 text-[10px] font-bold uppercase tracking-[0.4em] gold-accent">
+                        Brides of India</div>
+                    <h2 class="luxury-font text-5xl md:text-8xl italic leading-none tracking-tighter">The Royal <br>
+                        Wedding Edit.</h2>
+                    <p class="text-lg opacity-70 font-light leading-relaxed">Handcrafted bridal jewelry sets that blend
+                        regional traditions with modern elegance. Make your wedding a golden memory.</p>
+                    <button
+                        class="bg-gold text-white px-12 py-4 font-black uppercase text-xs tracking-widest hover:bg-white hover:text-malabar-green transition-all duration-500 shadow-2xl">Book
+                        A Consultation</button>
+                </div>
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-4 border border-gold/20 rotate-3 rounded-2xl group-hover:rotate-0 transition-transform duration-700">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1599643477877-537ef527848b?q=80&w=1000"
+                        class="rounded-xl shadow-2xl relative z-10" alt="Bridal">
+                </div>
+            </div>
+            <!-- Background element -->
+            <div class="absolute -right-20 -top-20 w-96 h-96 border-[40px] border-white/5 rounded-full"></div>
+        </section>
+
+        <!-- TRUST BANNER -->
+        <section class="py-20 border-b border-gray-100 bg-white">
+            <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 text-center">
+                <div class="space-y-3">
+                    <ion-icon name="shield-checkmark-outline" class="text-3xl gold-accent"></ion-icon>
+                    <h4 class="luxury-font text-xl font-bold tracking-tight">BIS Hallmarked</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">100% Purity Guaranteed</p>
+                </div>
+                <div class="space-y-3">
+                    <ion-icon name="diamond-outline" class="text-3xl gold-accent"></ion-icon>
+                    <h4 class="luxury-font text-xl font-bold tracking-tight">IGI Certified</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Conflict-Free Diamonds</p>
+                </div>
+                <div class="space-y-3">
+                    <ion-icon name="refresh-outline" class="text-3xl gold-accent"></ion-icon>
+                    <h4 class="luxury-font text-xl font-bold tracking-tight">Buyback Policy</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Full Value Exchange</p>
+                </div>
+                <div class="space-y-3">
+                    <ion-icon name="lock-closed-outline" class="text-3xl gold-accent"></ion-icon>
+                    <h4 class="luxury-font text-xl font-bold tracking-tight">Insured Shipping</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Door-to-door Security</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0b1411] text-white pt-24 pb-12">
+        <div
+            class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 border-b border-white/5 pb-16">
+            <div class="space-y-6">
+                <div class="flex flex-col items-start leading-none">
+                    <div class="text-2xl font-black tracking-tighter uppercase text-white">HostelMart</div>
+                    <div class="luxury-font text-lg font-bold gold-accent mt-1 tracking-widest">MALABAR</div>
+                </div>
+                <p class="text-[11px] text-gray-500 leading-relaxed uppercase tracking-widest font-medium">A world-class
+                    jewelry experience brought to you by HostelMart. 25+ years of trust and excellence.</p>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl gold-accent mb-8">Departments</h4>
+                <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-gold transition">Traditional Gold</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Mine Diamonds</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Era Uncut</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Platinum</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl gold-accent mb-8">Help & Support</h4>
+                <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-gold transition">Care & Cleaning</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Gold Rate Today</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl gold-accent mb-8">Social</h4>
+                <div class="flex gap-6 text-2xl text-gray-500">
+                    <a href="#" class="hover:text-gold transition"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#" class="hover:text-gold transition"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#" class="hover:text-gold transition"><ion-icon name="logo-youtube"></ion-icon></a>
+                </div>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.3em] text-gray-600">
+            <p>© 2024 HostelMart x Malabar Gold & Diamonds. Authentic Craftsmanship.</p>
+            <div class="flex gap-8 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition">Terms of Sale</a>
+                <a href="#" class="hover:text-white transition">HUID Verification</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll implementation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                const offset = 150; // Combined sticky header and subnav height
+
+                if (targetElement) {
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

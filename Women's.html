@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Collection | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .zara-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .brand-tab:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-card:hover .add-to-cart {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .add-to-cart {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .sticky-brand-nav {
+            top: 72px;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-brand-nav {
+                top: 60px;
+            }
+        }
+
+        /* Custom Scroll Snap for Mobile */
+        .snap-x {
+            scroll-snap-type: x mandatory;
+        }
+
+        .snap-center {
+            scroll-snap-align: center;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 md:px-12 py-3 md:py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start leading-none group cursor-pointer">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+                    Hostel<span class="text-pink-500">Mart</span>
+                </a>
+                <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-400 mt-1">Women's
+                    Department</span>
+            </div>
+
+            <div class="flex items-center gap-4 text-2xl">
+                <button class="hover:text-pink-500 transition-colors"><ion-icon
+                        name="search-outline"></ion-icon></button>
+                <button class="hover:text-pink-500 relative transition-colors">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span
+                        class="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BRAND QUICK NAV -->
+    <nav
+        class="sticky sticky-brand-nav bg-white/90 backdrop-blur-md z-40 border-b border-gray-50 shadow-sm overflow-x-auto no-scrollbar">
+        <div
+            class="container mx-auto px-4 flex justify-start md:justify-center items-center gap-6 md:gap-12 py-4 whitespace-nowrap">
+            <a href="#zara"
+                class="text-[10px] font-black uppercase tracking-widest hover:text-pink-500 transition-colors">Zara</a>
+            <a href="#hm"
+                class="text-[10px] font-black uppercase tracking-widest hover:text-pink-500 transition-colors">H&M</a>
+            <a href="#biba"
+                class="text-[10px] font-black uppercase tracking-widest hover:text-pink-500 transition-colors">Biba</a>
+            <a href="#fabindia"
+                class="text-[10px] font-black uppercase tracking-widest hover:text-pink-500 transition-colors">Fabindia</a>
+            <a href="#f21"
+                class="text-[10px] font-black uppercase tracking-widest hover:text-pink-500 transition-colors">Forever
+                21</a>
+            <a href="#only"
+                class="text-[10px] font-black uppercase tracking-widest hover:text-pink-500 transition-colors">Only</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO DEPARTMENT BANNER -->
+        <section class="relative h-[40vh] md:h-[60vh] bg-gray-900 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2000&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-70" alt="Women's Department">
+            <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
+                <p class="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-4">The Global Edit</p>
+                <h1 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6">Women's <br>
+                    Department</h1>
+                <p class="max-w-xl text-sm md:text-base opacity-90 font-medium">Curated collections from the world's
+                    most iconic brands. From street style to ethnic elegance.</p>
+            </div>
+        </section>
+
+        <!-- BRAND SECTIONS -->
+        <div id="brand-container" class="space-y-24 py-16">
+
+            <!-- ZARA SECTION -->
+            <section id="zara" class="container mx-auto px-4 md:px-12">
+                <div class="flex flex-col items-center mb-12">
+                    <h2 class="zara-font text-4xl md:text-6xl mb-2">ZARA</h2>
+                    <p class="text-[10px] uppercase tracking-[0.5em] text-gray-400">Exclusive Collection</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
+                    <script>
+                        const zaraItems = ["Tops", "T-Shirts", "Shirts", "Blouses", "Crop Tops", "Tunics", "Maxi Dresses", "Midi Dresses", "Mini Dresses", "Party Dresses", "Casual Dresses", "Mini Skirts", "Midi Skirts", "Jeans", "Trousers", "Shorts", "Blazers", "Jackets", "Coats", "Hoodies", "Sweatshirts", "Sweaters", "Cardigans", "Jumpsuits", "Co-ord Sets", "Knitwear", "Lounge Wear", "Basic Tees"];
+                        document.write(zaraItems.map((item, i) => `
+                            <div class="product-card group cursor-pointer">
+                                <div class="aspect-[3/4] bg-gray-100 overflow-hidden relative rounded-sm">
+                                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&q=80&sig=${i}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${item}">
+                                    <div class="absolute inset-x-0 bottom-0 p-4 add-to-cart">
+                                        <button class="w-full bg-white/90 backdrop-blur py-2 text-[9px] font-black uppercase tracking-widest border border-gray-200">View Category</button>
+                                    </div>
+                                </div>
+                                <h3 class="mt-4 text-[11px] font-bold uppercase tracking-wider text-center">${item}</h3>
+                            </div>
+                        `).join(''));
+                    </script>
+                </div>
+            </section>
+
+            <!-- H&M SECTION -->
+            <section id="hm" class="bg-gray-50 py-20">
+                <div class="container mx-auto px-4 md:px-12">
+                    <div class="flex items-baseline gap-4 mb-12">
+                        <h2 class="text-3xl md:text-5xl font-black text-[#E50012] italic">H&M</h2>
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Daily Essentials</span>
+                    </div>
+                    <div class="flex overflow-x-auto gap-6 no-scrollbar snap-x">
+                        <script>
+                            const hmItems = ["Tops", "T-Shirts", "Shirts", "Blouses", "Crop Tops", "Tank Tops", "Maxi Dresses", "Midi Dresses", "Mini Dresses", "Casual Dresses", "Party Dresses", "Skirts", "Jeans", "Jeggings", "Trousers", "Shorts", "Blazers", "Jackets", "Hoodies", "Sweatshirts", "Sweaters", "Cardigans", "Jumpsuits", "Co-ord Sets", "Nightwear", "Loungewear", "Bras", "Panties"];
+                            document.write(hmItems.map((item, i) => `
+                                <div class="min-w-[180px] md:min-w-[240px] snap-center group">
+                                    <div class="aspect-[3/4] bg-white overflow-hidden rounded-xl shadow-sm hover:shadow-xl transition-all">
+                                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&q=80&sig=hm${i}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                                    </div>
+                                    <h3 class="mt-4 text-xs font-black uppercase text-gray-700">${item}</h3>
+                                </div>
+                            `).join(''));
+                        </script>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BIBA SECTION (Ethnic) -->
+            <section id="biba" class="container mx-auto px-4 md:px-12">
+                <div class="border-l-8 border-orange-400 pl-6 mb-12">
+                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter">Biba</h2>
+                    <p class="text-sm font-medium text-orange-500 uppercase tracking-[0.2em]">Traditional Soul, Modern
+                        Spirit</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <script>
+                        const bibaItems = ["Kurtas", "Kurtis", "Sarees", "Salwar Suits", "Anarkali Dresses", "Dupattas", "Ethnic Dresses", "Palazzos", "Leggings", "Churidars", "Lehengas", "Printed Kurtas", "Embroidered Kurtas", "Festive Wear", "Silk Kurtas", "Palazzo Sets", "Straight Cut Kurtas", "Ethnic Gowns"];
+                        document.write(bibaItems.map((item, i) => `
+                            <div class="group cursor-pointer">
+                                <div class="relative overflow-hidden rounded-2xl aspect-[4/5]">
+                                    <img src="https://images.unsplash.com/photo-1583313261122-990add2f317b?w=500&q=80&sig=biba${i}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent flex items-end p-4">
+                                        <h3 class="text-white font-black text-[10px] md:text-xs uppercase tracking-widest">${item}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join(''));
+                    </script>
+                </div>
+            </section>
+
+            <!-- FABINDIA SECTION -->
+            <section id="fabindia" class="bg-[#5C2D25] py-20 text-white">
+                <div class="container mx-auto px-4 md:px-12">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                        <div>
+                            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter">Fabindia</h2>
+                            <p class="text-amber-400 font-bold uppercase tracking-widest text-sm mt-2">Celebrate India
+                            </p>
+                        </div>
+                        <p class="max-w-md text-xs opacity-70 leading-relaxed uppercase tracking-widest">Handcrafted
+                            elegance and sustainable fabrics designed for the conscious woman.</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <script>
+                            const fabItems = ["Kurtas", "Handloom Sarees", "Silk Sarees", "Ethnic Jackets", "Tunics", "Palazzos", "Churidars", "Stoles", "Ethnic Gowns", "Fusion Wear"];
+                            document.write(fabItems.map((item, i) => `
+                                <div class="relative group h-64 md:h-80 overflow-hidden rounded-sm">
+                                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80&sig=fab${i}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                                    <div class="absolute inset-0 border border-white/20 m-4 flex items-center justify-center">
+                                        <h3 class="bg-white text-black px-4 py-2 text-[10px] font-black uppercase tracking-widest">${item}</h3>
+                                    </div>
+                                </div>
+                            `).join(''));
+                        </script>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOREVER 21 SECTION -->
+            <section id="f21" class="container mx-auto px-4 md:px-12">
+                <div
+                    class="bg-yellow-400 p-8 md:p-12 mb-12 flex justify-between items-center rounded-3xl overflow-hidden relative">
+                    <h2
+                        class="text-4xl md:text-7xl font-black uppercase italic tracking-tighter z-10 text-white shadow-sm">
+                        Forever 21</h2>
+                    <div class="text-right z-10">
+                        <p class="font-black uppercase tracking-widest text-xs">Gen-Z Favorites</p>
+                        <p class="text-white font-black text-2xl">New Drops Weekly</p>
+                    </div>
+                    <div
+                        class="absolute top-0 right-0 w-64 h-64 bg-yellow-300 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <script>
+                        const f21Items = ["Tops", "Crop Tops", "Maxi Dresses", "Mini Dresses", "Mini Skirts", "Playsuits", "Co-ord Sets", "Hoodies", "Activewear", "Sports Bras"];
+                        document.write(f21Items.map((item, i) => `
+                            <div class="group cursor-pointer">
+                                <div class="aspect-square bg-gray-50 rounded-2xl overflow-hidden mb-2">
+                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80&sig=f21${i}" class="w-full h-full object-cover group-hover:rotate-2 group-hover:scale-110 transition-transform">
+                                </div>
+                                <h3 class="text-[10px] font-black uppercase tracking-tighter text-gray-500 group-hover:text-yellow-500">${item}</h3>
+                            </div>
+                        `).join(''));
+                    </script>
+                </div>
+            </section>
+
+            <!-- ONLY SECTION -->
+            <section id="only" class="container mx-auto px-4 md:px-12 border-t border-gray-100 pt-20">
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2
+                            class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-blue-600 leading-none">
+                            Only</h2>
+                        <p class="text-[10px] font-bold uppercase tracking-[0.3em] mt-2 text-gray-400">Denim & Beyond
+                        </p>
+                    </div>
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase">View
+                        Brand Shop</button>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <script>
+                        const onlyItems = ["Denim Dresses", "Slim Jeans", "Mom Jeans", "Overshirts", "Knitwear", "Lounge Pants"];
+                        document.write(onlyItems.map((item, i) => `
+                            <div class="product-card group">
+                                <div class="aspect-[2/3] overflow-hidden bg-blue-50 relative rounded-sm">
+                                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&q=80&sig=only${i}" class="w-full h-full object-cover group-hover:opacity-80 transition-opacity">
+                                </div>
+                                <h3 class="mt-4 text-[10px] font-black uppercase tracking-widest border-b border-gray-100 pb-2">${item}</h3>
+                            </div>
+                        `).join(''));
+                    </script>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-100 pt-20 pb-12">
+        <div
+            class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-50 pb-12">
+            <div class="space-y-6">
+                <a href="#" class="text-2xl font-black tracking-tighter text-gray-900 uppercase">HostelMart</a>
+                <p class="text-xs text-gray-400 font-medium leading-relaxed uppercase tracking-widest">Premium
+                    department store for the modern woman. Curating global styles from ZARA to Biba.</p>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6">Brands</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-4 text-gray-500">
+                    <li><a href="#zara" class="hover:text-pink-500 transition-colors">Zara</a></li>
+                    <li><a href="#hm" class="hover:text-pink-500 transition-colors">H&M</a></li>
+                    <li><a href="#biba" class="hover:text-pink-500 transition-colors">Biba Ethnic</a></li>
+                    <li><a href="#fabindia" class="hover:text-pink-500 transition-colors">Fabindia</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6">Service</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-4 text-gray-500">
+                    <li><a href="#" class="hover:text-pink-500 transition-colors">Size Guide</a></li>
+                    <li><a href="#" class="hover:text-pink-500 transition-colors">Shipping</a></li>
+                    <li><a href="#" class="hover:text-pink-500 transition-colors">Returns</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6">Join Us</h4>
+                <form class="flex gap-2">
+                    <input type="email" placeholder="EMAIL"
+                        class="flex-1 bg-gray-50 border-none px-4 py-2 text-[10px] outline-none focus:ring-1 focus:ring-pink-500">
+                    <button class="bg-black text-white px-4 py-2 text-[10px] font-bold">JOIN</button>
+                </form>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-12 py-8 text-center md:text-left">
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em]">&copy; 2024 HostelMart Women. All
+                Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const isActive = content.classList.contains('active');
+            if (!isActive) {
+                content.classList.add('active');
+            } else {
+                content.classList.remove('active');
+            }
+        }
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

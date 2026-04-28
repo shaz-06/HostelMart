@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUMA | HostelMart Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .puma-font {
+            font-family: 'Barlow Condensed', sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        /* Diagonal background accent */
+        .puma-slash {
+            clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+        }
+
+        .btn-puma {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-puma::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: #fff;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-puma:hover {
+            color: #000;
+        }
+
+        .btn-puma:hover::after {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+    <!-- TOP ANNOUNCEMENT -->
+    <div class="bg-black text-white py-1.5 text-center text-[10px] font-bold uppercase tracking-[0.2em]">
+        Extra 25% off for all HostelMart members | code: PUMAXHOSTEL
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start leading-none group cursor-pointer">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter text-black uppercase">
+                    Hostel<span class="text-gray-400 group-hover:text-black transition-colors">Mart</span>
+                </a>
+                <!-- Puma Logo SVG -->
+                <div class="mt-1">
+                    <svg width="45" height="20" viewBox="0 0 100 45" fill="black">
+                        <path
+                            d="M85.4,3.7c-3.1,0-6.1,1.2-8.3,3.4l-1.5,1.5c-0.4,0.4-0.4,1.1,0,1.5l0.4,0.4c0.4,0.4,1.1,0.4,1.5,0l1.5-1.5 c1.8-1.8,4.2-2.8,6.8-2.8c5.3,0,9.6,4.3,9.6,9.6c0,2.6-1,5.1-2.8,6.8l-1.5,1.5c-0.4,0.4-0.4,1.1,0,1.5l0.4,0.4 c0.4,0.4,1.1,0.4,1.5,0l1.5-1.5c2.2-2.2,3.4-5.2,3.4-8.3C97.8,9.2,92.3,3.7,85.4,3.7z M64.6,18.4c-4.1,0-7.4,3.3-7.4,7.4 s3.3,7.4,7.4,7.4s7.4-3.3,7.4-7.4S68.7,18.4,64.6,18.4z M21.2,12.2c-5.1,0-9.2,4.1-9.2,9.2s4.1,9.2,9.2,9.2s9.2-4.1,9.2-9.2 S26.3,12.2,21.2,12.2z M42.9,0.3c-0.6,0-1.1,0.5-1.1,1.1v42.2c0,0.6,0.5,1.1,1.1,1.1h2.2c0.6,0,1.1-0.5,1.1-1.1V1.4 c0-0.6-0.5-1.1-1.1-1.1H42.9z M0,1.4v42.2c0,0.6,0.5,1.1,1.1,1.1h2.2c0.6,0,1.1-0.5,1.1-1.1V1.4c0-0.6-0.5-1.1-1.1-1.1H1.1 C0.5,0.3,0,0.8,0,1.4z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex gap-8 text-xs font-black uppercase tracking-widest">
+                <a href="#" class="hover:text-gray-500">New Arrivals</a>
+                <a href="#" class="hover:text-gray-500">Men</a>
+                <a href="#" class="hover:text-gray-500">Women</a>
+                <a href="#" class="hover:text-gray-500">Motorsport</a>
+                <a href="#" class="text-red-600">Sale</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-5 text-2xl">
+                <button class="hover:opacity-50"><ion-icon name="search-outline"></ion-icon></button>
+                <button class="hover:opacity-50 relative">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span
+                        class="absolute -top-1 -right-1 bg-black text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+                <button class="lg:hidden"><ion-icon name="menu-outline"></ion-icon></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative h-[70vh] md:h-[85vh] bg-black flex items-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1511191232930-10705481757c?q=80&w=2000&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Puma Training">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/20 to-transparent"></div>
+            <div class="container mx-auto px-6 relative z-10 text-white">
+                <div class="max-w-2xl space-y-6">
+                    <h1 class="puma-font text-6xl md:text-9xl leading-[0.8] italic uppercase tracking-tighter">
+                        FOREVER.<br>FASTER.</h1>
+                    <p class="text-lg md:text-xl font-medium opacity-80">Speed is our DNA. Level up your performance
+                        with the latest Nitro™ technology.</p>
+                    <div class="flex flex-wrap gap-4 pt-6">
+                        <a href="#shop"
+                            class="btn-puma bg-white text-black px-12 py-4 font-black uppercase text-sm z-10">Shop
+                            Now</a>
+                        <a href="#"
+                            class="btn-puma border-2 border-white text-white px-12 py-4 font-black uppercase text-sm z-10">Join
+                            Membership</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORY STRIP -->
+        <div class="bg-[#F4F4F4] overflow-x-auto no-scrollbar border-b border-gray-200">
+            <div
+                class="container mx-auto px-4 md:px-12 flex gap-12 py-4 whitespace-nowrap text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
+                <a href="#" class="text-black border-b-2 border-black pb-1">Trending</a>
+                <a href="#" class="hover:text-black">Running</a>
+                <a href="#" class="hover:text-black">Football</a>
+                <a href="#" class="hover:text-black">Basketball</a>
+                <a href="#" class="hover:text-black">Lifestyle</a>
+                <a href="#" class="hover:text-black">Training</a>
+            </div>
+        </div>
+
+        <!-- PRODUCT GRID (30 Items) -->
+        <section id="shop" class="container mx-auto px-4 md:px-12 py-20">
+            <div class="flex items-end justify-between mb-12">
+                <h2 class="puma-font text-4xl md:text-5xl uppercase italic tracking-tighter">The Performance Lab</h2>
+                <button class="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1">Filter &
+                    Sort</button>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
+
+                <script>
+                    const pumaProducts = [
+                        { name: "Graphite Training Tee", price: "28.00", type: "T-Shirts", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500" },
+                        { name: "Pique Performance Polo", price: "45.00", type: "Polo Shirts", img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500" },
+                        { name: "Nitro Cloud Hoodie", price: "75.00", type: "Hoodies", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500" },
+                        { name: "Everyday Sweatshirt", price: "60.00", type: "Sweatshirts", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500" },
+                        { name: "T7 Track Pants", price: "55.00", type: "Track Pants", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" },
+                        { name: "Active Tapered Joggers", price: "50.00", type: "Joggers", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=500" },
+                        { name: "Mesh Training Shorts", price: "35.00", type: "Shorts", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500" },
+                        { name: "Woven Sports Jacket", price: "85.00", type: "Sports Jackets", img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?w=500" },
+                        { name: "Lightweight Windbreaker", price: "70.00", type: "Windbreakers", img: "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=500" },
+                        { name: "Compression Tight", price: "45.00", type: "Training Tights", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500" },
+                        { name: "Dri-Release Vest", price: "25.00", type: "Gym Vests", img: "https://images.unsplash.com/photo-1583454110351-3cd76d7d005f?w=500" },
+                        { name: "Ultra Running Shorts", price: "40.00", type: "Running Shorts", img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=500" },
+                        { name: "Official Match Jersey", price: "90.00", type: "Football Jerseys", img: "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=500" },
+                        { name: "Hoops Game Jersey", price: "80.00", type: "Basketball Jerseys", img: "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=500" },
+                        { name: "High-Impact Bra", price: "45.00", type: "Sports Bras", img: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=500" },
+                        { name: "Seamless Leggings", price: "55.00", type: "Leggings", img: "https://images.unsplash.com/photo-1483721310020-03333e577078?w=500" },
+                        { name: "Core Casual Pants", price: "65.00", type: "Casual Pants", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500" },
+                        { name: "Iconic Tracksuit", price: "110.00", type: "Tracksuits", img: "https://images.unsplash.com/photo-1509533357591-6677f5165977?w=500" },
+                        { name: "Archive Logo Cap", price: "20.00", type: "Caps", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" },
+                        { name: "Cushioned Quarter Socks", price: "12.00", type: "Socks", img: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=500" },
+                        { name: "Performance Swimsuit", price: "45.00", type: "Swimwear", img: "https://images.unsplash.com/photo-1502389614483-e475fc3340b7?w=500" },
+                        { name: "Essential Boxers", price: "25.00", type: "Innerwear", img: "https://images.unsplash.com/photo-1582719202047-76d3432ee323?w=500" },
+                        { name: "Thermal Base Layer", price: "50.00", type: "Base Layers", img: "https://images.unsplash.com/photo-1517438476312-10d79c07750d?w=500" },
+                        { name: "Down Winter Jacket", price: "180.00", type: "Winter Jackets", img: "https://images.unsplash.com/photo-1544923246-77307dd654ca?w=500" },
+                        { name: "Performance Tank", price: "22.00", type: "Sleeveless Tees", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500" },
+                        { name: "Elite Performance Tee", price: "35.00", type: "Performance Tees", img: "https://images.unsplash.com/photo-1515462277126-2dd0c162007a?w=500" },
+                        { name: "Pro Training Set", price: "95.00", type: "Training Sets", img: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=500" },
+                        { name: "Lifestyle Co-ord", price: "120.00", type: "Athleisure Wear", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500" },
+                        { name: "Shield Rain Jacket", price: "95.00", type: "Rain Jackets", img: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=400" },
+                        { name: "Soft Lounge Set", price: "65.00", type: "Lounge Wear", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500" },
+                        { name: "Total Gym Set", price: "140.00", type: "Gym Sets", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500" }
+                    ];
+
+                    document.write(pumaProducts.map(p => `
+                        <div class="product-card group cursor-pointer relative bg-white overflow-hidden border border-gray-50 shadow-sm hover:shadow-xl transition-all duration-300">
+                            <div class="aspect-[4/5] bg-gray-100 overflow-hidden relative">
+                                <img src="${p.img}" class="w-full h-full object-cover" alt="${p.name}">
+                                <div class="absolute top-4 right-4 text-2xl text-gray-300 hover:text-black transition-colors"><ion-icon name="heart-outline"></ion-icon></div>
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-[11px] font-black uppercase tracking-wider text-gray-400">${p.type}</h3>
+                                    <p class="text-xs font-black italic">$${p.price}</p>
+                                </div>
+                                <h4 class="font-bold text-sm text-gray-900 group-hover:text-red-600 transition-colors uppercase italic">${p.name}</h4>
+                                <div class="mt-4 flex gap-2 overflow-hidden">
+                                    <div class="w-4 h-4 rounded-full bg-black border border-gray-200"></div>
+                                    <div class="w-4 h-4 rounded-full bg-red-600 border border-gray-200"></div>
+                                    <div class="w-4 h-4 rounded-full bg-gray-200 border border-gray-200"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+
+            </div>
+        </section>
+
+        <!-- MOTORSPORT SECTION -->
+        <section class="bg-black text-white relative overflow-hidden py-32">
+            <div class="absolute top-0 right-0 w-1/2 h-full puma-slash bg-zinc-900/50 -z-0"></div>
+            <div class="container mx-auto px-6 grid md:grid-cols-2 items-center relative z-10">
+                <div class="space-y-8">
+                    <h2 class="puma-font text-5xl md:text-8xl italic uppercase leading-[0.85] tracking-tighter">
+                        PUMA<br>MOTORSPORT.</h2>
+                    <p class="text-lg font-medium opacity-80 max-w-md italic">Speed, style, and the roar of the engine.
+                        Shop the exclusive F1® and BMW M Motorsport collections.</p>
+                    <button class="btn-puma border-2 border-white px-12 py-4 font-black uppercase text-sm">Shop
+                        Motorsport</button>
+                </div>
+                <div class="mt-12 md:mt-0 relative group">
+                    <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=1000"
+                        class="rounded-lg shadow-2xl transform group-hover:-translate-y-4 transition-transform duration-700"
+                        alt="Motorsport">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-6 text-black">
+                        <p class="puma-font text-2xl italic uppercase font-black">Speed is our DNA</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-100 pt-24 pb-12">
+        <div
+            class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-100">
+            <div class="space-y-6">
+                <div class="flex flex-col leading-none">
+                    <a href="index.html"
+                        class="text-2xl font-black tracking-tighter text-black uppercase">HostelMart</a>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mt-1">PUMA Official Partner
+                    </p>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-widest">A global performance
+                    experience curated by HostelMart.</p>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6 italic">Support</h4>
+                <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-black transition">Track Order</a></li>
+                    <li><a href="#" class="hover:text-black transition">Shipping Policy</a></li>
+                    <li><a href="#" class="hover:text-black transition">Return Center</a></li>
+                    <li><a href="#" class="hover:text-black transition">FAQs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6 italic">Categories</h4>
+                <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-black transition">Run & Train</a></li>
+                    <li><a href="#" class="hover:text-black transition">Lifestyle</a></li>
+                    <li><a href="#" class="hover:text-black transition">Football</a></li>
+                    <li><a href="#" class="hover:text-black transition">Sustainability</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-widest mb-6 italic">Newsletter</h4>
+                <form class="space-y-4">
+                    <input type="email" placeholder="EMAIL ADDRESS"
+                        class="w-full bg-gray-50 border border-gray-100 px-4 py-3 text-[10px] font-bold outline-none focus:border-black">
+                    <button
+                        class="w-full bg-black text-white py-3 text-[10px] font-black uppercase tracking-widest">Sign
+                        Up</button>
+                </form>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400">
+            <p>© 2024 HostelMart x PUMA SE. All rights reserved.</p>
+            <div class="flex gap-8 mt-4 md:mt-0">
+                <a href="#" class="hover:text-black">Privacy Policy</a>
+                <a href="#" class="hover:text-black">Terms of Sale</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

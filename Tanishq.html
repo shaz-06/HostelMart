@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanishq | HostelMart Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcfb;
+        }
+
+        .luxury-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .tanishq-maroon {
+            color: #83272d;
+        }
+
+        .bg-tanishq-maroon {
+            background-color: #83272d;
+        }
+
+        .border-tanishq-maroon {
+            border-color: #83272d;
+        }
+
+        .gold-text {
+            color: #b08d57;
+        }
+
+        .bg-gold {
+            background-color: #b08d57;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .product-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(131, 39, 45, 0.15);
+        }
+
+        .item-overlay {
+            background: linear-gradient(to top, rgba(131, 39, 45, 0.9), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover .item-overlay {
+            opacity: 1;
+        }
+
+        /* Elegant border detail */
+        .premium-border {
+            position: relative;
+        }
+
+        .premium-border::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1px;
+            background-color: #b08d57;
+        }
+    </style>
+</head>
+
+<body class="text-gray-900 antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col items-center">
+            <!-- Brand Identity -->
+            <a href="index.html"
+                class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none text-black">
+                Hostel<span class="tanishq-maroon">Mart</span>
+            </a>
+            <!-- Tanishq Sub-Brand Identity -->
+            <div class="mt-1 flex items-center gap-2">
+                <span class="h-[1px] w-4 bg-gray-300"></span>
+                <span class="luxury-font text-xl md:text-2xl font-bold tanishq-maroon tracking-tight">TANISHQ</span>
+                <span class="h-[1px] w-4 bg-gray-300"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative h-[60vh] md:h-[75vh] flex items-center justify-center overflow-hidden bg-[#1a0a0b]">
+            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=2000&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Tanishq Bridal">
+            <div class="relative z-10 text-center text-white px-6">
+                <p class="luxury-font text-xl md:text-2xl italic mb-4 gold-text">Every jewel tells a story</p>
+                <h1 class="luxury-font text-5xl md:text-8xl font-medium leading-none mb-8 tracking-tight">Elegance in
+                    Every <br> Detail.</h1>
+                <div class="flex justify-center gap-6">
+                    <a href="#collection"
+                        class="bg-tanishq-maroon text-white px-10 py-3.5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-tanishq-maroon transition duration-500 shadow-xl">Explore
+                        Collection</a>
+                </div>
+            </div>
+            <!-- Decorative corner elements -->
+            <div class="absolute top-10 left-10 w-20 h-20 border-t border-l border-gold/30"></div>
+            <div class="absolute bottom-10 right-10 w-20 h-20 border-b border-r border-gold/30"></div>
+        </section>
+
+        <!-- QUICK LINKS / COLLECTIONS -->
+        <nav class="bg-white border-b border-gray-100 sticky top-[88px] z-40 overflow-x-auto no-scrollbar">
+            <div
+                class="container mx-auto px-4 md:px-12 flex justify-start md:justify-center items-center gap-10 py-5 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                <a href="#earrings" class="hover:text-tanishq-maroon transition-colors">Earrings</a>
+                <a href="#rings" class="hover:text-tanishq-maroon transition-colors">Rings</a>
+                <a href="#necklaces" class="hover:text-tanishq-maroon transition-colors">Necklaces</a>
+                <a href="#bangles" class="hover:text-tanishq-maroon transition-colors">Bangles</a>
+                <a href="#coins" class="text-tanishq-maroon">Gold Coins</a>
+                <a href="#bridal" class="hover:text-tanishq-maroon transition-colors">Bridal</a>
+            </div>
+        </nav>
+
+        <!-- MAIN GRID SECTION -->
+        <section id="collection" class="container mx-auto px-4 md:px-12 py-20">
+            <div class="text-center mb-20">
+                <h2 class="luxury-font text-4xl md:text-6xl italic tanishq-maroon mb-4">The Grand Catalog</h2>
+                <p class="text-xs uppercase tracking-[0.4em] text-gray-400">Handcrafted masterpieces for every occasion
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-10">
+                <script>
+                    const tanishqCategories = [
+                        { name: "Earrings", img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" },
+                        { name: "Stud Earrings", img: "https://images.unsplash.com/photo-1590548784585-645d8b756271?w=500" },
+                        { name: "Jhumkas", img: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=500" },
+                        { name: "Hoop Earrings", img: "https://images.unsplash.com/photo-1629227352217-ef021884399e?w=500" },
+                        { name: "Drop & Dangler", img: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500" },
+                        { name: "Rings", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" },
+                        { name: "Casual Rings", img: "https://images.unsplash.com/photo-1622398476015-50868d608297?w=500" },
+                        { name: "Engagement Rings", img: "https://images.unsplash.com/photo-1586104182373-108a70515154?w=500" },
+                        { name: "Couple Rings", img: "https://images.unsplash.com/photo-1613507111812-70b13888365a?w=500" },
+                        { name: "Diamond Rings", img: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" },
+                        { name: "Necklaces", img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" },
+                        { name: "Necklace Sets", img: "https://images.unsplash.com/photo-1611085583191-a3b13e24424a?w=500" },
+                        { name: "Long Necklaces", img: "https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?w=500" },
+                        { name: "Chokers", img: "https://images.unsplash.com/photo-1620960512392-7473614917a2?w=500" },
+                        { name: "Pendants", img: "https://images.unsplash.com/photo-1596944210900-34d19360e20d?w=500" },
+                        { name: "Pendant Sets", img: "https://images.unsplash.com/photo-1626784215021-2e39ccf971cd?w=500" },
+                        { name: "Mangalsutra", img: "https://images.unsplash.com/photo-1613843513331-50e50a4cc833?w=500" },
+                        { name: "Chains", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500" },
+                        { name: "Bracelets", img: "https://images.unsplash.com/photo-1611591437248-c20e24100068?w=500" },
+                        { name: "Bangles", img: "https://images.unsplash.com/photo-1627253509425-63533ec7c81d?w=500" },
+                        { name: "Kada", img: "https://images.unsplash.com/photo-1619119069152-a2b331eb392a?w=500" },
+                        { name: "Anklets", img: "https://images.unsplash.com/photo-1632292226330-0fc17cc11943?w=500" },
+                        { name: "Toe Rings", img: "https://images.unsplash.com/photo-1598560912005-59261188569e?w=500" },
+                        { name: "Nose Pins", img: "https://images.unsplash.com/photo-1613843793081-36423c11f71a?w=500" },
+                        { name: "Nose Rings", img: "https://images.unsplash.com/photo-1613843513331-50e50a4cc833?w=500" },
+                        { name: "Waist Chains", img: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=500" },
+                        { name: "Bridal Sets", img: "https://images.unsplash.com/photo-1599643477877-537ef527848b?w=500" },
+                        { name: "Temple Jewellery", img: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=500" },
+                        { name: "Kundan Jewellery", img: "https://images.unsplash.com/photo-1611085583191-a3b13e24424a?w=500" },
+                        { name: "Polki Jewellery", img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" },
+                        { name: "Gemstone Jewellery", img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500" },
+                        { name: "Daily Wear", img: "https://images.unsplash.com/photo-1515562141207-7a1886a10110?w=500" },
+                        { name: "Office Wear", img: "https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=500" },
+                        { name: "Gold Coins", img: "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=500" },
+                        { name: "Zodiac Coins", img: "https://images.unsplash.com/photo-1621252179027-94459d278660?w=500" },
+                        { name: "Platinum Jewellery", img: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=500" },
+                        { name: "Diamond Jewellery", img: "https://images.unsplash.com/photo-1512163143273-bde0e3cc7418?w=500" },
+                        { name: "Gold Jewellery", img: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=500" },
+                        { name: "Rose Gold", img: "https://images.unsplash.com/photo-1611591437248-c20e24100068?w=500" },
+                        { name: "White Gold", img: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" }
+                    ];
+
+                    document.write(tanishqCategories.map((cat, i) => `
+                        <div class="product-card group cursor-pointer bg-white border border-gray-50 rounded-2xl overflow-hidden relative shadow-sm">
+                            <div class="aspect-square overflow-hidden relative">
+                                <img src="${cat.img}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="${cat.name}">
+                                <div class="item-overlay absolute inset-0 flex items-center justify-center p-6 text-center">
+                                    <button class="bg-white tanishq-maroon px-6 py-2 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Discover</button>
+                                </div>
+                            </div>
+                            <div class="p-5 text-center bg-white relative z-10">
+                                <h3 class="luxury-font text-lg font-bold text-gray-800 premium-border pb-2 inline-block">${cat.name}</h3>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- LUXURY BANNER -->
+        <section class="bg-tanishq-maroon text-white py-24 relative overflow-hidden">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 items-center gap-16 relative z-10">
+                <div class="space-y-8">
+                    <h2 class="luxury-font text-5xl md:text-8xl italic leading-none tracking-tighter">The Rivaah Bridal
+                        <br> Collection.</h2>
+                    <p class="text-lg opacity-80 leading-relaxed font-light">Exquisite bridal jewellery crafted to
+                        celebrate the beautiful unions of life. Discover the perfect ensemble for your special day.</p>
+                    <button
+                        class="border-2 border-gold-text text-gold-text hover:bg-gold-text hover:text-white px-12 py-4 font-bold uppercase text-xs tracking-widest transition duration-500">Book
+                        Appointment</button>
+                </div>
+                <div class="relative group">
+                    <img src="https://images.unsplash.com/photo-1599643477877-537ef527848b?q=80&w=1000"
+                        class="rounded shadow-2xl transition-transform duration-700 group-hover:-translate-y-4"
+                        alt="Bridal Selection">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-6 text-tanishq-maroon shadow-2xl">
+                        <p class="luxury-font text-2xl font-bold tracking-tight">Handcrafted with Love</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Background element -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2">
+            </div>
+        </section>
+
+        <!-- TRUST SECTION -->
+        <section class="container mx-auto px-6 py-20 border-b border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="space-y-4">
+                    <ion-icon name="ribbon-outline" class="text-4xl gold-text"></ion-icon>
+                    <h4 class="luxury-font text-2xl font-bold tracking-tight">Pure Gold</h4>
+                    <p class="text-sm text-gray-500">Every piece is certified and hallmarked for its purity.</p>
+                </div>
+                <div class="space-y-4">
+                    <ion-icon name="shield-checkmark-outline" class="text-4xl gold-text"></ion-icon>
+                    <h4 class="luxury-font text-2xl font-bold tracking-tight">Secure Shipping</h4>
+                    <p class="text-sm text-gray-500">Insured delivery directly from our boutique to your doorstep.</p>
+                </div>
+                <div class="space-y-4">
+                    <ion-icon name="sparkles-outline" class="text-4xl gold-text"></ion-icon>
+                    <h4 class="luxury-font text-2xl font-bold tracking-tight">Lifetime Exchange</h4>
+                    <p class="text-sm text-gray-500">Trade in your old Tanishq pieces at their current market value.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#111] text-white pt-20 pb-12">
+        <div
+            class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 border-b border-white/5 pb-12">
+            <div class="space-y-6">
+                <div class="flex flex-col items-start leading-none">
+                    <div class="text-2xl font-black tracking-tighter uppercase">HostelMart</div>
+                    <div class="luxury-font text-xl font-bold tanishq-maroon mt-1">TANISHQ</div>
+                </div>
+                <p class="text-[11px] text-gray-500 leading-relaxed uppercase tracking-widest font-medium">A HostelMart
+                    curated luxury experience. Authentic artistry from India's most trusted jeweller.</p>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl gold-text mb-6">Collections</h4>
+                <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-white transition">Wedding</a></li>
+                    <li><a href="#" class="hover:text-white transition">Rivaah</a></li>
+                    <li><a href="#" class="hover:text-white transition">Mia by Tanishq</a></li>
+                    <li><a href="#" class="hover:text-white transition">Zoya</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl gold-text mb-6">Services</h4>
+                <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
+                    <li><a href="#" class="hover:text-white transition">Virtual Try-on</a></li>
+                    <li><a href="#" class="hover:text-white transition">Gold Schemes</a></li>
+                    <li><a href="#" class="hover:text-white transition">Book Appointment</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="luxury-font text-xl gold-text mb-6">Concierge</h4>
+                <div class="flex gap-6 text-2xl text-gray-500">
+                    <a href="#" class="hover:text-white transition"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#" class="hover:text-white transition"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#" class="hover:text-white transition"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+        </div>
+        <div
+            class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.3em] text-gray-600">
+            <p>© 2024 HostelMart x Titan Company Limited. All rights reserved.</p>
+            <div class="flex gap-8 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition">Purity Certificate</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll implementation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                const offset = 140; // Combined sticky header and subnav height
+
+                if (targetElement) {
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

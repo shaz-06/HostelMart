@@ -1,0 +1,2789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelMart - Modern eCommerce Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            touch-action: manipulation;
+        }
+
+        .has-scrollbar::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        .has-scrollbar::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 5px;
+        }
+
+        .slider-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .slider-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-item {
+            min-width: 100%;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .overlay {
+            backdrop-filter: blur(4px);
+        }
+
+        .product-card:hover .hover-img {
+            opacity: 1;
+        }
+
+        .product-card .hover-img {
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        /* Mobile Category Nav Glow Effect */
+        .mobile-nav-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-pill-glow {
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.1);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 640px) {
+            .mobile-grid-2 {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem;
+            }
+        }
+
+        .active-dot {
+            background-color: #5D4037 !important;
+            width: 24px !important;
+        }
+
+        .hostelmart-gradient {
+            background: linear-gradient(to right, #5D4037, #8D6E63);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+
+    <!-- MODAL (Newsletter) -->
+    <div id="modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] max-w-4xl w-full flex flex-col md:flex-row relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="modal-container">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-2xl z-10 p-2 hover:bg-gray-100/50 backdrop-blur-sm rounded-full transition-all hover:rotate-90">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <div class="h-40 md:h-auto md:w-5/12 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80"
+                    alt="Newsletter"
+                    class="h-full w-full object-cover transition-transform duration-[2000ms] hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+            <div class="p-8 md:p-12 md:w-7/12 flex flex-col justify-center text-center md:text-left bg-white">
+                <div class="mb-2">
+                    <span class="text-[#795548] font-bold text-xs uppercase tracking-[0.2em]">Join the community</span>
+                </div>
+                <h3 class="text-2xl md:text-4xl font-black mb-4 leading-tight text-gray-900">Subscribe <br
+                        class="hidden md:block">Newsletter.</h3>
+                <p class="text-gray-500 mb-8 text-sm md:text-base leading-relaxed">Subscribe to <b
+                        class="text-gray-900">HostelMart</b> to get the latest products, secret drops and exclusive
+                    discount updates.</p>
+                <form id="newsletter-form" class="space-y-4">
+                    <div class="relative">
+                        <input type="email" id="newsletter-email" placeholder="Enter your email address"
+                            class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:border-[#5D4037] focus:ring-4 focus:ring-[#F5F5DC] outline-none transition-all placeholder:text-gray-400"
+                            required>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-[#795548] hover:shadow-lg hover:shadow-[#D7CCC8] transform active:scale-[0.98] transition-all duration-300">Subscribe
+                        Now</button>
+                </form>
+                <p class="mt-6 text-[10px] text-gray-400 uppercase tracking-widest">No spam, only the good stuff.
+                    Promise.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast"
+        class="fixed bottom-24 md:bottom-8 left-4 md:left-8 z-50 bg-white/90 backdrop-blur shadow-xl rounded-xl p-3 flex items-center gap-4 border border-gray-100 translate-x-[-150%] transition-transform duration-500 max-w-[calc(100vw-2rem)] md:max-w-sm">
+        <button onclick="closeToast()" class="absolute top-1 right-1 text-gray-400 hover:text-gray-900"><ion-icon
+                name="close-outline"></ion-icon></button>
+        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=100&q=80"
+            alt="Earrings" class="w-12 h-12 rounded-lg object-cover flex-shrink-0">
+        <div class="pr-4">
+            <p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Flash Sale Item</p>
+            <p class="font-bold text-sm truncate">Rose Gold Earrings</p>
+            <p class="text-[10px] text-gray-400">2 Minutes ago</p>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <!-- HOSTELMART STYLE HEADER -->
+    <header class="bg-white sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="#"
+                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
+                        <span class="text-[#5d4037]">Mart</span>
+                    </span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-white py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-white pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <!-- Mobile Menu Toggle -->
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+
+                <!-- Logo (Mobile only) -->
+                <a href="#" class="text-xl font-black text-[#5D4037] md:hidden">FM</a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" id="product-search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+
+                <!-- Profile & Cart -->
+                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Shashank</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="hidden md:flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="#" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-700">For You</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Mobiles</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Beauty</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Electronics</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Home</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Appliances</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                </a>
+            </div>
+        </div>
+    </header>r>
+
+    <!-- MOBILE MENU DRAWER (Updated Order) -->
+    <div id="mobileMenu"
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto has-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
+            <button onclick="toggleMobileMenu()"
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="space-y-6">
+                <li><a href="#" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+
+                <!-- STANDALONE CATEGORIES TRIGGER -->
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-categories')">
+                        <span
+                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-categories"
+                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="#" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Accessories</a>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-men')">
+                        <a href="Men's.html"
+                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">MEN'S</a>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-men"
+                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2 text-sm">
+                        <a href="#" class="block hover:text-[#795548]">T-Shirts & Polos</a>
+                        <a href="#" class="block hover:text-[#795548]">Shirts (Casual & Formal)</a>
+                        <a href="#" class="block hover:text-[#795548]">Jeans & Chinos</a>
+                        <a href="#" class="block hover:text-[#795548]">Trousers & Pants</a>
+                        <a href="#" class="block hover:text-[#795548]">Track Pants & Joggers</a>
+                        <a href="#" class="block hover:text-[#795548]">Hoodies & Sweatshirts</a>
+                        <a href="#" class="block hover:text-[#795548]">Jackets & Coats</a>
+                        <a href="#" class="block hover:text-[#795548]">Blazers & Suits</a>
+                        <a href="#" class="block hover:text-[#795548]">Ethnic Wear</a>
+                        <a href="#" class="block hover:text-[#795548]">Activewear & Innerwear</a>
+                        <a href="#" class="block hover:text-[#795548]">Winter Wear & Kidswear</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-women')">
+                        <a href="Women's.html"
+                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">WOMEN'S</a>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-women"
+                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2 text-sm">
+                        <a href="Women's.html" class="block hover:text-[#795548]">Tops & Blouses</a>
+                        <a href="Women's.html" class="block hover:text-[#795548]">Dresses</a>
+                        <a href="Women's.html" class="block hover:text-[#795548]">Ethnic Wear</a>
+                        <a href="Women's.html" class="block hover:text-[#795548]">Bottom Wear</a>
+                        <a href="Women's.html" class="block hover:text-[#795548]">Innerwear & Activewear</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-jewelry')">
+                        <span
+                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">JEWELRY</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-jewelry"
+                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="Jewelry.html" class="block hover:text-[#795548] font-medium">Jewelry Home</a>
+                        <a href="Tanishq.html" class="block hover:text-[#795548]">Tanishq</a>
+                        <a href="Malabar.html" class="block hover:text-[#795548]">Malabar Gold</a>
+                    </div>
+                </li>
+                <li><a href="Blog.html" class="font-bold uppercase group-hover:text-[#795548] transition">BLOG</a></li>
+                <li><a href="#" class="font-bold uppercase text-[#795548]">HOT OFFERS 🔥</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container mx-auto px-4 py-8 space-y-12">
+        <!-- TOP SEARCH RESULTS (Hidden by default) -->
+        <section id="search-results-area" class="hidden space-y-8">
+            <h2 id="search-results-title"
+                class="text-2xl font-black uppercase tracking-tighter flex items-center gap-3 text-gray-900">
+                <span class="w-2 h-6 bg-[#795548] rounded-full"></span>
+                Search Results
+            </h2>
+            <div id="search-results-grid"
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+                <!-- Results will be injected here -->
+            </div>
+        </section>
+
+        <!-- HERO BANNERS GRID -->
+        <section id="hero-banners" class="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <!-- Banner 1: Minutes -->
+            <div
+                class="md:col-span-5 bg-gradient-to-br from-[#F5F5DC] to-[#D7CCC8] rounded-2xl p-6 relative overflow-hidden group border border-[#D7CCC8]/50">
+                <div class="relative z-10">
+                    <p class="text-gray-600 font-bold text-sm mb-2">Get everything in <span
+                            class="text-[#5D4037] italic">MINUTES</span></p>
+                    <h2 class="text-3xl font-black text-[#5D4037] leading-tight mb-1">ZERO <span
+                            class="text-gray-900 font-medium text-xs">Platform fee</span></h2>
+                    <h2 class="text-3xl font-black text-[#5D4037] leading-tight mb-6">+ FREE <span
+                            class="text-gray-900 font-medium text-xs">Delivery at ₹99</span></h2>
+
+                    <div class="bg-white/80 backdrop-blur rounded-xl p-4 inline-block shadow-sm">
+                        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1">Breakfast picks
+                        </p>
+                        <p class="text-[#5D4037] font-black text-sm bg-[#F5F5DC] px-2 py-1 rounded-full inline-block">
+                            From ₹9</p>
+                    </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?auto=format&fit=crop&w=300&q=80"
+                    class="absolute bottom-[-20px] right-[-20px] w-48 h-48 object-contain group-hover:scale-110 transition-transform duration-500"
+                    alt="">
+                <div
+                    class="absolute top-4 right-4 bg-[#8D6E63] text-white font-black text-[10px] px-2 py-1 rounded-md rotate-12 uppercase tracking-widest shadow-lg border border-white/20">
+                    Saffron</div>
+            </div>
+
+            <!-- Banner 2: Healthcare -->
+            <div class="md:col-span-4 bg-gray-50 rounded-2xl p-8 relative overflow-hidden group border border-gray-100">
+                <div class="relative z-10">
+                    <h2 class="text-2xl font-black text-gray-900 leading-tight mb-2">Healthcare essentials</h2>
+                    <p class="text-[#5D4037] font-black text-xl mb-4">Up to 80% Off</p>
+                    <p class="text-gray-500 text-sm font-medium">Complan, Ensure & more</p>
+                </div>
+                <div class="flex gap-2 absolute bottom-4 right-4">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=150&q=80"
+                        class="w-20 h-28 object-contain rounded-lg shadow-md" alt="">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=150&q=80"
+                        class="w-20 h-28 object-contain rounded-lg shadow-md" alt="">
+                </div>
+            </div>
+
+            <!-- Banner 3: Kids Tricycle -->
+            <div
+                class="md:col-span-3 bg-[#5D4037] rounded-2xl p-6 text-white relative overflow-hidden group border border-[#8D6E63]/30 shadow-inner">
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div
+                            class="w-8 h-8 bg-[#F5F5DC] rounded-full flex items-center justify-center text-[#5D4037] font-black text-xs">
+                            MC</div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#D7CCC8]">Miss Chief</span>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2">Kids tricycle</h2>
+                    <p class="text-[#D4BE8D] font-black text-xl mb-4">Up to 70% Off</p>
+                    <p class="text-[#D7CCC8] text-xs mb-8 opacity-80 italic">Kickstart your adventure</p>
+                </div>
+                <div
+                    class="absolute bottom-4 right-4 w-12 h-12 rounded-full border-2 border-white/20 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full border border-white/30"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="personalized-scroller"
+            class="relative bg-[#F5F5DC]/40 rounded-3xl p-6 md:p-8 overflow-hidden border border-[#D7CCC8]/30">
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-[#5D4037]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-48 h-48 bg-[#5D4037]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2">
+            </div>
+            <h2 class="relative z-10 text-xl md:text-2xl font-black text-[#5D4037] mb-6">Shashank, still looking for
+                these?</h2>
+
+            <div class="relative group/scroller">
+                <div id="shashank-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-4 snap-x">
+                    <!-- Item 1: Red Shirt -->
+                    <div
+                        class="min-w-[160px] md:min-w-[200px] snap-start bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover" alt="Lauren Red Shirt">
+                        </div>
+                        <h3 class="font-bold text-sm text-gray-800">Lauren Relaxed T-Shirt</h3>
+                        <p class="text-[#5D4037] font-black">₹1,499</p>
+                    </div>
+
+                    <!-- Item 2: Toy -->
+                    <div
+                        class="min-w-[160px] md:min-w-[200px] snap-start bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover" alt="Small & Duck Toy">
+                        </div>
+                        <h3 class="font-bold text-sm text-gray-800">Small & Duck Toy Set</h3>
+                        <p class="text-[#5D4037] font-black">₹799</p>
+                    </div>
+
+                    <!-- Item 3: Oil -->
+                    <div
+                        class="min-w-[160px] md:min-w-[200px] snap-start bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover" alt="Motul Oil">
+                        </div>
+                        <h3 class="font-bold text-sm text-gray-800">Motul 7100 4T Oil</h3>
+                        <p class="text-[#5D4037] font-black">₹1,199</p>
+                    </div>
+
+                    <!-- Item 4: Phone -->
+                    <div
+                        class="min-w-[160px] md:min-w-[200px] snap-start bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover" alt="Galaxy AI Phone">
+                        </div>
+                        <h3 class="font-bold text-sm text-gray-800">Galaxy AI Smartphone</h3>
+                        <p class="text-[#5D4037] font-black">₹74,999</p>
+                    </div>
+
+                    <!-- Item 5: SD Card -->
+                    <div
+                        class="min-w-[160px] md:min-w-[200px] snap-start bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1544652478-6653e09f18a2?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover" alt="SanDisk SD Card">
+                        </div>
+                        <h3 class="font-bold text-sm text-gray-800">SanDisk 128GB MicroSD</h3>
+                        <p class="text-[#5D4037] font-black">₹1,299</p>
+                    </div>
+                </div>
+
+                <!-- Scroll Buttons -->
+                <button
+                    onclick="document.getElementById('shashank-scroller').scrollBy({left: -300, behavior: 'smooth'})"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 -translate-x-5 opacity-0 group-hover/scroller:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </button>
+                <button onclick="document.getElementById('shashank-scroller').scrollBy({left: 300, behavior: 'smooth'})"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/scroller:opacity-100 transition-opacity">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </button>
+            </div>
+        </section>
+
+        <!-- AD BANNERS & MEGA SALE SECTION -->
+        <section id="promo-banners-row" class="container mx-auto px-4 py-8 space-y-8">
+            <!-- Mini Banners Row -->
+            <div class="flex overflow-x-auto gap-4 no-scrollbar pb-4 snap-x">
+                <div
+                    class="min-w-[200px] md:flex-1 h-[160px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer relative group snap-start border border-gray-100">
+                    <img src="assets/images/banners/happilo.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Happilo">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <span
+                        class="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <div
+                    class="min-w-[200px] md:flex-1 h-[160px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer relative group snap-start border border-gray-100">
+                    <img src="assets/images/banners/daikin.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Daikin">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <span
+                        class="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <div
+                    class="min-w-[200px] md:flex-1 h-[160px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer relative group snap-start border border-gray-100">
+                    <img src="assets/images/banners/prohance.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Prohance">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <span
+                        class="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <div
+                    class="min-w-[200px] md:flex-1 h-[160px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer relative group snap-start border border-gray-100">
+                    <img src="assets/images/banners/kolar.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Kolar">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <span
+                        class="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <div
+                    class="min-w-[200px] md:flex-1 h-[160px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer relative group snap-start border border-gray-100">
+                    <img src="assets/images/banners/generic.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Special Offer">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <span
+                        class="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+            </div>
+
+            <!-- Mega Sale Banner -->
+            <div
+                class="mx-auto w-full max-w-[1060px] h-[256.56px] rounded-[48px] overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(37,99,235,0.3)] transition-all duration-700 cursor-pointer group">
+                <img src="assets/images/banners/sasa_lele.png"
+                    class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-1000"
+                    alt="SASA LELE Mega Sale">
+            </div>
+        </section>
+
+        <!-- SUGGESTED FOR YOU SECTION -->
+        <section id="suggested-for-you" class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl md:text-2xl font-black text-gray-900">Suggested For You</h2>
+                <button
+                    class="bg-black text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg hover:bg-[#5D4037] transition-all transform hover:scale-110 active:scale-95">
+                    <ion-icon name="arrow-forward-outline" class="text-xl"></ion-icon>
+                </button>
+            </div>
+
+            <div class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
+                <!-- Card 1: Nature Power -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/soap1.png" class="max-w-full max-h-full object-contain"
+                            alt="Nature Power Papaya">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.2</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">nature power Papaya Aura S...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹410</span>
+                            <span class="text-[14px] font-black text-gray-900">₹295</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹215 with UPI offer</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: USTRAA -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10 flex flex-col gap-1">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-r-full text-[8px] font-bold shadow-sm">
+                            Price History</div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/soap2.png" class="max-w-full max-h-full object-contain"
+                            alt="USTRAA">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.3</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">USTRAA Rebel Cologne Soa...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹399</span>
+                            <span class="text-[14px] font-black text-gray-900">₹277</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹190 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: MORVIN Papaya -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/soap3.png" class="max-w-full max-h-full object-contain"
+                            alt="MORVIN Papaya">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">MORVIN Papaya Whitening ...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹528</span>
+                            <span class="text-[14px] font-black text-gray-900">₹389</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹294 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Nature Power Pack -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/soap4.png" class="max-w-full max-h-full object-contain"
+                            alt="Nature Power Pack">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">nature power VR NNPP AUR...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹790</span>
+                            <span class="text-[14px] font-black text-gray-900">₹619</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹534 with UPI offer</p>
+                    </div>
+                </div>
+
+                <!-- Card 5: LA Organo -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/soap5.png" class="max-w-full max-h-full object-contain"
+                            alt="LA Organo">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">LA Organo Neem & Papaya S...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹598</span>
+                            <span class="text-[14px] font-black text-gray-900">₹270</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹193 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Card 6: MORVIN Aloe -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/soap6.png" class="max-w-full max-h-full object-contain"
+                            alt="MORVIN Aloe">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">MORVIN Aloe E Soap</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹480</span>
+                            <span class="text-[14px] font-black text-gray-900">₹330</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹247 with UPI offer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUGGESTED FOR YOU (SHOES) SECTION -->
+        <section id="suggested-shoes" class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl md:text-2xl font-black text-gray-900">Suggested For You</h2>
+                <div class="flex gap-2">
+                    <button
+                        onclick="document.getElementById('shoes-scroller').scrollBy({left: -300, behavior: 'smooth'})"
+                        class="bg-white border border-gray-200 text-gray-800 w-10 h-10 flex items-center justify-center rounded-full shadow-md hover:bg-gray-50 transition-all transform active:scale-95">
+                        <ion-icon name="chevron-back-outline" class="text-xl"></ion-icon>
+                    </button>
+                    <button
+                        onclick="document.getElementById('shoes-scroller').scrollBy({left: 300, behavior: 'smooth'})"
+                        class="bg-black text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg hover:bg-[#5D4037] transition-all transform hover:scale-110 active:scale-95">
+                        <ion-icon name="chevron-forward-outline" class="text-xl"></ion-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div id="shoes-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
+                <!-- Card 1: Asian Firefly -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/shoes1.png" class="max-w-full max-h-full object-contain"
+                            alt="Asian Firefly">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.1</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">asian Firefly-04 Black Sport...
+                        </h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹1,499</span>
+                            <span class="text-[14px] font-black text-gray-900">₹735</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹650 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Asian Elasto -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/shoes2.png" class="max-w-full max-h-full object-contain"
+                            alt="Asian Elasto">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.2</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">asian Elasto-02 Running Sho...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹1,499</span>
+                            <span class="text-[14px] font-black text-gray-900">₹598</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹483 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Sparx SL 9047 -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/shoes3.png" class="max-w-full max-h-full object-contain"
+                            alt="Sparx Blue">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.2</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">Sparx SL 9047 Running Sho...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹1,149</span>
+                            <span class="text-[14px] font-black text-gray-900">₹803</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹718 with UPI offer</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Asian Grey -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/shoes4.png" class="max-w-full max-h-full object-contain"
+                            alt="Asian Grey">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.2</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">asian Grey Sports,Gym, Walk...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹1,499</span>
+                            <span class="text-[14px] font-black text-gray-900">₹598</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹483 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Card 5: Skitter -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="assets/images/suggested/shoes5.png" class="max-w-full max-h-full object-contain"
+                            alt="Skitter">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">SKITTER SKITTER STYLISH L...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹1,899</span>
+                            <span class="text-[14px] font-black text-gray-900">₹593</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹508 with UPI offer</p>
+                    </div>
+                </div>
+
+                <!-- Card 6: Sparx Grey (Placeholder) -->
+                <div
+                    class="min-w-[211.39px] h-[281.85px] bg-white rounded-2xl shadow-sm border border-gray-100 p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                    <div class="absolute top-4 left-4 z-10">
+                        <div
+                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                            <span class="italic">f</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-gray-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Sparx SL 194">
+                    </div>
+                    <div class="space-y-1.5">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                            <span>4.2</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                        <h3 class="text-[12px] font-bold text-gray-800 line-clamp-1">Sparx SL 194 Running Shoes...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[10px] text-gray-400 line-through">₹1,117</span>
+                            <span class="text-[14px] font-black text-gray-900">₹699</span>
+                        </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹614 with UPI offer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BRANDS IN SPOTLIGHT SECTION -->
+        <section id="brands-spotlight" class="container mx-auto px-4 py-8 border-t border-gray-100">
+            <h2 class="text-xl md:text-2xl font-black text-gray-900 mb-8">Brands in Spotlight</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
+                <!-- Brand 1: Fastrack -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-full aspect-square rounded-[32px] overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-gray-50">
+                        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            alt="Fastrack Watches">
+                        <span
+                            class="absolute top-4 right-4 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center space-y-1">
+                        <h3 class="text-lg font-black text-gray-900 leading-tight">Min. 70% Off</h3>
+                        <p class="text-sm text-gray-500 font-bold">Trending choices</p>
+                    </div>
+                </div>
+
+                <!-- Brand 2: HRX -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-full aspect-square rounded-[32px] overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-gray-50">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            alt="HRX Luggage">
+                        <span
+                            class="absolute top-4 right-4 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center space-y-1">
+                        <h3 class="text-lg font-black text-gray-900 leading-tight">Min. 80% Off</h3>
+                        <p class="text-sm text-gray-500 font-bold">Travel in style</p>
+                    </div>
+                </div>
+
+                <!-- Brand 3: Kamiliant -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-full aspect-square rounded-[32px] overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-gray-50">
+                        <img src="https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            alt="Kamiliant Luggage">
+                        <span
+                            class="absolute top-4 right-4 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center space-y-1">
+                        <h3 class="text-lg font-black text-gray-900 leading-tight">Min. 70% off</h3>
+                        <p class="text-sm text-gray-500 font-bold">Turn heads on arrival</p>
+                    </div>
+                </div>
+
+                <!-- Brand 4: Himalaya -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-full aspect-square rounded-[32px] overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-gray-50">
+                        <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            alt="Himalaya Baby Care">
+                        <span
+                            class="absolute top-4 right-4 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center space-y-1">
+                        <h3 class="text-lg font-black text-gray-900 leading-tight">Up to 30% Off</h3>
+                        <p class="text-sm text-gray-500 font-bold">Kind to baby's skin</p>
+                    </div>
+                </div>
+
+                <!-- Brand 5: The Man Company -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-full aspect-square rounded-[32px] overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-gray-50">
+                        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            alt="The Man Company Perfume">
+                        <span
+                            class="absolute top-4 right-4 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center space-y-1">
+                        <h3 class="text-lg font-black text-gray-900 leading-tight">Up to 80% Off</h3>
+                        <p class="text-sm text-gray-500 font-bold">Own the scent</p>
+                    </div>
+                </div>
+
+                <!-- Brand 6: Colgate -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-full aspect-square rounded-[32px] overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-gray-50">
+                        <img src="https://images.unsplash.com/photo-1559591937-e620a89d7010?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            alt="Colgate Oral Care">
+                        <span
+                            class="absolute top-4 right-4 bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center space-y-1">
+                        <h3 class="text-lg font-black text-gray-900 leading-tight">Up to 50% Off</h3>
+                        <p class="text-sm text-gray-500 font-bold">Whiter smile</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUICK SERVICES SECTION -->
+        <section id="quick-services" class="container mx-auto px-4 py-8">
+            <div class="flex overflow-x-auto gap-8 md:justify-between no-scrollbar pb-4 snap-x">
+                <!-- Service 1 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-pink-50 to-pink-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-pink-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="basket-outline" class="text-3xl text-pink-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">Grocery</span>
+                </div>
+                <!-- Service 2 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-purple-50 to-purple-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-purple-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="flash-outline" class="text-3xl text-purple-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">For GenZ</span>
+                </div>
+                <!-- Service 3 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-blue-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="card-outline" class="text-3xl text-blue-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">Flipkart ...</span>
+                </div>
+                <!-- Service 4 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-yellow-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="star-outline" class="text-3xl text-yellow-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">Originals</span>
+                </div>
+                <!-- Service 5 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-orange-50 to-orange-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-orange-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="gift-outline" class="text-3xl text-orange-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">Gift Cards</span>
+                </div>
+                <!-- Service 6 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-cyan-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="phone-portrait-outline" class="text-3xl text-cyan-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">Sell Pho...</span>
+                </div>
+                <!-- Service 7 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-gray-900 to-black rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:scale-105 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <span class="text-white font-black italic text-xs tracking-tighter">BLACK</span>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">BLACK</span>
+                </div>
+                <!-- Service 8 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-indigo-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="thunderstorm-outline" class="text-3xl text-indigo-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">SuperC...</span>
+                </div>
+                <!-- Service 9 -->
+                <div class="flex flex-col items-center gap-3 min-w-[70px] snap-start group cursor-pointer">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-rose-50 to-rose-100 rounded-[22px] flex items-center justify-center shadow-sm group-hover:shadow-xl group-hover:bg-rose-200 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <ion-icon name="heart-half-outline" class="text-3xl text-rose-600"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-black text-gray-800 tracking-tight">Next-Gen</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED BRANDS SECTION -->
+        <section id="featured-brands-row" class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl md:text-2xl font-black text-gray-900">Featured Brands</h2>
+                <button onclick="document.getElementById('featured-scroller').scrollBy({left: 400, behavior: 'smooth'})"
+                    class="bg-black text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all">
+                    <ion-icon name="arrow-forward-outline" class="text-xl"></ion-icon>
+                </button>
+            </div>
+
+            <div id="featured-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
+                <!-- Card 1: Pampers -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Pampers">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Big On Softness</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Explore now</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 2: Complan -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Complan">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Up to 34% Off</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Shop now</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 3: Horlicks -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1550583724-12558142c73d?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Horlicks">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Energy for Adults</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Shop now</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 4: Pintola -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Pintola">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Up to 40% off*</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Everyday Protein</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 5: Dairy Milk -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Dairy Milk">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Up to 20% Off</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Sweet Moments</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 6: LuvLap -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1544126592-807daa2b567b?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="LuvLap">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Up to 60% Off</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Baby Diapers</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 7: Kapiva -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1611070973458-94f4c885994f?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Kapiva">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Up to 55% Off</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Health Essentials</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 8: OZIVA -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="OZIVA">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Shop Now</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Supercharge Metabolism</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 9: Cetaphil -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Cetaphil">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Up to 25% Off</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Parenting Parampara</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+                <!-- Card 10: Kapiva 2 -->
+                <div
+                    class="min-w-[280px] md:min-w-[340px] aspect-[1.8/1] rounded-[32px] overflow-hidden relative shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer snap-start">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Health Focus">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="text-white font-black text-xl mb-1">Up to 55% Off</h3>
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Immunity Boosters</p>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP DEALS SECTION -->
+        <section id="top-deals" class="container mx-auto px-4 py-8 border-t border-gray-50">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl md:text-2xl font-black text-gray-900">Top Deals</h2>
+                <div class="flex gap-2">
+                    <button
+                        onclick="document.getElementById('deals-scroller').scrollBy({left: -300, behavior: 'smooth'})"
+                        class="bg-white border border-gray-200 text-gray-800 w-10 h-10 flex items-center justify-center rounded-full shadow-md hover:bg-gray-50 transition-all transform active:scale-95">
+                        <ion-icon name="chevron-back-outline" class="text-xl"></ion-icon>
+                    </button>
+                    <button
+                        onclick="document.getElementById('deals-scroller').scrollBy({left: 300, behavior: 'smooth'})"
+                        class="bg-black text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg hover:bg-gray-800 transition-all transform hover:scale-110 active:scale-95">
+                        <ion-icon name="chevron-forward-outline" class="text-xl"></ion-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div id="deals-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
+                <!-- Deal 1: Samsung Galaxy Z Fold5 -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1691435431627-889816503c20?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Samsung Galaxy Z Fold5">
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-2 py-0.5 rounded text-white font-bold text-xs shadow-sm">
+                            <span>4.5</span><ion-icon name="star" class="text-[10px]"></ion-icon>
+                            <span class="text-[10px] text-white/80 font-medium">(641)</span>
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Samsung</span>
+                            Galaxy Z Fold5 (Icy Blue, ...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,69,999</span>
+                            <span class="text-base font-black text-gray-900">₹1,64,999</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹1,60,999 with Bank offer</p>
+                    </div>
+                </div>
+
+                <!-- Deal 2: Angar Look Caps -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div class="absolute top-7 left-7 z-10">
+                        <span class="bg-gray-100 text-gray-800 text-[9px] font-black px-2 py-1 rounded-md shadow-sm">New
+                            Arrival</span>
+                    </div>
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e1c7?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Caps">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">angar
+                                look</span> Self Design Sports/Regul...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹699</span>
+                            <span class="text-base font-black text-gray-900">₹191</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹103 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Deal 3: Else & What T-Shirt -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="T-Shirt">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Else &
+                                What</span> Men Printed Round Nec...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹999</span>
+                            <span class="text-base font-black text-gray-900">₹373</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹288 with UPI offer</p>
+                    </div>
+                </div>
+
+                <!-- Deal 4: Mexican Lubricant -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div class="absolute top-7 right-7 z-10">
+                        <span
+                            class="bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                    </div>
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Lubricant">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Mexican</span>
+                            MX-10W30-SN-FS Lubrican...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹558</span>
+                            <span class="text-base font-black text-gray-900">₹223</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹173 with UPI offer + more</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP DEALS 2 SECTION -->
+        <section id="top-deals-2" class="container mx-auto px-4 py-8">
+            <div id="deals-scroller-2" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
+                <!-- Deal 1: Samsung Galaxy Z Fold5 (New Price) -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1691435431627-889816503c20?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Samsung Galaxy Z Fold5">
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-2 py-0.5 rounded text-white font-bold text-xs shadow-sm">
+                            <span>4.5</span><ion-icon name="star" class="text-[10px]"></ion-icon>
+                            <span class="text-[10px] text-white/80 font-medium">(641)</span>
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Samsung</span>
+                            Galaxy Z Fold5 (Icy Blue, ...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,59,999</span>
+                            <span class="text-base font-black text-gray-900">₹1,54,999</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹1,50,999 with Bank offer</p>
+                    </div>
+                </div>
+
+                <!-- Deal 2: Good Friend Caps -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Good Friend Caps">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Good
+                                Friend</span> Sports/Regular Cap</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹999</span>
+                            <span class="text-base font-black text-gray-900">₹153</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹87 with UPI offer</p>
+                    </div>
+                </div>
+
+                <!-- Deal 3: LEXREX Trousers -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Trousers">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">LEXREX</span>
+                            Men Loose Fit Black Cotton ...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹999</span>
+                            <span class="text-base font-black text-gray-900">₹351</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹266 with UPI offer</p>
+                    </div>
+                </div>
+
+                <!-- Deal 4: Samsung Galaxy Z Flip6 -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1721332150382-d4114ee27cef?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Samsung Galaxy Z Flip6">
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-2 py-0.5 rounded text-white font-bold text-xs shadow-sm">
+                            <span>4.1</span><ion-icon name="star" class="text-[10px]"></ion-icon>
+                            <span class="text-[10px] text-white/80 font-medium">(230)</span>
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Samsung</span>
+                            Galaxy Z Flip6 5G (Blue, 25...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,09,999</span>
+                            <span class="text-base font-black text-gray-900">₹1,09,840</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹1,05,840 with Bank offer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP DEALS 3 SECTION -->
+        <section id="top-deals-3" class="container mx-auto px-4 py-8">
+            <div id="deals-scroller-3" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
+                <!-- Deal 1: MOTUL Oil -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1635773103338-922629b39213?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="MOTUL Oil">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">MOTUL</span>
+                            7100 4T20W-50 1.25L, Oil ...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,517</span>
+                            <span class="text-base font-black text-gray-900">₹1,422</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹1,350 with Bank offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Deal 2: PL SUPER PALCO -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div class="absolute top-7 left-7 z-10">
+                        <span
+                            class="bg-black/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
+                    </div>
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1597838816882-4551b708b5cd?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="PALCO Lubricants">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">PL SUPER
+                                PALCO</span> 4T DART 10W30 A...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,624</span>
+                            <span class="text-base font-black text-gray-900">₹1,111</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹1,055 with Bank offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Deal 3: Eriko Polo -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div class="absolute bottom-32 left-5 z-10">
+                        <span
+                            class="bg-[#ff6161] text-white text-[9px] font-black px-2 py-1 rounded-md shadow-lg italic">#TexturedPolo</span>
+                    </div>
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-cover" alt="Eriko Polo">
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Eriko</span>
+                            Men Sporty Polo Neck Polyeste...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,999</span>
+                            <span class="text-base font-black text-gray-900">₹342</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹257 with UPI offer + more</p>
+                    </div>
+                </div>
+
+                <!-- Deal 4: Samsung Galaxy Z Flip3 5G -->
+                <div
+                    class="min-w-[240px] md:min-w-[280px] bg-white rounded-[32px] shadow-sm border border-gray-100 p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                    <div
+                        class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-white flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=400&q=80"
+                            class="max-w-full max-h-full object-contain" alt="Samsung Galaxy Z Flip3">
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex items-center gap-1 bg-green-600 w-fit px-2 py-0.5 rounded text-white font-bold text-xs shadow-sm">
+                            <span>4.2</span><ion-icon name="star" class="text-[10px]"></ion-icon>
+                            <span class="text-[10px] text-white/80 font-medium">(9,650)</span>
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-800 line-clamp-1"><span class="font-black">Samsung</span>
+                            Galaxy Z Flip3 5G (Cream, ...</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-base font-black text-gray-900">₹95,999</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹91,999 with Bank offer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FLOATING TOAST: Flash Sale -->
+        <div id="flash-sale-toast"
+            class="fixed bottom-10 left-10 z-50 bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-gray-100 flex items-center gap-4 animate-bounce hover:animate-none transition-all cursor-pointer group">
+            <div class="w-12 h-12 rounded-xl overflow-hidden shadow-inner">
+                <img src="https://images.unsplash.com/photo-1535633302704-c02963c32488?auto=format&fit=crop&w=100&q=80"
+                    class="w-full h-full object-cover" alt="">
+            </div>
+            <div>
+                <p class="text-[10px] font-bold text-[#5D4037] uppercase tracking-widest mb-0.5">Flash Sale Item</p>
+                <h4 class="text-sm font-black text-gray-900">Rose Gold Earrings</h4>
+                <p class="text-[10px] text-gray-500 font-medium">2 Minutes ago</p>
+            </div>
+            <button onclick="this.parentElement.remove()"
+                class="text-gray-400 hover:text-[#5D4037] transition-colors ml-2">
+                <ion-icon name="close-outline" class="text-xl"></ion-icon>
+            </button>
+        </div>
+
+
+
+        <!-- CATEGORIES SCROLLER -->
+        <section id="categories-scroller"
+            class="category-item-container flex overflow-x-auto gap-4 py-2 has-scrollbar snap-x no-scrollbar">
+            <div
+                class="min-w-[160px] md:min-w-[220px] snap-start bg-white border border-gray-100 p-4 rounded-2xl flex items-center gap-4 hover:shadow-xl hover:border-[#8D6E63] transition-all cursor-pointer group">
+                <div
+                    class="bg-[#F5F5DC] p-2.5 rounded-xl text-[#795548] text-xl group-hover:bg-[#795548] group-hover:text-white transition-colors duration-300">
+                    <ion-icon name="shirt-outline"></ion-icon>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Dress & Frock</h3>
+                    <p class="text-[10px] text-gray-400">(53 items)</p>
+                </div>
+            </div>
+            <div
+                class="min-w-[160px] md:min-w-[220px] snap-start bg-white border border-gray-100 p-4 rounded-2xl flex items-center gap-4 hover:shadow-xl hover:border-[#8D6E63] transition-all cursor-pointer group">
+                <div
+                    class="bg-[#F5F5DC] p-2.5 rounded-xl text-[#795548] text-xl group-hover:bg-[#795548] group-hover:text-white transition-colors duration-300">
+                    <ion-icon name="snow-outline"></ion-icon>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Winter Wear</h3>
+                    <p class="text-[10px] text-gray-400">(58 items)</p>
+                </div>
+            </div>
+            <div
+                class="min-w-[160px] md:min-w-[220px] snap-start bg-white border border-gray-100 p-4 rounded-2xl flex items-center gap-4 hover:shadow-xl hover:border-[#8D6E63] transition-all cursor-pointer group">
+                <div
+                    class="bg-[#F5F5DC] p-2.5 rounded-xl text-[#795548] text-xl group-hover:bg-[#795548] group-hover:text-white transition-colors duration-300">
+                    <ion-icon name="glasses-outline"></ion-icon>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Eyewear</h3>
+                    <p class="text-[10px] text-gray-400">(68 items)</p>
+                </div>
+            </div>
+            <div
+                class="min-w-[160px] md:min-w-[220px] snap-start bg-white border border-gray-100 p-4 rounded-2xl flex items-center gap-4 hover:shadow-xl hover:border-[#8D6E63] transition-all cursor-pointer group">
+                <div
+                    class="bg-[#F5F5DC] p-2.5 rounded-xl text-[#795548] text-xl group-hover:bg-[#795548] group-hover:text-white transition-colors duration-300">
+                    <ion-icon name="watch-outline"></ion-icon>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xs md:text-sm truncate">Watches</h3>
+                    <p class="text-[10px] text-gray-400">(27 items)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT LAYOUT -->
+        <div id="main-content-layout" class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+            <aside class="hidden lg:block space-y-8">
+                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-sm font-black uppercase tracking-tighter mb-5 flex items-center gap-2"><span
+                            class="w-1.5 h-4 bg-[#795548] rounded-full"></span> Category</h2>
+                    <ul class="space-y-4">
+                        <li>
+                            <div class="flex justify-between items-center cursor-pointer hover:text-[#795548] transition group"
+                                onclick="toggleAccordion('side-clothes')">
+                                <span
+                                    class="flex items-center gap-3 font-semibold uppercase text-xs text-gray-600 group-hover:text-[#795548]"><ion-icon
+                                        name="shirt-outline"></ion-icon> Clothes</span>
+                                <ion-icon name="chevron-down-outline" class="text-gray-300"></ion-icon>
+                            </div>
+                            <div id="side-clothes"
+                                class="accordion-content pl-8 pt-3 space-y-2 text-[11px] text-gray-500 font-medium">
+                                <a href="#" class="flex justify-between hover:text-[#795548]"><span>Shirt</span>
+                                    <span>300</span></a>
+                                <a href="#" class="flex justify-between hover:text-[#795548]"><span>Jacket</span>
+                                    <span>50</span></a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between items-center cursor-pointer hover:text-[#795548] transition group"
+                                onclick="toggleAccordion('side-footwear')">
+                                <span
+                                    class="flex items-center gap-3 font-semibold uppercase text-xs text-gray-600 group-hover:text-[#795548]"><ion-icon
+                                        name="walk-outline"></ion-icon> Footwear</span>
+                                <ion-icon name="chevron-down-outline" class="text-gray-300"></ion-icon>
+                            </div>
+                            <div id="side-footwear"
+                                class="accordion-content pl-8 pt-3 space-y-2 text-[11px] text-gray-500 font-medium">
+                                <a href="#" class="flex justify-between hover:text-[#795548]"><span>Sports</span>
+                                    <span>45</span></a>
+                                <a href="Formal.html" class="flex justify-between hover:text-[#795548]"><span>Formal
+                                        Wear</span>
+                                    <span>75</span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-sm font-black uppercase tracking-tighter mb-5 flex items-center gap-2"><span
+                            class="w-1.5 h-4 bg-[#795548] rounded-full"></span> Best Sellers</h2>
+                    <div class="space-y-5">
+                        <div class="flex gap-4 items-center group cursor-pointer">
+                            <div class="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-xl">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=100&q=80"
+                                    alt="Product" class="w-full h-full object-cover bg-gray-50">
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold group-hover:text-[#795548] transition truncate w-32">
+                                    Classic
+                                    Watch</h4>
+                                <div class="text-yellow-400 text-[10px] flex gap-0.5 my-1"><ion-icon
+                                        name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                                        name="star"></ion-icon></div>
+                                <p class="text-sm font-black">$45.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Product Main Area -->
+            <div class="lg:col-span-3 space-y-12 md:space-y-16">
+
+                <!-- MINIMAL LISTS -->
+                <div id="minimal-lists" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h2 class="text-lg font-bold uppercase mb-6 flex items-center gap-2 tracking-tight">New Arrivals
+                        </h2>
+                        <div class="space-y-5">
+                            <div
+                                class="flex gap-4 items-center bg-white p-4 rounded-2xl border border-gray-50 hover:shadow-lg transition cursor-pointer group">
+                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=100&q=80"
+                                    class="w-14 h-14 rounded-xl object-cover shadow-sm group-hover:scale-105 transition-transform">
+                                <div class="flex-1">
+                                    <h4 class="text-xs font-bold truncate w-36 text-gray-800">Relaxed T-Shirt</h4>
+                                    <p class="text-sm text-[#795548] font-black mt-1">$45.00 <del
+                                            class="text-gray-400 text-[10px] font-normal ml-2">$55.00</del></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h2 class="text-lg font-bold uppercase mb-6 flex items-center gap-2 tracking-tight">Trending
+                        </h2>
+                        <div class="space-y-5">
+                            <div
+                                class="flex gap-4 items-center bg-white p-4 rounded-2xl border border-gray-50 hover:shadow-lg transition cursor-pointer group">
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=100&q=80"
+                                    class="w-14 h-14 rounded-xl object-cover shadow-sm">
+                                <div>
+                                    <h4 class="text-xs font-bold truncate w-36 text-gray-800">Red Sports Shoes</h4>
+                                    <p class="text-sm text-[#795548] font-black mt-1">$49.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <h2 class="text-lg font-bold uppercase mb-6 flex items-center gap-2 tracking-tight">Top Rated
+                        </h2>
+                        <div class="space-y-5">
+                            <div
+                                class="flex gap-4 items-center bg-white p-4 rounded-2xl border border-gray-50 hover:shadow-lg transition cursor-pointer group">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=100&q=80"
+                                    class="w-14 h-14 rounded-xl object-cover shadow-sm">
+                                <div>
+                                    <h4 class="text-xs font-bold truncate w-36 text-gray-800">Pocket Watch</h4>
+                                    <p class="text-sm text-[#795548] font-black mt-1">$50.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEAL OF THE DAY -->
+                <section id="deal-of-the-day"
+                    class="bg-white border border-gray-100 rounded-3xl p-6 sm:p-10 shadow-sm overflow-hidden relative">
+                    <div
+                        class="absolute top-4 right-6 bg-[#795548] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter animate-pulse">
+                        Limited Offer</div>
+                    <h2 class="text-2xl md:text-3xl font-black uppercase mb-10 tracking-tight text-gray-900">Deal of the
+                        day</h2>
+                    <div class="flex flex-col md:flex-row gap-10 items-center">
+                        <div class="w-full md:w-1/2">
+                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80"
+                                alt="Deal" class="rounded-2xl shadow-2xl h-64 sm:h-96 w-full object-cover">
+                        </div>
+                        <div class="w-full md:w-1/2 space-y-6 text-center md:text-left">
+                            <div class="text-yellow-400 text-2xl flex justify-center md:justify-start gap-1"><ion-icon
+                                    name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                                    name="star"></ion-icon><ion-icon name="star"></ion-icon></div>
+                            <h3 class="text-xl md:text-3xl font-black uppercase leading-tight text-gray-800">Shampoo,
+                                Conditioner & Facewash Pack</h3>
+                            <p class="text-gray-500 text-sm md:text-base leading-relaxed max-w-sm mx-auto md:mx-0">
+                                Premium organic collection infused with essential minerals for daily care.</p>
+                            <div class="text-3xl sm:text-4xl font-black text-[#795548]">$150.00 <del
+                                    class="text-gray-300 text-xl font-normal ml-3">$200.00</del></div>
+                            <button
+                                class="w-full sm:w-auto bg-gray-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-sm hover:bg-[#795548] hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl">Add
+                                To Cart</button>
+
+                            <div class="space-y-3 pt-4">
+                                <div
+                                    class="flex justify-between text-[11px] font-black uppercase tracking-widest text-gray-400">
+                                    <span>Sold: 20</span> <span>Stock: 40</span>
+                                </div>
+                                <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden shadow-inner">
+                                    <div class="bg-[#795548] h-full w-1/2 rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 grid grid-cols-4 gap-2 sm:gap-4 max-w-xs mx-auto md:mx-0">
+                                <div class="bg-gray-50 p-2 md:p-3 rounded-xl border border-gray-100 text-center">
+                                    <p class="text-lg md:text-xl font-black text-gray-800">360</p>
+                                    <p class="text-[9px] uppercase font-bold text-gray-400">Days</p>
+                                </div>
+                                <div class="bg-gray-50 p-2 md:p-3 rounded-xl border border-gray-100 text-center">
+                                    <p class="text-lg md:text-xl font-black text-gray-800">24</p>
+                                    <p class="text-[9px] uppercase font-bold text-gray-400">Hrs</p>
+                                </div>
+                                <div class="bg-gray-50 p-2 md:p-3 rounded-xl border border-gray-100 text-center">
+                                    <p class="text-lg md:text-xl font-black text-gray-800">59</p>
+                                    <p class="text-[9px] uppercase font-bold text-gray-400">Min</p>
+                                </div>
+                                <div class="bg-[#F5F5DC] p-2 md:p-3 rounded-xl border border-[#D7CCC8] text-center">
+                                    <p class="text-lg md:text-xl font-black text-[#795548]" id="countdown-sec">00</p>
+                                    <p class="text-[9px] uppercase font-bold text-[#A1887F]">Sec</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NEW PRODUCTS GRID -->
+                <div>
+                    <h2
+                        class="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-3 text-gray-900">
+                        <span class="w-2 h-6 bg-[#795548] rounded-full"></span> New Products
+                    </h2>
+                    <div class="product-grid grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
+                        <div
+                            class="product-card bg-white border border-gray-100 rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
+                            <div class="relative aspect-[4/5] overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=600&q=80"
+                                    alt="Product"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?auto=format&fit=crop&w=600&q=80"
+                                    alt="Hover" class="absolute inset-0 w-full h-full object-cover hover-img">
+                                <span
+                                    class="absolute top-4 left-4 bg-[#795548] text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">New</span>
+                                <div
+                                    class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
+                                    <button
+                                        class="bg-white/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon
+                                            name="heart-outline"></ion-icon></button>
+                                    <button
+                                        class="bg-white/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon
+                                            name="eye-outline"></ion-icon></button>
+                                </div>
+                            </div>
+                            <div class="p-4 sm:p-6 space-y-2">
+                                <p class="text-[10px] text-[#795548] font-black uppercase tracking-widest">Jacket</p>
+                                <h3 class="font-bold text-gray-800 truncate text-sm sm:text-base">Mens Winter Leather
+                                    Jacket</h3>
+                                <div class="flex items-center gap-1 text-yellow-400 text-[10px]"><ion-icon
+                                        name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                                        name="star"></ion-icon><ion-icon name="star"></ion-icon></div>
+                                <div class="flex items-center gap-2 font-black text-lg text-gray-900 mt-1">
+                                    <span>$48.00</span> <del class="text-xs text-gray-300 font-normal">$75.00</del>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="product-card bg-white border border-gray-100 rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
+                            <div class="relative aspect-[4/5] overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"
+                                    alt="Product" class="w-full h-full object-cover">
+                                <span
+                                    class="absolute top-4 left-4 bg-gray-900 text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">Sale</span>
+                            </div>
+                            <div class="p-4 sm:p-6 space-y-2">
+                                <p class="text-[10px] text-[#795548] font-black uppercase tracking-widest">Footwear</p>
+                                <h3 class="font-bold text-gray-800 truncate text-sm sm:text-base">Elite Sports Running
+                                    Shoes</h3>
+                                <div class="flex items-center gap-1 font-black text-lg text-gray-900 mt-1">
+                                    <span>$99.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CATALOG DIRECTORY SECTION -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-12 border-t border-gray-100">
+
+            <!-- Categories -->
+            <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <h2 class="text-xl font-black uppercase tracking-tight mb-8 flex items-center gap-3">
+                    <span class="text-[#795548]">📂</span> Categories
+                </h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-bold text-gray-900 border-b pb-2 mb-3">Electronics & Gadgets</h3>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Mobiles</li>
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Laptops</li>
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Audio</li>
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Smartwatches</li>
+                        </ul>
+                    </div>
+                    <div id="fashion-section">
+                        <h3 class="font-bold text-gray-900 border-b pb-2 mb-3">Fashion</h3>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Jeans (Men)</li>
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Dresses (Women)</li>
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Shoes & Sneakers</li>
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Watches & Accessories
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brands -->
+            <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <h2 class="text-xl font-black uppercase tracking-tight mb-8 flex items-center gap-3">
+                    <span class="text-[#795548]">🏷️</span> Brands
+                </h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Apple</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Samsung</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Google</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Sony</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Motorola</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Xiaomi</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Realme</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        OnePlus</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Oppo</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Vivo</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        POCO</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Nothing</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        iQOO</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Lava</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Infinix</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Tecno</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Garmin</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Amazfit</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Noise</div>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Fire-Boltt</div>
+                    <a href="Tanishq.html"
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Tanishq</a>
+                    <div
+                        class="bg-gray-50 p-3 rounded-xl text-center text-xs font-bold hover:bg-[#795548] hover:text-white transition-all cursor-pointer">
+                        Titan</div>
+                </div>
+            </div>
+
+            <!-- Products Quick List -->
+            <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <h2 class="text-xl font-black uppercase tracking-tight mb-8 flex items-center gap-3">
+                    <span class="text-[#795548]">📦</span> Products
+                </h2>
+                <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 has-scrollbar">
+                    <div class="flex gap-4 items-center group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gray-100 flex-shrink-0 flex items-center justify-center font-black text-[#795548] text-xs">
+                            A</div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold group-hover:text-[#795548] transition">iPhone 16 Pro Max</h4>
+                            <p class="text-[10px] text-gray-400">Apple | Mobiles | $1,200.00</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-center group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gray-100 flex-shrink-0 flex items-center justify-center font-black text-[#795548] text-xs">
+                            S</div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold group-hover:text-[#795548] transition">Samsung Galaxy S25 Ultra
+                            </h4>
+                            <p class="text-[10px] text-gray-400">Samsung | Mobiles | $1,299.00</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-center group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gray-100 flex-shrink-0 flex items-center justify-center font-black text-[#795548] text-xs">
+                            G</div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold group-hover:text-[#795548] transition">Google Pixel 10 Pro 5G
+                            </h4>
+                            <p class="text-[10px] text-gray-400">Google | Mobiles | $999.00</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-center group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gray-100 flex-shrink-0 flex items-center justify-center font-black text-[#795548] text-xs">
+                            N</div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold group-hover:text-[#795548] transition">Nothing Phone (3)</h4>
+                            <p class="text-[10px] text-gray-400">Nothing | Mobiles | $699.00</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-center group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gray-100 flex-shrink-0 flex items-center justify-center font-black text-[#795548] text-xs">
+                            S</div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold group-hover:text-[#795548] transition">Sony Xperia 1 VI</h4>
+                            <p class="text-[10px] text-gray-400">Sony | Mobiles | $1,399.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS & BLOG SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-10 py-12 border-t border-gray-100">
+            <div
+                class="bg-white border border-gray-100 rounded-3xl p-8 text-center shadow-sm space-y-6 hover:shadow-xl transition-shadow">
+                <h2 class="text-xl font-black uppercase tracking-tight">Testimonial</h2>
+                <div class="relative w-24 h-24 mx-auto">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
+                        alt="User" class="w-full h-full rounded-full object-cover shadow-lg border-4 border-[#F5F5DC]">
+                    <span
+                        class="absolute bottom-0 right-0 bg-[#795548] text-white rounded-full p-1 leading-none text-xl"><ion-icon
+                            name="checkmark-circle"></ion-icon></span>
+                </div>
+                <div>
+                    <p class="font-black text-lg">Alan Doe</p>
+                    <p class="text-[10px] text-gray-400 uppercase font-black tracking-widest">Verified Buyer</p>
+                </div>
+                <p class="text-sm text-gray-500 italic leading-relaxed">"The delivery speed of HostelMart is truly
+                    impressive. The quality exceeded my expectations!"</p>
+            </div>
+
+            <div class="relative rounded-3xl overflow-hidden group min-h-[350px] lg:h-full shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80"
+                    alt="Promo" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent flex flex-col justify-end items-center text-white text-center p-10">
+                    <p
+                        class="bg-[#795548] px-4 py-1.5 rounded-full text-[10px] font-black uppercase mb-4 tracking-widest">
+                        Flash Deal</p>
+                    <h2 class="text-3xl font-black mb-2 uppercase">Summer Trends</h2>
+                    <p class="mb-8 opacity-80 text-sm">Save up to 25% on selected items</p>
+                    <button
+                        class="bg-white text-gray-900 px-10 py-3.5 rounded-2xl font-bold uppercase text-xs hover:bg-[#795548] hover:text-white transition duration-300 transform hover:scale-105 shadow-xl">Shop
+                        Collection</button>
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <h2 class="text-xl font-black uppercase tracking-tight text-center mb-8">Our Services</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8">
+                    <div class="flex gap-5 items-center group cursor-pointer">
+                        <div class="text-[#795548] text-4xl group-hover:rotate-12 transition-transform"><ion-icon
+                                name="boat-outline"></ion-icon></div>
+                        <div>
+                            <h4 class="font-black text-sm uppercase tracking-tight">Worldwide Delivery</h4>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold">Orders Over $100</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-5 items-center group cursor-pointer">
+                        <div class="text-[#795548] text-4xl group-hover:rotate-12 transition-transform"><ion-icon
+                                name="rocket-outline"></ion-icon></div>
+                        <div>
+                            <h4 class="font-black text-sm uppercase tracking-tight">Fastest Shipping</h4>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold">Express Available</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white text-gray-500 pt-16 pb-32 md:pb-12 border-t border-gray-100">
+        <div
+            class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-50">
+            <div class="space-y-6">
+                <a href="#" class="text-2xl font-black tracking-tighter flex items-center">
+                    <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Hostel</span>
+                    <span class="text-[#5d4037]">Mart</span>
+                </a>
+                <p class="text-sm leading-relaxed max-w-xs">HostelMart provides premium products globally. We focus on
+                    quality above all else.</p>
+                <div class="flex gap-6 text-xl">
+                    <a href="#" class="hover:text-[#795548] transition-colors"><ion-icon
+                            name="logo-facebook"></ion-icon></a>
+                    <a href="#" class="hover:text-[#795548] transition-colors"><ion-icon
+                            name="logo-instagram"></ion-icon></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-gray-900 font-black uppercase text-xs tracking-[0.2em] mb-6">Quick Links</h3>
+                <ul class="space-y-4 text-[13px] font-medium">
+                    <li><a href="#" class="hover:text-[#795548] transition-colors">Fashion Collection</a></li>
+                    <li><a href="#" class="hover:text-[#795548] transition-colors">Latest Gadgets</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-gray-900 font-black uppercase text-xs tracking-[0.2em] mb-6">Newsletter</h3>
+                <form class="flex gap-2">
+                    <input type="email" placeholder="Email"
+                        class="flex-1 bg-gray-50 border-none rounded-xl px-4 text-xs outline-none focus:ring-1 focus:ring-[#5D4037]">
+                    <button class="bg-[#795548] text-white p-3 rounded-xl hover:bg-gray-900 transition-colors"><ion-icon
+                            name="send-outline"></ion-icon></button>
+                </form>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-[11px] font-bold uppercase tracking-widest">&copy; 2024 HostelMart. All Rights Reserved.</p>
+            <div class="flex gap-4 grayscale opacity-50">
+                <img src="https://vignette.wikia.nocookie.net/logopedia/images/e/e0/PayPal_Logo_2014.svg/revision/latest?cb=20140523171305"
+                    alt="PayPal" class="h-6">
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADD BOTTOM PADDING FOR MOBILE NAV -->
+    <div class="h-28 md:hidden"></div>
+
+    <!-- MOBILE NAVIGATION BOTTOM -->
+    <div
+        class="fixed bottom-4 left-4 right-4 bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl p-3 flex justify-around md:hidden z-50">
+        <button onclick="toggleMobileMenu()"
+            class="text-2xl p-3 text-gray-700 hover:text-[#795548] transition-colors"><ion-icon
+                name="menu-outline"></ion-icon></button>
+        <button class="text-2xl p-3 text-gray-700 hover:text-[#795548] relative transition-colors"><ion-icon
+                name="bag-handle-outline"></ion-icon><span
+                class="absolute top-2 right-2 bg-[#795548] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white font-bold">0</span></button>
+        <button
+            class="text-2xl p-4 bg-gray-900 text-white rounded-xl transform -translate-y-6 shadow-xl active:scale-95 transition-all"><ion-icon
+                name="home-outline"></ion-icon></button>
+        <button class="text-2xl p-3 text-gray-700 hover:text-[#795548] relative transition-colors"><ion-icon
+                name="heart-outline"></ion-icon><span
+                class="absolute top-2 right-2 bg-[#795548] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white font-bold">0</span></button>
+        <button onclick="toggleMobileMenu()"
+            class="text-2xl p-3 text-gray-700 hover:text-[#795548] transition-colors"><ion-icon
+                name="grid-outline"></ion-icon></button>
+    </div>
+
+    <script>
+        function openModal() {
+            const modal = document.getElementById('modal');
+            const container = document.getElementById('modal-container');
+            modal.classList.remove('hidden');
+            document.getElementById('overlay').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Animation trigger
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Mark as shown
+            localStorage.setItem('newsletter_shown', 'true');
+        }
+        function closeModal() {
+            const container = document.getElementById('modal-container');
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                document.getElementById('modal').classList.add('hidden');
+                document.getElementById('overlay').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
+        let allProducts = [];
+
+        function openToast(message, title, img) {
+            const toast = document.getElementById('toast');
+
+            // If no message provided, pick a random product for the "Flash Sale" feel
+            if (!message && allProducts.length > 0) {
+                const randomProduct = allProducts[Math.floor(Math.random() * allProducts.length)];
+                const titleEl = toast.querySelector('p.font-bold');
+                const msgEl = toast.querySelector('p.text-[10px].text-gray-500');
+                const imgEl = toast.querySelector('img');
+                const timeEl = toast.querySelector('p.text-[10px].text-gray-400');
+
+                if (titleEl) titleEl.innerText = randomProduct.name;
+                if (msgEl) msgEl.innerText = "Flash Sale Item - " + randomProduct.category;
+                if (imgEl) imgEl.src = randomProduct.images?.default || randomProduct.image || "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=100&q=80";
+                if (timeEl) timeEl.innerText = Math.floor(Math.random() * 5 + 1) + " minutes ago";
+            } else if (message) {
+                const titleEl = toast.querySelector('p.font-bold');
+                const msgEl = toast.querySelector('p.text-[10px].text-gray-500');
+                const imgEl = toast.querySelector('img');
+                if (titleEl) titleEl.innerText = title || "Success";
+                if (msgEl) msgEl.innerText = message;
+                if (imgEl && img) imgEl.src = img;
+            }
+
+            toast.style.transform = 'translateX(0)';
+            setTimeout(() => { closeToast(); }, 5000);
+        }
+        function closeToast() {
+            const toast = document.getElementById('toast');
+            if (toast) toast.style.transform = 'translateX(-150%)';
+        }
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const isActive = content.classList.contains('active');
+            const icon = event.currentTarget.querySelector('ion-icon');
+            if (!isActive) {
+                content.classList.add('active');
+                if (icon) icon.setAttribute('name', 'remove-outline');
+            } else {
+                content.classList.remove('active');
+                if (icon) icon.setAttribute('name', 'add-outline');
+            }
+        }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = menu.style.transform === 'translateX(0px)';
+            if (!isOpen) {
+                menu.style.transform = 'translateX(0)';
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        window.onload = async () => {
+            const isSubscribed = localStorage.getItem('newsletter_subscribed');
+            const isShown = localStorage.getItem('newsletter_shown');
+
+            if (!isSubscribed && !isShown) {
+                setTimeout(openModal, 2500);
+            }
+
+            // Always fetch products for the dynamic Flash Sale toast
+            try {
+                const response = await fetch('./data/products.json');
+                allProducts = await response.json();
+            } catch (err) {
+                console.error("Failed to load products for toast:", err);
+            }
+
+            setTimeout(openToast, 6000); // Delayed initial toast
+            setInterval(openToast, 15000); // Rotate every 15 seconds
+
+            let sec = 59;
+            setInterval(() => {
+                sec--;
+                if (sec < 0) sec = 59;
+                const secEl = document.getElementById('countdown-sec');
+                if (secEl) secEl.innerText = sec < 10 ? '0' + sec : sec;
+            }, 1000);
+
+            // Hero Slider Logic
+            let currentSlide = 0;
+            const slider = document.getElementById('hero-banner');
+            const dots = document.querySelectorAll('.slider-dot');
+            const totalSlides = document.querySelectorAll('.slider-item').length;
+
+            window.slideTo = (index) => {
+                currentSlide = index;
+                const width = slider.offsetWidth;
+                slider.scrollTo({
+                    left: width * index,
+                    behavior: 'smooth'
+                });
+                updateDots();
+            };
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    if (i === currentSlide) dot.classList.add('active-dot');
+                    else dot.classList.remove('active-dot');
+                });
+            }
+
+            function autoSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                window.slideTo(currentSlide);
+            }
+
+            let slideInterval = setInterval(autoSlide, 5000);
+
+            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slider.addEventListener('mouseleave', () => slideInterval = setInterval(autoSlide, 5000));
+
+            // Update dots on manual scroll
+            slider.addEventListener('scroll', () => {
+                const index = Math.round(slider.scrollLeft / slider.offsetWidth);
+                if (index !== currentSlide) {
+                    currentSlide = index;
+                    updateDots();
+                }
+            });
+        };
+
+        // Newsletter Form Handling
+        document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Subscribing...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    localStorage.setItem('newsletter_subscribed', 'true');
+                    btn.innerText = 'Subscribed!';
+                    setTimeout(() => {
+                        closeModal();
+                        openToast("You've successfully joined our mailing list.", "Welcome to HostelMart!", "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=100&q=80");
+                    }, 1000);
+                }
+            } catch (err) {
+                console.error('Subscription error:', err);
+                btn.innerText = 'Error! Try again';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }, 2000);
+            }
+        });
+
+        document.getElementById('overlay').addEventListener('click', () => {
+            closeModal();
+            document.getElementById('mobileMenu').style.transform = 'translateX(-100%)';
+            document.getElementById('overlay').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+    </script>
+    <script>
+        // Fallback Product Data for local environment (CORS bypass)
+        // Intelligent Product Registry for massive coverage
+        const productRegistry = {
+            "Clothes": {
+                "Men's": ["Mens T-Shirts", "Casual & Formal Shirts", "Jeans & Denim", "Tracksuits & Activewear", "Mens Jackets & Winter Wear", "Hoodies & Sweatshirts", "Slim-Fit Charcoal Blazer", "Suits & Blazers", "Trousers & Chinos", "Shorts & Swimwear", "Ethnic & Kurta Wear", "Innerwear & Basics", "Classic Indigo Denim Jacket"],
+                "Women's - Zara": ["Zara Tops", "Zara T-Shirts", "Zara Blouses", "Zara Maxi Dresses", "Zara Midi Dresses", "Zara Mini Skirts", "Zara Blazers", "Zara Jackets", "Zara Jumpsuits"],
+                "Women's - H&M": ["H&M Crop Tops", "H&M Casual Dresses", "H&M Jeggings", "H&M Sweatshirts", "H&M Cardigans", "H&M Loungewear", "H&M Bras", "H&M Panties"],
+                "Women's - Biba": ["Biba Kurtas", "Biba Sarees", "Biba Salwar Suits", "Biba Anarkali Dresses", "Biba Lehengas", "Biba Ethnic Gowns"],
+                "Women's - Fabindia": ["Fabindia Handloom Sarees", "Fabindia Tunics", "Fabindia Ethnic Jackets", "Fabindia Stoles"],
+                "Women's - Forever 21": ["Forever 21 Crop Tops", "Forever 21 Mini Dresses", "Forever 21 Playsuits", "Forever 21 Activewear"],
+                "Women's - Only": ["Only Denim Dresses", "Only Mom Jeans", "Only Overshirts", "Only Knitwear"]
+            },
+            "Mobiles": {
+                "Apple": ["iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16", "iPhone 16 Plus", "iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15", "iPhone 15 Plus", "iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14", "iPhone 14 Plus"],
+                "Samsung": ["Samsung Galaxy S25 Ultra", "Samsung Galaxy S25 Plus", "Samsung Galaxy S25", "Samsung Galaxy S25 FE", "Samsung Galaxy S24 Ultra", "Samsung Galaxy S24 FE", "Samsung Galaxy Z Fold7", "Samsung Galaxy Z Flip7", "Samsung Galaxy Z Flip6", "Samsung Galaxy A56", "Samsung Galaxy A55", "Samsung Galaxy A36", "Samsung Galaxy A35", "Samsung Galaxy A26", "Samsung Galaxy A17", "Samsung Galaxy A16", "Samsung Galaxy A15", "Samsung Galaxy A14", "Samsung Galaxy A07", "Samsung Galaxy A06", "Samsung Galaxy M56", "Samsung Galaxy M36", "Samsung Galaxy M35", "Samsung Galaxy M17", "Samsung Galaxy M06", "Samsung Galaxy F55", "Samsung Galaxy F36", "Samsung Galaxy F17", "Samsung Galaxy F06", "Samsung Galaxy F05"],
+                "Google": ["Google Pixel 10 Pro 5G", "Google Pixel 10 Pro XL 5G", "Google Pixel 10 5G", "Google Pixel 10 Pro Fold 5G", "Google Pixel 10a 5G", "Google Pixel 9 5G", "Google Pixel 9 Pro", "Google Pixel 9 Pro XL 5G", "Google Pixel 9 Pro Fold", "Google Pixel 9a 5G", "Google Pixel 8 Pro", "Google Pixel 8", "Google Pixel 8a", "Google Pixel 7", "Google Pixel 7a", "Google Pixel 7 Pro"],
+                "Sony": ["Sony Xperia 1 VI", "Sony Xperia 1 IV", "Sony Xperia 1 V", "Sony Xperia 5 V", "Sony Xperia 5 IV", "Sony Xperia 10 VI", "Sony Xperia 10 V", "Sony Xperia 10 IV", "Sony Xperia 1 III", "Sony Xperia 5 III", "Sony Xperia 5 II"],
+                "Motorola": ["Motorola Edge 70 Fusion", "Motorola Edge 70", "Motorola Edge 60 Pro", "Motorola Edge 60", "Motorola Edge 60 Fusion", "Motorola Edge 60 Stylus", "Motorola Edge 50 Ultra", "Motorola Edge 50 Pro", "Motorola Edge 50", "Motorola Edge 50 Fusion", "Motorola Edge 50 Neo", "Motorola Razr 60", "Motorola Razr 50", "Motorola Razr 50 Ultra", "Moto G96 5G", "Moto G86 Power", "Moto G67 Power", "Moto G57 Power", "Moto G64 5G", "Moto G45 5G", "Moto G04s", "Moto G06 Power", "Motorola Signature"],
+                "Xiaomi": ["Xiaomi 17 Ultra", "Xiaomi 17", "Xiaomi 15 Ultra", "Xiaomi 15", "Xiaomi 14 Civi", "Redmi Note 15", "Redmi Note 15 Pro", "Redmi Note 15 Pro+", "Redmi Note 15 SE", "Redmi Note 14 Pro+", "Redmi Note 14 Pro", "Redmi Note 14", "Redmi Note 13 Pro+", "Redmi Note 13 Pro", "Redmi Note 13", "Redmi 15", "Redmi 15C", "Redmi 15A", "Redmi 14C", "Redmi 13C", "POCO F7", "POCO F6", "POCO X8 Pro", "POCO X7 Pro", "POCO X7", "POCO X6", "POCO X6 Neo", "POCO M8", "POCO M7", "POCO M6", "POCO C85", "POCO C75", "POCO C71"],
+                "Realme": ["Realme 16 Pro+", "Realme 16 Pro", "Realme 15", "Realme 15 Pro", "Realme 14 Pro+", "Realme 14 Pro", "Realme 14T", "Realme 14x", "Realme 13 Pro+", "Realme 13 Pro", "Realme 13", "Realme GT 7 Pro", "Realme GT 7", "Realme GT 7T", "Realme GT 6", "Realme GT 6T", "Realme P4 Pro", "Realme P4", "Realme P4x", "Realme P3 Ultra", "Realme P3 Pro", "Realme P3", "Realme P3 Lite", "Realme P2 Pro", "Realme P1 Speed", "Realme Narzo 90", "Realme Narzo 90x", "Realme Narzo 80 Pro", "Realme Narzo 80x", "Realme Narzo 80 Lite", "Realme Narzo 70 Turbo", "Realme Narzo N65", "Realme Narzo N61", "Realme C85", "Realme C75", "Realme C73", "Realme C71", "Realme C63", "Realme C55"],
+                "Oppo": ["Oppo Find X9 Pro", "Oppo Find X9", "Oppo Reno 15 Pro", "Oppo Reno 15", "Oppo Reno 14 Pro", "Oppo Reno 14", "Oppo F27 Pro+", "Oppo F27 Pro", "Oppo A6k", "Oppo A3 Pro"],
+                "Vivo": ["Vivo X200 Pro", "Vivo X200", "Vivo X100 Pro", "Vivo X100", "Vivo V70", "Vivo V70 FE", "Vivo V60", "Vivo T5 Pro", "Vivo T5x", "Vivo Y200"],
+                "OnePlus": ["OnePlus 15", "OnePlus 15R", "OnePlus 14", "OnePlus 13", "OnePlus Nord 6", "OnePlus Nord CE 5", "OnePlus Nord CE 4 Lite"],
+                "Nothing": ["Nothing Phone (3)", "Nothing Phone (3a)", "Nothing Phone (3a) Pro", "Nothing Phone (2)", "Nothing Phone (2a)", "Nothing Phone (2a) Plus", "Nothing Phone (1)"],
+                "Micromax": ["Micromax IN 1", "Micromax IN 2C", "Micromax Bharat 2 Plus", "Micromax X1i Smart", "Micromax X1i Flip", "Micromax X809", "Micromax X513 Plus"],
+                "Lava": ["Lava Agni 4", "Lava Agni 3 5G", "Lava Blaze Duo", "Lava Blaze Dragon 5G", "Lava Blaze 2 5G", "Lava Storm Lite 5G", "Lava Storm Play 5G", "Lava Play Ultra", "Lava Play Max", "Lava Bold N1 5G", "Lava Bold N1 Pro", "Lava Shark 5G", "Lava Yuva Smart 2"],
+                "Infinix": ["Infinix Note 60 Pro", "Infinix Note 60", "Infinix Note 50 Pro", "Infinix Note 50", "Infinix Zero 40", "Infinix Zero 30", "Infinix GT 20 Pro", "Infinix Hot 50", "Infinix Hot 40", "Infinix Smart 9"],
+                "iQOO": ["iQOO 15", "iQOO 15 Pro", "iQOO 15R", "iQOO Neo 11", "iQOO Neo 10", "iQOO Z11", "iQOO Z11x", "iQOO Z10", "iQOO Z9 Turbo"]
+            },
+            "Laptops": {
+                "Apple": ["MacBook Air M2", "MacBook Air M3", "MacBook Air M5", "MacBook Pro M3", "MacBook Pro M4", "MacBook Pro M5", "MacBook Neo"],
+                "Dell": ["Dell XPS 13", "Dell XPS 14", "Dell XPS 15", "Dell XPS 17", "Dell Inspiron 15", "Dell Inspiron 14", "Dell Vostro 15", "Dell Latitude 7440", "Dell Alienware m16", "Alienware m16 R2", "Alienware x16 R2", "Alienware m18", "Alienware 16 Aurora"],
+                "HP": ["HP Pavilion 14", "HP Pavilion x360", "HP Victus 15", "HP Omen 16", "HP Omen 17", "HP Omen Transcend 14", "HP Omen Max", "HP Envy x360", "HP Spectre x360", "HP Chromebook Plus"],
+                "Lenovo": ["Lenovo IdeaPad Slim 3", "Lenovo IdeaPad Slim 5", "Lenovo Yoga Slim 7", "Lenovo Yoga Slim 9i", "Lenovo ThinkPad X1 Carbon", "Lenovo ThinkPad X1 Yoga", "Lenovo ThinkPad T14", "Lenovo ThinkPad E14", "Lenovo ThinkPad L14", "Lenovo LOQ Gaming", "Lenovo Legion 5"],
+                "Asus": ["Asus Vivobook 14", "Asus Vivobook 15", "Asus Vivobook S14", "Asus Zenbook 14", "Asus Zenbook S16", "Asus TUF Gaming A15", "Asus ROG Zephyrus G16", "ASUS ROG Strix G16", "ASUS ROG Strix Scar 16", "ASUS ROG Strix Scar 18", "ASUS ROG Zephyrus G14", "ASUS ROG Flow X13"],
+                "Acer": ["Acer Aspire 3", "Acer Aspire 5", "Acer Swift Go 14", "Acer Swift X", "Acer Nitro V 15"],
+                "MSI": ["MSI Thin 15", "MSI Katana 15", "MSI Katana 15 HX", "MSI Cyborg 15", "MSI Bravo 15", "MSI Stealth 16", "MSI Raider GE78"]
+            },
+            "Audio": {
+                "Sony": ["Sony WF-1000XM5", "Sony WF-C700N", "Sony WH-1000XM5", "Sony ULT Wear WH-ULT900N"],
+                "Bose": ["Bose QuietComfort Ultra Earbuds", "Bose QuietComfort Headphones", "Bose Sport Earbuds"],
+                "Sennheiser": ["Sennheiser Momentum True Wireless 4", "Sennheiser Accentum Wireless", "Sennheiser HD 450BT"],
+                "Apple": ["Apple AirPods 4 Wireless Earbuds", "AirPods Pro (2nd Gen)", "AirPods Max"],
+                "boAt": ["boAt Airdopes Prime", "boAt Airdopes 800", "boAt Nirvana Ion ANC Pro", "boAt Rockerz 550"],
+                "JBL": ["JBL Live Buds 3", "JBL Tune Buds 2", "JBL Tune 770NC", "JBL Live 660NC"],
+                "Realme": ["realme Buds T200 Lite", "realme Buds T200x", "realme Buds Wireless 3 Neo"],
+                "OnePlus": ["OnePlus Buds 3 Pro", "OnePlus Nord Buds 3r", "OnePlus Buds"]
+            },
+            "Smartwatches": {
+                "Apple": ["Apple Watch Series 11", "Apple Watch Series 10", "Apple Watch Ultra 3", "Apple Watch SE (3rd Gen)"],
+                "Samsung": ["Samsung Galaxy Watch 8", "Samsung Galaxy Watch 8 Classic", "Samsung Galaxy Watch Ultra", "Samsung Galaxy Watch 7", "Samsung Galaxy Watch FE"],
+                "Garmin": ["Garmin Fenix 8", "Garmin Vivoactive 5", "Garmin Forerunner 165", "Garmin Forerunner 55"],
+                "boAt": ["boAt Ultima Prime", "boAt Wave Call 3", "boAt Chrome Horizon", "boAt Lunar Discovery Neo"],
+                "Noise": ["Noise ColorFit Pro 6 Max", "Noise Twist 2", "Noise Endeavour 2", "NoiseFit Halo"],
+                "Fire-Boltt": ["Fire-Boltt Ninja Call Pro", "Fire-Boltt Phoenix Ultra", "Fire-Boltt Visionary"],
+                "Titan": ["Titan Smart 3", "Titan Talk S", "Titan Connected X"]
+            }
+        };
+
+        const localProductFallback = [];
+        let idCounter = 1;
+
+        // Auto-generate fallback list from registry
+        Object.keys(productRegistry).forEach(category => {
+            Object.keys(productRegistry[category]).forEach(brand => {
+                productRegistry[category][brand].forEach(model => {
+                    localProductFallback.push({
+                        id: idCounter++,
+                        name: model,
+                        category: category,
+                        price: Math.floor(Math.random() * (1500 - 50) + 50),
+                        delPrice: Math.floor(Math.random() * (2000 - 1600) + 1600),
+                        discount: Math.random() > 0.5 ? "Sale" : "Hot",
+                        rating: Math.floor(Math.random() * (5 - 3) + 3),
+                        images: {
+                            default: `https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80`,
+                            hover: `https://images.unsplash.com/photo-1592890288564-76628a30a657?auto=format&fit=crop&w=800&q=80`
+                        },
+                        tags: [brand.toLowerCase(), category.toLowerCase(), ...model.toLowerCase().split(" ")]
+                    });
+                });
+            });
+        });
+
+        let allProductsGlobal = [];
+
+        async function loadProductsFallback() {
+            const productGrid = document.querySelector('.product-grid');
+            try {
+                const response = await fetch('./data/products.json');
+                if (!response.ok) throw new Error("Local products.json fetch failed");
+                allProductsGlobal = await response.json();
+                console.log("Products loaded from JSON:", allProductsGlobal.length);
+            } catch (e) {
+                console.warn("CORS/Fetch error or file missing, using local fallback data.");
+                allProductsGlobal = localProductFallback;
+                console.log("Fallback products loaded:", allProductsGlobal.length);
+            }
+            renderProducts(allProductsGlobal, productGrid);
+        }
+
+        function renderProducts(products, container) {
+            if (!container || !products) return;
+            container.innerHTML = '';
+            // Render all products without slicing
+            products.forEach(product => {
+                container.insertAdjacentHTML('beforeend', createProductHTML(product));
+            });
+        }
+
+        function createProductHTML(product) {
+            const ratingHtml = Array(5).fill(0).map((_, i) =>
+                `<ion-icon name="${i < product.rating ? 'star' : 'star-outline'}"></ion-icon>`
+            ).join('');
+            const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#795548] text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
+            const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">$${product.delPrice.toFixed(2)}</del>` : '';
+
+            return `
+                <div class="product-card bg-white border border-gray-100 rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500" data-tags="${(product.tags || []).join(' ').toLowerCase()}">
+                    <div class="relative aspect-[4/5] overflow-hidden">
+                        <img src="${product.images.default}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <img src="${product.images.hover}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img">
+                        ${badgeHtml}
+                        <div class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
+                            <button class="bg-white/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon name="heart-outline"></ion-icon></button>
+                            <button class="bg-white/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon name="eye-outline"></ion-icon></button>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-6 space-y-2">
+                        <p class="text-[10px] text-[#795548] font-black uppercase tracking-widest">${product.category}</p>
+                        <h3 class="font-bold text-gray-800 truncate text-sm sm:text-base">${product.name}</h3>
+                        <div class="flex items-center gap-1 text-yellow-400 text-[10px]">${ratingHtml}</div>
+                        <div class="flex items-center gap-2 font-black text-lg text-gray-900 mt-1">
+                            <span>$${product.price.toFixed(2)}</span> ${delHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', loadProductsFallback);
+
+        // Robust Client-side search filtering
+        const searchInput = document.getElementById('product-search');
+        if (searchInput) {
+            const performSearch = () => {
+                const term = searchInput.value.toLowerCase().trim();
+
+                // Direct Department Redirects
+                if (term === "mens clothes" || term === "men's clothes" || term === "mens clothing") {
+                    window.location.href = "Men's.html";
+                    return;
+                }
+                if (term === "womens clothes" || term === "women's clothes" || term === "womens clothing") {
+                    window.location.href = "Women's.html";
+                    return;
+                }
+
+                const heroBannerGrid = document.getElementById('hero-banners');
+                const personalScroller = document.getElementById('personalized-scroller');
+                const catScroller = document.getElementById('categories-scroller');
+                const dealSection = document.getElementById('deal-of-the-day');
+                const mainLayout = document.getElementById('main-content-layout');
+                const minimalLists = document.getElementById('minimal-lists');
+                const searchArea = document.getElementById('search-results-area');
+                const searchGrid = document.getElementById('search-results-grid');
+
+                if (term !== "") {
+                    // Hide all other sections
+                    const allSections = document.querySelectorAll('main > section:not(#search-results-area)');
+                    allSections.forEach(s => s.style.display = 'none');
+
+                    // Show top-level search results area
+                    if (searchArea) searchArea.classList.remove('hidden');
+
+                    // Filter and Inject matching products from Global Array
+                    searchGrid.innerHTML = '';
+                    let exactMatches = [];
+                    let relatedMatches = [];
+
+                    const searchKeywords = term.split(/\s+/).filter(k => k.length > 1);
+
+                    allProductsGlobal.forEach(product => {
+                        const name = product.name.toLowerCase();
+                        const category = product.category.toLowerCase();
+                        const tags = (product.tags || []).join(' ').toLowerCase();
+                        const fullText = `${name} ${category} ${tags}`;
+
+                        // Exact phrase match gets highest priority
+                        if (name.includes(term)) {
+                            exactMatches.push(product);
+                        } else {
+                            // Keyword-based matching for better discovery
+                            const isKeywordMatch = searchKeywords.some(key => fullText.includes(key));
+                            if (isKeywordMatch || category.includes(term) || tags.includes(term)) {
+                                relatedMatches.push(product);
+                            }
+                        }
+                    });
+
+                    // Render Results
+                    exactMatches.forEach(product => {
+                        searchGrid.insertAdjacentHTML('beforeend', createProductHTML(product));
+                    });
+
+                    if (relatedMatches.length > 0) {
+                        const relatedHeader = document.createElement('div');
+                        relatedHeader.className = 'col-span-full pt-10 pb-4 border-t border-gray-100 mt-10';
+                        relatedHeader.innerHTML = `<h3 class="text-xl font-black uppercase tracking-tighter text-gray-400 italic">More Related Results</h3>`;
+                        searchGrid.appendChild(relatedHeader);
+
+                        relatedMatches.forEach(product => {
+                            searchGrid.insertAdjacentHTML('beforeend', createProductHTML(product));
+                        });
+                    }
+
+                    const matchCount = exactMatches.length + relatedMatches.length;
+                    const titleEl = document.getElementById('search-results-title');
+                    if (titleEl) {
+                        titleEl.innerHTML = `<span class="w-2 h-6 bg-[#795548] rounded-full"></span> Found ${matchCount} results for "${searchInput.value}"`;
+                    }
+
+                    if (matchCount === 0) {
+                        searchGrid.innerHTML = `
+                            <div class="col-span-full py-20 text-center space-y-4">
+                                <div class="text-6xl text-gray-300">🔍</div>
+                                <h3 class="text-xl font-bold text-gray-800">No products found for "${searchInput.value}"</h3>
+                                <p class="text-gray-500">Try checking your spelling or use more general terms.</p>
+                                <button onclick="document.getElementById('product-search').value=''; document.getElementById('product-search').dispatchEvent(new Event('input'))" class="mt-4 px-6 py-2 bg-[#795548] text-white rounded-xl font-bold hover:bg-gray-900 transition-colors">Clear Search</button>
+                            </div>
+                        `;
+                    }
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    // Show everything again
+                    const allSections = document.querySelectorAll('main > section:not(#search-results-area)');
+                    allSections.forEach(s => {
+                        if (s.id === 'hero-banners' || s.id === 'main-content-layout' || s.id === 'minimal-lists') {
+                            s.style.display = 'grid';
+                        } else if (s.id === 'categories-scroller') {
+                            s.style.display = 'flex';
+                        } else {
+                            s.style.display = 'block';
+                        }
+                    });
+
+                    if (searchArea) searchArea.classList.add('hidden');
+                }
+            };
+
+            searchInput.addEventListener('input', performSearch);
+
+            const searchBtn = document.getElementById('search-btn');
+            if (searchBtn) {
+                searchBtn.addEventListener('click', performSearch);
+            }
+        }
+    </script>
+</body>
+
+</html>

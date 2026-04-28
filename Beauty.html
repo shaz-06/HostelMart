@@ -8,10 +8,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --cream: #FAF7F2;
+            --cream-dark: #F3EEE5;
+            --brown: #3E2723;
+            --brown-soft: #5D4037;
+            --gold: #C5A059;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FDFBF7;
-            color: #3E2723;
+            background-color: var(--cream);
+            color: var(--brown);
         }
 
         .no-scrollbar::-webkit-scrollbar {
@@ -24,15 +32,15 @@
         }
 
         .accent-gold {
-            color: #C5A059;
+            color: var(--gold);
         }
 
         .accent-gold-bg {
-            background-color: #C5A059;
+            background-color: var(--gold);
         }
 
         .dark-brown-bg {
-            background-color: #3E2723;
+            background-color: var(--brown);
         }
 
         .hover-lift {
@@ -45,15 +53,15 @@
         }
 
         .beauty-gradient {
-            background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);
+            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-soft) 100%);
         }
 
         .deals-bg {
-            background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%);
+            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-soft) 100%);
         }
 
         .scalloped-card {
-            background-color: #FFF2A5;
+            background-color: var(--cream-dark);
             border-radius: 24px 24px 0 0;
             position: relative;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
@@ -65,29 +73,29 @@
             left: 0;
             width: 100%;
             height: 13px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C12.5,20 25,0 37.5,20 C50,0 62.5,20 75,0 C87.5,20 100,0 100,0 V20 H0 Z' fill='%23FFF2A5'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C12.5,20 25,0 37.5,20 C50,0 62.5,20 75,0 C87.5,20 100,0 100,0 V20 H0 Z' fill='%23F3EEE5'/%3E%3C/svg%3E");
             background-size: 100% 100%;
         }
     </style>
 </head>
 
-<body class="antialiased">
+<body class="antialiased bg-[#FAF7F2]">
 
-    <!-- 1. TOP UTILITY NAV (Consistent with home) -->
-    <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200">
+    <!-- 1. TOP UTILITY NAV -->
+    <nav class="bg-[#F3EEE5] border-b border-[#3E2723]/10">
         <div
-            class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest overflow-x-auto no-scrollbar">
+            class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest overflow-x-auto no-scrollbar text-[#3E2723]">
             <a href="index.html"
-                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap">
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-[#3E2723]/5 whitespace-nowrap">
                 <span class="italic text-stone-400">Hostel</span><span class="font-black text-[#3E2723]">Mart</span>
             </a>
             <div
-                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap">
-                <div class="dark-brown-bg text-white px-1.5 py-0.5 rounded text-[9px]">6</div>
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-[#3E2723]/5 whitespace-nowrap">
+                <div class="bg-[#3E2723] text-white px-1.5 py-0.5 rounded text-[9px]">6</div>
                 <span>Minutes</span>
             </div>
             <div
-                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap">
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-[#3E2723]/5 whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path
@@ -96,11 +104,11 @@
                 <span>Travel</span>
             </div>
             <div
-                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap">
-                <span class="dark-brown-bg text-white px-1 rounded-[2px] text-[7px]">XTRASAVER</span>
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-[#3E2723]/5 whitespace-nowrap">
+                <span class="bg-[#3E2723] text-white px-1 rounded-[2px] text-[7px]">XTRASAVER</span>
                 <span>Grocery</span>
             </div>
-            <div class="ml-auto flex items-center gap-1 text-stone-500">
+            <div class="ml-auto flex items-center gap-1 text-[#3E2723]/60">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -112,15 +120,15 @@
     </nav>
 
     <!-- 2. MAIN HEADER -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 py-3 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-8">
+    <header class="sticky top-0 z-50 bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#3E2723]/10 py-3 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-8 text-[#3E2723]">
             <a href="index.html" class="block min-w-fit">
-                <h1 class="text-xl font-black tracking-tighter text-[#3E2723]">
-                    HOSTEL<span class="accent-gold">MART</span>
+                <h1 class="text-xl font-black tracking-tighter">
+                    HOSTEL<span class="text-[#C5A059]">MART</span>
                 </h1>
             </a>
             <div class="flex-1 relative max-w-2xl">
-                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#3E2723]/40">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.5">
                         <circle cx="11" cy="11" r="8" />
@@ -128,11 +136,11 @@
                     </svg>
                 </div>
                 <input type="text" placeholder="Search Beauty, Skincare and more"
-                    class="w-full bg-[#F8F7F4] border border-stone-200 rounded-xl py-2.5 pl-11 pr-4 focus:ring-2 focus:ring-[#C5A059] focus:bg-white outline-none transition-all text-sm">
+                    class="w-full bg-[#F3EEE5] border border-[#3E2723]/10 rounded-xl py-2.5 pl-11 pr-4 focus:ring-2 focus:ring-[#C5A059] focus:bg-white outline-none transition-all text-sm text-[#3E2723]">
             </div>
             <div class="flex items-center gap-6 font-bold text-sm">
                 <div class="flex items-center gap-2 cursor-pointer hover:text-[#C5A059]">
-                    <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-[#F3EEE5] flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2">
                             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
@@ -141,7 +149,7 @@
                     </div>
                     <span>Shashank</span>
                 </div>
-                <div class="relative dark-brown-bg text-white px-4 py-2 rounded-xl flex items-center gap-2">
+                <div class="relative bg-[#3E2723] text-[#FAF7F2] px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <circle cx="8" cy="21" r="1" />
@@ -150,35 +158,35 @@
                     </svg>
                     <span>Cart</span>
                     <span
-                        class="absolute -top-1.5 -right-1.5 accent-gold-bg border-2 border-white text-white text-[9px] rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                        class="absolute -top-1.5 -right-1.5 bg-[#C5A059] border-2 border-[#FAF7F2] text-white text-[9px] rounded-full w-5 h-5 flex items-center justify-center">2</span>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- 3. CATEGORY BAR -->
-    <div class="bg-white border-b border-stone-100 overflow-x-auto no-scrollbar">
-        <div class="max-w-7xl mx-auto px-4 flex items-center gap-6 md:gap-10 py-6 min-w-max">
+    <div class="bg-[#FAF7F2] border-b border-[#3E2723]/10 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto px-4 flex items-center gap-6 md:gap-10 py-6 min-w-max text-[#3E2723]">
 
             <!-- For You -->
             <a href="index.html" class="flex flex-col items-center gap-2 cursor-pointer group">
                 <div
-                    class="w-14 h-14 rounded-2xl bg-[#F8F4E1] flex items-center justify-center shadow-sm border border-stone-100 relative overflow-hidden group-hover:scale-105 transition-transform">
-                    <div class="absolute inset-0 bg-gradient-to-br from-amber-100/50 to-transparent"></div>
+                    class="w-14 h-14 rounded-2xl bg-[#F3EEE5] flex items-center justify-center shadow-sm border border-[#3E2723]/10 relative overflow-hidden group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#C5A059]/10 to-transparent"></div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#C5A059"
                         stroke="#3E2723" stroke-width="1.5">
                         <circle cx="12" cy="8" r="6" />
                         <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
                     </svg>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-tighter text-[#3E2723]">For You</span>
+                <span class="text-[10px] font-black uppercase tracking-tighter">For You</span>
             </a>
 
             <!-- Fashion -->
             <a href="Fashion.html"
                 class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
                 <div
-                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    class="w-14 h-14 rounded-full bg-[#F3EEE5] flex items-center justify-center border border-transparent group-hover:border-[#3E2723]/20 group-hover:bg-white group-hover:shadow-md transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="#3E2723" stroke-width="2">
                         <path
@@ -192,7 +200,7 @@
             <a href="Mobile.html"
                 class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-all">
                 <div
-                    class="w-14 h-14 rounded-full bg-stone-50 flex items-center justify-center border border-transparent group-hover:border-stone-200 group-hover:bg-white group-hover:shadow-md transition-all">
+                    class="w-14 h-14 rounded-full bg-[#F3EEE5] flex items-center justify-center border border-transparent group-hover:border-[#3E2723]/20 group-hover:bg-white group-hover:shadow-md transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="#3E2723" stroke-width="2">
                         <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
@@ -374,99 +382,99 @@
         <div class="grid grid-cols-4 md:grid-cols-8 gap-y-8 gap-x-4">
             <!-- Row 1 -->
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1570172619661-04183427357c?auto=format&fit=crop&w=200&q=80" alt="Skincare" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Skincare</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Skincare</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1522337660859-02fbefad4740?auto=format&fit=crop&w=200&q=80" alt="Hair care" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Hair care</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Hair care</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=200&q=80" alt="Grooming" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Grooming</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Grooming</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80" alt="Premium" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Premium</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Premium</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1559591937-e62058444e4a?auto=format&fit=crop&w=200&q=80" alt="Oral care" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Oral care</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Oral care</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=200&q=80" alt="Derma" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Derma</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Derma</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1596462502278-27bfad450516?auto=format&fit=crop&w=200&q=80" alt="K-beauty" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">K-beauty</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">K-beauty</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-pink-50 flex items-center justify-center border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#F3EEE5] flex items-center justify-center border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <span class="font-black text-xs tracking-widest text-[#3E2723]">PROWL</span>
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Prowl</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Prowl</span>
             </div>
 
             <!-- Row 2 -->
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-pink-100 flex items-center justify-center border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
-                    <span class="font-black text-xs italic text-pink-600">phitku</span>
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#F3EEE5] flex items-center justify-center border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
+                    <span class="font-black text-xs italic text-[#3E2723]/60">phitku</span>
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Phitku</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Phitku</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-red-600 flex flex-col items-center justify-center border-2 border-white shadow-lg group-hover:scale-105 transition-transform">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#3E2723] flex flex-col items-center justify-center border-2 border-white shadow-lg group-hover:scale-105 transition-transform">
                     <span class="text-[8px] font-bold text-white uppercase">Top</span>
                     <span class="text-2xl font-black text-white leading-none">25</span>
                     <span class="text-[8px] font-bold text-white uppercase tracking-widest">Deals</span>
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Top 25 deals</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Top 25 deals</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=200&q=80" alt="Makeup" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Makeup</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Makeup</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=200&q=80" alt="Fragrances" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Fragrances</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Fragrances</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1556229167-731300067644?auto=format&fit=crop&w=200&q=80" alt="Personal care" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Personal care</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Personal care</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
                     <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=200&q=80" alt="Hygiene" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Hygiene</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Hygiene</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-stone-100 flex flex-col items-center justify-center border-2 border-stone-100 group-hover:border-[#C5A059] transition-all">
-                    <span class="text-[7px] font-bold text-stone-500 uppercase leading-none">Reginald</span>
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#F3EEE5] flex flex-col items-center justify-center border-2 border-[#3E2723]/10 group-hover:border-[#C5A059] transition-all">
+                    <span class="text-[7px] font-bold text-[#3E2723]/60 uppercase leading-none">Reginald</span>
                     <span class="text-[10px] font-black text-[#3E2723] uppercase">MEN</span>
                 </div>
-                <span class="text-[10px] font-bold text-stone-600 uppercase tracking-tighter">Reginald Men</span>
+                <span class="text-[10px] font-bold text-[#3E2723] uppercase tracking-tighter">Reginald Men</span>
             </div>
         </div>
     </div>
@@ -722,27 +730,23 @@
             </div>
         </section>
 
-        <!-- 8. PROMO BANNER (Screenshot 19.33.48.jpg) -->
+        <!-- 8. PROMO BANNER -->
         <section
-            class="relative rounded-[40px] overflow-hidden bg-gradient-to-r from-pink-600 to-rose-700 p-8 md:p-12 text-white flex items-center min-h-[220px]">
+            class="relative rounded-[40px] overflow-hidden bg-[#3E2723] p-8 md:p-12 text-[#FAF7F2] flex items-center min-h-[220px]">
             <div class="relative z-10 space-y-2">
                 <h2 class="text-3xl md:text-5xl font-black">Love their glam?</h2>
                 <div class="flex items-center gap-3">
                     <span class="text-xl md:text-2xl font-bold">Order on</span>
-                    <div class="bg-yellow-400 text-black font-black italic px-4 py-1 rounded text-2xl skew-x-[-10deg]">
+                    <div class="bg-[#C5A059] text-[#3E2723] font-black italic px-4 py-1 rounded text-2xl skew-x-[-10deg]">
                         MINUTES</div>
                 </div>
             </div>
             <div
-                class="absolute right-12 top-1/2 -translate-y-1/2 bg-white text-black p-4 rounded-full shadow-2xl animate-pulse">
+                class="absolute right-12 top-1/2 -translate-y-1/2 bg-[#FAF7F2] text-[#3E2723] p-4 rounded-full shadow-2xl animate-pulse">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="3">
                     <path d="M5 12h14m-7-7 7 7-7 7" />
                 </svg>
-            </div>
-            <div class="absolute right-32 top-0 h-full opacity-30 flex items-center gap-4">
-                <div class="w-24 h-24 bg-white rounded-full blur-xl"></div>
-                <div class="w-32 h-32 bg-pink-300 rounded-full blur-2xl"></div>
             </div>
         </section>
 
@@ -974,48 +978,48 @@
             </div>
         </section>
 
-        <!-- 10. SALE BANNER: SASA LELE (Screenshot 19.34.04.jpg) -->
+        <!-- 10. SALE BANNER: SASA LELE -->
         <section
-            class="bg-blue-800 rounded-[40px] p-8 md:p-12 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+            class="bg-[#3E2723] rounded-[40px] p-8 md:p-12 text-[#FAF7F2] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
             <div class="flex items-center gap-6 relative z-10">
                 <div
-                    class="bg-yellow-400 text-black font-black text-3xl leading-none p-4 rounded-xl flex flex-col shadow-[8px_8px_0px_#000]">
+                    class="bg-[#C5A059] text-[#3E2723] font-black text-3xl leading-none p-4 rounded-xl flex flex-col shadow-[8px_8px_0px_rgba(255,255,255,0.1)]">
                     <span>SASA</span>
                     <span>LELE</span>
                 </div>
                 <div class="space-y-1">
                     <h2 class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter">Sale Starts</h2>
-                    <p class="text-5xl md:text-6xl font-black text-yellow-400 uppercase italic tracking-tighter">On 9th
+                    <p class="text-5xl md:text-6xl font-black text-[#C5A059] uppercase italic tracking-tighter">On 9th
                         May</p>
                 </div>
             </div>
             <div
                 class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 relative z-10 text-center md:text-right">
-                <p class="text-sm font-bold uppercase tracking-widest opacity-80 mb-1">Early Access</p>
-                <p class="text-xl font-black text-yellow-400">24 hrs for PLUS & BLACK members</p>
+                <p class="text-sm font-bold uppercase tracking-widest opacity-80 mb-1 text-[#F3EEE5]">Early Access</p>
+                <p class="text-xl font-black text-[#C5A059]">24 hrs for PLUS & BLACK members</p>
             </div>
             <!-- Star decorations -->
-            <div class="absolute top-4 left-1/2 text-yellow-400 opacity-50">✦</div>
-            <div class="absolute bottom-8 right-1/4 text-yellow-400 opacity-30 text-3xl">✦</div>
+            <div class="absolute top-4 left-1/2 text-[#C5A059] opacity-50">✦</div>
+            <div class="absolute bottom-8 right-1/4 text-[#C5A059] opacity-30 text-3xl">✦</div>
         </section>
 
-        <!-- 11. GLAM ON A BUDGET (Screenshot 19.35.30.jpg) -->
+        <!-- 11. GLAM ON A BUDGET -->
         <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#C5A059] pl-4">Glam on a budget
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Glam on a budget
             </h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 <div
-                    class="bg-gradient-to-br from-amber-100 to-yellow-300 rounded-3xl p-8 text-center hover-lift cursor-pointer shadow-sm">
+                    class="bg-[#F3EEE5] rounded-3xl p-8 text-center hover-lift cursor-pointer shadow-sm border border-[#3E2723]/10">
                     <p class="text-xs font-bold text-stone-600 uppercase tracking-widest mb-1">Under</p>
                     <p class="text-3xl font-black text-[#3E2723]">₹199</p>
                 </div>
                 <div
-                    class="bg-gradient-to-br from-amber-100 to-yellow-300 rounded-3xl p-8 text-center hover-lift cursor-pointer shadow-sm">
+                    class="bg-[#F3EEE5] rounded-3xl p-8 text-center hover-lift cursor-pointer shadow-sm border border-[#3E2723]/10">
                     <p class="text-xs font-bold text-stone-600 uppercase tracking-widest mb-1">Under</p>
                     <p class="text-3xl font-black text-[#3E2723]">₹299</p>
                 </div>
                 <div
-                    class="bg-gradient-to-br from-amber-100 to-yellow-300 rounded-3xl p-8 text-center hover-lift cursor-pointer shadow-sm">
+                    class="bg-[#F3EEE5] rounded-3xl p-8 text-center hover-lift cursor-pointer shadow-sm border border-[#3E2723]/10">
                     <p class="text-xs font-bold text-stone-600 uppercase tracking-widest mb-1">Under</p>
                     <p class="text-3xl font-black text-[#3E2723]">₹399</p>
                 </div>

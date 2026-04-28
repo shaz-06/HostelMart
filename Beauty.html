@@ -747,62 +747,130 @@
         </section>
 
         <!-- 9. TOP 10 BEAUTY BUYS (Screenshot 19.33.48.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#C5A059] pl-4">Top 10 beauty buys
-            </h3>
-            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-4">
-                <!-- Item 1 -->
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-orange-300 to-pink-500 rounded-[32px] p-6 h-72 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
-                        <div class="absolute top-2 left-4 text-7xl font-black text-white/40 italic">1.</div>
-                        <img src="https://via.placeholder.com/120x160" alt="Product 1"
-                            class="relative z-10 mx-auto translate-y-8 drop-shadow-2xl">
+        <section class="space-y-8 relative">
+            <h3 class="text-2xl font-black uppercase tracking-widest text-[#3E2723]">Top 10 beauty buys</h3>
+            
+            <div class="relative group">
+                <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth pb-4 px-2">
+                    
+                    <!-- Item 1: Olay serum -->
+                    <div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group cursor-pointer">
+                        <div class="bg-gradient-to-b from-[#FFA360] to-[#FF3E82] rounded-[48px] p-10 h-[450px] relative overflow-hidden flex flex-col items-center justify-between shadow-2xl group-hover:scale-[1.02] transition-transform duration-300">
+                            <div class="absolute top-6 left-8 text-7xl font-black text-white leading-none opacity-90">1.</div>
+                            
+                            <!-- Product Glow -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                            </div>
+
+                            <!-- Product Image -->
+                            <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
+                                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80" alt="Olay serum" class="h-64 object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] group-hover:scale-110 transition-transform">
+                            </div>
+
+                            <div class="relative z-10 text-center text-white space-y-1 mt-auto">
+                                <p class="text-sm font-bold uppercase tracking-widest opacity-80">Olay serum</p>
+                                <p class="text-2xl font-black">Up to 45% Off</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-4 text-center">
-                        <p class="text-xs font-bold opacity-60">Olay serum</p>
-                        <p class="text-sm font-black dark-brown-text uppercase tracking-tight">Up to 45% Off</p>
+
+                    <!-- Item 2: Dot & key facewash -->
+                    <div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group cursor-pointer">
+                        <div class="bg-gradient-to-b from-[#FFA360] to-[#FF3E82] rounded-[48px] p-10 h-[450px] relative overflow-hidden flex flex-col items-center justify-between shadow-2xl group-hover:scale-[1.02] transition-transform duration-300">
+                            <div class="absolute top-6 left-8 text-7xl font-black text-white leading-none opacity-90">2.</div>
+                            
+                            <!-- Product Glow -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                            </div>
+
+                            <!-- Product Image -->
+                            <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
+                                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80" alt="Dot & key facewash" class="h-64 object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] group-hover:scale-110 transition-transform">
+                            </div>
+
+                            <div class="relative z-10 text-center text-white space-y-1 mt-auto">
+                                <p class="text-sm font-bold uppercase tracking-widest opacity-80">Dot & key facewash</p>
+                                <p class="text-2xl font-black">Under ₹249</p>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Item 3: Maybelline foundation -->
+                    <div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group cursor-pointer">
+                        <div class="bg-gradient-to-b from-[#FFA360] to-[#FF3E82] rounded-[48px] p-10 h-[450px] relative overflow-hidden flex flex-col items-center justify-between shadow-2xl group-hover:scale-[1.02] transition-transform duration-300">
+                            <div class="absolute top-6 left-8 text-7xl font-black text-white leading-none opacity-90">3.</div>
+                            
+                            <!-- Product Glow -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                            </div>
+
+                            <!-- Product Image -->
+                            <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
+                                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=300&q=80" alt="Maybelline foundation" class="h-64 object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] group-hover:scale-110 transition-transform">
+                            </div>
+
+                            <div class="relative z-10 text-center text-white space-y-1 mt-auto">
+                                <p class="text-sm font-bold uppercase tracking-widest opacity-80">Maybelline foundation</p>
+                                <p class="text-2xl font-black">Min. 45% Off</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Pond's moisturiser -->
+                    <div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group cursor-pointer">
+                        <div class="bg-gradient-to-b from-[#FFA360] to-[#FF3E82] rounded-[48px] p-10 h-[450px] relative overflow-hidden flex flex-col items-center justify-between shadow-2xl group-hover:scale-[1.02] transition-transform duration-300">
+                            <div class="absolute top-6 left-8 text-7xl font-black text-white leading-none opacity-90">4.</div>
+                            
+                            <!-- Product Glow -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                            </div>
+
+                            <!-- Product Image -->
+                            <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
+                                <img src="https://images.unsplash.com/photo-1556229167-731300067644?auto=format&fit=crop&w=300&q=80" alt="Pond's moisturiser" class="h-64 object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] group-hover:scale-110 transition-transform">
+                            </div>
+
+                            <div class="relative z-10 text-center text-white space-y-1 mt-auto">
+                                <p class="text-sm font-bold uppercase tracking-widest opacity-80">Pond's moisturiser</p>
+                                <p class="text-2xl font-black">Flat 59% Off</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Bellavita Perfume -->
+                    <div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group cursor-pointer">
+                        <div class="bg-gradient-to-b from-[#FFA360] to-[#FF3E82] rounded-[48px] p-10 h-[450px] relative overflow-hidden flex flex-col items-center justify-between shadow-2xl group-hover:scale-[1.02] transition-transform duration-300">
+                            <div class="absolute top-6 left-8 text-7xl font-black text-white leading-none opacity-90">5.</div>
+                            
+                            <!-- Product Glow -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                            </div>
+
+                            <!-- Product Image -->
+                            <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
+                                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=300&q=80" alt="Bellavita Perfume" class="h-64 object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] group-hover:scale-110 transition-transform">
+                            </div>
+
+                            <div class="relative z-10 text-center text-white space-y-1 mt-auto">
+                                <p class="text-sm font-bold uppercase tracking-widest opacity-80">Bellavita Perfume</p>
+                                <p class="text-2xl font-black">Min. 70% Off</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <!-- Item 2 -->
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-amber-200 to-rose-400 rounded-[32px] p-6 h-72 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
-                        <div class="absolute top-2 left-4 text-7xl font-black text-white/40 italic">2.</div>
-                        <img src="https://via.placeholder.com/120x160" alt="Product 2"
-                            class="relative z-10 mx-auto translate-y-8 drop-shadow-2xl">
-                    </div>
-                    <div class="mt-4 text-center">
-                        <p class="text-xs font-bold opacity-60">Dot & key facewash</p>
-                        <p class="text-sm font-black dark-brown-text uppercase tracking-tight">Under ₹249</p>
-                    </div>
-                </div>
-                <!-- Item 3 -->
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-yellow-100 to-pink-600 rounded-[32px] p-6 h-72 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
-                        <div class="absolute top-2 left-4 text-7xl font-black text-white/40 italic">3.</div>
-                        <img src="https://via.placeholder.com/120x160" alt="Product 3"
-                            class="relative z-10 mx-auto translate-y-8 drop-shadow-2xl">
-                    </div>
-                    <div class="mt-4 text-center">
-                        <p class="text-xs font-bold opacity-60">Maybelline foundation</p>
-                        <p class="text-sm font-black dark-brown-text uppercase tracking-tight">Min. 45% Off</p>
-                    </div>
-                </div>
-                <!-- Item 4 -->
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-blue-200 to-rose-500 rounded-[32px] p-6 h-72 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
-                        <div class="absolute top-2 left-4 text-7xl font-black text-white/40 italic">4.</div>
-                        <img src="https://via.placeholder.com/120x160" alt="Product 4"
-                            class="relative z-10 mx-auto translate-y-8 drop-shadow-2xl">
-                    </div>
-                    <div class="mt-4 text-center">
-                        <p class="text-xs font-bold opacity-60">Pond's moisturiser</p>
-                        <p class="text-sm font-black dark-brown-text uppercase tracking-tight">Flat 59% Off</p>
-                    </div>
-                </div>
+
+                <!-- Next Button -->
+                <button class="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/90 backdrop-blur-md rounded-full shadow-2xl flex items-center justify-center text-[#3E2723] z-20 group-hover:scale-110 transition-transform border border-stone-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
             </div>
         </section>
 

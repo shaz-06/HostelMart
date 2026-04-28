@@ -51,6 +51,23 @@
         .deals-bg {
             background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%);
         }
+
+        .scalloped-card {
+            background-color: #FFF2A5;
+            border-radius: 24px 24px 0 0;
+            position: relative;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+        }
+
+        .scalloped-bottom {
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100%;
+            height: 13px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C12.5,20 25,0 37.5,20 C50,0 62.5,20 75,0 C87.5,20 100,0 100,0 V20 H0 Z' fill='%23FFF2A5'/%3E%3C/svg%3E");
+            background-size: 100% 100%;
+        }
     </style>
 </head>
 
@@ -589,67 +606,119 @@
             </div>
         </section>
 
-        <!-- 7. ASSOCIATE SPONSORS (Screenshot 19.33.29.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#C5A059] pl-4">Associate Sponsors
-            </h3>
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
-                <div
-                    class="bg-amber-100/50 rounded-[32px] p-6 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-amber-200">
-                    <div class="text-center font-black text-xs">the <span class="accent-gold">derma</span> co</div>
-                    <button class="bg-[#3E2723] text-white p-1.5 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg></button>
+        <!-- 7. ASSOCIATE SPONSORS (REFINE DESIGN) -->
+        <section class="space-y-10 py-10">
+            <h3 class="text-2xl font-black uppercase tracking-widest text-[#3E2723]">Associate Sponsors</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-y-20 gap-x-8">
+                
+                <!-- The Derma Co -->
+                <div class="flex flex-col items-center gap-6 group cursor-pointer">
+                    <div class="scalloped-card w-full aspect-square flex flex-col items-center justify-center p-8">
+                        <div class="relative">
+                            <div class="text-center">
+                                <span class="text-[8px] font-bold block leading-none uppercase">the</span>
+                                <span class="text-2xl font-black tracking-tight text-[#3E2723]">derma <span class="text-teal-500 bg-teal-500/20 px-1 rounded">co</span></span>
+                                <span class="text-[6px] font-bold block mt-1 uppercase tracking-widest opacity-60">Designed by Dermatologists</span>
+                            </div>
+                        </div>
+                        <div class="scalloped-bottom"></div>
+                    </div>
+                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
-                <div
-                    class="bg-amber-100/50 rounded-[32px] p-6 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-amber-200">
-                    <div class="text-center font-black text-lg tracking-widest italic">PROWL</div>
-                    <button class="bg-[#3E2723] text-white p-1.5 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg></button>
+
+                <!-- PROWL -->
+                <div class="flex flex-col items-center gap-6 group cursor-pointer">
+                    <div class="scalloped-card w-full aspect-square flex flex-col items-center justify-center p-8">
+                        <div class="flex items-center gap-1">
+                            <span class="text-3xl font-black tracking-widest text-[#3E2723]">PROWL</span>
+                            <div class="w-2 h-4 bg-green-500 rounded-full rotate-12"></div>
+                        </div>
+                        <div class="scalloped-bottom"></div>
+                    </div>
+                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
-                <div
-                    class="bg-amber-100/50 rounded-[32px] p-6 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-amber-200">
-                    <div class="text-center font-black text-[10px] bg-indigo-950 text-white p-3 rounded-full uppercase">
-                        Reginald Men</div>
-                    <button class="bg-[#3E2723] text-white p-1.5 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg></button>
+
+                <!-- REGINALD MEN -->
+                <div class="flex flex-col items-center gap-6 group cursor-pointer">
+                    <div class="scalloped-card w-full aspect-square flex flex-col items-center justify-center p-8">
+                        <div class="w-24 h-24 rounded-full bg-[#0F172A] flex flex-col items-center justify-center text-white border-4 border-white/10 shadow-xl">
+                            <span class="text-[8px] font-bold uppercase leading-none opacity-60">Reginald</span>
+                            <span class="text-lg font-black tracking-tighter">MEN</span>
+                        </div>
+                        <div class="scalloped-bottom"></div>
+                    </div>
+                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
-                <div
-                    class="bg-amber-100/50 rounded-[32px] p-6 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-amber-200">
-                    <div class="bg-white p-2 rounded shadow-sm text-center font-black text-[10px] text-amber-500">
-                        SUN<br>SCOOP</div>
-                    <button class="bg-[#3E2723] text-white p-1.5 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg></button>
+
+                <!-- Sun Scoop -->
+                <div class="flex flex-col items-center gap-6 group cursor-pointer">
+                    <div class="scalloped-card w-full aspect-square flex flex-col items-center justify-center p-8">
+                        <div class="w-24 h-24 bg-white p-1 shadow-inner overflow-hidden flex flex-col">
+                            <div class="flex-1 flex gap-1">
+                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-white"></div>
+                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-white"></div>
+                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-white"></div>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="bg-white/90 px-2 py-1">
+                                    <span class="text-xs font-black text-[#3E2723]">Sun Scoop.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scalloped-bottom"></div>
+                    </div>
+                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
-                <div
-                    class="bg-amber-100/50 rounded-[32px] p-6 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-amber-200">
-                    <div class="text-center font-serif text-lg tracking-tighter text-purple-900">LOTUS</div>
-                    <button class="bg-[#3E2723] text-white p-1.5 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg></button>
+
+                <!-- LOTUS HERBALS -->
+                <div class="flex flex-col items-center gap-6 group cursor-pointer">
+                    <div class="scalloped-card w-full aspect-square flex flex-col items-center justify-center p-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-serif tracking-widest text-[#3E2723] leading-none">LOTUS</div>
+                            <div class="flex items-center justify-center gap-1 mt-1 opacity-60">
+                                <span class="w-4 h-[1px] bg-[#3E2723]"></span>
+                                <span class="text-[8px] font-bold uppercase tracking-[0.3em]">Herbals</span>
+                                <span class="w-4 h-[1px] bg-[#3E2723]"></span>
+                            </div>
+                        </div>
+                        <div class="scalloped-bottom"></div>
+                    </div>
+                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
-                <div
-                    class="bg-amber-100/50 rounded-[32px] p-6 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-amber-200">
-                    <div class="text-center font-black text-xs italic">DR. RASHEL</div>
-                    <button class="bg-[#3E2723] text-white p-1.5 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg></button>
+
+                <!-- DR. RASHEL -->
+                <div class="flex flex-col items-center gap-6 group cursor-pointer">
+                    <div class="scalloped-card w-full aspect-square flex flex-col items-center justify-center p-8">
+                        <div class="text-3xl font-bold tracking-tight text-[#3E2723]">DR·RASHEL</div>
+                        <div class="scalloped-bottom"></div>
+                    </div>
+                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
+
             </div>
         </section>
 

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Essentials - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+            touch-action: manipulation;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .overlay {
+            backdrop-filter: blur(4px);
+        }
+
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .promo-gradient {
+            background: linear-gradient(135deg, #5D4037 0%, #3E2723 100%);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
+                        <span class="text-[#5d4037]">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-white py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-white pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <!-- Mobile Menu Toggle -->
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+
+                <!-- Logo (Mobile only) -->
+                <a href="index.html" class="text-xl font-black text-[#5D4037] md:hidden">FM</a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+
+                <!-- Profile & Cart -->
+                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Shashank</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="hidden md:flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">For You</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Mobiles</span>
+                </a>
+
+                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Beauty</span>
+                </a>
+
+                <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Electronics</span>
+                </a>
+
+                <a href="Home.html" class="category-item active flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-700">Home</span>
+                </a>
+
+                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Appliances</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenu"
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
+            <button onclick="toggleMobileMenu()"
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="space-y-6">
+                <li><a href="index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-categories')">
+                        <span
+                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-categories"
+                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Accessories</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 4. HOME CATEGORY ICONS (Screenshot 21.26.32.jpg) -->
+    <div class="max-w-7xl mx-auto px-4 py-8 overflow-x-auto no-scrollbar">
+        <div class="flex gap-6 min-w-max">
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-[#3E2723] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Home Saver</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5" />
+                        <line x1="9" x2="15" y1="18" y2="18" />
+                        <line x1="10" x2="14" y1="22" y2="22" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Lighting</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                        <line x1="3" x2="21" y1="9" y2="9" />
+                        <line x1="3" x2="21" y1="15" y2="15" />
+                        <line x1="9" x2="9" y1="3" y2="21" />
+                        <line x1="15" x2="15" y1="3" y2="21" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Containers</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M19 14v1a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-1" />
+                        <path d="M12 2v2" />
+                        <path d="M7 2a1 1 0 0 0-1 1v1" />
+                        <path d="M18 2a1 1 0 0 1 1 1v1" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Bathroom</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M4 18v3" />
+                        <path d="M20 18v3" />
+                        <path d="M19 13v3H5v-3" />
+                        <path d="m5 13 1-5h12l1 5" />
+                        <path d="M12 12V8" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Furniture</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M6 18h12" />
+                        <path d="M8 22h8" />
+                        <path d="M12 2v16" />
+                        <path d="m7 7 5-5 5 5" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Cleaning</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-4 space-y-12">
+
+        <!-- 5. HERO BANNERS (Screenshot 21.26.32.jpg) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden bg-indigo-100 min-h-[280px] flex flex-col justify-center text-[#3E2723]">
+                <div class="relative z-10 space-y-4">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-indigo-800">LIFEKRAFTS</p>
+                    <h2 class="text-3xl font-black leading-tight">Repels mosquitoes, <br>Uninterrupted air flow</h2>
+                    <p class="text-xs font-bold opacity-60 italic">Easy to install • Shop now</p>
+                    <button
+                        class="bg-[#3E2723] text-white px-8 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest">Explore</button>
+                </div>
+                <div class="absolute right-0 bottom-0 w-1/2 h-full bg-white/20 blur-2xl"></div>
+                <div
+                    class="absolute right-10 top-1/2 -translate-y-1/2 w-48 h-56 bg-white rounded-xl shadow-xl border-4 border-white overflow-hidden">
+                    <div class="w-full h-full bg-stone-50 flex items-center justify-center italic text-stone-300">
+                        Magnetic Net</div>
+                </div>
+            </div>
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden promo-gradient text-white min-h-[280px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <h2 class="text-3xl font-black leading-tight">The anti-mosquito <br>days are here!</h2>
+                    <p class="text-xl font-bold accent-gold">Up to 70% Off</p>
+                    <button
+                        class="bg-white text-[#3E2723] px-8 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest">Grab
+                        Now</button>
+                </div>
+                <div class="absolute right-10 bottom-4 w-56 h-56 opacity-40">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1">
+                        <circle cx="12" cy="12" r="10" />
+                        <circle cx="12" cy="12" r="6" />
+                        <circle cx="12" cy="12" r="2" />
+                        <line x1="12" y1="2" x2="12" y2="22" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. STEAL-WORTHY DEALS (Screenshot 21.26.53.jpg) -->
+        <section class="bg-pink-50 rounded-[40px] p-8 space-y-8 border border-pink-100 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div class="space-y-1">
+                    <h3 class="text-2xl font-black tracking-tighter uppercase italic">Steal-Worthy deals</h3>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-blue-600 text-white px-2 py-0.5 rounded text-[8px] font-black">ENDS IN</span>
+                        <div class="flex gap-1 text-[10px] font-black text-stone-500">
+                            <span>04h</span>:<span>12m</span>:<span>35s</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 bg-white rounded-full border border-stone-200 hover:bg-stone-50 shadow-sm"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg></button>
+                    <button class="p-2 bg-white rounded-full border border-stone-200 hover:bg-stone-50 shadow-sm"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+            </div>
+            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-2">
+                <div class="min-w-[180px] space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-56 flex flex-col items-center justify-center p-4 relative group-hover:shadow-xl transition-all border border-stone-100">
+                        <div class="w-full h-full bg-stone-50 rounded-xl mb-8 overflow-hidden"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-rose-500 text-white text-[11px] font-black py-2.5 text-center rounded-b-3xl">
+                            From ₹189</div>
+                    </div>
+                    <p class="text-center text-[10px] font-bold opacity-60">Double bedsheets</p>
+                </div>
+                <div class="min-w-[180px] space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-56 flex flex-col items-center justify-center p-4 relative group-hover:shadow-xl transition-all border border-stone-100">
+                        <div class="w-full h-full bg-stone-50 rounded-xl mb-8 overflow-hidden"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-rose-500 text-white text-[11px] font-black py-2.5 text-center rounded-b-3xl">
+                            From ₹199</div>
+                    </div>
+                    <p class="text-center text-[10px] font-bold opacity-60">UV umbrella</p>
+                </div>
+                <div class="min-w-[180px] space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-56 flex flex-col items-center justify-center p-4 relative group-hover:shadow-xl transition-all border border-stone-100">
+                        <div class="w-full h-full bg-stone-50 rounded-xl mb-8 overflow-hidden"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-rose-500 text-white text-[11px] font-black py-2.5 text-center rounded-b-3xl">
+                            From ₹319</div>
+                    </div>
+                    <p class="text-center text-[10px] font-bold opacity-60">Magnetic nets</p>
+                </div>
+                <div class="min-w-[180px] space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-56 flex flex-col items-center justify-center p-4 relative group-hover:shadow-xl transition-all border border-stone-100">
+                        <div class="w-full h-full bg-stone-50 rounded-xl mb-8 overflow-hidden"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-rose-500 text-white text-[11px] font-black py-2.5 text-center rounded-b-3xl">
+                            From ₹149</div>
+                    </div>
+                    <p class="text-center text-[10px] font-bold opacity-60">Faucets</p>
+                </div>
+                <div class="min-w-[180px] space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-56 flex flex-col items-center justify-center p-4 relative group-hover:shadow-xl transition-all border border-stone-100">
+                        <div class="w-full h-full bg-stone-50 rounded-xl mb-8 overflow-hidden"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-rose-500 text-white text-[11px] font-black py-2.5 text-center rounded-b-3xl">
+                            From ₹109</div>
+                    </div>
+                    <p class="text-center text-[10px] font-bold opacity-60">Lighting</p>
+                </div>
+                <div class="min-w-[180px] space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-56 flex flex-col items-center justify-center p-4 relative group-hover:shadow-xl transition-all border border-stone-100">
+                        <div class="w-full h-full bg-stone-50 rounded-xl mb-8 overflow-hidden"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-rose-500 text-white text-[11px] font-black py-2.5 text-center rounded-b-3xl">
+                            From ₹299</div>
+                    </div>
+                    <p class="text-center text-[10px] font-bold opacity-60">Curtains</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. SUMMER STEAL DEALS (Screenshot 21.27.13.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Summer steal deals
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-blue-50 rounded-[40px] h-64 flex items-center justify-center p-4 group-hover:shadow-2xl transition-all border border-blue-100 relative overflow-hidden">
+                        <div class="w-full h-full bg-white/40 rounded-3xl"></div>
+                        <div class="absolute bottom-4 right-4 text-lime-500 opacity-60 rotate-45"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                            </svg></div>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60 uppercase tracking-tighter">Hand juicers</p>
+                        <p class="text-base font-black">From ₹139</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-blue-50 rounded-[40px] h-64 flex items-center justify-center p-4 group-hover:shadow-2xl transition-all border border-blue-100 relative overflow-hidden">
+                        <div class="w-full h-full bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60 uppercase tracking-tighter">Ice cube trays</p>
+                        <p class="text-base font-black">From ₹49</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-blue-50 rounded-[40px] h-64 flex items-center justify-center p-4 group-hover:shadow-2xl transition-all border border-blue-100 relative overflow-hidden">
+                        <div class="w-full h-full bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60 uppercase tracking-tighter">Water pumps</p>
+                        <p class="text-base font-black italic">Up to 60% Off</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-blue-50 rounded-[40px] h-64 flex items-center justify-center p-4 group-hover:shadow-2xl transition-all border border-blue-100 relative overflow-hidden">
+                        <div class="w-full h-full bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60 uppercase tracking-tighter">Umbrella</p>
+                        <p class="text-base font-black">From ₹199</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-blue-50 rounded-[40px] h-64 flex items-center justify-center p-4 group-hover:shadow-2xl transition-all border border-blue-100 relative overflow-hidden">
+                        <div class="w-full h-full bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60 uppercase tracking-tighter">Garden sprayer</p>
+                        <p class="text-base font-black italic">Up to 80% Off</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. BRANDS YOU LOVE (Screenshot 21.27.49.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Brands you love
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="text-center group cursor-pointer space-y-3">
+                    <div
+                        class="bg-stone-700 rounded-3xl h-64 p-4 relative overflow-hidden flex flex-col items-center justify-center group-hover:bg-stone-800 transition-colors shadow-lg">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-b-xl shadow-sm">
+                            <span class="text-[8px] font-black tracking-widest text-[#3E2723]">KOLAR</span></div>
+                        <div class="w-full h-32 bg-white/5 rounded-xl"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-stone-900/50 backdrop-blur-sm text-white py-2 font-black text-xs">
+                            From ₹299</div>
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer space-y-3">
+                    <div
+                        class="bg-stone-700 rounded-3xl h-64 p-4 relative overflow-hidden flex flex-col items-center justify-center group-hover:bg-stone-800 transition-colors shadow-lg">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-b-xl shadow-sm">
+                            <span class="text-[8px] font-black tracking-widest text-red-600">Prestige</span></div>
+                        <div class="w-full h-32 bg-white/5 rounded-xl"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-stone-900/50 backdrop-blur-sm text-white py-2 font-black text-xs italic">
+                            Up to 50% Off</div>
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer space-y-3">
+                    <div
+                        class="bg-stone-700 rounded-3xl h-64 p-4 relative overflow-hidden flex flex-col items-center justify-center group-hover:bg-stone-800 transition-colors shadow-lg">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-b-xl shadow-sm">
+                            <span class="text-[8px] font-black tracking-widest text-blue-900">BOSCH</span></div>
+                        <div class="w-full h-32 bg-white/5 rounded-xl"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-stone-900/50 backdrop-blur-sm text-white py-2 font-black text-xs italic">
+                            Up to 70% Off</div>
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer space-y-3">
+                    <div
+                        class="bg-stone-700 rounded-3xl h-64 p-4 relative overflow-hidden flex flex-col items-center justify-center group-hover:bg-stone-800 transition-colors shadow-lg">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-b-xl shadow-sm">
+                            <span class="text-[8px] font-black tracking-widest text-orange-600">HALONIX</span></div>
+                        <div class="w-full h-32 bg-white/5 rounded-xl"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-stone-900/50 backdrop-blur-sm text-white py-2 font-black text-xs">
+                            From ₹99</div>
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer space-y-3">
+                    <div
+                        class="bg-stone-700 rounded-3xl h-64 p-4 relative overflow-hidden flex flex-col items-center justify-center group-hover:bg-stone-800 transition-colors shadow-lg">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-b-xl shadow-sm">
+                            <span class="text-[8px] font-black tracking-widest text-emerald-900">MILTON</span></div>
+                        <div class="w-full h-32 bg-white/5 rounded-xl"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-stone-900/50 backdrop-blur-sm text-white py-2 font-black text-xs">
+                            From ₹129</div>
+                    </div>
+                </div>
+                <div class="text-center group cursor-pointer space-y-3">
+                    <div
+                        class="bg-stone-700 rounded-3xl h-64 p-4 relative overflow-hidden flex flex-col items-center justify-center group-hover:bg-stone-800 transition-colors shadow-lg">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-b-xl shadow-sm">
+                            <span class="text-[8px] font-black tracking-widest text-stone-900">DURACELL</span></div>
+                        <div class="w-full h-32 bg-white/5 rounded-xl"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-stone-900/50 backdrop-blur-sm text-white py-2 font-black text-xs">
+                            From ₹49</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. SHOP BY BUDGET (Screenshot 21.28.02.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Shop by budget
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div
+                    class="bg-gradient-to-br from-blue-100 to-amber-100 rounded-[40px] p-10 text-center hover-lift cursor-pointer shadow-sm relative overflow-hidden border border-white/50">
+                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-white/30 rounded-full blur-xl"></div>
+                    <p class="text-xs font-bold text-[#3E2723] uppercase tracking-widest mb-1 opacity-60">Min.</p>
+                    <p class="text-4xl font-black">50%</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest">Off</p>
+                    <div class="mt-4 flex justify-center">
+                        <div class="w-12 h-1 bg-[#3E2723] rounded-full"></div>
+                    </div>
+                </div>
+                <div
+                    class="bg-gradient-to-br from-blue-100 to-amber-100 rounded-[40px] p-10 text-center hover-lift cursor-pointer shadow-sm relative overflow-hidden border border-white/50">
+                    <p class="text-xs font-bold text-[#3E2723] uppercase tracking-widest mb-1 opacity-60">Min.</p>
+                    <p class="text-4xl font-black">60%</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest">Off</p>
+                    <div class="mt-4 flex justify-center">
+                        <div class="w-12 h-1 bg-[#3E2723] rounded-full"></div>
+                    </div>
+                </div>
+                <div
+                    class="bg-gradient-to-br from-blue-100 to-amber-100 rounded-[40px] p-10 text-center hover-lift cursor-pointer shadow-sm relative overflow-hidden border border-white/50">
+                    <p class="text-xs font-bold text-[#3E2723] uppercase tracking-widest mb-1 opacity-60">Min.</p>
+                    <p class="text-4xl font-black">70%</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest">Off</p>
+                    <div class="mt-4 flex justify-center">
+                        <div class="w-12 h-1 bg-[#3E2723] rounded-full"></div>
+                    </div>
+                </div>
+                <div
+                    class="bg-gradient-to-br from-blue-100 to-amber-100 rounded-[40px] p-10 text-center hover-lift cursor-pointer shadow-sm relative overflow-hidden border border-white/50">
+                    <p class="text-xs font-bold text-[#3E2723] uppercase tracking-widest mb-1 opacity-60">Min.</p>
+                    <p class="text-4xl font-black">80%</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest">Off</p>
+                    <div class="mt-4 flex justify-center">
+                        <div class="w-12 h-1 bg-[#3E2723] rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. TRENDIN SPOTLIGHT (Screenshot 21.28.16.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">#TrendIn spotlight
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="relative h-64 rounded-[32px] overflow-hidden group cursor-pointer">
+                    <div class="w-full h-full bg-stone-200"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/60 to-transparent"></div>
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-4/5 text-center">
+                        <div
+                            class="bg-teal-400 text-[#3E2723] px-4 py-1.5 rounded-full text-[10px] font-black uppercase shadow-lg">
+                            Detox bottle</div>
+                        <p class="text-white text-[9px] font-bold mt-2 uppercase">Min. 40% Off</p>
+                    </div>
+                </div>
+                <div class="relative h-64 rounded-[32px] overflow-hidden group cursor-pointer">
+                    <div class="w-full h-full bg-stone-200"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/60 to-transparent"></div>
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-4/5 text-center">
+                        <div
+                            class="bg-teal-400 text-[#3E2723] px-4 py-1.5 rounded-full text-[10px] font-black uppercase shadow-lg">
+                            Canopy nets</div>
+                        <p class="text-white text-[9px] font-bold mt-2 uppercase">From ₹349</p>
+                    </div>
+                </div>
+                <div class="relative h-64 rounded-[32px] overflow-hidden group cursor-pointer">
+                    <div class="w-full h-full bg-stone-200"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/60 to-transparent"></div>
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-4/5 text-center">
+                        <div
+                            class="bg-teal-400 text-[#3E2723] px-4 py-1.5 rounded-full text-[10px] font-black uppercase shadow-lg">
+                            Astronaut lamps</div>
+                        <p class="text-white text-[9px] font-bold mt-2 uppercase">Up to 60% Off</p>
+                    </div>
+                </div>
+                <div class="relative h-64 rounded-[32px] overflow-hidden group cursor-pointer">
+                    <div class="w-full h-full bg-stone-200"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/60 to-transparent"></div>
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-4/5 text-center">
+                        <div
+                            class="bg-teal-400 text-[#3E2723] px-4 py-1.5 rounded-full text-[10px] font-black uppercase shadow-lg">
+                            7D Bedsheets</div>
+                        <p class="text-white text-[9px] font-bold mt-2 uppercase">From ₹279</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. BUNDLE DEALS (Screenshot 21.28.28.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Bundle deals</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div
+                    class="bg-rose-600 rounded-[40px] p-8 md:p-12 text-white flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group cursor-pointer">
+                    <div
+                        class="relative z-10 w-full md:w-1/2 aspect-square bg-white rounded-3xl p-4 overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform">
+                        <div class="w-full h-full bg-stone-50"></div>
+                    </div>
+                    <div class="relative z-10 text-center md:text-left space-y-4">
+                        <p class="text-2xl font-black leading-tight">Buy microwave & get 5% Off <br><span
+                                class="text-rose-200">on containers</span></p>
+                        <button
+                            class="bg-white text-rose-600 px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rose-50 transition-colors">Claim
+                            Deal</button>
+                    </div>
+                    <div class="absolute top-[-40px] right-[-40px] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                </div>
+                <div
+                    class="bg-rose-600 rounded-[40px] p-8 md:p-12 text-white flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group cursor-pointer">
+                    <div
+                        class="relative z-10 w-full md:w-1/2 aspect-square bg-white rounded-3xl p-4 overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform">
+                        <div class="w-full h-full bg-stone-50"></div>
+                    </div>
+                    <div class="relative z-10 text-center md:text-left space-y-4">
+                        <p class="text-2xl font-black leading-tight">Buy induction & get 5% Off <br><span
+                                class="text-rose-200">on cookware range</span></p>
+                        <button
+                            class="bg-white text-rose-600 px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rose-50 transition-colors">Claim
+                            Deal</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. TIS THE TIME FOR GIFTING (Screenshot 21.28.58.jpg) -->
+        <section class="space-y-6 pb-12">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Tis' the time for
+                gifting</h3>
+            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-4">
+                <div class="min-w-[240px] flex-shrink-0 group cursor-pointer space-y-4">
+                    <div
+                        class="bg-amber-100 rounded-[40px] h-80 p-4 relative overflow-hidden flex flex-col items-center justify-center border border-amber-200">
+                        <div class="absolute top-4 right-4 text-amber-600"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 12V8H4v4" />
+                                <path d="M12 20V8" />
+                                <path d="M18 8a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3 3 3 0 0 1 3-3h6a3 3 0 0 1 3 3z" />
+                            </svg></div>
+                        <div class="w-full h-48 bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="text-center space-y-0.5">
+                        <p class="text-base font-black">Bedding sets</p>
+                        <p class="text-sm font-bold opacity-60">From ₹399</p>
+                    </div>
+                </div>
+                <div class="min-w-[240px] flex-shrink-0 group cursor-pointer space-y-4">
+                    <div
+                        class="bg-amber-100 rounded-[40px] h-80 p-4 relative overflow-hidden flex flex-col items-center justify-center border border-amber-200">
+                        <div class="w-full h-48 bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="text-center space-y-0.5">
+                        <p class="text-base font-black">Dinner sets</p>
+                        <p class="text-sm font-bold opacity-60">From ₹499</p>
+                    </div>
+                </div>
+                <div class="min-w-[240px] flex-shrink-0 group cursor-pointer space-y-4">
+                    <div
+                        class="bg-amber-100 rounded-[40px] h-80 p-4 relative overflow-hidden flex flex-col items-center justify-center border border-amber-200">
+                        <div class="w-full h-48 bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="text-center space-y-0.5">
+                        <p class="text-base font-black">Bean bags</p>
+                        <p class="text-sm font-bold opacity-60">From ₹1,699</p>
+                    </div>
+                </div>
+                <div class="min-w-[240px] flex-shrink-0 group cursor-pointer space-y-4">
+                    <div
+                        class="bg-amber-100 rounded-[40px] h-80 p-4 relative overflow-hidden flex flex-col items-center justify-center border border-amber-200">
+                        <div class="w-full h-48 bg-white/40 rounded-3xl"></div>
+                    </div>
+                    <div class="text-center space-y-0.5">
+                        <p class="text-base font-black">Cookware sets</p>
+                        <p class="text-sm font-black italic">Up to 80% Off</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-100 border-t border-stone-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center text-center space-y-6">
+            <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span class="accent-gold">MART</span>
+            </h2>
+            <div class="h-1 w-12 accent-gold-bg rounded-full"></div>
+            <p class="text-xs text-stone-500 font-bold uppercase tracking-widest max-w-sm">Elevating your living space
+                with thoughtful essentials and seasonal favorites.</p>
+            <div class="flex gap-8 pt-4 text-xs font-black uppercase tracking-widest text-stone-400">
+                <a href="index.html" class="hover:text-[#3E2723]">Home</a>
+                <a href="electronics.html" class="hover:text-[#3E2723]">Electronics</a>
+                <a href="beauty.html" class="hover:text-[#3E2723]">Beauty</a>
+                <a href="#" class="hover:text-[#3E2723]">Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const isActive = content.classList.contains('active');
+            const icon = event.currentTarget.querySelector('ion-icon');
+            if (!isActive) {
+                content.classList.add('active');
+                if (icon) icon.setAttribute('name', 'remove-outline');
+            } else {
+                content.classList.remove('active');
+                if (icon) icon.setAttribute('name', 'add-outline');
+            }
+        }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = menu.style.transform === 'translateX(0px)';
+            if (!isOpen) {
+                menu.style.transform = 'translateX(0)';
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+
+</html>

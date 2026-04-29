@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+            touch-action: manipulation;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .overlay {
+            backdrop-filter: blur(4px);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+
+        .tech-gradient {
+            background: linear-gradient(135deg, #3E2723 0%, #1A1210 100%);
+        }
+
+        .promo-card {
+            background: #FFFFFF;
+            border: 1px solid #E7E5E4;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
+                        <span class="text-[#5d4037]">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-white py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-white pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <!-- Mobile Menu Toggle -->
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+
+                <!-- Logo (Mobile only) -->
+                <a href="index.html" class="text-xl font-black text-[#5D4037] md:hidden">FM</a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" id="product-search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+
+                <!-- Profile & Cart -->
+                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Shashank</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="hidden md:flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">For You</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Mobiles</span>
+                </a>
+
+                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Beauty</span>
+                </a>
+
+                <a href="Electronics.html" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-700">Electronics</span>
+                </a>
+
+                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Home</span>
+                </a>
+
+                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Appliances</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenu"
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
+            <button onclick="toggleMobileMenu()"
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="space-y-6">
+                <li><a href="index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-categories')">
+                        <span
+                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-categories"
+                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Accessories</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 4. ELECTRONICS SUB-CATEGORIES (Screenshot 23.05.20.jpg) -->
+    <div class="max-w-7xl mx-auto px-4 py-8 overflow-x-auto no-scrollbar">
+        <div class="flex gap-6 min-w-max">
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-[#3E2723] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M5 2h14l-2 14H7L5 2z" />
+                        <path d="m12 11 3-7H9l3 7z" />
+                        <circle cx="12" cy="18" r="2" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Get in Mins</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723] group-hover:bg-stone-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="18" height="12" x="3" y="4" rx="2" ry="2" />
+                        <line x1="2" x2="22" y1="20" y2="20" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Laptops</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="16" height="20" x="4" y="2" rx="2" ry="2" />
+                        <line x1="12" x2="12" y1="18" y2="18" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Tablets</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="10" height="8" x="2" y="3" rx="2" />
+                        <rect width="10" height="8" x="12" y="13" rx="2" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">ITPeripherals</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Camera</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" x2="12" y1="3" y2="15" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Data Storage</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="16" height="12" x="4" y="4" rx="2" />
+                        <path d="M6 12h.01" />
+                        <path d="M18 12h.01" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Gaming</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-4 space-y-12">
+
+        <!-- 5. HERO BANNERS (Screenshot 23.05.20.jpg) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-8 tech-gradient rounded-[40px] p-8 md:p-14 text-white relative overflow-hidden flex flex-col justify-center min-h-[380px]">
+                <div class="absolute top-0 right-0 w-2/3 h-full opacity-20 pointer-events-none">
+                    <div class="w-full h-full bg-[radial-gradient(circle_at_center,#C5A059,transparent_70%)]"></div>
+                </div>
+                <div class="relative z-10 space-y-6">
+                    <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#C5A059]">
+                        <span>ASUS | BUSINESS</span>
+                        <span class="bg-blue-600 px-2 py-0.5 rounded text-[8px]">Flipkart f</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
+                        ASUS ExpertBook Series <br>
+                        <span class="text-stone-400 text-2xl font-bold">Get FREE BLACK membership</span>
+                    </h2>
+                    <p class="text-sm font-semibold opacity-70 italic">& Get benefits up to ₹54,000*</p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <button
+                            class="accent-gold-bg text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Pre-order
+                            Now</button>
+                        <div
+                            class="bg-white/10 backdrop-blur-md px-6 py-2 rounded-2xl border border-white/10 flex items-center gap-4">
+                            <span class="text-xs font-black uppercase tracking-tighter">Axis Bank</span>
+                            <div class="h-6 w-px bg-white/20"></div>
+                            <span class="text-[10px] font-bold">₹20,000 Cashback</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="lg:col-span-4 bg-stone-200 rounded-[40px] p-8 text-[#3E2723] relative overflow-hidden flex flex-col justify-between group cursor-pointer shadow-inner">
+                <div class="relative z-10 space-y-2">
+                    <h2 class="text-3xl font-black leading-tight">Samsung Galaxy S10 FE+</h2>
+                    <p class="text-xl font-bold">From ₹43,999*</p>
+                    <p class="text-xs font-bold opacity-60">13-Inch Big-Screen Experience Now at the Lowest Price</p>
+                </div>
+                <div class="mt-8 relative h-40">
+                    <div
+                        class="absolute right-0 bottom-0 w-48 h-32 bg-white rounded-xl shadow-2xl rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500 overflow-hidden border-2 border-stone-300">
+                        <div class="w-full h-full bg-gradient-to-br from-indigo-100 to-amber-50"></div>
+                    </div>
+                    <div
+                        class="absolute right-8 bottom-4 w-40 h-28 bg-stone-900 rounded-xl shadow-2xl group-hover:translate-y-[-10px] transition-transform duration-500 border border-white/20">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. EXCLUSIVE FOR YOU (Screenshot 23.06.12.jpg) -->
+        <section class="space-y-6">
+            <div class="flex items-end justify-between">
+                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#C5A059] pl-4">Exclusive For
+                    You</h3>
+                <a href="#" class="text-[10px] font-black uppercase tracking-widest text-[#C5A059] hover:underline">See
+                    All Deals</a>
+            </div>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center relative p-6">
+                        <img src="https://via.placeholder.com/160x100" alt="OnePlus Pad"
+                            class="mix-blend-multiply drop-shadow-lg">
+                        <div
+                            class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black">
+                            Limited Offer</div>
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
+                            ₹13,999*</div>
+                        <h4 class="font-black text-sm text-center">OnePlus Pad Lite</h4>
+                    </div>
+                </div>
+                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center relative p-6">
+                        <img src="https://via.placeholder.com/160x100" alt="Latest tablets" class="mix-blend-multiply">
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
+                            ₹23,999*</div>
+                        <h4 class="font-black text-sm text-center">Latest tablets</h4>
+                    </div>
+                </div>
+                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/160x100" alt="Gaming combo" class="mix-blend-multiply">
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                            Extra 5% Off</div>
+                        <h4 class="font-black text-sm text-center">Gaming combo</h4>
+                    </div>
+                </div>
+                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                    <div class="h-48 bg-stone-50 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/100x120" alt="Grooming" class="mix-blend-multiply">
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                            Extra 5% Off</div>
+                        <h4 class="font-black text-sm text-center">Grooming & styling</h4>
+                    </div>
+                </div>
+                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/160x100" alt="Gaming" class="mix-blend-multiply">
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                            Extra 5% Off</div>
+                        <h4 class="font-black text-sm text-center">Gaming Gear</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. TRENDING TECH (Screenshot 23.07.03.jpg) -->
+        <section class="bg-stone-100 rounded-[40px] p-8 md:p-10 space-y-8 shadow-sm">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Trending tech</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        <img src="https://via.placeholder.com/120x90" alt="Tablet" class="mix-blend-multiply">
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60">Samsung S10 FE+</p>
+                        <p class="text-sm font-black">From ₹43,999*</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        <img src="https://via.placeholder.com/120x90" alt="EV" class="mix-blend-multiply">
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60">Ampere EVs</p>
+                        <p class="text-sm font-black">From ₹55,480*</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        <img src="https://via.placeholder.com/120x90" alt="Laptop" class="mix-blend-multiply">
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60">HP OmniBook 5 i5</p>
+                        <p class="text-sm font-black">Just ₹59,999*</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        <img src="https://via.placeholder.com/120x120" alt="Earbuds" class="mix-blend-multiply">
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60">OnePlus NB 3r</p>
+                        <p class="text-sm font-black">Just ₹1,599</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        <img src="https://via.placeholder.com/120x120" alt="Watch" class="mix-blend-multiply">
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60">Samsung W7 & 8</p>
+                        <p class="text-sm font-black">From ₹21,999</p>
+                    </div>
+                </div>
+                <div class="text-center space-y-3 cursor-pointer group">
+                    <div
+                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        <img src="https://via.placeholder.com/120x120" alt="Shaver" class="mix-blend-multiply">
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="text-[10px] font-bold opacity-60">Philips Shaver</p>
+                        <p class="text-sm font-black">Just ₹2,499</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. GET IT IN MINUTES (Screenshot 23.07.16.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Get it in minutes
+            </h3>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/100x100" alt="Earphones"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹599</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Earphones</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/100x100" alt="Watch"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            Just ₹1,299</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Fire-Boltt Hurricane</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/100x120" alt="Grooming"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹579</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Grooming & styling</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/120x80" alt="Memory"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹399*</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Memory cards</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/100x120" alt="Trimmer"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹899</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Top trimmers</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. STUDENT DEALS BANNER (Screenshot 23.08.11.jpg) -->
+        <section
+            class="tech-gradient rounded-[40px] p-8 md:p-14 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+            <div class="absolute top-0 right-0 h-full w-1/2 opacity-20 pointer-events-none">
+                <div class="w-full h-full bg-[radial-gradient(circle_at_center,#C5A059,transparent_80%)]"></div>
+            </div>
+            <div class="relative z-10 max-w-xl space-y-6">
+                <h2 class="text-4xl md:text-5xl font-black leading-tight">Exclusive Student Deals</h2>
+                <p class="text-lg md:text-xl font-bold text-stone-400">On Laptops, Tablets, Headphones & More</p>
+                <button
+                    class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)]">Claim
+                    Now</button>
+            </div>
+            <div
+                class="relative z-10 bg-white/10 backdrop-blur-xl p-8 rounded-[32px] border border-white/20 text-center space-y-4">
+                <div
+                    class="w-20 h-20 bg-yellow-400 text-black rounded-full mx-auto flex items-center justify-center shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Flipkart</p>
+                    <p class="text-2xl font-black tracking-tighter">STUDENT'S CLUB</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. NEW LAUNCHES (Screenshot 23.07.51.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">New launches</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="relative rounded-3xl overflow-hidden aspect-[4/5] group cursor-pointer">
+                    <img src="https://via.placeholder.com/400x500" alt="OnePlus Pad 4"
+                        class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-white space-y-1">
+                        <h4 class="font-black text-lg">OnePlus Pad 4</h4>
+                        <p class="text-[10px] font-bold opacity-60">World's Fastest Tablet</p>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-[#C5A059]">Launch on 30th Apr |
+                            12 PM</p>
+                    </div>
+                </div>
+                <div
+                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-stone-200 group cursor-pointer shadow-sm">
+                    <div class="absolute inset-0 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/200x200" alt="Hero Destini"
+                            class="mix-blend-multiply transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-[#3E2723] space-y-1">
+                        <h4 class="font-black text-lg leading-tight">Hero Destini 110</h4>
+                        <p class="text-[10px] font-bold opacity-60">Best in Class 56.2 Kmpl Mileage*</p>
+                        <p class="text-sm font-black">From ₹66,500*</p>
+                    </div>
+                </div>
+                <div
+                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-blue-900 group cursor-pointer shadow-sm">
+                    <div class="absolute inset-0 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/200x150" alt="Asus"
+                            class="mix-blend-multiply opacity-50 contrast-125">
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-white space-y-1">
+                        <h4 class="font-black text-lg leading-tight">Asus Vivobook 14 OLED</h4>
+                        <p class="text-[10px] font-bold opacity-60">Pre-order Now & Get Benefits Up to</p>
+                        <p class="text-sm font-black">From ₹5,499/m*</p>
+                    </div>
+                </div>
+                <div
+                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-stone-50 border border-stone-200 group cursor-pointer shadow-sm">
+                    <div class="absolute inset-0 flex items-center justify-center p-8">
+                        <img src="https://via.placeholder.com/150x150" alt="OnePlus NB"
+                            class="mix-blend-multiply transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-[#3E2723] space-y-1">
+                        <h4 class="font-black text-lg leading-tight">OnePlus NB 4 pro</h4>
+                        <p class="text-[10px] font-bold opacity-60">55dB Active Noise Cancellation</p>
+                        <p class="text-sm font-black">Just ₹3,799</p>
+                    </div>
+                </div>
+                <div
+                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-orange-50 border border-orange-100 group cursor-pointer shadow-sm">
+                    <div class="absolute inset-0 flex items-center justify-center p-8">
+                        <img src="https://via.placeholder.com/150x150" alt="Fastrack"
+                            class="mix-blend-multiply transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-[#3E2723] space-y-1">
+                        <h4 class="font-black text-lg leading-tight">Fastrack Xtreme Adve</h4>
+                        <p class="text-[10px] font-bold opacity-60">GPS & In-built torch</p>
+                        <p class="text-sm font-black">Just ₹6,499</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. EMI PROMO (image_21e810.jpg) -->
+        <section
+            class="bg-white border border-stone-200 rounded-[32px] p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+            <div class="flex items-center gap-8 divide-x divide-stone-200">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-black text-xl">
+                        S</div>
+                    <div class="font-black text-sm tracking-tighter leading-none">
+                        <span class="text-blue-600">SBI</span> card
+                    </div>
+                </div>
+                <div class="flex flex-col pl-8">
+                    <h4 class="text-2xl font-black tracking-tight">10% Instant Discount*</h4>
+                    <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">on Credit Card EMI Trxns.
+                    </p>
+                </div>
+            </div>
+            <button
+                class="text-[#3E2723] border-2 border-[#3E2723] px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#3E2723] hover:text-white transition-all">Check
+                Eligibility</button>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-100 border-t border-stone-200 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 space-y-4">
+                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
+                        class="accent-gold">MART</span></h2>
+                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">Premium Electronics
+                    & Tech Lifestyle Hub. Fast delivery, trusted warranty, student deals.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Categories</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="#" class="hover:text-[#C5A059]">Laptops & PCs</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Tablets & Mobile</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Smart Watches</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Gaming Consoles</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Support</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="#" class="hover:text-[#C5A059]">Help Center</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Returns Policy</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Warranty Info</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Social</h4>
+                <div class="flex gap-4">
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-[#C5A059] transition-colors">
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-[#C5A059] transition-colors">
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-[#C5A059] transition-colors">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
+            <p class="text-[10px] font-bold text-stone-400">© 2026 HOSTELMART ELECTRONICS. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const isActive = content.classList.contains('active');
+            const icon = event.currentTarget.querySelector('ion-icon');
+            if (!isActive) {
+                content.classList.add('active');
+                if (icon) icon.setAttribute('name', 'remove-outline');
+            } else {
+                content.classList.remove('active');
+                if (icon) icon.setAttribute('name', 'add-outline');
+            }
+        }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = menu.style.transform === 'translateX(0px)';
+            if (!isOpen) {
+                menu.style.transform = 'translateX(0)';
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+
+
+</html>

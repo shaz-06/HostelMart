@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appliances - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+            touch-action: manipulation;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .overlay {
+            backdrop-filter: blur(4px);
+        }
+
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .hero-blue {
+            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+        }
+
+        .hero-black {
+            background: linear-gradient(135deg, #18181b 0%, #3f3f46 100%);
+        }
+
+        .deal-card {
+            background: white;
+            border-radius: 24px;
+            border: 1px solid #e7e5e4;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
+                        <span class="text-[#5d4037]">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-white py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-white pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <!-- Mobile Menu Toggle -->
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+
+                <!-- Logo (Mobile only) -->
+                <a href="index.html" class="text-xl font-black text-[#5D4037] md:hidden">FM</a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+
+                <!-- Profile & Cart -->
+                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Shashank</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="hidden md:flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">For You</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Mobiles</span>
+                </a>
+
+                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Beauty</span>
+                </a>
+
+                <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Electronics</span>
+                </a>
+
+                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Home</span>
+                </a>
+
+                <a href="Appliances.html" class="category-item active flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-700">Appliances</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                </a>
+
+                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenu"
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
+            <button onclick="toggleMobileMenu()"
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="space-y-6">
+                <li><a href="index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-categories')">
+                        <span
+                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-categories"
+                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="#" class="block hover:text-[#795548] font-medium">Accessories</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 4. APPLIANCE SUB-CATEGORIES (Screenshot 22.15.05.jpg) -->
+    <div class="max-w-7xl mx-auto px-4 py-8 overflow-x-auto no-scrollbar">
+        <div class="flex gap-6 min-w-max">
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-blue-600 group-hover:scale-105 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="20" height="15" x="2" y="3" rx="2" />
+                        <circle cx="12" cy="14" r="3" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Televisions</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-blue-50 flex items-center justify-center text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="18" height="12" x="3" y="6" rx="2" />
+                        <path d="M7 6v12" />
+                        <path x1="17" x2="17" y1="6" y2="18" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">ACs</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20" />
+                        <path d="M2 12h20" />
+                        <path d="m4.93 4.93 14.14 14.14" />
+                        <path d="m4.93 19.07 14.14-14.14" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Cooling</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-blue-50 flex items-center justify-center text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect width="14" height="20" x="5" y="2" rx="2" />
+                        <path d="M5 10h14" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Fridges</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M6 13V6a3 3 0 0 1 6 0v7" />
+                        <circle cx="9" cy="17" r="3" />
+                        <path d="M9 20h3" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Kitchen</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-blue-50 flex items-center justify-center text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="8" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Laundry</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-4 space-y-12">
+
+        <!-- 5. HERO BANNERS (Screenshot 22.15.05.jpg) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden hero-blue text-white min-h-[320px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <div class="bg-yellow-400 text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic">BIG
+                        BACHAT DAYS</div>
+                    <h2 class="text-4xl font-black leading-tight">Deals on air coolers ! <br>From ₹3,799</h2>
+                    <p class="text-sm font-bold opacity-80">Voltas, Bajaj...</p>
+                    <div class="bg-white/20 backdrop-blur-md p-3 rounded-2xl border border-white/20 w-fit">
+                        <p class="text-[10px] font-bold uppercase tracking-widest">Up to 10% Instant Discount*</p>
+                    </div>
+                </div>
+                <!-- Abstract visual of a cooler -->
+                <div
+                    class="absolute right-10 top-1/2 -translate-y-1/2 w-48 h-64 bg-white/10 rounded-2xl border-4 border-white/20 hidden lg:block">
+                </div>
+            </div>
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden hero-black text-white min-h-[320px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-3xl font-black italic">Lumio</h2>
+                        <span class="text-[10px] opacity-60">VISION 9</span>
+                    </div>
+                    <h3 class="text-4xl font-black">65" QD-MINILED 2026</h3>
+                    <div class="flex gap-4 text-[10px] font-bold opacity-60">
+                        <span>3GB DDR4 RAM</span>
+                        <span>4K 144Hz Refresh Rate</span>
+                    </div>
+                    <p class="text-2xl font-black">Available at <span class="text-green-400">₹66,999*</span></p>
+                    <button
+                        class="bg-white text-black px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Buy
+                        Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CATCH THE TOP DEALS (Screenshot 22.15.23.jpg) -->
+        <section class="bg-sky-50 rounded-[40px] p-8 space-y-8 border border-sky-100 shadow-sm">
+            <div class="flex items-end justify-between">
+                <h3 class="text-2xl font-black tracking-tight uppercase border-l-4 border-sky-500 pl-4">Catch the top
+                    deals</h3>
+                <div class="flex gap-2">
+                    <button class="p-2 bg-white rounded-full border border-stone-200 hover:bg-stone-50"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg></button>
+                    <button class="p-2 bg-white rounded-full border border-stone-200 hover:bg-stone-50"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+            </div>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                <div class="min-w-[200px] deal-card group cursor-pointer hover-lift">
+                    <div class="h-48 bg-stone-50 flex items-center justify-center p-6">
+                        <div class="w-full h-full bg-stone-200 rounded-lg"></div>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                            ₹22,999*</div>
+                        <p class="text-xs font-bold text-center opacity-60">55" 4K TVs</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] deal-card group cursor-pointer hover-lift">
+                    <div class="h-48 bg-purple-50 flex items-center justify-center p-6">
+                        <div class="w-full h-24 bg-stone-200 rounded-lg"></div>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                            ₹25,490*</div>
+                        <p class="text-xs font-bold text-center opacity-60">1.5 ton ACs</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] deal-card group cursor-pointer hover-lift">
+                    <div class="h-48 bg-amber-50 flex items-center justify-center p-6">
+                        <div class="w-32 h-full bg-stone-200 rounded-lg"></div>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                            ₹17,990</div>
+                        <p class="text-xs font-bold text-center opacity-60">Double door</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] deal-card group cursor-pointer hover-lift">
+                    <div class="h-48 bg-emerald-50 flex items-center justify-center p-6">
+                        <div class="w-24 h-full bg-stone-200 rounded-lg"></div>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">Just
+                            ₹9,699</div>
+                        <p class="text-xs font-bold text-center opacity-60">90 L desert cooler</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] deal-card group cursor-pointer hover-lift">
+                    <div class="h-48 bg-slate-50 flex items-center justify-center p-6">
+                        <div class="w-32 h-40 bg-stone-200 rounded-lg"></div>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                            ₹38,999*</div>
+                        <p class="text-xs font-bold text-center opacity-60">Washer dryers</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. START YOUR DAY SMARTER (Screenshot 22.15.37.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Start your day
+                smarter</h3>
+            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-4">
+                <div class="min-w-[240px] group cursor-pointer space-y-4">
+                    <div
+                        class="h-80 bg-orange-50 rounded-[40px] p-8 flex items-center justify-center border border-orange-100 group-hover:bg-orange-100 transition-colors">
+                        <img src="https://via.placeholder.com/150x200" alt="Juicer"
+                            class="mix-blend-multiply transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="space-y-1">
+                        <div class="bg-orange-500 text-white font-black text-center py-2.5 rounded-2xl text-xs">From
+                            ₹799</div>
+                        <p class="text-center font-bold text-sm">Juicers</p>
+                    </div>
+                </div>
+                <div class="min-w-[240px] group cursor-pointer space-y-4">
+                    <div
+                        class="h-80 bg-orange-50 rounded-[40px] p-8 flex items-center justify-center border border-orange-100 group-hover:bg-orange-100 transition-colors">
+                        <img src="https://via.placeholder.com/150x150" alt="Wet Grinder"
+                            class="mix-blend-multiply transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="space-y-1">
+                        <div class="bg-orange-500 text-white font-black text-center py-2.5 rounded-2xl text-xs">Just
+                            ₹4,195</div>
+                        <p class="text-center font-bold text-sm">Wet grinder</p>
+                    </div>
+                </div>
+                <div class="min-w-[240px] group cursor-pointer space-y-4">
+                    <div
+                        class="h-80 bg-orange-50 rounded-[40px] p-8 flex items-center justify-center border border-orange-100 group-hover:bg-orange-100 transition-colors">
+                        <img src="https://via.placeholder.com/150x180" alt="Coffee Makers"
+                            class="mix-blend-multiply transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="space-y-1">
+                        <div class="bg-orange-500 text-white font-black text-center py-2.5 rounded-2xl text-xs">From
+                            ₹1,030</div>
+                        <p class="text-center font-bold text-sm">Coffee makers</p>
+                    </div>
+                </div>
+                <div class="min-w-[240px] group cursor-pointer space-y-4">
+                    <div
+                        class="h-80 bg-orange-50 rounded-[40px] p-8 flex items-center justify-center border border-orange-100 group-hover:bg-orange-100 transition-colors">
+                        <img src="https://via.placeholder.com/150x120" alt="Toaster"
+                            class="mix-blend-multiply transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="space-y-1">
+                        <div class="bg-orange-500 text-white font-black text-center py-2.5 rounded-2xl text-xs">From
+                            ₹399</div>
+                        <p class="text-center font-bold text-sm">Pop-up toasters</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. READY FOR MATCH NIGHT? (Screenshot 22.15.55.jpg) -->
+        <section class="bg-[#1e1b4b] rounded-[40px] p-10 space-y-8 text-white relative overflow-hidden">
+            <div
+                class="absolute top-0 right-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,#4f46e5,transparent_70%)]">
+            </div>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <h3 class="text-2xl font-black italic uppercase tracking-tighter">Ready for match night?</h3>
+                <div class="h-1 w-24 bg-yellow-400 rounded-full"></div>
+            </div>
+            <div class="relative z-10 flex gap-6 overflow-x-auto no-scrollbar pb-4">
+                <div
+                    class="min-w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-white/10 transition-colors">
+                    <div class="h-48 flex items-center justify-center p-6">
+                        <div
+                            class="w-full h-full bg-stone-900 rounded-lg overflow-hidden flex items-center justify-center">
+                            <span class="text-white/20 font-black italic">SAMSUNG 43"</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="bg-yellow-400 text-black font-black text-center py-3 rounded-2xl text-sm">Just
+                            ₹31,490*</div>
+                        <p class="text-center font-bold opacity-60">Samsung 43"</p>
+                    </div>
+                </div>
+                <div
+                    class="min-w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-white/10 transition-colors">
+                    <div class="h-48 flex items-center justify-center p-6">
+                        <div class="w-full h-full bg-stone-900 rounded-lg flex items-center justify-center">
+                            <span class="text-white/20 font-black italic">XIAOMI 55"</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="bg-yellow-400 text-black font-black text-center py-3 rounded-2xl text-sm">Just
+                            ₹35,999*</div>
+                        <p class="text-center font-bold opacity-60">Xiaomi 55" QLED</p>
+                    </div>
+                </div>
+                <div
+                    class="min-w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-white/10 transition-colors">
+                    <div class="h-48 flex items-center justify-center p-6">
+                        <div class="w-full h-full bg-stone-900 rounded-lg flex items-center justify-center">
+                            <span class="text-white/20 font-black italic">ACERPURE 75"</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="bg-yellow-400 text-black font-black text-center py-3 rounded-2xl text-sm">Just
+                            ₹52,599*</div>
+                        <p class="text-center font-bold opacity-60">Acerpure 75"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. QUICK APPLIANCES DELIVERY (Screenshot 22.16.15.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Quick appliances
+                delivery!</h3>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-pink-50 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative border border-pink-100 group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/100x80" alt="Sandwich maker"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#831843] text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹799</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Sandwich makers</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-pink-50 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative border border-pink-100 group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/100x120" alt="Rice Cooker"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#831843] text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹1,799</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Rice cookers</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-pink-50 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative border border-pink-100 group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/120x80" alt="Fan"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#831843] text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹1,599</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Ceiling fans</p>
+                    </div>
+                </div>
+                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
+                    <div
+                        class="bg-pink-50 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative border border-pink-100 group-hover:scale-105 transition-transform">
+                        <img src="https://via.placeholder.com/100x120" alt="Air Fryer"
+                            class="mix-blend-multiply drop-shadow-xl">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#831843] text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
+                            From ₹2,999</div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Air fryers</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. EXPLORE THE LATEST (Screenshot 22.16.39.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Explore the latest
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div
+                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    <div
+                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        <div class="w-full h-full bg-stone-900 rounded-lg"></div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">From ₹48,999*
+                        </div>
+                        <p class="text-center font-bold text-sm">Xiaomi Mini-LEDs</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    <div
+                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        <div class="w-full h-full bg-stone-900 rounded-lg shadow-[0_0_20px_rgba(34,197,94,0.3)]"></div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹64,999*
+                        </div>
+                        <p class="text-center font-bold text-sm">Lumio 65" Mini-LED</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    <div
+                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        <img src="https://via.placeholder.com/150x150" alt="Smart Fryer" class="mix-blend-multiply">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹19,995
+                        </div>
+                        <p class="text-center font-bold text-sm">6 L smart fryer</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    <div
+                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        <img src="https://via.placeholder.com/150x120" alt="Cooktop" class="mix-blend-multiply">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹4,699
+                        </div>
+                        <p class="text-center font-bold text-sm">Induction cooktop</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-100 border-t border-stone-200 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 space-y-4">
+                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
+                        class="accent-gold">MART</span></h2>
+                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">The Ultimate
+                    Destination for Smart Living. Trusted Appliances, Student Discounts, Fast Delivery.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Quick Links</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="index.html" class="hover:text-[#C5A059]">Home</a></li>
+                    <li><a href="electronics.html" class="hover:text-[#C5A059]">Electronics</a></li>
+                    <li><a href="beauty.html" class="hover:text-[#C5A059]">Beauty</a></li>
+                    <li><a href="home.html" class="hover:text-[#C5A059]">Home Essentials</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Help</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="#" class="hover:text-[#C5A059]">Track Order</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Cancellation</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Returns</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Warranty</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Newsletter</h4>
+                <div class="flex gap-2">
+                    <input type="text" placeholder="Your Email"
+                        class="bg-white border border-stone-200 rounded-lg px-3 py-2 text-xs w-full focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                    <button class="dark-brown-bg text-white p-2 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="m22 2-7 20-4-9-9-4Z" />
+                            <path d="M22 2 11 13" />
+                        </svg></button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
+            <p class="text-[10px] font-bold text-stone-400">© 2026 HOSTELMART APPLIANCES. BUILT FOR SMART LIVING.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = menu.style.transform === 'translateX(0%)';
+
+            if (isOpen) {
+                menu.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            } else {
+                menu.style.transform = 'translateX(0%)';
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = content.previousElementSibling.querySelector('ion-icon');
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.setAttribute('name', 'add-outline');
+            } else {
+                content.classList.add('active');
+                icon.setAttribute('name', 'remove-outline');
+            }
+        }
+
+        // Close menu on overlay click
+        document.getElementById('overlay').addEventListener('click', toggleMobileMenu);
+    </script>
+</body>
+
+</html>

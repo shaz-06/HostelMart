@@ -76,11 +76,11 @@
         }
 
         .beauty-gradient {
-            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-soft) 100%);
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%) 0%, var(--brown-soft) 100%);
         }
 
         .deals-bg {
-            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-soft) 100%);
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%) 0%, var(--brown-soft) 100%);
         }
 
         .scalloped-card {
@@ -105,15 +105,15 @@
 <body class="antialiased bg-[#FAF7F2]">
 
     <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
 
     <!-- HEADER -->
-    <header class="bg-white sticky top-0 z-40 shadow-md">
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
         <!-- Top Row: Tabs -->
-        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
             <div class="container mx-auto px-4 flex gap-4">
                 <a href="index.html"
-                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
                     <span class="font-black italic text-base flex items-center">
                         <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
                         <span class="text-[#5d4037]">Mart</span>
@@ -124,30 +124,30 @@
                     <div
                         class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
                         6</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
-                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
                 </div>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
                         class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
                         Xtra Saver</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
                 </div>
             </div>
         </div>
 
         <!-- Middle Row: Location & Info -->
-        <div class="bg-white py-2 hidden md:block">
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
             <div
                 class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                 <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
                     <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <span>Add Delivery Address</span>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
                 <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
@@ -158,7 +158,7 @@
         </div>
 
         <!-- Bottom Row: Search & Profile -->
-        <div class="bg-white pb-4">
+        <div class="bg-[#F5F5DC] pb-4">
             <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
                 <!-- Mobile Menu Toggle -->
                 <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
@@ -173,11 +173,11 @@
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
                             name="search-outline"></ion-icon></div>
                     <input type="search" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
                 </div>
 
                 <!-- Profile & Cart -->
-                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
                         <ion-icon name="person-circle-outline"
                             class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
@@ -199,14 +199,14 @@
         </div>
 
         <!-- CATEGORY NAVIGATION (Icons) -->
-        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
             <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
                 <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">For You</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">For You</span>
                 </a>
 
                 <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
@@ -214,7 +214,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
                 </a>
 
                 <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
@@ -222,7 +222,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Mobiles</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
                 </a>
 
                 <a href="Beauty.html" class="category-item active flex flex-col items-center gap-1 group">
@@ -230,7 +230,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-700">Beauty</span>
+                    <span class="text-[10px] font-bold text-[#5D4037]">Beauty</span>
                 </a>
 
                 <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
@@ -238,7 +238,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Electronics</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
                 </a>
 
                 <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
@@ -246,7 +246,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Home</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
                 </a>
 
                 <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
@@ -254,7 +254,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Appliances</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -262,7 +262,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -270,7 +270,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -278,7 +278,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -286,7 +286,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -294,7 +294,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -302,7 +302,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -310,7 +310,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
                 </a>
             </div>
         </div>
@@ -318,11 +318,11 @@
 
     <!-- MOBILE MENU DRAWER -->
     <div id="mobileMenu"
-        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
             <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
             <button onclick="toggleMobileMenu()"
-                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
                 <ion-icon name="close-outline"></ion-icon>
             </button>
         </div>
@@ -333,7 +333,7 @@
                     <div class="flex justify-between items-center cursor-pointer group"
                         onclick="toggleAccordion('mob-categories')">
                         <span
-                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
                         <ion-icon name="add-outline" class="text-xl"></ion-icon>
                     </div>
                     <div id="mob-categories"
@@ -465,7 +465,7 @@
                     <div class="w-1/2 relative">
                         <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" alt="Beauty Products" class="absolute bottom-0 right-0 w-full h-4/5 object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-white/20 blur-3xl rounded-full"></div>
+                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-[#F5F5DC]/20 blur-3xl rounded-full"></div>
                 </div>
 
                 <!-- Banner 2: Sunscreen Days -->
@@ -483,18 +483,18 @@
                     <div class="w-1/2 relative">
                         <img src="https://images.unsplash.com/photo-1596462502278-27bfad450516?auto=format&fit=crop&w=400&q=80" alt="Sunscreen" class="absolute bottom-0 right-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
-                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/40 blur-3xl rounded-full"></div>
+                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#F5F5DC]/40 blur-3xl rounded-full"></div>
                 </div>
 
                 <!-- Banner 3: Real-Skin Approved -->
-                <div class="w-[450px] md:w-[600px] h-[300px] bg-white rounded-[40px] p-10 flex relative overflow-hidden group cursor-pointer shadow-lg border border-stone-100">
+                <div class="w-[450px] md:w-[600px] h-[300px] bg-[#F5F5DC] rounded-[40px] p-10 flex relative overflow-hidden group cursor-pointer shadow-lg border border-stone-100">
                     <div class="w-full space-y-4">
                         <div class="text-xs font-black uppercase tracking-widest text-stone-400">the <span class="text-[#3E2723]">derma</span> co</div>
                         <h2 class="text-3xl font-black text-[#3E2723]">Real-Skin Approved SPF 50 Sunscreens</h2>
                         <p class="text-sm font-bold text-stone-500">In-Vivo Tested</p>
                         <div class="pt-8 flex gap-4">
                             <div class="w-24 h-40 bg-stone-50 rounded-lg shadow-md border border-stone-100 -rotate-6"></div>
-                            <div class="w-24 h-40 bg-stone-100 rounded-lg shadow-md border border-stone-100 translate-y-4"></div>
+                            <div class="w-24 h-40 bg-[#FDF5E6] rounded-lg shadow-md border border-stone-100 translate-y-4"></div>
                             <div class="w-24 h-40 bg-stone-50 rounded-lg shadow-md border border-stone-100 rotate-6 translate-y-2"></div>
                         </div>
                     </div>
@@ -503,21 +503,21 @@
         </section>
 
         <!-- 6. MATCH MANIA DEALS (Screenshot 19.33.13.jpg) -->
-        <section class="rounded-[40px] overflow-hidden border border-stone-100 bg-white">
+        <section class="rounded-[40px] overflow-hidden border border-stone-100 bg-[#F5F5DC]">
             <div class="deals-bg p-6 flex flex-col md:flex-row items-center justify-between text-white gap-4">
                 <div class="space-y-1">
                     <h3 class="text-2xl font-black italic tracking-tight">Match mania deals</h3>
                     <div class="flex gap-2">
-                        <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold">00d : 03h : 26m : 47s</span>
+                        <span class="bg-[#F5F5DC]/20 px-2 py-0.5 rounded text-[10px] font-bold">00d : 03h : 26m : 47s</span>
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <button class="p-2 bg-white/20 rounded-full hover:bg-white/30"><svg
+                    <button class="p-2 bg-[#F5F5DC]/20 rounded-full hover:bg-[#F5F5DC]/30"><svg
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5">
                             <path d="m15 18-6-6 6-6" />
                         </svg></button>
-                    <button class="p-2 bg-white/20 rounded-full hover:bg-white/30"><svg
+                    <button class="p-2 bg-[#F5F5DC]/20 rounded-full hover:bg-[#F5F5DC]/30"><svg
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5">
                             <path d="m9 18 6-6-6-6" />
@@ -566,7 +566,7 @@
                 </div>
                 <div class="text-center group cursor-pointer">
                     <div
-                        class="bg-gradient-to-b from-stone-50 to-blue-50 rounded-3xl h-44 flex items-center justify-center mb-3 relative overflow-hidden group-hover:shadow-lg transition-all">
+                        class="bg-gradient-to-b from-stone-50 to-[#FDF5E6] rounded-3xl h-44 flex items-center justify-center mb-3 relative overflow-hidden group-hover:shadow-lg transition-all">
                         <img src="https://via.placeholder.com/100x120" alt="Shampoo"
                             class="mix-blend-multiply group-hover:scale-110 transition-transform">
                     </div>
@@ -602,7 +602,7 @@
                         </div>
                         <div class="scalloped-bottom"></div>
                     </div>
-                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                    <button class="bg-[#5D4037] text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
@@ -618,7 +618,7 @@
                         </div>
                         <div class="scalloped-bottom"></div>
                     </div>
-                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                    <button class="bg-[#5D4037] text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
@@ -634,7 +634,7 @@
                         </div>
                         <div class="scalloped-bottom"></div>
                     </div>
-                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                    <button class="bg-[#5D4037] text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
@@ -644,21 +644,21 @@
                 <!-- Sun Scoop -->
                 <div class="flex flex-col items-center gap-6 group cursor-pointer">
                     <div class="scalloped-card w-full aspect-square flex flex-col items-center justify-center p-8">
-                        <div class="w-24 h-24 bg-white p-1 shadow-inner overflow-hidden flex flex-col">
+                        <div class="w-24 h-24 bg-[#F5F5DC] p-1 shadow-inner overflow-hidden flex flex-col">
                             <div class="flex-1 flex gap-1">
-                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-white"></div>
-                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-white"></div>
-                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-white"></div>
+                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-[#F5F5DC]"></div>
+                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-[#F5F5DC]"></div>
+                                <div class="w-2 h-full bg-yellow-400"></div><div class="w-2 h-full bg-[#F5F5DC]"></div>
                             </div>
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="bg-white/90 px-2 py-1">
+                                <div class="bg-[#F5F5DC]/90 px-2 py-1">
                                     <span class="text-xs font-black text-[#3E2723]">Sun Scoop.</span>
                                 </div>
                             </div>
                         </div>
                         <div class="scalloped-bottom"></div>
                     </div>
-                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                    <button class="bg-[#5D4037] text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
@@ -678,7 +678,7 @@
                         </div>
                         <div class="scalloped-bottom"></div>
                     </div>
-                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                    <button class="bg-[#5D4037] text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
@@ -691,7 +691,7 @@
                         <div class="text-3xl font-bold tracking-tight text-[#3E2723]">DR·RASHEL</div>
                         <div class="scalloped-bottom"></div>
                     </div>
-                    <button class="bg-black text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                    <button class="bg-[#5D4037] text-white p-2.5 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
@@ -735,7 +735,7 @@
                             
                             <!-- Product Glow -->
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <!-- Product Image -->
@@ -757,7 +757,7 @@
                             
                             <!-- Product Glow -->
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <!-- Product Image -->
@@ -779,7 +779,7 @@
                             
                             <!-- Product Glow -->
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <!-- Product Image -->
@@ -801,7 +801,7 @@
                             
                             <!-- Product Glow -->
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <!-- Product Image -->
@@ -823,7 +823,7 @@
                             
                             <!-- Product Glow -->
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <!-- Product Image -->
@@ -844,7 +844,7 @@
                             <div class="absolute top-4 left-6 md:top-6 md:left-8 text-5xl md:text-7xl font-black text-white leading-none opacity-90">6.</div>
                             
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
@@ -864,7 +864,7 @@
                             <div class="absolute top-4 left-6 md:top-6 md:left-8 text-5xl md:text-7xl font-black text-white leading-none opacity-90">7.</div>
                             
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
@@ -884,7 +884,7 @@
                             <div class="absolute top-4 left-6 md:top-6 md:left-8 text-5xl md:text-7xl font-black text-white leading-none opacity-90">8.</div>
                             
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
@@ -904,7 +904,7 @@
                             <div class="absolute top-4 left-6 md:top-6 md:left-8 text-5xl md:text-7xl font-black text-white leading-none opacity-90">9.</div>
                             
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
@@ -924,7 +924,7 @@
                             <div class="absolute top-4 left-6 md:top-6 md:left-8 text-5xl md:text-7xl font-black text-white leading-none opacity-90">10.</div>
                             
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-56 h-56 bg-white/20 rounded-full blur-3xl"></div>
+                                <div class="w-56 h-56 bg-[#F5F5DC]/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <div class="relative z-10 flex-1 flex items-center justify-center pt-10">
@@ -941,7 +941,7 @@
                 </div>
 
                 <!-- Next Button -->
-                <button class="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/90 backdrop-blur-md rounded-full shadow-2xl flex items-center justify-center text-[#3E2723] z-20 group-hover:scale-110 transition-transform border border-stone-200">
+                <button class="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-[#F5F5DC]/90 backdrop-blur-md rounded-full shadow-2xl flex items-center justify-center text-[#3E2723] z-20 group-hover:scale-110 transition-transform border border-stone-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                         <path d="M9 18l6-6-6-6"/>
                     </svg>
@@ -965,7 +965,7 @@
                 </div>
             </div>
             <div
-                class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 relative z-10 text-center md:text-right">
+                class="bg-[#F5F5DC]/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 relative z-10 text-center md:text-right">
                 <p class="text-sm font-bold uppercase tracking-widest opacity-80 mb-1 text-[#F3EEE5]">Early Access</p>
                 <p class="text-xl font-black text-[#C5A059]">24 hrs for PLUS & BLACK members</p>
             </div>
@@ -980,39 +980,39 @@
             <div class="grid grid-cols-2 md:grid-cols-3 gap-2 max-w-[700px]">
                 <!-- Under 199 -->
                 <div class="w-[209.33px] h-[293.53px] bg-gradient-to-br from-[#FFE082] via-[#FFD54F] to-[#FFB300] rounded-[32px] flex flex-col items-center justify-center p-6 shadow-lg hover-lift cursor-pointer transition-all duration-300 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-[#F5F5DC]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mb-2">Under</p>
                     <p class="text-5xl md:text-6xl font-black text-[#3E2723] tracking-tighter">₹199</p>
                 </div>
                 <!-- Under 299 -->
                 <div class="w-[209.33px] h-[293.53px] bg-gradient-to-br from-[#FFE082] via-[#FFD54F] to-[#FFB300] rounded-[32px] flex flex-col items-center justify-center p-6 shadow-lg hover-lift cursor-pointer transition-all duration-300 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-[#F5F5DC]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mb-2">Under</p>
                     <p class="text-5xl md:text-6xl font-black text-[#3E2723] tracking-tighter">₹299</p>
                 </div>
                 <!-- Under 399 -->
                 <div class="w-[209.33px] h-[293.53px] bg-gradient-to-br from-[#FFE082] via-[#FFD54F] to-[#FFB300] rounded-[32px] flex flex-col items-center justify-center p-6 shadow-lg hover-lift cursor-pointer transition-all duration-300 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-[#F5F5DC]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mb-2">Under</p>
                     <p class="text-5xl md:text-6xl font-black text-[#3E2723] tracking-tighter">₹399</p>
                 </div>
                 <!-- Min 30% Off -->
                 <div class="w-[209.33px] h-[293.53px] bg-gradient-to-br from-[#FFE082] via-[#FFD54F] to-[#FFB300] rounded-[32px] flex flex-col items-center justify-center p-6 shadow-lg hover-lift cursor-pointer transition-all duration-300 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-[#F5F5DC]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mb-1">Min.</p>
                     <p class="text-5xl md:text-6xl font-black text-[#3E2723] tracking-tighter">30%</p>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mt-1">Off</p>
                 </div>
                 <!-- Min 50% Off -->
                 <div class="w-[209.33px] h-[293.53px] bg-gradient-to-br from-[#FFE082] via-[#FFD54F] to-[#FFB300] rounded-[32px] flex flex-col items-center justify-center p-6 shadow-lg hover-lift cursor-pointer transition-all duration-300 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-[#F5F5DC]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mb-1">Min.</p>
                     <p class="text-5xl md:text-6xl font-black text-[#3E2723] tracking-tighter">50%</p>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mt-1">Off</p>
                 </div>
                 <!-- Min 70% Off -->
                 <div class="w-[209.33px] h-[293.53px] bg-gradient-to-br from-[#FFE082] via-[#FFD54F] to-[#FFB300] rounded-[32px] flex flex-col items-center justify-center p-6 shadow-lg hover-lift cursor-pointer transition-all duration-300 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-[#F5F5DC]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mb-1">Min.</p>
                     <p class="text-5xl md:text-6xl font-black text-[#3E2723] tracking-tighter">70%</p>
                     <p class="text-xl font-bold text-[#3E2723] opacity-80 mt-1">Off</p>
@@ -1027,7 +1027,7 @@
                 <!-- Brand 1: Cetaphil -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Cetaphil_logo.svg/1200px-Cetaphil_logo.svg.png" alt="Cetaphil" class="h-8 object-contain">
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center p-8 pt-16">
@@ -1042,7 +1042,7 @@
                 <!-- Brand 2: The Derma Co -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <div class="flex flex-col items-start leading-none">
                                 <span class="text-[8px] font-bold text-stone-400 uppercase">The</span>
                                 <span class="text-xl font-black text-[#3E2723]">derma<span class="text-[#00A99D]">co</span></span>
@@ -1061,7 +1061,7 @@
                 <!-- Brand 3: Minimalist -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#D1F2FF] to-[#9EDFFF] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <span class="text-lg font-black tracking-widest text-black uppercase">Minimalist</span>
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center p-8">
@@ -1076,7 +1076,7 @@
                 <!-- Brand 4: Clean & Clear -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Clean_%26_Clear_logo.svg/2560px-Clean_%26_Clear_logo.svg.png" alt="Clean & Clear" class="h-8 object-contain">
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -1091,7 +1091,7 @@
                 <!-- Brand 5: Swiss Beauty -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <div class="flex flex-col items-center">
                                 <span class="text-xs font-black tracking-[4px] text-[#3E2723] uppercase">Swiss</span>
                                 <span class="text-[8px] font-bold text-stone-400 uppercase tracking-[2px]">Beauty</span>
@@ -1109,7 +1109,7 @@
                 <!-- Brand 6: CeraVe -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/CeraVe_logo.svg/2560px-CeraVe_logo.svg.png" alt="CeraVe" class="h-6 object-contain">
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -1124,7 +1124,7 @@
                 <!-- Brand 7: Plix -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <span class="text-xl font-black tracking-tighter text-[#3E2723]">PLIX</span>
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -1139,7 +1139,7 @@
                 <!-- Brand 8: FOGG -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <span class="text-xl font-black tracking-widest text-[#B4944B]">FOGG</span>
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -1154,7 +1154,7 @@
                 <!-- Brand 9: VILLAIN -->
                 <div class="flex-shrink-0 w-[280px] md:w-[320px] space-y-4">
                     <div class="relative h-[320px] md:h-[380px] rounded-[40px] overflow-hidden bg-gradient-to-br from-[#FFD1D1] to-[#FF9E9E] shadow-xl hover-lift cursor-pointer">
-                        <div class="absolute top-0 left-0 bg-white px-6 py-4 rounded-br-[32px] shadow-sm z-10">
+                        <div class="absolute top-0 left-0 bg-[#F5F5DC] px-6 py-4 rounded-br-[32px] shadow-sm z-10">
                             <span class="text-xl font-black tracking-[4px] text-[#3E2723] uppercase">VILLAIN</span>
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -1170,13 +1170,13 @@
         </section>
 
         <!-- 13. THE LAUNCH PARTY -->
-        <section class="bg-gradient-to-br from-pink-600 via-rose-500 to-orange-400 rounded-[48px] p-8 md:p-12 space-y-8 relative overflow-hidden shadow-2xl">
+        <section class="bg-gradient-to-br from-pink-600 via-[#FDF5E6]0 to-orange-400 rounded-[48px] p-8 md:p-12 space-y-8 relative overflow-hidden shadow-2xl">
             <!-- Decorative circle -->
-            <div class="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-[#F5F5DC]/10 rounded-full blur-3xl"></div>
             
             <div class="flex items-center justify-between relative z-10">
                 <h2 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter">The Launch Party</h2>
-                <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white cursor-pointer hover:bg-white/30 transition-all">
+                <div class="w-12 h-12 rounded-full bg-[#F5F5DC]/20 flex items-center justify-center text-white cursor-pointer hover:bg-[#F5F5DC]/30 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                         <path d="m9 18 6-6-6-6"/>
                     </svg>
@@ -1186,7 +1186,7 @@
             <div class="flex gap-4 md:gap-6 overflow-x-auto no-scrollbar pb-2 relative z-10">
                 
                 <!-- Card 1: Phitku -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden bg-stone-50">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_products_1_1777387623210.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[-25%] translate-y-[-25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1199,7 +1199,7 @@
                 </div>
 
                 <!-- Card 2: Moxie -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden bg-stone-50">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_products_1_1777387623210.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[25%] translate-y-[-25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1212,7 +1212,7 @@
                 </div>
 
                 <!-- Card 3: Parachute -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden bg-stone-50">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_products_1_1777387623210.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[-25%] translate-y-[25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1225,7 +1225,7 @@
                 </div>
 
                 <!-- Card 4: Attarnation -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden bg-stone-50">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_products_1_1777387623210.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[25%] translate-y-[25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1238,7 +1238,7 @@
                 </div>
 
                 <!-- Card 5: Medicube -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden bg-stone-50">
                         <img src="https://images.unsplash.com/photo-1596462502278-27bfad450516?auto=format&fit=crop&w=400&q=80" 
                              class="w-full h-full object-cover group-hover:scale-[1.1] transition-transform duration-500" 
@@ -1251,7 +1251,7 @@
                 </div>
 
                 <!-- Card 6: BLESTAAA -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_2_premium_1777387740778.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[-25%] translate-y-[-25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1264,7 +1264,7 @@
                 </div>
 
                 <!-- Card 7: POLICE -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_2_premium_1777387740778.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[25%] translate-y-[-25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1277,7 +1277,7 @@
                 </div>
 
                 <!-- Card 8: NAUTICA -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_2_premium_1777387740778.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[-25%] translate-y-[0%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1290,7 +1290,7 @@
                 </div>
 
                 <!-- Card 9: Eucerin -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_2_premium_1777387740778.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[25%] translate-y-[0%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1303,7 +1303,7 @@
                 </div>
 
                 <!-- Card 10: JAGUAR -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_2_premium_1777387740778.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[-25%] translate-y-[25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1316,7 +1316,7 @@
                 </div>
 
                 <!-- Card 11: Wishcare -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_2_premium_1777387740778.png" 
                              class="w-full h-full object-cover scale-[2.2] translate-x-[25%] translate-y-[25%] group-hover:scale-[2.4] transition-transform duration-500" 
@@ -1329,7 +1329,7 @@
                 </div>
 
                 <!-- Card 12: nua -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_3_final_1777387857212.png" 
                              class="w-full h-full object-cover scale-[2.8] translate-x-[-35%] translate-y-[10%] group-hover:scale-[3.0] transition-transform duration-500" 
@@ -1342,7 +1342,7 @@
                 </div>
 
                 <!-- Card 13: REGINALD MEN -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_3_final_1777387857212.png" 
                              class="w-full h-full object-cover scale-[2.8] translate-x-[0%] translate-y-[10%] group-hover:scale-[3.0] transition-transform duration-500" 
@@ -1355,7 +1355,7 @@
                 </div>
 
                 <!-- Card 14: SKIN1004 -->
-                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-white rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
+                <div class="flex-shrink-0 w-[200px] md:w-[260px] bg-[#F5F5DC] rounded-3xl overflow-hidden shadow-xl hover-lift cursor-pointer group">
                     <div class="h-[200px] md:h-[260px] overflow-hidden">
                         <img src="/Users/shashankshetty/.gemini/antigravity/brain/f4526fad-273f-437e-a873-8192c25d3bf4/launch_party_batch_3_final_1777387857212.png" 
                              class="w-full h-full object-cover scale-[2.8] translate-x-[35%] translate-y-[10%] group-hover:scale-[3.0] transition-transform duration-500" 
@@ -1445,7 +1445,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-stone-100 border-t border-stone-200 py-16 mt-12">
+    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
         <div class="max-w-7xl mx-auto px-4 flex flex-col items-center text-center space-y-4">
             <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span class="accent-gold">MART</span>
             </h2>

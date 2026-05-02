@@ -57,10 +57,10 @@
     </style>
 </head>
 
-<body class="bg-white text-gray-900 antialiased">
+<body class="bg-[#F5F5DC] text-[#5D4037] antialiased">
 
     <!-- HEADER -->
-    <header class="bg-white sticky top-0 z-50 border-b-4 border-levis-red">
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b-4 border-levis-red">
         <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
             <!-- Brand Identity -->
             <div class="flex flex-col items-start leading-none group cursor-pointer">
@@ -84,7 +84,7 @@
             </nav>
 
             <!-- Actions -->
-            <div class="flex items-center gap-5 text-2xl text-gray-700">
+            <div class="flex items-center gap-5 text-2xl text-[#5D4037]">
                 <button class="hover:text-levis-red transition-colors"><ion-icon
                         name="search-outline"></ion-icon></button>
                 <button class="hover:text-levis-red relative transition-colors">
@@ -99,7 +99,7 @@
 
     <main>
         <!-- HERO SECTION -->
-        <section class="relative h-[60vh] md:h-[70vh] bg-black">
+        <section class="relative h-[60vh] md:h-[70vh] bg-[#5D4037]">
             <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=2000&auto=format&fit=crop"
                 class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Levi's Heritage">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -110,10 +110,10 @@
                     are built to last and made for everyone.</p>
                 <div class="flex gap-4">
                     <a href="#shop"
-                        class="bg-levis-red text-white px-10 py-4 font-black uppercase text-xs hover:bg-white hover:text-levis-red transition duration-300">Shop
+                        class="bg-levis-red text-white px-10 py-4 font-black uppercase text-xs hover:bg-[#F5F5DC] hover:text-levis-red transition duration-300">Shop
                         Icons</a>
                     <a href="#"
-                        class="border border-white text-white px-10 py-4 font-black uppercase text-xs hover:bg-white hover:text-black transition duration-300">Learn
+                        class="border border-white text-white px-10 py-4 font-black uppercase text-xs hover:bg-[#F5F5DC] hover:text-black transition duration-300">Learn
                         More</a>
                 </div>
             </div>
@@ -170,8 +170,8 @@
                     ];
 
                     document.write(levisProducts.map(p => `
-                        <div class="product-card group relative bg-white border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
-                            <div class="aspect-[3/4] overflow-hidden relative bg-gray-50">
+                        <div class="product-card group relative bg-[#F5F5DC] border border-[#D7CCC8] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
+                            <div class="aspect-[3/4] overflow-hidden relative bg-[#FDF5E6]">
                                 <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${p.name}">
                                 
                                 <!-- Iconic Levi's Red Tab on Product -->
@@ -181,7 +181,7 @@
                             </div>
                             <div class="p-5">
                                 <p class="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 mb-1">${p.cat}</p>
-                                <h3 class="font-bold text-sm tracking-tight text-gray-800 truncate">${p.name}</h3>
+                                <h3 class="font-bold text-sm tracking-tight text-[#5D4037] truncate">${p.name}</h3>
                                 <div class="mt-4 flex justify-between items-baseline">
                                     <span class="font-black text-base">$${p.price}</span>
                                     <button class="text-xs font-bold uppercase tracking-widest text-levis-red border-b border-levis-red hover:text-black hover:border-black transition-colors">Quick Buy</button>
@@ -205,7 +205,7 @@
                     <p class="text-lg opacity-80 max-w-md">Button fly. Straight leg. The blueprint for every pair of
                         jeans in existence since May 20, 1873.</p>
                     <button
-                        class="bg-white text-black px-12 py-4 font-black uppercase text-xs hover:bg-levis-red hover:text-white transition duration-500">Discover
+                        class="bg-[#F5F5DC] text-black px-12 py-4 font-black uppercase text-xs hover:bg-levis-red hover:text-white transition duration-500">Discover
                         501®</button>
                 </div>
                 <div class="hidden md:block relative">
@@ -217,7 +217,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-black text-white pt-20 pb-12">
+    <footer class="bg-[#5D4037] text-white pt-20 pb-12">
         <div class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-800 pb-12">
             <div class="space-y-6">
                 <div class="flex flex-col items-start leading-none">

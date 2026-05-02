@@ -96,15 +96,15 @@
 <body class="antialiased">
 
     <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
 
     <!-- HEADER -->
-    <header class="bg-white sticky top-0 z-40 shadow-md">
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
         <!-- Top Row: Tabs -->
-        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
             <div class="container mx-auto px-4 flex gap-4">
                 <a href="index.html"
-                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
                     <span class="font-black italic text-base flex items-center">
                         <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
                         <span class="text-[#5d4037]">Mart</span>
@@ -115,30 +115,30 @@
                     <div
                         class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
                         6</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
-                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
                 </div>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
                         class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
                         Xtra Saver</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
                 </div>
             </div>
         </div>
 
         <!-- Middle Row: Location & Info -->
-        <div class="bg-white py-2 hidden md:block">
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
             <div
                 class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                 <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
                     <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <span>Add Delivery Address</span>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
                 <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
@@ -149,7 +149,7 @@
         </div>
 
         <!-- Bottom Row: Search & Profile -->
-        <div class="bg-white pb-4">
+        <div class="bg-[#F5F5DC] pb-4">
             <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
                 <!-- Mobile Menu Toggle -->
                 <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
@@ -164,11 +164,11 @@
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
                             name="search-outline"></ion-icon></div>
                     <input type="search" id="product-search" oninput="handleSearch(this.value)" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
                 </div>
 
                 <!-- Profile & Cart -->
-                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
                         <ion-icon name="person-circle-outline"
                             class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
@@ -190,14 +190,14 @@
         </div>
 
         <!-- CATEGORY NAVIGATION (Icons) -->
-        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
             <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
                 <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">For You</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">For You</span>
                 </a>
 
                 <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
@@ -205,7 +205,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
                 </a>
 
                 <a href="Mobile.html" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
@@ -213,7 +213,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-700">Mobiles</span>
+                    <span class="text-[10px] font-bold text-[#5D4037]">Mobiles</span>
                 </a>
 
                 <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
@@ -221,7 +221,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Beauty</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
                 </a>
 
                 <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
@@ -229,7 +229,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Electronics</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
                 </a>
 
                 <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
@@ -237,7 +237,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Home</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
                 </a>
 
                 <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
@@ -245,7 +245,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Appliances</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -253,7 +253,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -261,7 +261,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -269,7 +269,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -277,7 +277,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -285,7 +285,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -293,7 +293,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -301,7 +301,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
                 </a>
             </div>
         </div>
@@ -309,11 +309,11 @@
 
     <!-- MOBILE MENU DRAWER -->
     <div id="mobileMenu"
-        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
             <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
             <button onclick="toggleMobileMenu()"
-                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
                 <ion-icon name="close-outline"></ion-icon>
             </button>
         </div>
@@ -324,7 +324,7 @@
                     <div class="flex justify-between items-center cursor-pointer group"
                         onclick="toggleAccordion('mob-categories')">
                         <span
-                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
                         <ion-icon name="add-outline" class="text-xl"></ion-icon>
                     </div>
                     <div id="mob-categories"
@@ -366,7 +366,7 @@
                 </div>
 
                 <div
-                    class="absolute right-8 bottom-8 w-40 h-40 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 flex items-center justify-center rotate-6 shadow-2xl hidden md:flex">
+                    class="absolute right-8 bottom-8 w-40 h-40 bg-[#F5F5DC]/5 backdrop-blur-xl rounded-3xl border border-white/10 flex items-center justify-center rotate-6 shadow-2xl hidden md:flex">
                     <div class="text-center">
                         <div class="accent-gold font-black text-3xl uppercase leading-none">SASA</div>
                         <div class="text-white font-black text-3xl uppercase leading-none">LELE</div>
@@ -379,7 +379,7 @@
                 class="lg:col-span-4 accent-gold-bg rounded-[40px] p-8 flex flex-col justify-between text-white overflow-hidden relative group cursor-pointer">
                 <div class="relative z-10">
                     <span
-                        class="text-[10px] font-black uppercase tracking-widest bg-white/20 px-2 py-1 rounded-md">Upcoming
+                        class="text-[10px] font-black uppercase tracking-widest bg-[#F5F5DC]/20 px-2 py-1 rounded-md">Upcoming
                         Sale</span>
                     <h3 class="text-3xl font-black mt-4">iPhone 17</h3>
                     <p class="text-sm font-semibold opacity-90 mt-2">Sale Starts Tomorrow, 12AM</p>
@@ -390,7 +390,7 @@
                 </div>
                 <!-- Abstract visual placeholder -->
                 <div
-                    class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/20 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500">
+                    class="absolute -right-10 -bottom-10 w-48 h-48 bg-[#F5F5DC]/20 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500">
                 </div>
             </div>
         </section>
@@ -407,7 +407,7 @@
                 <div class="w-full md:w-auto overflow-x-auto no-scrollbar pb-2">
                     <div id="brand-filter" class="flex items-center gap-3 min-w-max">
                         <button onclick="filterProducts('All')"
-                            class="brand-btn active px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all border-2 border-stone-100 hover:border-[#C5A059] bg-white">All</button>
+                            class="brand-btn active px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all border-2 border-stone-100 hover:border-[#C5A059] bg-[#F5F5DC]">All</button>
                         <!-- Brands will be injected here -->
                     </div>
                 </div>
@@ -428,7 +428,7 @@
 
         <!-- 6. EMI PROMO (Screenshot 2026-04-28 at 16.51.14.jpg) -->
         <section
-            class="bg-white border border-stone-200 rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+            class="bg-[#F5F5DC] border border-stone-200 rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
             <div class="flex items-center gap-6 divide-x divide-stone-200">
                 <div class="flex items-center gap-2">
                     <div
@@ -437,7 +437,7 @@
                     <span class="font-black text-sm uppercase">BOBCARD</span>
                 </div>
                 <div class="flex items-center gap-2 pl-6">
-                    <span class="text-blue-600 font-black italic text-sm">YES BANK</span>
+                    <span class="text-[#5D4037] font-black italic text-sm">YES BANK</span>
                 </div>
             </div>
             <div class="text-center md:text-right">
@@ -449,7 +449,7 @@
 
     </main>
 
-    <footer class="bg-stone-100 border-t border-stone-200 py-12 mt-12">
+    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
                 <h2 class="text-sm font-black dark-brown-text uppercase tracking-[.3em] mb-4">HostelMart</h2>
@@ -497,7 +497,7 @@
             }
 
             grid.innerHTML = toShow.map(product => `
-                <div class="bg-white border border-stone-100 rounded-[32px] p-5 hover-lift flex flex-col group h-full">
+                <div class="bg-[#F5F5DC] border border-stone-100 rounded-[32px] p-5 hover-lift flex flex-col group h-full">
                     <div class="bg-[#F8F7F4] rounded-[24px] aspect-square flex items-center justify-center relative mb-5 overflow-hidden">
                         ${product.price > 80000 ? '<div class="absolute top-3 left-3 bg-amber-100 text-amber-700 text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Premium</div>' : ''}
                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
@@ -577,7 +577,7 @@
             const filterContainer = document.getElementById('brand-filter');
             brands.forEach(brand => {
                 const btn = document.createElement('button');
-                btn.className = 'brand-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all border-2 border-stone-100 hover:border-[#C5A059] bg-white';
+                btn.className = 'brand-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all border-2 border-stone-100 hover:border-[#C5A059] bg-[#F5F5DC]';
                 btn.innerText = brand;
                 btn.onclick = () => filterProducts(brand);
                 filterContainer.appendChild(btn);

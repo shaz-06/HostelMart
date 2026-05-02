@@ -13,7 +13,7 @@
     "title": "Cool & casual picks!",
     "description": "T-shirts, shirts...",
     "price_info": "Under ₹499",
-    "bg_color": "#fff9c4",
+    "bg_color": "#F5F5DC",
     "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex"
   },
   {
@@ -23,8 +23,8 @@
     "title": "Cute little styles",
     "description": "Kids' topwear",
     "price_info": "From ₹99",
-    "bg_color": "#fff9c4",
-    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] bg-[#fff9c4]"
+    "bg_color": "#F5F5DC",
+    "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] bg-[#F5F5DC]"
   },
   {
     "type": "featured",
@@ -33,7 +33,7 @@
     "title": "Trendy kicks you love",
     "description": "Shoes, sneakers & more",
     "price_info": "From ₹219",
-    "bg_color": "#fff9c4",
+    "bg_color": "#F5F5DC",
     "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex",
     "section": "fashion"
   },
@@ -44,7 +44,7 @@
     "title": "Deals on bestsellers",
     "description": "Men's sunglasses",
     "price_info": "Under ₹299",
-    "bg_color": "#fff9c4",
+    "bg_color": "#F5F5DC",
     "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex",
     "section": "fashion"
   },
@@ -55,7 +55,7 @@
     "title": "Back to SCHOOL",
     "description": "60-90% Off",
     "price_info": "Limited time",
-    "bg_color": "#fbc02d",
+    "bg_color": "#F5F5DC",
     "classes": "min-w-[85%] md:min-w-[45%] snap-center rounded-[32px] overflow-hidden relative aspect-[16/9] md:aspect-auto md:h-[300px] flex",
     "section": "fashion"
   }

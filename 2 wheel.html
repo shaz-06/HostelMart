@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 Wheelers - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .hero-gradient-blue {
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
+        }
+
+        .bike-card {
+            background: #F5F5DC;
+            border: 1px solid #e7e5e4;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .bike-card:hover {
+            border-color: #C5A059;
+            box-shadow: 0 12px 30px -10px rgba(197, 160, 89, 0.15);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Hostel</span>
+                        <span class="text-[#5d4037]">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Shashank</span>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="index.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-[#5D4037]">For You</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
+                </a>
+
+                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
+                </a>
+
+                <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
+                </a>
+
+                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
+                </a>
+
+                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
+                </a>
+
+                <a href="Toys.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
+                </a>
+
+                <a href="Food.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
+                </a>
+
+                <a href="Auto.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
+                </a>
+
+                <a href="2 wheel.html" class="category-item active flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
+                </a>
+
+                <a href="Sports.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
+                </a>
+
+                <a href="Books.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
+                </a>
+
+                <a href="Furniture.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
+
+        <!-- 4. HERO BANNERS (Screenshot 11.51.38.jpg) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-8 relative rounded-[40px] p-10 overflow-hidden hero-gradient-blue text-[#3E2723] min-h-[320px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <div class="bg-[#5D4037] text-white px-3 py-1 rounded-lg font-black text-[10px] w-fit italic">MONTH
+                        END DEALS</div>
+                    <h2 class="text-4xl font-black leading-tight uppercase italic">Exclusive month-end deals <br><span
+                            class="text-xl font-bold opacity-70">Limited period only!</span></h2>
+                    <button
+                        class="dark-brown-bg text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Buy
+                        Now</button>
+                </div>
+                <div class="absolute right-10 bottom-0 w-64 h-64 opacity-20 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                </div>
+            </div>
+            <div
+                class="lg:col-span-4 bg-[#F5F5DC] border border-stone-200 rounded-[40px] p-8 flex flex-col justify-between shadow-sm relative overflow-hidden group">
+                <div class="relative z-10 space-y-2">
+                    <h3 class="text-2xl font-black">Guaranteed ₹2,000</h3>
+                    <p class="text-sm font-bold opacity-60 italic">with Flipkart Gift Card</p>
+                    <p class="text-[10px] font-black uppercase text-[#5D4037]">Quick & easy loans • Int. from 9.99%</p>
+                    <button
+                        class="bg-[#FDF5E6]0 text-white px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest mt-4">Buy
+                        Now</button>
+                </div>
+                <!-- Abstract card shape -->
+                <div
+                    class="absolute -right-8 -bottom-8 w-40 h-40 bg-[#FDF5E6] rounded-full group-hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. VALUE PROPS (Screenshot 11.51.38.jpg) -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-stone-100">
+            <div class="flex flex-col items-center justify-center text-center space-y-2 border-r border-stone-100">
+                <p class="text-lg font-black leading-none">Upfront</p>
+                <p class="text-sm font-bold opacity-60 uppercase tracking-tighter">on-road price</p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center space-y-2 md:border-r border-stone-100">
+                <p class="text-lg font-black leading-none">24/7 call</p>
+                <p class="text-sm font-bold opacity-60 uppercase tracking-tighter">assistance</p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center space-y-2 border-r border-stone-100">
+                <p class="text-lg font-black leading-none">Zero paperwork</p>
+                <p class="text-sm font-bold opacity-60 uppercase tracking-tighter">cardless loan</p>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center space-y-2">
+                <p class="text-lg font-black leading-none">Authorized</p>
+                <p class="text-sm font-bold opacity-60 uppercase tracking-tighter">dealerships</p>
+            </div>
+        </section>
+
+        <!-- 6. BRAND DISCOVERY (Screenshot 11.52.15.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Discover
+                Brands</h3>
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-3">
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-xs text-red-600 italic">Hero</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase">H-D</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-xs text-blue-800 italic">TVS</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase tracking-tighter">ATHER</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase">AMPERE</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase">Oben</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer border-blue-200 bg-[#FDF5E6]/20">
+                    <span class="font-black text-[10px] uppercase text-[#5D4037]">SIMPLE</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase">GREEN</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase italic">JAWA</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase">Triumph</span>
+                </div>
+                <div
+                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center justify-center hover-lift cursor-pointer">
+                    <span class="font-black text-[10px] uppercase">BGA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. PRICE NOTICE (Screenshot 11.52.39.jpg) -->
+        <div
+            class="bg-[#FDF5E6]/50 border border-[#D7CCC8] rounded-3xl p-6 flex items-center justify-center gap-8 shadow-inner overflow-hidden relative">
+            <div class="absolute left-10 opacity-20"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 21h18" />
+                    <path d="M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3" />
+                    <path d="M9 17h1" />
+                    <path d="M10 13h1" />
+                    <path d="M14 17h1" />
+                    <path d="M15 13h1" />
+                    <path d="M4 21V10" />
+                    <path d="M20 21V10" />
+                    <path d="m5 3 2.1 2.1" />
+                    <path d="m19 3-2.1 2.1" />
+                </svg></div>
+            <p class="text-xl md:text-2xl font-black tracking-tight text-center relative z-10">All prices displayed are
+                <br><span class="text-[#3E2723]">Ex-showroom prices, Delhi</span></p>
+            <div class="absolute right-10 opacity-20"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 21h18" />
+                    <path d="M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3" />
+                </svg></div>
+        </div>
+
+        <!-- 8. SCOOTERS (Screenshot 11.52.55.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Scooters</h3>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+                <div
+                    class="min-w-[240px] bike-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 font-black text-red-600 text-[10px] italic">Hero</div>
+                    <div class="space-y-1">
+                        <h4 class="font-black text-lg">Destini 110</h4>
+                        <p class="text-[10px] font-bold opacity-60">Best in Class 56.2 Kmpl mileage*</p>
+                    </div>
+                    <img src="https://via.placeholder.com/160x160" alt="Scooter"
+                        class="h-40 object-contain my-4 group-hover:scale-105 transition-transform">
+                    <div class="space-y-0.5">
+                        <p class="text-lg font-black">₹67,450*</p>
+                        <p class="text-[10px] line-through opacity-40">₹72,000</p>
+                    </div>
+                </div>
+                <div
+                    class="min-w-[240px] bike-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 font-black text-red-600 text-[10px] italic">Hero</div>
+                    <div class="space-y-1">
+                        <h4 class="font-black text-lg">Destini 125</h4>
+                        <p class="text-[10px] font-bold opacity-60">Best in Segment Mileage</p>
+                    </div>
+                    <img src="https://via.placeholder.com/160x160" alt="Scooter"
+                        class="h-40 object-contain my-4 group-hover:scale-105 transition-transform">
+                    <div class="space-y-0.5">
+                        <p class="text-lg font-black">₹62,944*</p>
+                        <p class="text-[10px] line-through opacity-40">₹67,757</p>
+                    </div>
+                </div>
+                <div
+                    class="min-w-[240px] bike-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 font-black text-red-600 text-[10px] italic">Hero</div>
+                    <div class="space-y-1">
+                        <h4 class="font-black text-lg uppercase">XOOM</h4>
+                        <p class="text-[10px] font-bold opacity-60">Fastest acceleration</p>
+                    </div>
+                    <img src="https://via.placeholder.com/160x160" alt="Scooter"
+                        class="h-40 object-contain my-4 group-hover:scale-105 transition-transform">
+                    <div class="space-y-0.5">
+                        <p class="text-lg font-black">₹67,156*</p>
+                        <p class="text-[10px] line-through opacity-40">₹70,691</p>
+                    </div>
+                </div>
+                <div
+                    class="min-w-[240px] bike-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 font-black text-red-600 text-[10px] italic">Hero</div>
+                    <div class="space-y-1">
+                        <h4 class="font-black text-lg">Pleasure+</h4>
+                        <p class="text-[10px] font-bold opacity-60">10% more mileage*</p>
+                    </div>
+                    <img src="https://via.placeholder.com/160x160" alt="Scooter"
+                        class="h-40 object-contain my-4 group-hover:scale-105 transition-transform">
+                    <div class="space-y-0.5">
+                        <p class="text-lg font-black">₹66,385*</p>
+                        <p class="text-[10px] line-through opacity-40">₹71,327</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. BIKES SEGMENT (Screenshot 11.53.26.jpg) -->
+        <section class="space-y-6">
+            <div class="flex items-end justify-between">
+                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Top
+                    selling 125 cc bikes</h3>
+                <a href="#"
+                    class="text-[10px] font-black uppercase tracking-widest text-accent-gold hover:underline">View
+                    All</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                    class="bike-card p-8 flex flex-col items-center gap-6 group cursor-pointer hover:bg-stone-50 transition-colors">
+                    <div class="w-full flex justify-between items-start">
+                        <div class="space-y-1">
+                            <h4 class="text-2xl font-black tracking-tight">Xtreme 125R</h4>
+                            <p class="text-xs font-bold opacity-60 italic uppercase tracking-tighter">Powerful 125 cc
+                                bike</p>
+                        </div>
+                        <span class="font-black text-red-600 text-xs italic">Hero</span>
+                    </div>
+                    <img src="https://via.placeholder.com/300x180" alt="Bike"
+                        class="w-full object-contain my-4 group-hover:rotate-[-2deg] transition-transform duration-500">
+                    <div class="w-full flex justify-between items-end">
+                        <p class="text-2xl font-black tracking-tighter">₹82,500* <br><span
+                                class="text-[10px] line-through opacity-30 font-normal">₹89,000</span></p>
+                        <button class="p-3 rounded-full dark-brown-bg text-white"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg></button>
+                    </div>
+                </div>
+                <div
+                    class="bike-card p-8 flex flex-col items-center gap-6 group cursor-pointer hover:bg-stone-50 transition-colors">
+                    <div class="w-full flex justify-between items-start">
+                        <div class="space-y-1">
+                            <h4 class="text-2xl font-black tracking-tight uppercase">Raider</h4>
+                            <p class="text-xs font-bold opacity-60 italic uppercase tracking-tighter">0-60 kmph in 5.8
+                                secs</p>
+                        </div>
+                        <span class="font-black text-blue-800 text-xs italic">TVS</span>
+                    </div>
+                    <img src="https://via.placeholder.com/300x180" alt="Bike"
+                        class="w-full object-contain my-4 group-hover:rotate-[-2deg] transition-transform duration-500">
+                    <div class="w-full flex justify-between items-end">
+                        <p class="text-2xl font-black tracking-tighter">₹75,763* <br><span
+                                class="text-[10px] line-through opacity-30 font-normal">₹80,750</span></p>
+                        <button class="p-3 rounded-full dark-brown-bg text-white"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg></button>
+                    </div>
+                </div>
+                <div
+                    class="bike-card p-8 flex flex-col items-center gap-6 group cursor-pointer hover:bg-stone-50 transition-colors">
+                    <div class="w-full flex justify-between items-start">
+                        <div class="space-y-1">
+                            <h4 class="text-2xl font-black tracking-tight">Pulsar NS 125</h4>
+                            <p class="text-xs font-bold opacity-60 italic uppercase tracking-tighter">with ABS ride
+                                modes</p>
+                        </div>
+                        <span class="font-black text-[#FDF5E6]0 text-[10px] uppercase">BAJAJ</span>
+                    </div>
+                    <img src="https://via.placeholder.com/300x180" alt="Bike"
+                        class="w-full object-contain my-4 group-hover:rotate-[-2deg] transition-transform duration-500">
+                    <div class="w-full flex justify-between items-end">
+                        <p class="text-2xl font-black tracking-tighter">₹85,182* <br><span
+                                class="text-[10px] line-through opacity-30 font-normal">₹92,182</span></p>
+                        <button class="p-3 rounded-full dark-brown-bg text-white"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. EV SHOWCASE (Screenshot 11.54.03.jpg) -->
+        <section class="bg-emerald-50/30 rounded-[40px] p-10 space-y-8 border border-emerald-100 shadow-inner">
+            <h3
+                class="text-xl font-black uppercase tracking-widest border-l-4 border-emerald-500 pl-4 text-emerald-900">
+                High performance EVs ⚡</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[#F5F5DC] rounded-[32px] p-8 space-y-6 hover-lift border border-emerald-100/50">
+                    <div class="flex justify-between items-center">
+                        <div class="space-y-1">
+                            <h4 class="text-xl font-black">Rizta S</h4>
+                            <p class="text-[10px] font-black uppercase text-emerald-600">56 L boot space</p>
+                        </div>
+                        <span class="font-black tracking-tighter text-xs">ATHER</span>
+                    </div>
+                    <img src="https://via.placeholder.com/240x160" alt="EV"
+                        class="w-full h-40 object-contain drop-shadow-xl">
+                    <p class="text-2xl font-black tracking-tighter">₹1,10,046* <br><span
+                            class="text-[10px] line-through opacity-20 font-normal">₹1,26,046</span></p>
+                </div>
+                <div class="bg-[#F5F5DC] rounded-[32px] p-8 space-y-6 hover-lift border border-emerald-100/50">
+                    <div class="flex justify-between items-center">
+                        <div class="space-y-1">
+                            <h4 class="text-xl font-black">Magnus EVs</h4>
+                            <p class="text-[10px] font-black uppercase text-emerald-600">95 km* range</p>
+                        </div>
+                        <span class="font-black tracking-tighter text-xs uppercase">AMPERE</span>
+                    </div>
+                    <img src="https://via.placeholder.com/240x160" alt="EV"
+                        class="w-full h-40 object-contain drop-shadow-xl">
+                    <p class="text-2xl font-black tracking-tighter">₹75,524* <br><span
+                            class="text-[10px] line-through opacity-20 font-normal">₹89,999</span></p>
+                </div>
+                <div class="bg-[#F5F5DC] rounded-[32px] p-8 space-y-6 hover-lift border border-emerald-100/50">
+                    <div class="flex justify-between items-center">
+                        <div class="space-y-1">
+                            <h4 class="text-xl font-black">35 series</h4>
+                            <p class="text-[10px] font-black uppercase text-emerald-600">153 km* range</p>
+                        </div>
+                        <span class="font-black italic text-xs uppercase">Chetak</span>
+                    </div>
+                    <img src="https://via.placeholder.com/240x160" alt="EV"
+                        class="w-full h-40 object-contain drop-shadow-xl">
+                    <p class="text-2xl font-black tracking-tighter">₹1,02,500* <br><span
+                            class="text-[10px] line-through opacity-20 font-normal">₹1,09,500</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. STUDENT DEALS PROMO -->
+        <section
+            class="dark-brown-bg rounded-[40px] p-10 md:p-14 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+            <div class="absolute top-0 right-0 h-full w-1/2 opacity-20 pointer-events-none">
+                <div class="w-full h-full bg-[radial-gradient(circle_at_center,#C5A059,transparent_80%)]"></div>
+            </div>
+            <div class="relative z-10 max-w-xl space-y-6">
+                <h2 class="text-4xl md:text-5xl font-black leading-tight">Exclusive Student Deals</h2>
+                <p class="text-lg md:text-xl font-bold text-stone-400">Claim benefits on your first set of wheels!</p>
+                <button
+                    class="bg-[#5D4037] text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)]">Claim
+                    Now</button>
+            </div>
+            <div
+                class="relative z-10 bg-[#F5F5DC]/10 backdrop-blur-xl p-8 rounded-[32px] border border-white/20 text-center space-y-4">
+                <div
+                    class="w-20 h-20 bg-yellow-400 text-black rounded-full mx-auto flex items-center justify-center shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">HostelMart</p>
+                    <p class="text-2xl font-black tracking-tighter">STUDENT'S CLUB</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 space-y-4">
+                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
+                        class="accent-gold">MART</span></h2>
+                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">Premium 2-Wheeler
+                    Destination for Students. Quality rides, easy finance, authorized service.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Categories</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="index.html" class="hover:text-[#C5A059]">Home</a></li>
+                    <li><a href="electronics.html" class="hover:text-[#C5A059]">Electronics</a></li>
+                    <li><a href="beauty.html" class="hover:text-[#C5A059]">Beauty</a></li>
+                    <li><a href="food.html" class="hover:text-[#C5A059]">Grocery</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Support</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="#" class="hover:text-[#C5A059]">Book Service</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Test Ride</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Store Locator</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Contact</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Social</h4>
+                <div class="flex gap-4">
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
+            <p class="text-[10px] font-bold text-stone-400">© 2026 HOSTELMART 2 WHEELERS. RIDE RESPONSIBLY.</p>
+        </div>
+    </footer>
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden backdrop-blur-sm"></div>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenu"
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
+            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
+            <button onclick="toggleMobileMenu()"
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="space-y-6">
+                <li><a href="index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-categories')">
+                        <span
+                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-categories"
+                        class="hidden pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="Appliances.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="Beauty.html" class="block hover:text-[#795548] font-medium">Beauty</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = menu.style.transform === 'translateX(0px)';
+            if (!isOpen) {
+                menu.style.transform = 'translateX(0)';
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

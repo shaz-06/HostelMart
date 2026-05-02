@@ -77,11 +77,11 @@
         }
 
         .tech-gradient {
-            background: linear-gradient(135deg, #3E2723 0%, #1A1210 100%);
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
         }
 
         .promo-card {
-            background: #FFFFFF;
+            background: #F5F5DC;
             border: 1px solid #E7E5E4;
         }
     </style>
@@ -90,15 +90,15 @@
 <body class="antialiased">
 
     <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
 
     <!-- HEADER -->
-    <header class="bg-white sticky top-0 z-40 shadow-md">
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
         <!-- Top Row: Tabs -->
-        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
             <div class="container mx-auto px-4 flex gap-4">
                 <a href="index.html"
-                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
                     <span class="font-black italic text-base flex items-center">
                         <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
                         <span class="text-[#5d4037]">Mart</span>
@@ -109,30 +109,30 @@
                     <div
                         class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
                         6</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
-                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
                 </div>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
                         class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
                         Xtra Saver</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
                 </div>
             </div>
         </div>
 
         <!-- Middle Row: Location & Info -->
-        <div class="bg-white py-2 hidden md:block">
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
             <div
                 class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                 <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
                     <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <span>Add Delivery Address</span>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
                 <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
@@ -143,7 +143,7 @@
         </div>
 
         <!-- Bottom Row: Search & Profile -->
-        <div class="bg-white pb-4">
+        <div class="bg-[#F5F5DC] pb-4">
             <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
                 <!-- Mobile Menu Toggle -->
                 <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
@@ -158,11 +158,11 @@
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
                             name="search-outline"></ion-icon></div>
                     <input type="search" id="product-search" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
                 </div>
 
                 <!-- Profile & Cart -->
-                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
                         <ion-icon name="person-circle-outline"
                             class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
@@ -184,14 +184,14 @@
         </div>
 
         <!-- CATEGORY NAVIGATION (Icons) -->
-        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
             <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
                 <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">For You</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">For You</span>
                 </a>
 
                 <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
@@ -199,7 +199,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
                 </a>
 
                 <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
@@ -207,7 +207,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Mobiles</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
                 </a>
 
                 <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
@@ -215,7 +215,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Beauty</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
                 </a>
 
                 <a href="Electronics.html" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
@@ -223,7 +223,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-700">Electronics</span>
+                    <span class="text-[10px] font-bold text-[#5D4037]">Electronics</span>
                 </a>
 
                 <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
@@ -231,7 +231,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Home</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
                 </a>
 
                 <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
@@ -239,7 +239,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Appliances</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -247,7 +247,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -255,7 +255,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -263,7 +263,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -271,7 +271,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -279,7 +279,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -287,7 +287,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -295,7 +295,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
                 </a>
             </div>
         </div>
@@ -303,11 +303,11 @@
 
     <!-- MOBILE MENU DRAWER -->
     <div id="mobileMenu"
-        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
             <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
             <button onclick="toggleMobileMenu()"
-                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
                 <ion-icon name="close-outline"></ion-icon>
             </button>
         </div>
@@ -318,7 +318,7 @@
                     <div class="flex justify-between items-center cursor-pointer group"
                         onclick="toggleAccordion('mob-categories')">
                         <span
-                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
                         <ion-icon name="add-outline" class="text-xl"></ion-icon>
                     </div>
                     <div id="mob-categories"
@@ -349,7 +349,7 @@
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
                 <div
-                    class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723] group-hover:bg-stone-200 transition-colors">
+                    class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723] group-hover:bg-stone-200 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <rect width="18" height="12" x="3" y="4" rx="2" ry="2" />
@@ -359,7 +359,7 @@
                 <span class="text-[10px] font-bold">Laptops</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <rect width="16" height="20" x="4" y="2" rx="2" ry="2" />
@@ -369,7 +369,7 @@
                 <span class="text-[10px] font-bold">Tablets</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <rect width="10" height="8" x="2" y="3" rx="2" />
@@ -379,7 +379,7 @@
                 <span class="text-[10px] font-bold">ITPeripherals</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3" />
@@ -390,7 +390,7 @@
                 <span class="text-[10px] font-bold">Camera</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -401,7 +401,7 @@
                 <span class="text-[10px] font-bold">Data Storage</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-stone-100 flex items-center justify-center text-[#3E2723]">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <rect width="16" height="12" x="4" y="4" rx="2" />
@@ -426,7 +426,7 @@
                 <div class="relative z-10 space-y-6">
                     <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#C5A059]">
                         <span>ASUS | BUSINESS</span>
-                        <span class="bg-blue-600 px-2 py-0.5 rounded text-[8px]">Flipkart f</span>
+                        <span class="bg-[#5D4037] px-2 py-0.5 rounded text-[8px]">Flipkart f</span>
                     </div>
                     <h2 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
                         ASUS ExpertBook Series <br>
@@ -438,9 +438,9 @@
                             class="accent-gold-bg text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Pre-order
                             Now</button>
                         <div
-                            class="bg-white/10 backdrop-blur-md px-6 py-2 rounded-2xl border border-white/10 flex items-center gap-4">
+                            class="bg-[#F5F5DC]/10 backdrop-blur-md px-6 py-2 rounded-2xl border border-white/10 flex items-center gap-4">
                             <span class="text-xs font-black uppercase tracking-tighter">Axis Bank</span>
-                            <div class="h-6 w-px bg-white/20"></div>
+                            <div class="h-6 w-px bg-[#F5F5DC]/20"></div>
                             <span class="text-[10px] font-bold">₹20,000 Cashback</span>
                         </div>
                     </div>
@@ -456,7 +456,7 @@
                 </div>
                 <div class="mt-8 relative h-40">
                     <div
-                        class="absolute right-0 bottom-0 w-48 h-32 bg-white rounded-xl shadow-2xl rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500 overflow-hidden border-2 border-stone-300">
+                        class="absolute right-0 bottom-0 w-48 h-32 bg-[#F5F5DC] rounded-xl shadow-2xl rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500 overflow-hidden border-2 border-stone-300">
                         <div class="w-full h-full bg-gradient-to-br from-indigo-100 to-amber-50"></div>
                     </div>
                     <div
@@ -475,56 +475,56 @@
                     All Deals</a>
             </div>
             <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-blue-100 flex items-center justify-center relative p-6">
                         <img src="https://via.placeholder.com/160x100" alt="OnePlus Pad"
                             class="mix-blend-multiply drop-shadow-lg">
                         <div
-                            class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black">
+                            class="absolute bottom-4 left-4 bg-[#F5F5DC]/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black">
                             Limited Offer</div>
                     </div>
                     <div class="p-4 space-y-1">
-                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
+                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
                             ₹13,999*</div>
                         <h4 class="font-black text-sm text-center">OnePlus Pad Lite</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
-                    <div class="h-48 bg-blue-50 flex items-center justify-center relative p-6">
+                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                    <div class="h-48 bg-[#FDF5E6] flex items-center justify-center relative p-6">
                         <img src="https://via.placeholder.com/160x100" alt="Latest tablets" class="mix-blend-multiply">
                     </div>
                     <div class="p-4 space-y-1">
-                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
+                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
                             ₹23,999*</div>
                         <h4 class="font-black text-sm text-center">Latest tablets</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-blue-100 flex items-center justify-center p-6">
                         <img src="https://via.placeholder.com/160x100" alt="Gaming combo" class="mix-blend-multiply">
                     </div>
                     <div class="p-4 space-y-1">
-                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
                             Extra 5% Off</div>
                         <h4 class="font-black text-sm text-center">Gaming combo</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-stone-50 flex items-center justify-center p-6">
                         <img src="https://via.placeholder.com/100x120" alt="Grooming" class="mix-blend-multiply">
                     </div>
                     <div class="p-4 space-y-1">
-                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
                             Extra 5% Off</div>
                         <h4 class="font-black text-sm text-center">Grooming & styling</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-white border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
-                    <div class="h-48 bg-blue-50 flex items-center justify-center p-6">
+                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                    <div class="h-48 bg-[#FDF5E6] flex items-center justify-center p-6">
                         <img src="https://via.placeholder.com/160x100" alt="Gaming" class="mix-blend-multiply">
                     </div>
                     <div class="p-4 space-y-1">
-                        <div class="bg-blue-600 text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
                             Extra 5% Off</div>
                         <h4 class="font-black text-sm text-center">Gaming Gear</h4>
                     </div>
@@ -533,12 +533,12 @@
         </section>
 
         <!-- 7. TRENDING TECH (Screenshot 23.07.03.jpg) -->
-        <section class="bg-stone-100 rounded-[40px] p-8 md:p-10 space-y-8 shadow-sm">
+        <section class="bg-[#FDF5E6] rounded-[40px] p-8 md:p-10 space-y-8 shadow-sm">
             <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Trending tech</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 <div class="text-center space-y-3 cursor-pointer group">
                     <div
-                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
                         <img src="https://via.placeholder.com/120x90" alt="Tablet" class="mix-blend-multiply">
                     </div>
                     <div class="space-y-0.5">
@@ -548,7 +548,7 @@
                 </div>
                 <div class="text-center space-y-3 cursor-pointer group">
                     <div
-                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
                         <img src="https://via.placeholder.com/120x90" alt="EV" class="mix-blend-multiply">
                     </div>
                     <div class="space-y-0.5">
@@ -558,7 +558,7 @@
                 </div>
                 <div class="text-center space-y-3 cursor-pointer group">
                     <div
-                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
                         <img src="https://via.placeholder.com/120x90" alt="Laptop" class="mix-blend-multiply">
                     </div>
                     <div class="space-y-0.5">
@@ -568,7 +568,7 @@
                 </div>
                 <div class="text-center space-y-3 cursor-pointer group">
                     <div
-                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
                         <img src="https://via.placeholder.com/120x120" alt="Earbuds" class="mix-blend-multiply">
                     </div>
                     <div class="space-y-0.5">
@@ -578,7 +578,7 @@
                 </div>
                 <div class="text-center space-y-3 cursor-pointer group">
                     <div
-                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
                         <img src="https://via.placeholder.com/120x120" alt="Watch" class="mix-blend-multiply">
                     </div>
                     <div class="space-y-0.5">
@@ -588,7 +588,7 @@
                 </div>
                 <div class="text-center space-y-3 cursor-pointer group">
                     <div
-                        class="bg-white rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
+                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
                         <img src="https://via.placeholder.com/120x120" alt="Shaver" class="mix-blend-multiply">
                     </div>
                     <div class="space-y-0.5">
@@ -606,7 +606,7 @@
             <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
                 <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
                     <div
-                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
                         <img src="https://via.placeholder.com/100x100" alt="Earphones"
                             class="mix-blend-multiply drop-shadow-xl">
                         <div
@@ -619,7 +619,7 @@
                 </div>
                 <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
                     <div
-                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
                         <img src="https://via.placeholder.com/100x100" alt="Watch"
                             class="mix-blend-multiply drop-shadow-xl">
                         <div
@@ -632,7 +632,7 @@
                 </div>
                 <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
                     <div
-                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
                         <img src="https://via.placeholder.com/100x120" alt="Grooming"
                             class="mix-blend-multiply drop-shadow-xl">
                         <div
@@ -645,7 +645,7 @@
                 </div>
                 <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
                     <div
-                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
                         <img src="https://via.placeholder.com/120x80" alt="Memory"
                             class="mix-blend-multiply drop-shadow-xl">
                         <div
@@ -658,7 +658,7 @@
                 </div>
                 <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
                     <div
-                        class="bg-gradient-to-b from-pink-50 to-pink-200 rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
+                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
                         <img src="https://via.placeholder.com/100x120" alt="Trimmer"
                             class="mix-blend-multiply drop-shadow-xl">
                         <div
@@ -682,11 +682,11 @@
                 <h2 class="text-4xl md:text-5xl font-black leading-tight">Exclusive Student Deals</h2>
                 <p class="text-lg md:text-xl font-bold text-stone-400">On Laptops, Tablets, Headphones & More</p>
                 <button
-                    class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)]">Claim
+                    class="bg-[#5D4037] text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)]">Claim
                     Now</button>
             </div>
             <div
-                class="relative z-10 bg-white/10 backdrop-blur-xl p-8 rounded-[32px] border border-white/20 text-center space-y-4">
+                class="relative z-10 bg-[#F5F5DC]/10 backdrop-blur-xl p-8 rounded-[32px] border border-white/20 text-center space-y-4">
                 <div
                     class="w-20 h-20 bg-yellow-400 text-black rounded-full mx-auto flex items-center justify-center shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
@@ -771,14 +771,14 @@
 
         <!-- 11. EMI PROMO (image_21e810.jpg) -->
         <section
-            class="bg-white border border-stone-200 rounded-[32px] p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+            class="bg-[#F5F5DC] border border-stone-200 rounded-[32px] p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
             <div class="flex items-center gap-8 divide-x divide-stone-200">
                 <div class="flex items-center gap-4">
                     <div
-                        class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-black text-xl">
+                        class="w-12 h-12 bg-[#5D4037] rounded-full flex items-center justify-center text-white font-black text-xl">
                         S</div>
                     <div class="font-black text-sm tracking-tighter leading-none">
-                        <span class="text-blue-600">SBI</span> card
+                        <span class="text-[#5D4037]">SBI</span> card
                     </div>
                 </div>
                 <div class="flex flex-col pl-8">
@@ -795,7 +795,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-stone-100 border-t border-stone-200 py-16 mt-12">
+    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="col-span-1 space-y-4">
                 <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span

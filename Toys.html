@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toys & Baby Care - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+
+        /* Arched cards for Mother's Day & Restock */
+        .arch-card {
+            background: #F5F5DC;
+            border-radius: 100px 100px 24px 24px;
+            border: 1px solid #FDE6E9;
+        }
+
+        /* Scalloped edge for budget buys */
+        .scallop {
+            mask-image: radial-gradient(circle at 10px 10px, transparent 10px, black 11px);
+            mask-size: 20px 20px;
+        }
+
+        /* Character Arc for Pop Culture Corner */
+        .char-arc {
+            background: linear-gradient(180deg, #D7CCC8 0%, #F5F5DC 100%);
+            border-radius: 120px 120px 24px 24px;
+        }
+
+        .toy-hero-blue {
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Hostel</span>
+                        <span class="text-[#5d4037]">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-[#FDF5E6] px-2 py-1 rounded flex items-center gap-1 text-[#5D4037]">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Shashank</span>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="index.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-[#5D4037]">For You</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
+                </a>
+
+                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
+                </a>
+
+                <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
+                </a>
+
+                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
+                </a>
+
+                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
+                </a>
+
+                <a href="Toys.html" class="category-item active flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
+                </a>
+
+                <a href="Food.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
+                </a>
+
+                <a href="Auto.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
+                </a>
+
+                <a href="2 wheel.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
+                </a>
+
+                <a href="Sports.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
+                </a>
+
+                <a href="Books.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
+                </a>
+
+                <a href="Furniture.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. TOY SUB-CATEGORIES (Screenshot 15.33.54.jpg) -->
+    <div class="max-w-7xl mx-auto px-4 py-8 overflow-x-auto no-scrollbar">
+        <div class="flex gap-6 min-w-max">
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-[#831843] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                        <line x1="9" x2="9.01" y1="9" y2="9" />
+                        <line x1="15" x2="15.01" y1="9" y2="9" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Get in Mins</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2 group-hover:bg-blue-100 transition-colors">
+                    <img src="https://via.placeholder.com/64" alt="Art Kits" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Art Kits</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Soft Toys" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Soft Toys</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Learning" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Learning</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Stationery" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Stationery</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Diapers" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Diapers</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-4 space-y-12">
+
+        <!-- 4. HERO BANNERS (Screenshot 15.33.54.jpg) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden toy-hero-blue text-white min-h-[300px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <div
+                        class="bg-[#F5F5DC] text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
+                        BIG BACHAT DAYS</div>
+                    <h2 class="text-4xl font-black leading-tight uppercase italic">Baby feeding needs <br>Up to 70% Off
+                    </h2>
+                    <p class="text-sm font-bold opacity-80">Sale is live!</p>
+                    <button
+                        class="bg-[#F5F5DC] text-[#5D4037] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Explore
+                        Now</button>
+                </div>
+                <div
+                    class="absolute right-10 top-1/2 -translate-y-1/2 w-56 h-40 bg-[#F5F5DC]/20 rounded-2xl border-4 border-white/20 hidden lg:block backdrop-blur-md">
+                </div>
+            </div>
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden toy-hero-blue text-white min-h-[300px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <div
+                        class="bg-[#F5F5DC] text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
+                        BIG BACHAT DAYS</div>
+                    <h2 class="text-4xl font-black leading-tight uppercase italic">Diapers & more <br>From ₹49</h2>
+                    <p class="text-sm font-bold opacity-80">Live Now!</p>
+                    <button
+                        class="bg-[#F5F5DC] text-[#5D4037] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest">Shop
+                        All</button>
+                </div>
+                <div class="absolute right-0 bottom-0 w-64 h-64 bg-[#F5F5DC]/10 rounded-full blur-[100px]"></div>
+            </div>
+        </section>
+
+        <!-- 5. MOTHER'S DAY SPECIALS (Screenshot 15.34.16.jpg) -->
+        <section
+            class="bg-[#FDF5E6] rounded-[40px] p-8 space-y-8 border border-[#D7CCC8] shadow-sm relative overflow-hidden">
+            <div class="absolute top-4 right-8 text-[#8D6E63] opacity-50"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg></div>
+            <h3 class="text-xl font-black tracking-tight text-[#5D4037] border-l-4 border-[#FDF5E6]0 pl-4">Mother's Day
+                specials 🌸</h3>
+            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-2">
+                <div class="min-w-[180px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
+                        <img src="https://via.placeholder.com/120x150" alt="Carrier"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Min. 40% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-[#5D4037]">Carrier cuddlers</p>
+                </div>
+                <div class="min-w-[180px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
+                        <img src="https://via.placeholder.com/120x150" alt="Art Kits"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Up to 70% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-[#5D4037]">Art kits</p>
+                </div>
+                <div class="min-w-[180px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
+                        <img src="https://via.placeholder.com/120x150" alt="Pumps"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Up to 60% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-[#5D4037]">Breast pumps</p>
+                </div>
+                <div class="min-w-[180px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
+                        <img src="https://via.placeholder.com/120x150" alt="LEGO"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Min. 40% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-[#5D4037]">LEGO sets</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. POP CULTURE CORNER (Screenshot 15.35.38.jpg) -->
+        <section class="space-y-8">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Pop culture corner
+            </h3>
+            <div class="flex gap-8 overflow-x-auto no-scrollbar pb-4 px-2">
+                <div class="flex flex-col items-center gap-4 cursor-pointer group">
+                    <div
+                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#D7CCC8] to-[#F5F5DC]">
+                        <span
+                            class="text-white font-black text-2xl drop-shadow-lg group-hover:scale-110 transition-transform">Barbie</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-stone-500 uppercase">Iconic dolls</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer group">
+                    <div
+                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#3E2723] to-[#5D4037]">
+                        <span
+                            class="text-white font-black text-lg drop-shadow-lg group-hover:scale-110 transition-transform">Harry
+                            Potter</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-stone-500 uppercase">Wizarding world</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer group">
+                    <div
+                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#5D4037] to-[#8D6E63]">
+                        <span
+                            class="text-white font-black text-2xl drop-shadow-lg group-hover:scale-110 transition-transform">Spiderman</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-stone-500 uppercase">Web slingers</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer group">
+                    <div
+                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#3E2723] to-[#5D4037]">
+                        <span
+                            class="text-white font-black text-2xl drop-shadow-lg group-hover:scale-110 transition-transform">Batman</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-stone-500 uppercase">Gotham's hero</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer group">
+                    <div
+                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#FDF5E6]0 to-[#D7CCC8]">
+                        <span
+                            class="text-white font-black text-lg drop-shadow-lg group-hover:scale-110 transition-transform">Tom
+                            & Jerry</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold text-stone-500 uppercase">Classic fun</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. INDOOR GAMES FOR SUMMER (Screenshot 15.35.18.jpg) -->
+        <section
+            class="bg-[#FDF5E6] rounded-[40px] p-8 space-y-8 border border-[#D7CCC8] shadow-sm relative overflow-hidden">
+            <div class="flex items-center justify-between relative z-10">
+                <h3
+                    class="text-xl font-black tracking-tight text-[#5D4037] border-l-4 border-[#FDF5E6]0 pl-4 uppercase italic">
+                    Indoor games for summer 🎲</h3>
+                <div class="flex gap-2">
+                    <button class="p-2 bg-[#F5F5DC] rounded-full border border-[#D7CCC8] hover:bg-[#D7CCC8] shadow-sm"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg></button>
+                    <button class="p-2 bg-[#F5F5DC] rounded-full border border-[#D7CCC8] hover:bg-[#D7CCC8] shadow-sm"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+            </div>
+            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-2 relative z-10">
+                <div class="min-w-[200px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
+                        <img src="https://via.placeholder.com/120x150" alt="Tents"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Min. 40% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-sky-950">Play tents</p>
+                </div>
+                <div class="min-w-[200px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
+                        <img src="https://via.placeholder.com/120x150" alt="Dolls"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Min. 40% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-sky-950">Dolls</p>
+                </div>
+                <div class="min-w-[200px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
+                        <img src="https://via.placeholder.com/120x150" alt="STEM"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Up to 70% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-sky-950">STEM toys</p>
+                </div>
+                <div class="min-w-[200px] space-y-4 cursor-pointer group">
+                    <div
+                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
+                        <img src="https://via.placeholder.com/120x150" alt="Cars"
+                            class="mix-blend-multiply transition-transform group-hover:scale-105">
+                        <div
+                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
+                            Min. 30% Off</div>
+                    </div>
+                    <p class="text-center font-bold text-xs text-sky-950">Toy cars & more</p>
+                </div>
+            </div>
+            <div class="absolute right-0 top-0 h-full w-48 opacity-10 pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- 8. SUMMER ESSENTIALS (Screenshot 15.36.18.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#FDF5E6]0 pl-4">Summer essentials
+                ☀️</h3>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+                <div
+                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
+                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
+                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">Creams
+                            & lotions <br> From ₹57</div>
+                        <img src="https://via.placeholder.com/150x150" alt="Lotion"
+                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
+                    </div>
+                </div>
+                <div
+                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
+                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
+                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">
+                            Repellants <br> From ₹76</div>
+                        <img src="https://via.placeholder.com/150x150" alt="Repellant"
+                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
+                    </div>
+                </div>
+                <div
+                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
+                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
+                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">
+                            Massage oils <br> From ₹85</div>
+                        <img src="https://via.placeholder.com/150x150" alt="Oil"
+                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
+                    </div>
+                </div>
+                <div
+                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
+                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
+                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">
+                            Absorbant sheets <br> From ₹75</div>
+                        <img src="https://via.placeholder.com/150x150" alt="Sheets"
+                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. SHOP BY BUDGET (Screenshot 15.35.57.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Shop by budget
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
+                            <p class="text-3xl font-black tracking-tighter">₹99</p>
+                        </div>
+                        <div
+                            class="absolute -top-1 -right-1 w-6 h-6 bg-[#F5F5DC] rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
+                            🍋</div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
+                            <p class="text-3xl font-black tracking-tighter">₹299</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
+                            <p class="text-3xl font-black tracking-tighter">₹499</p>
+                        </div>
+                        <div
+                            class="absolute -top-1 -right-1 w-6 h-6 bg-[#F5F5DC] rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
+                            🍋</div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Min.</p>
+                            <p class="text-3xl font-black tracking-tighter">40%</p>
+                            <p class="text-[10px] font-bold uppercase">Off</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Min.</p>
+                            <p class="text-3xl font-black tracking-tighter">50%</p>
+                            <p class="text-[10px] font-bold uppercase">Off</p>
+                        </div>
+                        <div
+                            class="absolute -top-1 -right-1 w-6 h-6 bg-[#F5F5DC] rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
+                            🍋</div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Min.</p>
+                            <p class="text-3xl font-black tracking-tighter">70%</p>
+                            <p class="text-[10px] font-bold uppercase">Off</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+            <div class="col-span-1 space-y-4">
+                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
+                        class="accent-gold">MART</span></h2>
+                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">Premium Toys & Baby
+                    Essentials. Safe, fun, and educational choices for the next generation.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Shop Categories</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="index.html" class="hover:text-[#C5A059]">Home</a></li>
+                    <li><a href="electronics.html" class="hover:text-[#C5A059]">Electronics</a></li>
+                    <li><a href="beauty.html" class="hover:text-[#C5A059]">Beauty</a></li>
+                    <li><a href="books.html" class="hover:text-[#C5A059]">Books</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Support</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="#" class="hover:text-[#C5A059]">Track Order</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Returns</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Safety Policy</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Contact</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Social</h4>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
+            <p class="text-[10px] font-bold text-stone-400">© 2026 HOSTELMART TOYS. QUALITY YOU CAN TRUST.</p>
+        </div>
+    </footer>
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden backdrop-blur-sm"></div>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenu"
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
+            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
+            <button onclick="toggleMobileMenu()"
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="space-y-6">
+                <li><a href="index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-categories')">
+                        <span
+                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-categories"
+                        class="hidden pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="Appliances.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="Beauty.html" class="block hover:text-[#795548] font-medium">Beauty</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = menu.style.transform === 'translateX(0px)';
+            if (!isOpen) {
+                menu.style.transform = 'translateX(0)';
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

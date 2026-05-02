@@ -76,15 +76,15 @@
         }
 
         .hero-blue {
-            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
         }
 
         .hero-black {
-            background: linear-gradient(135deg, #18181b 0%, #3f3f46 100%);
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
         }
 
         .deal-card {
-            background: white;
+            background: #F5F5DC;
             border-radius: 24px;
             border: 1px solid #e7e5e4;
             overflow: hidden;
@@ -95,15 +95,15 @@
 <body class="antialiased">
 
     <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden overlay"></div>
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
 
     <!-- HEADER -->
-    <header class="bg-white sticky top-0 z-40 shadow-md">
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
         <!-- Top Row: Tabs -->
-        <div class="bg-white border-b border-gray-100 py-3 hidden md:block">
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
             <div class="container mx-auto px-4 flex gap-4">
                 <a href="index.html"
-                    class="bg-gray-50 px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
                     <span class="font-black italic text-base flex items-center">
                         <span class="text-[#f5f5dc]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hostel</span>
                         <span class="text-[#5d4037]">Mart</span>
@@ -114,30 +114,30 @@
                     <div
                         class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
                         6</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Minutes</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
-                    <span class="font-bold text-gray-700 text-sm italic">Travel</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
                 </div>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
                         class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
                         Xtra Saver</div>
-                    <span class="font-bold text-gray-700 text-sm italic">Grocery</span>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
                 </div>
             </div>
         </div>
 
         <!-- Middle Row: Location & Info -->
-        <div class="bg-white py-2 hidden md:block">
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
             <div
                 class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                 <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
                     <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span>REVA University, Bellahalli Main Road, Sri...</span>
+                    <span>Add Delivery Address</span>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
                 <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
@@ -148,7 +148,7 @@
         </div>
 
         <!-- Bottom Row: Search & Profile -->
-        <div class="bg-white pb-4">
+        <div class="bg-[#F5F5DC] pb-4">
             <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
                 <!-- Mobile Menu Toggle -->
                 <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
@@ -163,11 +163,11 @@
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
                             name="search-outline"></ion-icon></div>
                     <input type="search" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-white focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
                 </div>
 
                 <!-- Profile & Cart -->
-                <div class="flex items-center gap-4 md:gap-8 text-gray-700 font-bold text-sm">
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
                         <ion-icon name="person-circle-outline"
                             class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
@@ -189,14 +189,14 @@
         </div>
 
         <!-- CATEGORY NAVIGATION (Icons) -->
-        <div class="bg-white border-t border-gray-100 overflow-x-auto no-scrollbar py-2">
+        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
             <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
                 <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">For You</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">For You</span>
                 </a>
 
                 <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
@@ -204,7 +204,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Fashion</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
                 </a>
 
                 <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
@@ -212,7 +212,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Mobiles</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
                 </a>
 
                 <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
@@ -220,7 +220,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Beauty</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
                 </a>
 
                 <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
@@ -228,7 +228,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Electronics</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
                 </a>
 
                 <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
@@ -236,7 +236,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Home</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
                 </a>
 
                 <a href="Appliances.html" class="category-item active flex flex-col items-center gap-1 group">
@@ -244,7 +244,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-700">Appliances</span>
+                    <span class="text-[10px] font-bold text-[#5D4037]">Appliances</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -252,7 +252,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Toys, ba...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -260,7 +260,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Food & H...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -268,7 +268,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Auto Acc...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -276,7 +276,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">2 Wheele...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -284,7 +284,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Sports & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -292,7 +292,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Books & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
                 </a>
 
                 <a href="#" class="category-item flex flex-col items-center gap-1 group">
@@ -300,7 +300,7 @@
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-gray-900">Furniture</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
                 </a>
             </div>
         </div>
@@ -308,11 +308,11 @@
 
     <!-- MOBILE MENU DRAWER -->
     <div id="mobileMenu"
-        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-white z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
             <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
             <button onclick="toggleMobileMenu()"
-                class="text-3xl w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
                 <ion-icon name="close-outline"></ion-icon>
             </button>
         </div>
@@ -323,7 +323,7 @@
                     <div class="flex justify-between items-center cursor-pointer group"
                         onclick="toggleAccordion('mob-categories')">
                         <span
-                            class="font-bold uppercase text-gray-700 group-hover:text-[#795548] transition">CATEGORIES</span>
+                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
                         <ion-icon name="add-outline" class="text-xl"></ion-icon>
                     </div>
                     <div id="mob-categories"
@@ -342,7 +342,7 @@
         <div class="flex gap-6 min-w-max">
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
                 <div
-                    class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-blue-600 group-hover:scale-105 transition-transform">
+                    class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-[#5D4037] group-hover:scale-105 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <rect width="20" height="15" x="2" y="3" rx="2" />
@@ -352,7 +352,7 @@
                 <span class="text-[10px] font-bold">Televisions</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-blue-50 flex items-center justify-center text-blue-500">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#FDF5E6]0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <rect width="18" height="12" x="3" y="6" rx="2" />
@@ -363,7 +363,7 @@
                 <span class="text-[10px] font-bold">ACs</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-blue-600">
+                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-[#5D4037]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <path d="M12 2v20" />
@@ -375,7 +375,7 @@
                 <span class="text-[10px] font-bold">Cooling</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-blue-50 flex items-center justify-center text-blue-500">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#FDF5E6]0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <rect width="14" height="20" x="5" y="2" rx="2" />
@@ -385,7 +385,7 @@
                 <span class="text-[10px] font-bold">Fridges</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-blue-600">
+                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-[#5D4037]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <path d="M6 13V6a3 3 0 0 1 6 0v7" />
@@ -396,7 +396,7 @@
                 <span class="text-[10px] font-bold">Kitchen</span>
             </div>
             <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-blue-50 flex items-center justify-center text-blue-500">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#FDF5E6]0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="8" />
@@ -419,13 +419,13 @@
                         BACHAT DAYS</div>
                     <h2 class="text-4xl font-black leading-tight">Deals on air coolers ! <br>From ₹3,799</h2>
                     <p class="text-sm font-bold opacity-80">Voltas, Bajaj...</p>
-                    <div class="bg-white/20 backdrop-blur-md p-3 rounded-2xl border border-white/20 w-fit">
+                    <div class="bg-[#F5F5DC]/20 backdrop-blur-md p-3 rounded-2xl border border-white/20 w-fit">
                         <p class="text-[10px] font-bold uppercase tracking-widest">Up to 10% Instant Discount*</p>
                     </div>
                 </div>
                 <!-- Abstract visual of a cooler -->
                 <div
-                    class="absolute right-10 top-1/2 -translate-y-1/2 w-48 h-64 bg-white/10 rounded-2xl border-4 border-white/20 hidden lg:block">
+                    class="absolute right-10 top-1/2 -translate-y-1/2 w-48 h-64 bg-[#F5F5DC]/10 rounded-2xl border-4 border-white/20 hidden lg:block">
                 </div>
             </div>
             <div
@@ -442,24 +442,24 @@
                     </div>
                     <p class="text-2xl font-black">Available at <span class="text-green-400">₹66,999*</span></p>
                     <button
-                        class="bg-white text-black px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Buy
+                        class="bg-[#F5F5DC] text-black px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Buy
                         Now</button>
                 </div>
             </div>
         </section>
 
         <!-- 6. CATCH THE TOP DEALS (Screenshot 22.15.23.jpg) -->
-        <section class="bg-sky-50 rounded-[40px] p-8 space-y-8 border border-sky-100 shadow-sm">
+        <section class="bg-[#FDF5E6] rounded-[40px] p-8 space-y-8 border border-[#D7CCC8] shadow-sm">
             <div class="flex items-end justify-between">
-                <h3 class="text-2xl font-black tracking-tight uppercase border-l-4 border-sky-500 pl-4">Catch the top
+                <h3 class="text-2xl font-black tracking-tight uppercase border-l-4 border-[#FDF5E6]0 pl-4">Catch the top
                     deals</h3>
                 <div class="flex gap-2">
-                    <button class="p-2 bg-white rounded-full border border-stone-200 hover:bg-stone-50"><svg
+                    <button class="p-2 bg-[#F5F5DC] rounded-full border border-stone-200 hover:bg-stone-50"><svg
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5">
                             <path d="m15 18-6-6 6-6" />
                         </svg></button>
-                    <button class="p-2 bg-white rounded-full border border-stone-200 hover:bg-stone-50"><svg
+                    <button class="p-2 bg-[#F5F5DC] rounded-full border border-stone-200 hover:bg-stone-50"><svg
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5">
                             <path d="m9 18 6-6-6-6" />
@@ -472,7 +472,7 @@
                         <div class="w-full h-full bg-stone-200 rounded-lg"></div>
                     </div>
                     <div class="p-4 space-y-2">
-                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                        <div class="bg-[#FDF5E6]0 text-white text-[10px] font-black py-2 text-center rounded-xl">From
                             ₹22,999*</div>
                         <p class="text-xs font-bold text-center opacity-60">55" 4K TVs</p>
                     </div>
@@ -482,7 +482,7 @@
                         <div class="w-full h-24 bg-stone-200 rounded-lg"></div>
                     </div>
                     <div class="p-4 space-y-2">
-                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                        <div class="bg-[#FDF5E6]0 text-white text-[10px] font-black py-2 text-center rounded-xl">From
                             ₹25,490*</div>
                         <p class="text-xs font-bold text-center opacity-60">1.5 ton ACs</p>
                     </div>
@@ -492,7 +492,7 @@
                         <div class="w-32 h-full bg-stone-200 rounded-lg"></div>
                     </div>
                     <div class="p-4 space-y-2">
-                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                        <div class="bg-[#FDF5E6]0 text-white text-[10px] font-black py-2 text-center rounded-xl">From
                             ₹17,990</div>
                         <p class="text-xs font-bold text-center opacity-60">Double door</p>
                     </div>
@@ -502,7 +502,7 @@
                         <div class="w-24 h-full bg-stone-200 rounded-lg"></div>
                     </div>
                     <div class="p-4 space-y-2">
-                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">Just
+                        <div class="bg-[#FDF5E6]0 text-white text-[10px] font-black py-2 text-center rounded-xl">Just
                             ₹9,699</div>
                         <p class="text-xs font-bold text-center opacity-60">90 L desert cooler</p>
                     </div>
@@ -512,7 +512,7 @@
                         <div class="w-32 h-40 bg-stone-200 rounded-lg"></div>
                     </div>
                     <div class="p-4 space-y-2">
-                        <div class="bg-sky-500 text-white text-[10px] font-black py-2 text-center rounded-xl">From
+                        <div class="bg-[#FDF5E6]0 text-white text-[10px] font-black py-2 text-center rounded-xl">From
                             ₹38,999*</div>
                         <p class="text-xs font-bold text-center opacity-60">Washer dryers</p>
                     </div>
@@ -587,7 +587,7 @@
             </div>
             <div class="relative z-10 flex gap-6 overflow-x-auto no-scrollbar pb-4">
                 <div
-                    class="min-w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-white/10 transition-colors">
+                    class="min-w-[280px] bg-[#F5F5DC]/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-[#F5F5DC]/10 transition-colors">
                     <div class="h-48 flex items-center justify-center p-6">
                         <div
                             class="w-full h-full bg-stone-900 rounded-lg overflow-hidden flex items-center justify-center">
@@ -601,7 +601,7 @@
                     </div>
                 </div>
                 <div
-                    class="min-w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-white/10 transition-colors">
+                    class="min-w-[280px] bg-[#F5F5DC]/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-[#F5F5DC]/10 transition-colors">
                     <div class="h-48 flex items-center justify-center p-6">
                         <div class="w-full h-full bg-stone-900 rounded-lg flex items-center justify-center">
                             <span class="text-white/20 font-black italic">XIAOMI 55"</span>
@@ -614,7 +614,7 @@
                     </div>
                 </div>
                 <div
-                    class="min-w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-white/10 transition-colors">
+                    class="min-w-[280px] bg-[#F5F5DC]/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden group cursor-pointer hover:bg-[#F5F5DC]/10 transition-colors">
                     <div class="h-48 flex items-center justify-center p-6">
                         <div class="w-full h-full bg-stone-900 rounded-lg flex items-center justify-center">
                             <span class="text-white/20 font-black italic">ACERPURE 75"</span>
@@ -689,55 +689,295 @@
             </div>
         </section>
 
-        <!-- 10. EXPLORE THE LATEST (Screenshot 22.16.39.jpg) -->
+        <!-- TABLE FANS COLLECTION -->
+        <section class="space-y-8 py-8">
+            <div class="flex items-center justify-between border-b-2 border-stone-200 pb-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-[#3E2723] text-white rounded-full flex items-center justify-center text-xl">
+                        <ion-icon name="leaf-outline"></ion-icon>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black uppercase tracking-tighter text-[#5D4037]">Premium Table Fans</h3>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Cooling for Every Corner</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 bg-[#FDF5E6] rounded-xl text-xs font-black uppercase tracking-widest hover:bg-stone-200 transition-colors">Filters</button>
+                    <button class="px-4 py-2 bg-[#3E2723] text-white rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 transition-transform">View All</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                
+                <!-- Bajaj Crest Neo -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1618941724219-06399b19e273?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110" alt="Bajaj Crest Neo">
+                        <div class="absolute top-3 left-3 bg-yellow-400 text-black text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">Best Seller</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Bajaj Crest Neo 400 mm</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#3E2723]">₹45</span>
+                            <span class="text-xs text-gray-400 line-through">₹55</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#3E2723] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
+                </div>
+
+                <!-- Crompton Torpedo -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1544161515-4af6b1d4970a?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110" alt="Crompton Torpedo">
+                        <div class="absolute top-3 left-3 bg-[#FDF5E6]0 text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">High Speed</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Crompton High Speed Torpedo</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#3E2723]">₹50</span>
+                            <span class="text-xs text-gray-400 line-through">₹65</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#3E2723] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
+                </div>
+
+                <!-- Atomberg Renesa -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1618941724219-06399b19e273?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110" alt="Atomberg Renesa">
+                        <div class="absolute top-3 left-3 bg-green-500 text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">BLDC Saver</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Atomberg Renesa BLDC</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#3E2723]">₹75</span>
+                            <span class="text-xs text-gray-400 line-through">₹95</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#3E2723] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
+                </div>
+
+                <!-- Havells Swing LX -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1544161515-4af6b1d4970a?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110" alt="Havells Swing">
+                        <div class="absolute top-3 left-3 bg-purple-500 text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">Premium</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Havells Swing LX 400 mm</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#3E2723]">₹55</span>
+                            <span class="text-xs text-gray-400 line-through">₹70</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#3E2723] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
+                </div>
+
+                <!-- Usha Maxx Air -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1618941724219-06399b19e273?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110" alt="Usha Maxx Air">
+                        <div class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">Hot Deal</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Usha Maxx Air Ultra</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#3E2723]">₹52</span>
+                            <span class="text-xs text-gray-400 line-through">₹68</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#3E2723] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Add to Cart</button>
+                </div>
+
+            </div>
+
+            <!-- More items (Simplified for performance) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 pt-4 border-t border-stone-100">
+                <div class="col-span-full">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Also available from Orient, Croma, RR Signature, V-Guard</p>
+                </div>
+                <div class="flex items-center gap-4 bg-[#F5F5DC] p-4 rounded-2xl border border-stone-100 hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="w-12 h-12 bg-stone-50 rounded-xl flex items-center justify-center text-xl text-[#3E2723]">
+                        <ion-icon name="sync-outline"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#5D4037]">Orient Zippy Pro</span>
+                </div>
+                <div class="flex items-center gap-4 bg-[#F5F5DC] p-4 rounded-2xl border border-stone-100 hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="w-12 h-12 bg-stone-50 rounded-xl flex items-center justify-center text-xl text-[#3E2723]">
+                        <ion-icon name="pulse-outline"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#5D4037]">V-Guard Esfera 2-in-1</span>
+                </div>
+                <div class="flex items-center gap-4 bg-[#F5F5DC] p-4 rounded-2xl border border-stone-100 hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="w-12 h-12 bg-stone-50 rounded-xl flex items-center justify-center text-xl text-[#3E2723]">
+                        <ion-icon name="flash-outline"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#5D4037]">Kuhl Inspira BLDC</span>
+                </div>
+                <div class="flex items-center gap-4 bg-[#F5F5DC] p-4 rounded-2xl border border-stone-100 hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="w-12 h-12 bg-stone-50 rounded-xl flex items-center justify-center text-xl text-[#3E2723]">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </div>
+                    <span class="text-[11px] font-bold text-[#5D4037]">Croma 285 mm</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CEILING FANS COLLECTION -->
+        <section class="space-y-8 py-8 bg-stone-50/30 rounded-[40px] my-12 px-6 border border-stone-100">
+            <div class="flex items-center justify-between border-b-2 border-stone-200 pb-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-[#5D4037] text-white rounded-full flex items-center justify-center text-xl shadow-lg">
+                        <ion-icon name="snow-outline"></ion-icon>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black uppercase tracking-tighter text-[#5D4037]">Next-Gen Ceiling Fans</h3>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Energy Efficient BLDC Tech</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 bg-[#F5F5DC] border border-stone-200 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-[#FDF5E6] transition-colors">Compare</button>
+                    <button class="px-4 py-2 bg-[#5D4037] text-white rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 transition-transform">Explore All</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                
+                <!-- Polycab Wizzy -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:rotate-12 group-hover:scale-110" alt="Polycab Wizzy">
+                        <div class="absolute top-3 left-3 bg-[#5D4037] text-white text-[9px] font-black px-2 py-1 rounded-lg uppercase tracking-tighter shadow-sm">BLDC Prime</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Polycab Wizzy Prime 1200mm</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#5D4037]">₹32</span>
+                            <span class="text-xs text-gray-400 line-through">₹45</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#5D4037] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Quick Buy</button>
+                </div>
+
+                <!-- Atomberg Studio -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:rotate-12 group-hover:scale-110" alt="Atomberg Studio">
+                        <div class="absolute top-3 left-3 bg-purple-600 text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">Smart Control</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Atomberg Studio Nexus Smart</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#5D4037]">₹48</span>
+                            <span class="text-xs text-gray-400 line-through">₹65</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#5D4037] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Quick Buy</button>
+                </div>
+
+                <!-- KUHL Arctis -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:rotate-12 group-hover:scale-110" alt="KUHL Arctis">
+                        <div class="absolute top-3 left-3 bg-yellow-400 text-black text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">Luxury</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">KUHL Arctis A8 BLDC</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#5D4037]">₹95</span>
+                            <span class="text-xs text-gray-400 line-through">₹130</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#5D4037] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Quick Buy</button>
+                </div>
+
+                <!-- Orient Aeroslim -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:rotate-12 group-hover:scale-110" alt="Orient Aeroslim">
+                        <div class="absolute top-3 left-3 bg-orange-600 text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">Ultra Premium</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Orient Aeroslim 1200mm</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#5D4037]">₹85</span>
+                            <span class="text-xs text-gray-400 line-through">₹110</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#5D4037] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Quick Buy</button>
+                </div>
+
+                <!-- Crompton Silentpro -->
+                <div class="group relative bg-[#F5F5DC] rounded-[32px] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-100 flex flex-col justify-between h-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl mb-4 bg-[#FDF5E6]">
+                        <img src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=80" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:rotate-12 group-hover:scale-110" alt="Crompton Silentpro">
+                        <div class="absolute top-3 left-3 bg-teal-600 text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-tighter shadow-sm">Silent Tech</div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-[#5D4037] leading-tight mb-2">Crompton Silentpro Enso</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-black text-[#5D4037]">₹65</span>
+                            <span class="text-xs text-gray-400 line-through">₹85</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-[#5D4037] text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Quick Buy</button>
+                </div>
+
+            </div>
+
+            <div class="flex items-center justify-center gap-8 py-4 border-t border-stone-200">
+                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em]">Brands: Bajaj | Havells | Polycab | Atomberg | Orient | Crompton</span>
+            </div>
+        </section>
+
         <section class="space-y-6">
             <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Explore the latest
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div
-                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    class="bg-[#F5F5DC] border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
                     <div
-                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        class="bg-[#FDF5E6] h-56 flex items-center justify-center p-8 group-hover:bg-[#D7CCC8] transition-colors">
                         <div class="w-full h-full bg-stone-900 rounded-lg"></div>
                     </div>
                     <div class="p-6 space-y-4">
-                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">From ₹48,999*
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-3 rounded-2xl text-xs">From ₹48,999*
                         </div>
                         <p class="text-center font-bold text-sm">Xiaomi Mini-LEDs</p>
                     </div>
                 </div>
                 <div
-                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    class="bg-[#F5F5DC] border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
                     <div
-                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        class="bg-[#FDF5E6] h-56 flex items-center justify-center p-8 group-hover:bg-[#D7CCC8] transition-colors">
                         <div class="w-full h-full bg-stone-900 rounded-lg shadow-[0_0_20px_rgba(34,197,94,0.3)]"></div>
                     </div>
                     <div class="p-6 space-y-4">
-                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹64,999*
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹64,999*
                         </div>
                         <p class="text-center font-bold text-sm">Lumio 65" Mini-LED</p>
                     </div>
                 </div>
                 <div
-                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    class="bg-[#F5F5DC] border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
                     <div
-                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        class="bg-[#FDF5E6] h-56 flex items-center justify-center p-8 group-hover:bg-[#D7CCC8] transition-colors">
                         <img src="https://via.placeholder.com/150x150" alt="Smart Fryer" class="mix-blend-multiply">
                     </div>
                     <div class="p-6 space-y-4">
-                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹19,995
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹19,995
                         </div>
                         <p class="text-center font-bold text-sm">6 L smart fryer</p>
                     </div>
                 </div>
                 <div
-                    class="bg-white border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                    class="bg-[#F5F5DC] border border-stone-200 rounded-[40px] overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
                     <div
-                        class="bg-sky-50 h-56 flex items-center justify-center p-8 group-hover:bg-sky-100 transition-colors">
+                        class="bg-[#FDF5E6] h-56 flex items-center justify-center p-8 group-hover:bg-[#D7CCC8] transition-colors">
                         <img src="https://via.placeholder.com/150x120" alt="Cooktop" class="mix-blend-multiply">
                     </div>
                     <div class="p-6 space-y-4">
-                        <div class="bg-sky-500 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹4,699
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-3 rounded-2xl text-xs">Just ₹4,699
                         </div>
                         <p class="text-center font-bold text-sm">Induction cooktop</p>
                     </div>
@@ -748,7 +988,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-stone-100 border-t border-stone-200 py-16 mt-12">
+    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="col-span-1 space-y-4">
                 <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
@@ -778,7 +1018,7 @@
                 <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Newsletter</h4>
                 <div class="flex gap-2">
                     <input type="text" placeholder="Your Email"
-                        class="bg-white border border-stone-200 rounded-lg px-3 py-2 text-xs w-full focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                        class="bg-[#F5F5DC] border border-stone-200 rounded-lg px-3 py-2 text-xs w-full focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
                     <button class="dark-brown-bg text-white p-2 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg"
                             width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5">

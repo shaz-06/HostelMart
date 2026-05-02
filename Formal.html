@@ -39,7 +39,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #1a1a1a;
+            background: #5D4037;
         }
     </style>
 </head>
@@ -47,7 +47,7 @@
 <body class="bg-stone-50 text-stone-900">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
+    <nav class="fixed w-full z-50 bg-[#F5F5DC]/80 backdrop-blur-md border-b border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex-shrink-0">
@@ -63,9 +63,9 @@
                     <!-- Search Input and Button -->
                     <div class="flex items-center relative group">
                         <input type="text" id="search-input" placeholder="Search products..."
-                            class="w-0 opacity-0 px-4 py-2 bg-stone-100 rounded-full text-xs outline-none transition-all duration-500 focus:w-48 focus:opacity-100"
+                            class="w-0 opacity-0 px-4 py-2 bg-[#FDF5E6] rounded-full text-xs outline-none transition-all duration-500 focus:w-48 focus:opacity-100"
                             oninput="handleSearch()">
-                        <button onclick="toggleSearch()" class="p-2 hover:bg-stone-100 rounded-full transition-all">
+                        <button onclick="toggleSearch()" class="p-2 hover:bg-[#FDF5E6] rounded-full transition-all">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="11" cy="11" r="8" />
@@ -73,7 +73,7 @@
                             </svg>
                         </button>
                     </div>
-                    <button class="p-2 hover:bg-stone-100 rounded-full transition-all relative" onclick="toggleCart()">
+                    <button class="p-2 hover:bg-[#FDF5E6] rounded-full transition-all relative" onclick="toggleCart()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
@@ -104,7 +104,7 @@
                         text-anchor="middle">HostelMart EXCLUSIVES</text>
                 </svg>
             </div>
-            <div class="absolute inset-0 bg-black/20"></div>
+            <div class="absolute inset-0 bg-[#5D4037]/20"></div>
         </div>
 
         <div class="relative z-10 text-center px-4">
@@ -114,10 +114,10 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#products"
-                    class="bg-white text-stone-900 px-10 py-4 text-sm uppercase tracking-widest hover:bg-stone-100 transition-all font-semibold">Shop
+                    class="bg-[#F5F5DC] text-stone-900 px-10 py-4 text-sm uppercase tracking-widest hover:bg-[#FDF5E6] transition-all font-semibold">Shop
                     Men</a>
                 <a href="#products"
-                    class="bg-transparent border border-white text-white px-10 py-4 text-sm uppercase tracking-widest hover:bg-white hover:text-stone-900 transition-all font-semibold">Shop
+                    class="bg-transparent border border-white text-white px-10 py-4 text-sm uppercase tracking-widest hover:bg-[#F5F5DC] hover:text-stone-900 transition-all font-semibold">Shop
                     Women</a>
             </div>
         </div>
@@ -158,13 +158,13 @@
                 and professional journey.
             </p>
             <button
-                class="border border-white/30 px-12 py-5 text-sm uppercase tracking-widest hover:bg-white hover:text-stone-900 transition-all">View
+                class="border border-white/30 px-12 py-5 text-sm uppercase tracking-widest hover:bg-[#F5F5DC] hover:text-stone-900 transition-all">View
                 Student Discount Guide</button>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-stone-100 pt-20 pb-10 border-t border-stone-200">
+    <footer class="bg-[#FDF5E6] pt-20 pb-10 border-t border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
             <div class="col-span-1 md:col-span-1">
                 <a href="index.html" class="text-2xl font-bold tracking-widest uppercase serif block mb-6 hover:opacity-80 transition-opacity">HostelMart</a>
@@ -207,10 +207,10 @@
 
     <!-- Cart Sidebar -->
     <div id="cart-sidebar"
-        class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-white z-[100] shadow-2xl translate-x-full transition-transform duration-500 flex flex-col">
+        class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#F5F5DC] z-[100] shadow-2xl translate-x-full transition-transform duration-500 flex flex-col">
         <div class="p-6 border-b border-stone-200 flex justify-between items-center">
             <h2 class="text-xl serif uppercase tracking-widest">HostelMart Bag</h2>
-            <button onclick="toggleCart()" class="p-2 hover:bg-stone-100 rounded-full">
+            <button onclick="toggleCart()" class="p-2 hover:bg-[#FDF5E6] rounded-full">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6 6 18M6 6l12 12" />
                 </svg>
@@ -229,7 +229,7 @@
                 to Hostel</button>
         </div>
     </div>
-    <div id="cart-overlay" class="fixed inset-0 bg-black/40 z-[99] hidden opacity-0 transition-opacity"
+    <div id="cart-overlay" class="fixed inset-0 bg-[#5D4037]/40 z-[99] hidden opacity-0 transition-opacity"
         onclick="toggleCart()"></div>
 
     <!-- Toast Notification -->
@@ -293,7 +293,7 @@
                     <div class="relative overflow-hidden bg-stone-200 aspect-[3/4] mb-4">
                         <img src="${p.img}" alt="${p.name}" class="product-image object-cover w-full h-full transition-all duration-700" 
                              onerror="this.src='https://placehold.co/400x600?text=${p.name.split(' ').join('+')}'">
-                        <button onclick="addToCart(${p.id}, event)" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur text-stone-900 py-3 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <button onclick="addToCart(${p.id}, event)" class="absolute bottom-4 left-4 right-4 bg-[#F5F5DC]/90 backdrop-blur text-stone-900 py-3 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                             Add to Bag
                         </button>
                     </div>
@@ -384,7 +384,7 @@
                 const itemEl = document.createElement('div');
                 itemEl.className = 'flex gap-4 items-center border-b border-stone-100 pb-4';
                 itemEl.innerHTML = `
-                    <div class="w-20 h-24 bg-stone-100 flex-shrink-0">
+                    <div class="w-20 h-24 bg-[#FDF5E6] flex-shrink-0">
                         <img src="${item.img}" class="w-full h-full object-cover">
                     </div>
                     <div class="flex-grow">

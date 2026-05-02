@@ -54,13 +54,13 @@
             left: 0;
             width: 100%;
             height: 0;
-            background: #fff;
+            background: #F5F5DC;
             transition: all 0.3s ease;
             z-index: -1;
         }
 
         .btn-puma:hover {
-            color: #000;
+            color: #5D4037;
         }
 
         .btn-puma:hover::after {
@@ -69,15 +69,15 @@
     </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-[#F5F5DC] text-black antialiased">
 
     <!-- TOP ANNOUNCEMENT -->
-    <div class="bg-black text-white py-1.5 text-center text-[10px] font-bold uppercase tracking-[0.2em]">
+    <div class="bg-[#5D4037] text-white py-1.5 text-center text-[10px] font-bold uppercase tracking-[0.2em]">
         Extra 25% off for all HostelMart members | code: PUMAXHOSTEL
     </div>
 
     <!-- HEADER -->
-    <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8]">
         <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
             <!-- Brand Identity -->
             <div class="flex flex-col items-start leading-none group cursor-pointer">
@@ -108,7 +108,7 @@
                 <button class="hover:opacity-50 relative">
                     <ion-icon name="bag-handle-outline"></ion-icon>
                     <span
-                        class="absolute -top-1 -right-1 bg-black text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                        class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
                 </button>
                 <button class="lg:hidden"><ion-icon name="menu-outline"></ion-icon></button>
             </div>
@@ -117,7 +117,7 @@
 
     <main>
         <!-- HERO SECTION -->
-        <section class="relative h-[70vh] md:h-[85vh] bg-black flex items-center overflow-hidden">
+        <section class="relative h-[70vh] md:h-[85vh] bg-[#5D4037] flex items-center overflow-hidden">
             <img src="https://images.unsplash.com/photo-1511191232930-10705481757c?q=80&w=2000&auto=format&fit=crop"
                 class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Puma Training">
             <div class="absolute inset-0 bg-gradient-to-r from-black via-black/20 to-transparent"></div>
@@ -129,7 +129,7 @@
                         with the latest Nitro™ technology.</p>
                     <div class="flex flex-wrap gap-4 pt-6">
                         <a href="#shop"
-                            class="btn-puma bg-white text-black px-12 py-4 font-black uppercase text-sm z-10">Shop
+                            class="btn-puma bg-[#F5F5DC] text-black px-12 py-4 font-black uppercase text-sm z-10">Shop
                             Now</a>
                         <a href="#"
                             class="btn-puma border-2 border-white text-white px-12 py-4 font-black uppercase text-sm z-10">Join
@@ -198,7 +198,7 @@
                     ];
 
                     document.write(pumaProducts.map(p => `
-                        <div class="product-card group cursor-pointer relative bg-white overflow-hidden border border-gray-50 shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="product-card group cursor-pointer relative bg-[#F5F5DC] overflow-hidden border border-gray-50 shadow-sm hover:shadow-xl transition-all duration-300">
                             <div class="aspect-[4/5] bg-gray-100 overflow-hidden relative">
                                 <img src="${p.img}" class="w-full h-full object-cover" alt="${p.name}">
                                 <div class="absolute top-4 right-4 text-2xl text-gray-300 hover:text-black transition-colors"><ion-icon name="heart-outline"></ion-icon></div>
@@ -208,9 +208,9 @@
                                     <h3 class="text-[11px] font-black uppercase tracking-wider text-gray-400">${p.type}</h3>
                                     <p class="text-xs font-black italic">$${p.price}</p>
                                 </div>
-                                <h4 class="font-bold text-sm text-gray-900 group-hover:text-red-600 transition-colors uppercase italic">${p.name}</h4>
+                                <h4 class="font-bold text-sm text-[#5D4037] group-hover:text-red-600 transition-colors uppercase italic">${p.name}</h4>
                                 <div class="mt-4 flex gap-2 overflow-hidden">
-                                    <div class="w-4 h-4 rounded-full bg-black border border-gray-200"></div>
+                                    <div class="w-4 h-4 rounded-full bg-[#5D4037] border border-gray-200"></div>
                                     <div class="w-4 h-4 rounded-full bg-red-600 border border-gray-200"></div>
                                     <div class="w-4 h-4 rounded-full bg-gray-200 border border-gray-200"></div>
                                 </div>
@@ -223,7 +223,7 @@
         </section>
 
         <!-- MOTORSPORT SECTION -->
-        <section class="bg-black text-white relative overflow-hidden py-32">
+        <section class="bg-[#5D4037] text-white relative overflow-hidden py-32">
             <div class="absolute top-0 right-0 w-1/2 h-full puma-slash bg-zinc-900/50 -z-0"></div>
             <div class="container mx-auto px-6 grid md:grid-cols-2 items-center relative z-10">
                 <div class="space-y-8">
@@ -238,7 +238,7 @@
                     <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=1000"
                         class="rounded-lg shadow-2xl transform group-hover:-translate-y-4 transition-transform duration-700"
                         alt="Motorsport">
-                    <div class="absolute -bottom-6 -left-6 bg-white p-6 text-black">
+                    <div class="absolute -bottom-6 -left-6 bg-[#F5F5DC] p-6 text-black">
                         <p class="puma-font text-2xl italic uppercase font-black">Speed is our DNA</p>
                     </div>
                 </div>
@@ -247,9 +247,9 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-white border-t border-gray-100 pt-24 pb-12">
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] pt-24 pb-12">
         <div
-            class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-100">
+            class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-[#D7CCC8]">
             <div class="space-y-6">
                 <div class="flex flex-col leading-none">
                     <a href="index.html"
@@ -282,9 +282,9 @@
                 <h4 class="text-xs font-black uppercase tracking-widest mb-6 italic">Newsletter</h4>
                 <form class="space-y-4">
                     <input type="email" placeholder="EMAIL ADDRESS"
-                        class="w-full bg-gray-50 border border-gray-100 px-4 py-3 text-[10px] font-bold outline-none focus:border-black">
+                        class="w-full bg-[#FDF5E6] border border-[#D7CCC8] px-4 py-3 text-[10px] font-bold outline-none focus:border-black">
                     <button
-                        class="w-full bg-black text-white py-3 text-[10px] font-black uppercase tracking-widest">Sign
+                        class="w-full bg-[#5D4037] text-white py-3 text-[10px] font-black uppercase tracking-widest">Sign
                         Up</button>
                 </form>
             </div>

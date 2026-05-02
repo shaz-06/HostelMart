@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Accessories - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        /* Arched background for "Quick Fix" and "Preference" */
+        .arch-card {
+            background: #F5F5DC;
+            border-radius: 100px 100px 24px 24px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .auto-hero-blue {
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
+        }
+
+        .auto-hero-dark {
+            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Hostel</span>
+                        <span class="text-[#5d4037]">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+                </div>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Shashank</span>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="index.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-[#5D4037]">For You</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
+                </a>
+
+                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
+                </a>
+
+                <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
+                </a>
+
+                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
+                </a>
+
+                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
+                </a>
+
+                <a href="Toys.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
+                </a>
+
+                <a href="Food.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
+                </a>
+
+                <a href="Auto.html" class="category-item active flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
+                </a>
+
+                <a href="2 wheel.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
+                </a>
+
+                <a href="Sports.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
+                </a>
+
+                <a href="Books.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
+                </a>
+
+                <a href="Furniture.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 4. AUTO SUB-CATEGORIES (Screenshot 11.23.45.jpg) -->
+    <div class="max-w-7xl mx-auto px-4 py-8 overflow-x-auto no-scrollbar">
+        <div class="flex gap-6 min-w-max">
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-[#831843] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                        <path d="M19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                        <path d="M12 12V4h6" />
+                        <path d="M5 14h14" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Get in Mins.</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2 group-hover:bg-blue-100 transition-colors">
+                    <img src="https://via.placeholder.com/64" alt="Dashcams" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Dashcams</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Cleaners" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Cleaners</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Helmets" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Helmets</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Lights" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Lights</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/64" alt="Tyres" class="mix-blend-multiply opacity-80">
+                </div>
+                <span class="text-[10px] font-bold">Tyres</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-16 h-16 rounded-3xl bg-[#3E2723] flex items-center justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold">Music sys</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-4 space-y-12">
+
+        <!-- 5. HERO BANNERS (Screenshot 11.23.45.jpg) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden auto-hero-blue text-white min-h-[300px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <div
+                        class="bg-yellow-400 text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
+                        BIG BACHAT DAYS</div>
+                    <h2 class="text-4xl font-black leading-tight">Qubo, 70mai... <br>Min. 35% Off</h2>
+                    <p class="text-sm font-bold opacity-80 italic">Sale is live!</p>
+                    <button
+                        class="bg-[#F5F5DC] text-[#5D4037] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Explore
+                        Now</button>
+                </div>
+                <div
+                    class="absolute right-10 top-1/2 -translate-y-1/2 w-56 h-40 bg-[#F5F5DC]/20 rounded-2xl border-4 border-white/20 hidden lg:block backdrop-blur-md">
+                </div>
+            </div>
+            <div
+                class="relative rounded-[40px] p-10 overflow-hidden auto-hero-dark text-white min-h-[300px] flex flex-col justify-center">
+                <div class="relative z-10 space-y-4">
+                    <div
+                        class="bg-yellow-400 text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
+                        BIG BACHAT DAYS</div>
+                    <h2 class="text-4xl font-black leading-tight">CEAT, JK Tyre... <br>Up to 70% Off</h2>
+                    <p class="text-sm font-bold opacity-80 italic">Sale is live!</p>
+                    <button
+                        class="bg-[#F5F5DC] text-slate-800 px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest">Shop
+                        Tyres</button>
+                </div>
+                <!-- Abstract Tyre/Sun background -->
+                <div class="absolute right-0 bottom-0 w-64 h-64 bg-yellow-400/10 rounded-full blur-[100px]"></div>
+            </div>
+        </section>
+
+        <!-- 6. SHOP BY PREFERENCE (Screenshot 11.25.07.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Shop by preference
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div
+                    class="bg-pink-100 rounded-[40px] p-10 flex flex-col items-center gap-6 relative overflow-hidden group cursor-pointer hover-lift shadow-sm">
+                    <div class="bg-[#F5F5DC] px-8 py-3 rounded-full shadow-lg text-[#5D4037] border border-pink-200">
+                        <p class="text-lg font-black text-center leading-tight">Bike <br>accessories</p>
+                    </div>
+                    <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-2xl font-black text-sm uppercase">Min. 10% Off
+                    </div>
+                    <div class="absolute right-0 bottom-0 opacity-30 group-hover:scale-110 transition-transform">🌸
+                    </div>
+                </div>
+                <div
+                    class="bg-pink-100 rounded-[40px] p-10 flex flex-col items-center gap-6 relative overflow-hidden group cursor-pointer hover-lift shadow-sm">
+                    <div class="bg-[#F5F5DC] px-8 py-3 rounded-full shadow-lg text-[#5D4037] border border-pink-200">
+                        <p class="text-lg font-black text-center leading-tight">Car <br>accessories</p>
+                    </div>
+                    <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-2xl font-black text-sm uppercase">Min. 15% Off
+                    </div>
+                    <div class="absolute right-0 bottom-0 opacity-30 group-hover:scale-110 transition-transform">🌸
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. RESTOCK ON A DISCOUNT (Screenshot 11.39.50.jpg) -->
+        <section class="bg-[#FDF5E6] rounded-[40px] p-8 space-y-8 border border-[#D7CCC8] shadow-sm">
+            <div class="flex items-end justify-between">
+                <h3 class="text-2xl font-black tracking-tight uppercase italic border-l-4 border-[#FDF5E6]0 pl-4">Restock
+                    on a discount</h3>
+                <div class="flex gap-2">
+                    <button class="p-2 bg-[#F5F5DC] rounded-full border border-stone-200 hover:bg-stone-50"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg></button>
+                    <button class="p-2 bg-[#F5F5DC] rounded-full border border-stone-200 hover:bg-stone-50"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+            </div>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                <!-- Item 1 -->
+                <div
+                    class="min-w-[200px] bg-[#F5F5DC] rounded-[32px] overflow-hidden border border-stone-100 group cursor-pointer hover-lift transition-all">
+                    <div class="h-48 flex items-center justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-[#FDF5E6]0/5 group-hover:bg-[#FDF5E6]0/10 transition-colors"></div>
+                        <img src="https://via.placeholder.com/120x120" alt="Holders"
+                            class="mix-blend-multiply drop-shadow-xl relative z-10">
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-2.5 rounded-2xl text-[11px]">From
+                            ₹199</div>
+                        <p class="text-center font-bold text-[10px] opacity-60">Mobile holders</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div
+                    class="min-w-[200px] bg-[#F5F5DC] rounded-[32px] overflow-hidden border border-stone-100 group cursor-pointer hover-lift">
+                    <div class="h-48 flex items-center justify-center p-6 bg-emerald-50/20">
+                        <img src="https://via.placeholder.com/120x120" alt="Cloth"
+                            class="mix-blend-multiply drop-shadow-lg">
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-2.5 rounded-2xl text-[11px]">From
+                            ₹69</div>
+                        <p class="text-center font-bold text-[10px] opacity-60">Cleaning cloths</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div
+                    class="min-w-[200px] bg-[#F5F5DC] rounded-[32px] overflow-hidden border border-stone-100 group cursor-pointer hover-lift">
+                    <div class="h-48 flex items-center justify-center p-6 bg-slate-50/20">
+                        <img src="https://via.placeholder.com/120x120" alt="Arm sleeves"
+                            class="mix-blend-multiply drop-shadow-lg">
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-2.5 rounded-2xl text-[11px]">From
+                            ₹99</div>
+                        <p class="text-center font-bold text-[10px] opacity-60">Arm sleeves</p>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div
+                    class="min-w-[200px] bg-[#F5F5DC] rounded-[32px] overflow-hidden border border-stone-100 group cursor-pointer hover-lift">
+                    <div class="h-48 flex items-center justify-center p-6 bg-slate-50/20">
+                        <img src="https://via.placeholder.com/120x120" alt="Tyres"
+                            class="mix-blend-multiply drop-shadow-lg">
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="bg-[#FDF5E6]0 text-white font-black text-center py-2.5 rounded-2xl text-[11px]">From
+                            ₹999</div>
+                        <p class="text-center font-bold text-[10px] opacity-60">Tyres</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. SAVE ON TOP BRANDS (Screenshot 11.40.05.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Save on top brands
+            </h3>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+                <div
+                    class="min-w-[240px] bg-pink-100 rounded-[40px] p-8 flex flex-col items-center gap-6 hover-lift border border-pink-200">
+                    <div
+                        class="bg-[#F5F5DC] px-8 py-2 rounded-full border border-pink-300 font-black text-[#5D4037] italic uppercase">
+                        AXOR</div>
+                    <p class="font-black text-sm uppercase italic">Up to 15% Off</p>
+                    <img src="https://via.placeholder.com/150x120" alt="Axor" class="mix-blend-multiply h-32">
+                </div>
+                <div
+                    class="min-w-[240px] bg-pink-100 rounded-[40px] p-8 flex flex-col items-center gap-6 hover-lift border border-pink-200">
+                    <div class="bg-[#F5F5DC] px-6 py-2 rounded-full border border-pink-300 font-black text-red-600">ROYAL
+                        ENFIELD</div>
+                    <p class="font-black text-sm uppercase italic">Min. 25% Off</p>
+                    <img src="https://via.placeholder.com/150x120" alt="RE" class="mix-blend-multiply h-32">
+                </div>
+                <div
+                    class="min-w-[240px] bg-pink-100 rounded-[40px] p-8 flex flex-col items-center gap-6 hover-lift border border-pink-200">
+                    <div class="bg-[#F5F5DC] px-8 py-2 rounded-full border border-pink-300 font-black text-slate-800">Qubo
+                    </div>
+                    <p class="font-black text-sm uppercase italic">Min. 30% Off</p>
+                    <img src="https://via.placeholder.com/120x150" alt="Qubo" class="mix-blend-multiply h-32">
+                </div>
+                <div
+                    class="min-w-[240px] bg-pink-100 rounded-[40px] p-8 flex flex-col items-center gap-6 hover-lift border border-pink-200">
+                    <div class="bg-[#F5F5DC] px-8 py-2 rounded-full border border-pink-300 font-black text-green-700">
+                        Castrol</div>
+                    <p class="font-black text-sm uppercase italic">From ₹299</p>
+                    <img src="https://via.placeholder.com/150x120" alt="Castrol" class="mix-blend-multiply h-32">
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. SHOP BY BUDGET (Screenshot 11.40.35.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Shop by budget
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
+                            <p class="text-3xl font-black tracking-tighter">₹99</p>
+                        </div>
+                        <div
+                            class="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
+                            🍋</div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
+                            <p class="text-3xl font-black tracking-tighter">₹299</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
+                            <p class="text-3xl font-black tracking-tighter">₹499</p>
+                        </div>
+                        <div
+                            class="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
+                            🍋</div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Min.</p>
+                            <p class="text-3xl font-black tracking-tighter">40%</p>
+                            <p class="text-[10px] font-bold uppercase">Off</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. GET A QUICK FIX (Screenshot 11.40.47.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Get a quick fix
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                    class="bg-[#FDF5E6] rounded-[40px] p-8 flex flex-col items-center gap-6 border border-[#D7CCC8] hover-lift group">
+                    <div class="bg-[#F5F5DC] px-8 py-2 rounded-full border border-[#FDF5E6]0 text-sky-700 font-bold text-sm">
+                        Jacks</div>
+                    <img src="https://via.placeholder.com/150x180" alt="Jacks"
+                        class="mix-blend-multiply drop-shadow-xl h-48 group-hover:scale-110 transition-transform">
+                    <div
+                        class="w-full bg-[#FDF5E6]0 text-white py-3 rounded-2xl text-center font-black text-sm uppercase tracking-widest">
+                        From ₹199</div>
+                </div>
+                <div
+                    class="bg-[#FDF5E6] rounded-[40px] p-8 flex flex-col items-center gap-6 border border-[#D7CCC8] hover-lift group">
+                    <div class="bg-[#F5F5DC] px-8 py-2 rounded-full border border-[#FDF5E6]0 text-sky-700 font-bold text-sm">
+                        Tyre inflators</div>
+                    <img src="https://via.placeholder.com/150x180" alt="Inflators"
+                        class="mix-blend-multiply drop-shadow-xl h-48 group-hover:scale-110 transition-transform">
+                    <div
+                        class="w-full bg-[#FDF5E6]0 text-white py-3 rounded-2xl text-center font-black text-sm uppercase tracking-widest">
+                        Up to 70% Off</div>
+                </div>
+                <div
+                    class="bg-[#FDF5E6] rounded-[40px] p-8 flex flex-col items-center gap-6 border border-[#D7CCC8] hover-lift group">
+                    <div class="bg-[#F5F5DC] px-8 py-2 rounded-full border border-[#FDF5E6]0 text-sky-700 font-bold text-sm">
+                        Puncture kits</div>
+                    <img src="https://via.placeholder.com/150x180" alt="Kits"
+                        class="mix-blend-multiply drop-shadow-xl h-48 group-hover:scale-110 transition-transform">
+                    <div
+                        class="w-full bg-[#FDF5E6]0 text-white py-3 rounded-2xl text-center font-black text-sm uppercase tracking-widest">
+                        From ₹199</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-6">
+            <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span class="accent-gold">MART</span>
+            </h2>
+            <div class="h-1 w-12 accent-gold-bg rounded-full mx-auto"></div>
+            <p class="text-xs text-stone-500 font-bold uppercase tracking-widest max-w-sm mx-auto leading-loose">The
+                Ultimate Pitstop for your Vehicle. Quality gear, trusted brands, and rapid delivery for every student on
+                the move.</p>
+            <div
+                class="flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-widest text-stone-400">
+                <a href="index.html" class="hover:text-[#3E2723]">Home</a>
+                <a href="electronics.html" class="hover:text-[#3E2723]">Electronics</a>
+                <a href="food.html" class="hover:text-[#3E2723]">Grocery</a>
+                <a href="appliances.html" class="hover:text-[#3E2723]">Appliances</a>
+                <a href="home.html" class="hover:text-[#3E2723]">Home Essentials</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden backdrop-blur-sm"></div>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenu"
+        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
+            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
+            <button onclick="toggleMobileMenu()"
+                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="p-6">
+            <ul class="space-y-6">
+                <li><a href="index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li>
+                    <div class="flex justify-between items-center cursor-pointer group"
+                        onclick="toggleAccordion('mob-categories')">
+                        <span
+                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
+                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+                    </div>
+                    <div id="mob-categories"
+                        class="hidden pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
+                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="Appliances.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="Beauty.html" class="block hover:text-[#795548] font-medium">Beauty</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = menu.style.transform === 'translateX(0px)';
+            if (!isOpen) {
+                menu.style.transform = 'translateX(0)';
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.style.transform = 'translateX(-100%)';
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -20,17 +20,20 @@
    * colors
    */
 
-  --spanish-gray: hsl(0, 0%, 60%);
-  --sonic-silver: hsl(0, 0%, 47%);
-  --eerie-black: hsl(0, 0%, 13%);
-  --salmon-pink: hsl(353, 100%, 78%);
-  --sandy-brown: hsl(29, 90%, 65%);
-  --bittersweet: hsl(0, 100%, 70%);
+  --spanish-gray: hsl(14, 10%, 70%);
+  --sonic-silver: hsl(14, 15%, 55%);
+  --eerie-black: hsl(14, 26%, 29%);
+  --salmon-pink: hsl(14, 26%, 29%);
+  --sandy-brown: hsl(60, 56%, 80%);
+  --bittersweet: hsl(14, 20%, 40%);
   --ocean-green: hsl(152, 51%, 52%);
-  --davys-gray: hsl(0, 0%, 33%);
-  --cultured: hsl(0, 0%, 93%);
-  --white: hsl(0, 100%, 100%);
-  --onyx: hsl(0, 0%, 27%);
+  --davys-gray: hsl(14, 20%, 45%);
+  --cultured: hsl(60, 30%, 85%);
+  --white: hsl(60, 56%, 91%);
+  --onyx: hsl(14, 26%, 35%);
+
+  --gradient-cream-brown: linear-gradient(180deg, #F5F5DC 0%, #D7CCC8 100%);
+  --gradient-brown-dark: linear-gradient(180deg, #8D6E63 0%, #5D4037 100%);
 
   /**
    * typography

@@ -56,7 +56,7 @@
     </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-[#F5F5DC] text-black antialiased">
 
     <!-- TOP BAR -->
     <div
@@ -78,7 +78,7 @@
     </div>
 
     <!-- MAIN HEADER -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between">
+    <header class="sticky top-0 z-50 bg-[#F5F5DC]/95 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between">
         <!-- Logo Branding: HostelMart + Nike Swoosh -->
         <div class="flex flex-col items-start leading-none group cursor-pointer">
             <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter text-black uppercase">
@@ -114,7 +114,7 @@
             <button class="text-2xl hover:bg-gray-100 p-2 rounded-full transition relative">
                 <ion-icon name="bag-handle-outline"></ion-icon>
                 <span
-                    class="absolute top-2 right-2 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-white">0</span>
+                    class="absolute top-2 right-2 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-white">0</span>
             </button>
             <button onclick="toggleMobileMenu()" class="lg:hidden text-3xl"><ion-icon
                     name="menu-outline"></ion-icon></button>
@@ -123,7 +123,7 @@
 
     <!-- MOBILE MENU OVERLAY -->
     <div id="mobileMenu"
-        class="fixed inset-0 bg-white z-[60] translate-x-full transition-transform duration-500 flex flex-col p-8 lg:hidden">
+        class="fixed inset-0 bg-[#F5F5DC] z-[60] translate-x-full transition-transform duration-500 flex flex-col p-8 lg:hidden">
         <div class="flex justify-end mb-8">
             <button onclick="toggleMobileMenu()" class="text-4xl"><ion-icon name="close-outline"></ion-icon></button>
         </div>
@@ -139,7 +139,7 @@
     <main>
         <!-- HERO SECTION -->
         <section class="px-4 md:px-12 py-6">
-            <div class="relative w-full h-[500px] md:h-[700px] rounded-sm overflow-hidden bg-black flex items-end">
+            <div class="relative w-full h-[500px] md:h-[700px] rounded-sm overflow-hidden bg-[#5D4037] flex items-end">
                 <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=2000&auto=format&fit=crop"
                     class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Nike Training">
                 <div class="relative z-10 p-8 md:p-16 text-white max-w-2xl">
@@ -150,10 +150,10 @@
                         explore the latest in performance gear.</p>
                     <div class="flex gap-4">
                         <a href="#shop"
-                            class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition">Shop
+                            class="bg-[#F5F5DC] text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition">Shop
                             Now</a>
                         <a href="#"
-                            class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-black transition">Explore
+                            class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-[#F5F5DC] hover:text-black transition">Explore
                             More</a>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
 
         <!-- CATEGORY NAVIGATION (Horizontal scroll on mobile) -->
         <div
-            class="px-6 md:px-12 py-4 border-b border-gray-100 sticky top-[72px] md:top-[88px] bg-white z-40 overflow-x-auto no-scrollbar">
+            class="px-6 md:px-12 py-4 border-b border-[#D7CCC8] sticky top-[72px] md:top-[88px] bg-[#F5F5DC] z-40 overflow-x-auto no-scrollbar">
             <div class="flex gap-8 text-[12px] font-bold uppercase tracking-widest whitespace-nowrap">
                 <a href="#apparel" class="text-black border-b-2 border-black pb-1">Apparel</a>
                 <a href="#performance" class="text-gray-400 hover:text-black transition">Performance</a>
@@ -176,7 +176,7 @@
             <div class="flex justify-between items-end mb-10">
                 <h2 class="text-4xl font-black uppercase category-title">Shop by Product</h2>
                 <div class="flex gap-2">
-                    <button class="p-2 border rounded-full hover:bg-gray-50"><ion-icon
+                    <button class="p-2 border rounded-full hover:bg-[#FDF5E6]"><ion-icon
                             name="options-outline"></ion-icon> Filter</button>
                 </div>
             </div>
@@ -221,10 +221,10 @@
                         <div class="nike-grid-item group cursor-pointer overflow-hidden">
                             <div class="aspect-square bg-[#F6F6F6] rounded-sm overflow-hidden mb-4 relative">
                                 <img src="${p.img}" class="w-full h-full object-cover transition-soft" alt="${p.name}">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all"></div>
+                                <div class="absolute inset-0 bg-[#5D4037]/0 group-hover:bg-[#5D4037]/5 transition-all"></div>
                             </div>
                             <div class="space-y-0.5">
-                                <h3 class="font-bold text-sm tracking-tight text-gray-900 uppercase">${p.name}</h3>
+                                <h3 class="font-bold text-sm tracking-tight text-[#5D4037] uppercase">${p.name}</h3>
                                 <p class="text-xs text-gray-500 font-medium">${p.type}</p>
                                 <button class="mt-4 text-[10px] font-black uppercase tracking-widest border-b-2 border-black pb-0.5 opacity-0 group-hover:opacity-100 transition-all">View Details</button>
                             </div>
@@ -235,7 +235,7 @@
         </section>
 
         <!-- PERFORMANCE BANNER -->
-        <section class="bg-black text-white py-20 px-6 md:px-12 text-center">
+        <section class="bg-[#5D4037] text-white py-20 px-6 md:px-12 text-center">
             <div class="max-w-4xl mx-auto space-y-6">
                 <h2 class="text-6xl md:text-8xl font-black uppercase category-title leading-tight italic">WIN FROM
                     WITHIN.</h2>
@@ -243,7 +243,7 @@
                     to lock you in and keep you cool under pressure.</p>
                 <div class="pt-6">
                     <button
-                        class="bg-white text-black px-12 py-4 rounded-full font-black uppercase tracking-tighter hover:bg-gray-200 transition text-sm">Shop
+                        class="bg-[#F5F5DC] text-black px-12 py-4 rounded-full font-black uppercase tracking-tighter hover:bg-gray-200 transition text-sm">Shop
                         Performance Wear</button>
                 </div>
             </div>
@@ -251,7 +251,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-black text-white pt-16 pb-12">
+    <footer class="bg-[#5D4037] text-white pt-16 pb-12">
         <div class="container mx-auto px-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-gray-800 pb-12">
                 <div class="space-y-4">

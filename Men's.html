@@ -45,16 +45,16 @@
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body class="bg-[#FDF5E6] text-[#5D4037] antialiased">
 
     <!-- HEADER (Consistent with Main Page) -->
-    <header class="bg-white sticky top-0 z-40 shadow-sm">
-        <div class="py-4 border-b border-gray-100">
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-sm">
+        <div class="py-4 border-b border-[#D7CCC8]">
             <div class="container mx-auto px-4 flex items-center justify-between gap-4">
-                <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter text-gray-900">Hostel<span
+                <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter text-[#5D4037]">Hostel<span
                         class="text-pink-500">Mart</span></a>
 
-                <div class="hidden md:flex items-center gap-5 text-2xl text-gray-700">
+                <div class="hidden md:flex items-center gap-5 text-2xl text-[#5D4037]">
                     <button class="hover:text-pink-500 transition-colors"><ion-icon
                             name="person-outline"></ion-icon></button>
                     <button class="hover:text-pink-500 relative transition-colors"><ion-icon
@@ -73,7 +73,7 @@
         <div class="container mx-auto px-4 text-xs font-medium text-gray-500 flex items-center gap-2">
             <a href="index.html" class="hover:text-pink-500">Home</a>
             <ion-icon name="chevron-forward-outline"></ion-icon>
-            <span class="text-gray-900">Men's Section</span>
+            <span class="text-[#5D4037]">Men's Section</span>
         </div>
     </nav>
 
@@ -81,7 +81,7 @@
 
         <!-- HERO TITLE -->
         <div class="mb-12 text-center md:text-left">
-            <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-gray-900 mb-4">Men's <span
+            <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#5D4037] mb-4">Men's <span
                     class="text-pink-500">&</span> Collections</h1>
             <p class="text-gray-500 max-w-2xl">Explore our extensive range of apparel, from classic T-Shirts and Formal
                 Suits to traditional Ethnic wear and high-performance Activewear.</p>
@@ -104,7 +104,7 @@
                     ];
 
                     document.write(topBrands.map(brand => `
-                        <a href="${brand.url}" class="min-w-[120px] md:min-w-[160px] snap-start bg-white border border-gray-100 p-6 rounded-3xl flex flex-col items-center justify-center gap-4 hover:shadow-xl hover:border-pink-200 transition-all cursor-pointer group">
+                        <a href="${brand.url}" class="min-w-[120px] md:min-w-[160px] snap-start bg-[#F5F5DC] border border-[#D7CCC8] p-6 rounded-3xl flex flex-col items-center justify-center gap-4 hover:shadow-xl hover:border-pink-200 transition-all cursor-pointer group">
                             <div class="h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <img src="${brand.logo}" alt="${brand.name}" class="h-full object-contain grayscale group-hover:grayscale-0 transition-all">
                             </div>
@@ -139,13 +139,13 @@
                 ];
 
                 document.write(categories.map(cat => `
-                    <a href="#" class="category-card group block bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+                    <a href="#" class="category-card group block bg-[#F5F5DC] border border-[#D7CCC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
                         <div class="relative h-32 md:h-48 overflow-hidden">
                             <img src="${cat.img}" alt="${cat.name}" class="w-full h-full object-cover transition-transform duration-700">
-                            <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                            <div class="absolute inset-0 bg-[#5D4037]/10 group-hover:bg-[#5D4037]/20 transition-colors"></div>
                         </div>
                         <div class="p-3 md:p-5 text-center">
-                            <h3 class="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-800 group-hover:text-pink-500 transition-colors">${cat.name}</h3>
+                            <h3 class="text-[10px] md:text-xs font-black uppercase tracking-widest text-[#5D4037] group-hover:text-pink-500 transition-colors">${cat.name}</h3>
                         </div>
                     </a>
                 `).join(''));
@@ -160,19 +160,19 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Product Card 1 -->
                 <div
-                    class="bg-white border border-gray-100 rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
+                    class="bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
                     <div class="relative aspect-[4/5] overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <span
-                            class="absolute top-4 left-4 bg-gray-900 text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">Premium</span>
+                            class="absolute top-4 left-4 bg-[#5D4037] text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">Premium</span>
                     </div>
                     <div class="p-6">
                         <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest">Blazers & Suits</p>
-                        <h3 class="font-bold text-gray-800 truncate text-base mt-1">Slim-Fit Charcoal Blazer</h3>
+                        <h3 class="font-bold text-[#5D4037] truncate text-base mt-1">Slim-Fit Charcoal Blazer</h3>
                         <div class="flex items-center justify-between mt-4">
                             <span class="font-black text-xl">$129.00</span>
-                            <button class="bg-gray-900 text-white p-2 rounded-xl hover:bg-pink-500 transition-colors">
+                            <button class="bg-[#5D4037] text-white p-2 rounded-xl hover:bg-pink-500 transition-colors">
                                 <ion-icon name="cart-outline" class="text-xl"></ion-icon>
                             </button>
                         </div>
@@ -181,17 +181,17 @@
 
                 <!-- Product Card 2 -->
                 <div
-                    class="bg-white border border-gray-100 rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
+                    class="bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
                     <div class="relative aspect-[4/5] overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=600&q=80"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     </div>
                     <div class="p-6">
                         <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest">Denim Wear</p>
-                        <h3 class="font-bold text-gray-800 truncate text-base mt-1">Classic Indigo Denim Jacket</h3>
+                        <h3 class="font-bold text-[#5D4037] truncate text-base mt-1">Classic Indigo Denim Jacket</h3>
                         <div class="flex items-center justify-between mt-4">
                             <span class="font-black text-xl">$75.00</span>
-                            <button class="bg-gray-900 text-white p-2 rounded-xl hover:bg-pink-500 transition-colors">
+                            <button class="bg-[#5D4037] text-white p-2 rounded-xl hover:bg-pink-500 transition-colors">
                                 <ion-icon name="cart-outline" class="text-xl"></ion-icon>
                             </button>
                         </div>
@@ -202,17 +202,17 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-white text-gray-500 pt-16 pb-12 border-t border-gray-100 mt-20">
+    <footer class="bg-[#F5F5DC] text-gray-500 pt-16 pb-12 border-t border-[#D7CCC8] mt-20">
         <div
             class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-gray-50 text-center md:text-left">
             <div>
-                <a href="index.html" class="text-2xl font-black tracking-tighter text-gray-900">Hostel<span
+                <a href="index.html" class="text-2xl font-black tracking-tighter text-[#5D4037]">Hostel<span
                         class="text-pink-500">Mart</span></a>
                 <p class="text-sm mt-4 leading-relaxed">Your one-stop destination for the latest in global fashion
                     trends and high-quality apparel.</p>
             </div>
             <div>
-                <h3 class="text-gray-900 font-black uppercase text-xs tracking-widest mb-6">Customer Support</h3>
+                <h3 class="text-[#5D4037] font-black uppercase text-xs tracking-widest mb-6">Customer Support</h3>
                 <ul class="space-y-3 text-xs font-bold uppercase tracking-tight">
                     <li><a href="#" class="hover:text-pink-500 transition-colors">Track Order</a></li>
                     <li><a href="#" class="hover:text-pink-500 transition-colors">Return Policy</a></li>
@@ -220,12 +220,12 @@
                 </ul>
             </div>
             <div>
-                <h3 class="text-gray-900 font-black uppercase text-xs tracking-widest mb-6">Newsletter</h3>
+                <h3 class="text-[#5D4037] font-black uppercase text-xs tracking-widest mb-6">Newsletter</h3>
                 <form class="flex gap-2">
                     <input type="email" placeholder="Enter your email"
-                        class="flex-1 bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 text-xs outline-none focus:ring-1 focus:ring-pink-500">
+                        class="flex-1 bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs outline-none focus:ring-1 focus:ring-pink-500">
                     <button
-                        class="bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-gray-900 transition-colors">JOIN</button>
+                        class="bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#5D4037] transition-colors">JOIN</button>
                 </form>
             </div>
         </div>

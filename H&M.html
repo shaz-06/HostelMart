@@ -56,7 +56,7 @@
     </style>
 </head>
 
-<body class="bg-white text-gray-900 antialiased">
+<body class="bg-[#F5F5DC] text-[#5D4037] antialiased">
 
     <!-- TOP ANNOUNCEMENT -->
     <div class="bg-gray-100 py-2 text-center text-[10px] font-bold uppercase tracking-widest">
@@ -64,7 +64,7 @@
     </div>
 
     <!-- HEADER -->
-    <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8]">
         <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
             <!-- Brand Identity -->
             <div class="flex flex-col items-start leading-none group cursor-pointer">
@@ -88,7 +88,7 @@
             </nav>
 
             <!-- Actions -->
-            <div class="flex items-center gap-5 text-2xl text-gray-700">
+            <div class="flex items-center gap-5 text-2xl text-[#5D4037]">
                 <button class="hover:hm-red transition-colors"><ion-icon name="search-outline"></ion-icon></button>
                 <button class="hover:hm-red transition-colors"><ion-icon name="person-outline"></ion-icon></button>
                 <button class="hover:hm-red relative transition-colors">
@@ -112,7 +112,7 @@
                     <p class="text-sm md:text-lg mb-8 font-medium">Stylish pieces for the sunny days ahead.</p>
                     <div class="flex gap-4">
                         <a href="#shop"
-                            class="bg-white text-black px-8 py-3 font-bold uppercase text-xs hover:bg-gray-100 transition shadow-lg">Shop
+                            class="bg-[#F5F5DC] text-black px-8 py-3 font-bold uppercase text-xs hover:bg-gray-100 transition shadow-lg">Shop
                             Now</a>
                     </div>
                 </div>
@@ -171,15 +171,15 @@
 
                     document.write(hmProducts.map(p => `
                         <div class="product-card group cursor-pointer relative">
-                            <div class="aspect-[3/4] bg-gray-50 overflow-hidden mb-3 relative">
+                            <div class="aspect-[3/4] bg-[#FDF5E6] overflow-hidden mb-3 relative">
                                 <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.name}">
                                 <div class="absolute inset-x-0 bottom-0 p-4 quick-add">
-                                    <button class="w-full bg-white/90 backdrop-blur py-2 text-[10px] font-black uppercase tracking-widest border border-gray-200 hover:bg-black hover:text-white transition-colors">Quick Add</button>
+                                    <button class="w-full bg-[#F5F5DC]/90 backdrop-blur py-2 text-[10px] font-black uppercase tracking-widest border border-gray-200 hover:bg-[#5D4037] hover:text-white transition-colors">Quick Add</button>
                                 </div>
                                 <button class="absolute top-3 right-3 text-2xl text-gray-400 hover:text-hm-red transition-colors"><ion-icon name="heart-outline"></ion-icon></button>
                             </div>
                             <div class="space-y-1">
-                                <h3 class="text-[11px] font-medium text-gray-700">${p.name}</h3>
+                                <h3 class="text-[11px] font-medium text-[#5D4037]">${p.name}</h3>
                                 <p class="text-xs font-black hm-red">$${p.price}</p>
                             </div>
                         </div>
@@ -196,14 +196,14 @@
                 <p class="text-sm text-gray-600 leading-relaxed mb-8">We are committed to making fashion sustainable and
                     sustainability fashionable. Discover our Conscious choice collection.</p>
                 <a href="#"
-                    class="inline-block border-2 border-black px-10 py-3 text-xs font-black uppercase hover:bg-black hover:text-white transition">Read
+                    class="inline-block border-2 border-black px-10 py-3 text-xs font-black uppercase hover:bg-[#5D4037] hover:text-white transition">Read
                     More</a>
             </div>
         </section>
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-white border-t border-gray-100 pt-20 pb-12">
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] pt-20 pb-12">
         <div class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="space-y-6">
                 <div class="hm-logo-font text-3xl hm-red">H&M</div>

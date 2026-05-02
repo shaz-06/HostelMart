@@ -59,25 +59,25 @@ app.get(['/', '/index.html'], (req, res) => {
       `<ion-icon name="${i < product.rating ? 'star' : 'star-outline'}"></ion-icon>`
     ).join('');
 
-    const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
+    const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-[#F5F5DC] text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
     const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">$${product.delPrice.toFixed(2)}</del>` : '';
 
     const productImage = product.images ? product.images.default : (product.image || '');
     const hoverImage = product.images ? product.images.hover : (product.image || '');
 
     const productHtml = `
-      <div class="product-card bg-white border border-gray-100 rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
+      <div class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
           <div class="relative aspect-[4/5] overflow-hidden">
               <img src="${productImage}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
               <img src="${hoverImage}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img">
               ${badgeHtml}
               <div class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
-                  <button class="bg-white/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-pink-500 hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon name="heart-outline"></ion-icon></button>
-                  <button class="bg-white/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-pink-500 hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon name="eye-outline"></ion-icon></button>
+                  <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#5D4037] hover:text-[#F5F5DC] transition-all transform hover:scale-110 active:scale-90"><ion-icon name="heart-outline"></ion-icon></button>
+                  <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#5D4037] hover:text-[#F5F5DC] transition-all transform hover:scale-110 active:scale-90"><ion-icon name="eye-outline"></ion-icon></button>
               </div>
           </div>
           <div class="p-4 sm:p-6 space-y-2">
-              <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest">${product.category}</p>
+              <p class="text-[10px] text-[#5D4037] font-black uppercase tracking-widest">${product.category}</p>
               <h3 class="font-bold text-gray-800 truncate text-sm sm:text-base">${product.name}</h3>
               <div class="flex items-center gap-1 text-yellow-400 text-[10px]">${ratingHtml}</div>
               <div class="flex items-center gap-2 font-black text-lg text-gray-900 mt-1">
@@ -96,8 +96,8 @@ app.get(['/', '/index.html'], (req, res) => {
 
   categories.forEach(cat => {
     const catHtml = `
-      <div class="min-w-[160px] md:min-w-[220px] snap-start bg-white border border-gray-100 p-4 rounded-2xl flex items-center gap-4 hover:shadow-xl hover:border-pink-200 transition-all cursor-pointer group">
-          <div class="bg-pink-50 p-2.5 rounded-xl text-pink-500 text-xl group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300 flex items-center justify-center">
+      <div class="min-w-[160px] md:min-w-[220px] snap-start bg-[#F5F5DC] border border-[#D7CCC8] p-4 rounded-2xl flex items-center gap-4 hover:shadow-xl hover:border-[#5D4037] transition-all cursor-pointer group">
+          <div class="bg-[#D7CCC8] p-2.5 rounded-xl text-[#5D4037] text-xl group-hover:bg-[#5D4037] group-hover:text-[#F5F5DC] transition-colors duration-300 flex items-center justify-center">
               <img src="${cat.icon}" alt="${cat.name}" width="24" class="group-hover:brightness-0 group-hover:invert transition-all">
           </div>
           <div>

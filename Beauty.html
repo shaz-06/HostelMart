@@ -99,6 +99,14 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C12.5,20 25,0 37.5,20 C50,0 62.5,20 75,0 C87.5,20 100,0 100,0 V20 H0 Z' fill='%23F3EEE5'/%3E%3C/svg%3E");
             background-size: 100% 100%;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -184,9 +192,36 @@
                         <span>Login</span>
                         <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
                     </div>
-                    <div class="hidden md:flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
-                        <span>More</span>
-                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    <div class="hidden md:flex relative group py-2">
+                        <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group">
+                            <span>More</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </div>
+                        
+                        <!-- More Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Become a Seller</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Notification Settings</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">24x7 Customer Care</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Advertise on HostelMart</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
                         <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
@@ -257,7 +292,7 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
@@ -265,7 +300,7 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
@@ -273,7 +308,7 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
@@ -281,7 +316,7 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
@@ -289,7 +324,7 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
@@ -297,7 +332,7 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
@@ -305,7 +340,7 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
@@ -340,7 +375,7 @@
                         class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
                         <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
                         <a href="Appliances.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
-                        <a href="#" class="block hover:text-[#795548] font-medium">Accessories</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548] font-medium">Accessories</a>
                     </div>
                 </li>
             </ul>
@@ -1451,10 +1486,10 @@
             </h2>
             <p class="text-xs text-stone-500 font-bold uppercase tracking-widest">Premium Beauty & Skincare</p>
             <div class="flex gap-6 pt-4 text-xs font-bold text-stone-400">
-                <a href="#" class="hover:text-[#C5A059]">About Us</a>
-                <a href="#" class="hover:text-[#C5A059]">Privacy Policy</a>
-                <a href="#" class="hover:text-[#C5A059]">Returns</a>
-                <a href="#" class="hover:text-[#C5A059]">Contact</a>
+                <a href="javascript:void(0)" class="hover:text-[#C5A059]">About Us</a>
+                <a href="javascript:void(0)" class="hover:text-[#C5A059]">Privacy Policy</a>
+                <a href="javascript:void(0)" class="hover:text-[#C5A059]">Returns</a>
+                <a href="javascript:void(0)" class="hover:text-[#C5A059]">Contact</a>
             </div>
         </div>
     </footer>

@@ -63,6 +63,14 @@
                 top: 70px;
             }
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -70,12 +78,58 @@
 
     <!-- HEADER -->
     <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
-        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col items-center justify-center">
-            <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none">
-                <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
-            </a>
-            <span class="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] text-gray-400 mt-2">Jewellery
-                Department</span>
+        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col items-center md:items-start">
+                <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none">
+                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
+                </a>
+                <span class="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] text-gray-400 mt-2">Jewellery
+                    Department</span>
+            </div>
+
+            <!-- Header Actions & More -->
+            <div class="flex items-center gap-6 md:gap-10">
+                <!-- More Dropdown -->
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#C8A951] group transition-colors">
+                        <span class="text-[10px] md:text-xs font-black uppercase tracking-widest">More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn text-[#5D4037]">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Become a Seller</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Notification Settings</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 text-2xl">
+                    <button class="hover:text-[#C8A951] transition-colors"><ion-icon name="search-outline"></ion-icon></button>
+                    <button class="hover:text-[#C8A951] transition-colors relative">
+                        <ion-icon name="cart-outline"></ion-icon>
+                        <span class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 

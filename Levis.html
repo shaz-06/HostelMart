@@ -54,6 +54,13 @@
         .batwing-clip {
             clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -76,22 +83,63 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex gap-8 text-[11px] font-black uppercase tracking-widest">
-                <a href="#" class="hover:text-levis-red">Men</a>
-                <a href="#" class="hover:text-levis-red">Women</a>
-                <a href="#" class="hover:text-levis-red">501® Series</a>
-                <a href="#" class="hover:text-levis-red">Sustainability</a>
-                <a href="#" class="text-levis-red">Sale</a>
+                <a href="Men.html" class="hover:text-levis-red">Men</a>
+                <a href="Women.html" class="hover:text-levis-red">Women</a>
+                <a href="javascript:void(0)" class="hover:text-levis-red">501® Series</a>
+                <a href="javascript:void(0)" class="hover:text-levis-red">Sustainability</a>
+                <a href="Sale.html" class="text-levis-red">Sale</a>
+                <div class="flex items-center gap-8 text-[#5D4037] font-bold text-sm">
+                    <a href="Login.html" class="flex items-center gap-2 cursor-pointer hover:text-[#C41230] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#C41230] transition-colors"></ion-icon>
+                        <span>Login</span>
+                    </a>
+
+                    <!-- More Dropdown -->
+                    <div class="hidden md:flex relative group py-2">
+                        <div class="flex items-center gap-1 cursor-pointer hover:text-[#C41230] group">
+                            <span>More</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </div>
+                        
+                        <!-- More Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Become a Seller</span>
+                                </a>
+                                <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Notification Settings</span>
+                                </a>
+                                <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">24x7 Customer Care</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Advertise on HostelMart</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#C41230] relative">
+                        <ion-icon name="bag-outline" class="text-2xl"></ion-icon>
+                        <span
+                            class="absolute -top-2 -right-2 bg-[#C41230] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    </div>
+                </div>
             </nav>
 
             <!-- Actions -->
             <div class="flex items-center gap-5 text-2xl text-[#5D4037]">
                 <button class="hover:text-levis-red transition-colors"><ion-icon
                         name="search-outline"></ion-icon></button>
-                <button class="hover:text-levis-red relative transition-colors">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
-                    <span
-                        class="absolute -top-1 -right-1 bg-levis-red text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                </button>
                 <button class="lg:hidden"><ion-icon name="menu-outline"></ion-icon></button>
             </div>
         </div>
@@ -112,7 +160,7 @@
                     <a href="#shop"
                         class="bg-levis-red text-white px-10 py-4 font-black uppercase text-xs hover:bg-[#F5F5DC] hover:text-levis-red transition duration-300">Shop
                         Icons</a>
-                    <a href="#"
+                    <a href="javascript:void(0)"
                         class="border border-white text-white px-10 py-4 font-black uppercase text-xs hover:bg-[#F5F5DC] hover:text-black transition duration-300">Learn
                         More</a>
                 </div>
@@ -123,11 +171,11 @@
         <div class="bg-gray-100 overflow-x-auto no-scrollbar">
             <div
                 class="container mx-auto px-4 md:px-12 flex gap-10 py-4 whitespace-nowrap text-[10px] font-black uppercase tracking-widest text-gray-500">
-                <a href="#" class="text-black border-b-2 border-levis-red pb-1">All Products</a>
-                <a href="#" class="hover:text-levis-red">501® Original</a>
-                <a href="#" class="hover:text-levis-red">Trucker Jackets</a>
-                <a href="#" class="hover:text-levis-red">Graphic Tees</a>
-                <a href="#" class="hover:text-levis-red">Accessories</a>
+                <a href="javascript:void(0)" class="text-black border-b-2 border-levis-red pb-1">All Products</a>
+                <a href="javascript:void(0)" class="hover:text-levis-red">501® Original</a>
+                <a href="javascript:void(0)" class="hover:text-levis-red">Trucker Jackets</a>
+                <a href="javascript:void(0)" class="hover:text-levis-red">Graphic Tees</a>
+                <a href="javascript:void(0)" class="hover:text-levis-red">Accessories</a>
             </div>
         </div>
 
@@ -231,31 +279,31 @@
             <div>
                 <h4 class="text-xs font-black uppercase tracking-widest mb-6">Explore</h4>
                 <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-levis-red">501® Original</a></li>
-                    <li><a href="#" class="hover:text-levis-red">Trucker Jackets</a></li>
-                    <li><a href="#" class="hover:text-levis-red">Sustainability</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-levis-red">501® Original</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-levis-red">Trucker Jackets</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-levis-red">Sustainability</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-xs font-black uppercase tracking-widest mb-6">Support</h4>
                 <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-levis-red">Track Order</a></li>
-                    <li><a href="#" class="hover:text-levis-red">Size Guide</a></li>
-                    <li><a href="#" class="hover:text-levis-red">Returns</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-levis-red">Track Order</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-levis-red">Size Guide</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-levis-red">Returns</a></li>
                 </ul>
             </div>
             <div class="flex gap-6 text-2xl text-gray-500">
-                <a href="#" class="hover:text-white"><ion-icon name="logo-instagram"></ion-icon></a>
-                <a href="#" class="hover:text-white"><ion-icon name="logo-facebook"></ion-icon></a>
-                <a href="#" class="hover:text-white"><ion-icon name="logo-youtube"></ion-icon></a>
+                <a href="javascript:void(0)" class="hover:text-white"><ion-icon name="logo-instagram"></ion-icon></a>
+                <a href="javascript:void(0)" class="hover:text-white"><ion-icon name="logo-facebook"></ion-icon></a>
+                <a href="javascript:void(0)" class="hover:text-white"><ion-icon name="logo-youtube"></ion-icon></a>
             </div>
         </div>
         <div
             class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.2em] text-gray-600">
             <p>© 2024 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> x Levi Strauss & Co. All rights reserved.</p>
             <div class="flex gap-8">
-                <a href="#" class="hover:text-white">Privacy</a>
-                <a href="#" class="hover:text-white">Terms</a>
+                <a href="javascript:void(0)" class="hover:text-white">Privacy</a>
+                <a href="javascript:void(0)" class="hover:text-white">Terms</a>
             </div>
         </div>
     </footer>

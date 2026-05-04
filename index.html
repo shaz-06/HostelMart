@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <style>
         body {
@@ -117,6 +119,89 @@
             color: #5D4037;
             font-weight: 900;
         }
+
+        #address-map {
+            height: 300px;
+            width: 100%;
+            border-radius: 1rem;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        .search-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: #FDFBF7; /* Light Cream */
+            border-radius: 12px;
+            box-shadow: 0 15px 50px rgba(93, 64, 55, 0.15); /* Soft brown shadow */
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #D7CCC8; /* Soft brown border */
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid rgba(215, 204, 200, 0.3);
+        }
+
+        .search-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-item:hover {
+            background-color: #F5F5DC; /* Classic Cream */
+        }
+
+        .search-item ion-icon {
+            font-size: 20px;
+            color: #8D6E63; /* Medium Brown */
+        }
+
+        .search-item .item-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #5D4037; /* Dark Brown */
+        }
+
+        .search-item .item-sub {
+            font-size: 10px;
+            color: #A1887F;
+            margin-top: 1px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .dropdown-section-title {
+            padding: 12px 20px 8px;
+            font-size: 10px;
+            font-weight: 900;
+            color: #8D6E63;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            background-color: #F5F5DC;
+            border-bottom: 1px solid #D7CCC8;
+        }
     </style>
 </head>
 
@@ -165,6 +250,51 @@
             </div>
         </div>
     </div>
+    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="address-container">
+            <button onclick="closeAddressModal()"
+                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            
+            <div class="p-8 md:p-10 space-y-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
+                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
+                </div>
+
+                <!-- Map Section -->
+                <div class="relative group">
+                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
+                    <button onclick="useGPS()" 
+                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
+                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
+                        Use GPS
+                    </button>
+                </div>
+
+                <!-- Manual Input Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                </div>
+
+                <button onclick="saveAddress()"
+                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
+                    Confirm Delivery Location
+                </button>
+            </div>
+        </div>
+    </div>
 
 
     <!-- HEADER -->
@@ -173,7 +303,7 @@
         <!-- Top Row: Tabs -->
         <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
             <div class="container mx-auto px-4 flex gap-4">
-                <a href="#"
+                <a href="javascript:void(0)"
                     class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
                     <span class="font-black italic text-base flex items-center">
                         <span class="text-[#8D6E63]">Hostel</span>
@@ -206,9 +336,9 @@
         <div class="bg-[#F5F5DC] py-2 hidden md:block">
             <div
                 class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
-                    <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span>Add Delivery Address</span>
+                <div onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
+                    <ion-icon name="location" class="text-sm group-hover:scale-125 transition-transform"></ion-icon>
+                    <span id="current-address">Add Delivery Address</span>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
                 <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
@@ -227,34 +357,148 @@
                 </button>
 
                 <!-- Logo (Mobile only) -->
-                <a href="#" class="text-xl font-black text-[#5D4037] md:hidden">FM</a>
+                <a href="javascript:void(0)" class="text-xl font-black text-[#5D4037] md:hidden">FM</a>
 
                 <!-- Search Bar -->
-                <div class="flex-1 relative group">
-                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                <div class="flex-1 relative group" id="search-container">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl z-10"><ion-icon
                             name="search-outline"></ion-icon></div>
                     <input type="search" id="product-search" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                        class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium relative z-10"
+                        onfocus="showSearchDropdown()" autocomplete="off">
+                    
+                    <!-- Search Dropdown -->
+                    <div id="search-suggestions" class="search-dropdown">
+                        <!-- Recent Searches Container -->
+                        <div id="recent-searches-list">
+                            <!-- Dynamically populated -->
+                        </div>
+
+                        <!-- Trending Section -->
+                        <div class="dropdown-section-title">Trending</div>
+                        <div class="search-item" onclick="handleSearchClick('mobiles')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">mobiles</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('shoes')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">shoes</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('t shirts')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">t shirts</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('laptops')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">laptops</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('watches')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">watches</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Profile & Cart -->
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
-                    <a href="Login.html" class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
-                        <ion-icon name="person-circle-outline"
-                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
-                        <span>Login</span>
-                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
-                    </a>
-                    <div class="hidden md:flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
-                        <span>More</span>
-                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    <div class="hidden md:flex relative group py-2">
+                        <a href="Login.html" id="profile-link" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                            <ion-icon name="person-circle-outline"
+                                class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                            <span id="login-text">Login</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </a>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-64 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Your Account</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="Profile.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="person-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">My Profile</span>
+                                </a>
+                                <a href="Orders.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="cube-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Orders</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="ticket-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Coupons</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="flash-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Supercoin</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="star-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">HostelMart Plus Zone</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="wallet-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Cards & Wallet</span>
+                                </a>
+                                <a href="Address.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="location-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Addresses</span>
+                                </a>
+                                <a href="Wishlist.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="heart-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Wishlist</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="gift-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Gift Cards</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-50 pb-3">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Notifications</span>
+                                </a>
+                                <button onclick="logout()" class="w-full flex items-center gap-3 px-6 py-4 hover:bg-red-50 text-red-600 transition-colors mt-1">
+                                    <ion-icon name="log-out-outline" class="text-lg"></ion-icon>
+                                    <span class="text-sm font-bold uppercase tracking-widest">Logout</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                    <div class="hidden md:flex relative group py-2">
+                        <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group">
+                            <span>More</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </div>
+                        
+                        <!-- More Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Become a Seller</span>
+                                </a>
+                                <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Notification Settings</span>
+                                </a>
+                                <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">24x7 Customer Care</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Advertise on HostelMart</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
                         <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
                         <span class="hidden md:inline">Cart</span>
                         <span
                             class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -262,7 +506,7 @@
         <!-- CATEGORY NAVIGATION (Icons) -->
         <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
             <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
-                <a href="#" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
+                <a href="javascript:void(0)" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
@@ -389,7 +633,7 @@
         </div>
         <div class="p-6">
             <ul class="space-y-6">
-                <li><a href="#" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li><a href="javascript:void(0)" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
 
                 <!-- STANDALONE CATEGORIES TRIGGER -->
                 <li>
@@ -401,9 +645,9 @@
                     </div>
                     <div id="mob-categories"
                         class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
-                        <a href="#" class="block hover:text-[#795548] font-medium">Electronics</a>
-                        <a href="#" class="block hover:text-[#795548] font-medium">Home Appliances</a>
-                        <a href="#" class="block hover:text-[#795548] font-medium">Accessories</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548] font-medium">Electronics</a>
+                        <a href="index.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548] font-medium">Accessories</a>
                     </div>
                 </li>
 
@@ -416,17 +660,17 @@
                     </div>
                     <div id="mob-men"
                         class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2 text-sm">
-                        <a href="#" class="block hover:text-[#795548]">T-Shirts & Polos</a>
-                        <a href="#" class="block hover:text-[#795548]">Shirts (Casual & Formal)</a>
-                        <a href="#" class="block hover:text-[#795548]">Jeans & Chinos</a>
-                        <a href="#" class="block hover:text-[#795548]">Trousers & Pants</a>
-                        <a href="#" class="block hover:text-[#795548]">Track Pants & Joggers</a>
-                        <a href="#" class="block hover:text-[#795548]">Hoodies & Sweatshirts</a>
-                        <a href="#" class="block hover:text-[#795548]">Jackets & Coats</a>
-                        <a href="#" class="block hover:text-[#795548]">Blazers & Suits</a>
-                        <a href="#" class="block hover:text-[#795548]">Ethnic Wear</a>
-                        <a href="#" class="block hover:text-[#795548]">Activewear & Innerwear</a>
-                        <a href="#" class="block hover:text-[#795548]">Winter Wear & Kidswear</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">T-Shirts & Polos</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Shirts (Casual & Formal)</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Jeans & Chinos</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Trousers & Pants</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Track Pants & Joggers</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Hoodies & Sweatshirts</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Jackets & Coats</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Blazers & Suits</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Ethnic Wear</a>
+                        <a href="javascript:void(0)" class="block hover:text-[#795548]">Activewear & Innerwear</a>
+                        <a href="Kids.html" class="block hover:text-[#795548]">Winter Wear & Kidswear</a>
                     </div>
                 </li>
                 <li>
@@ -460,7 +704,7 @@
                     </div>
                 </li>
                 <li><a href="Blog.html" class="font-bold uppercase group-hover:text-[#795548] transition">BLOG</a></li>
-                <li><a href="#" class="font-bold uppercase text-[#795548]">HOT OFFERS 🔥</a></li>
+                <li><a href="javascript:void(0)" class="font-bold uppercase text-[#795548]">HOT OFFERS 🔥</a></li>
             </ul>
         </div>
     </div>
@@ -1889,9 +2133,9 @@
                             </div>
                             <div id="side-clothes"
                                 class="accordion-content pl-8 pt-3 space-y-2 text-[11px] text-gray-500 font-medium">
-                                <a href="#" class="flex justify-between hover:text-[#795548]"><span>Shirt</span>
+                                <a href="javascript:void(0)" class="flex justify-between hover:text-[#795548]"><span>Shirt</span>
                                     <span>300</span></a>
-                                <a href="#" class="flex justify-between hover:text-[#795548]"><span>Jacket</span>
+                                <a href="javascript:void(0)" class="flex justify-between hover:text-[#795548]"><span>Jacket</span>
                                     <span>50</span></a>
                             </div>
                         </li>
@@ -2340,24 +2584,24 @@
         <div
             class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-50">
             <div class="space-y-6">
-                <a href="#" class="text-2xl font-black tracking-tighter flex items-center">
+                <a href="javascript:void(0)" class="text-2xl font-black tracking-tighter flex items-center">
                     <span class="text-[#8D6E63]">Hostel</span>
                     <span class="text-[#C8A951] ml-1">Mart</span>
                 </a>
                 <p class="text-sm leading-relaxed max-w-xs">HostelMart provides premium products globally. We focus on
                     quality above all else.</p>
                 <div class="flex gap-6 text-xl">
-                    <a href="#" class="hover:text-[#795548] transition-colors"><ion-icon
+                    <a href="javascript:void(0)" class="hover:text-[#795548] transition-colors"><ion-icon
                             name="logo-facebook"></ion-icon></a>
-                    <a href="#" class="hover:text-[#795548] transition-colors"><ion-icon
+                    <a href="javascript:void(0)" class="hover:text-[#795548] transition-colors"><ion-icon
                             name="logo-instagram"></ion-icon></a>
                 </div>
             </div>
             <div>
                 <h3 class="text-[#5D4037] font-black uppercase text-xs tracking-[0.2em] mb-6">Quick Links</h3>
                 <ul class="space-y-4 text-[13px] font-medium">
-                    <li><a href="#" class="hover:text-[#795548] transition-colors">Fashion Collection</a></li>
-                    <li><a href="#" class="hover:text-[#795548] transition-colors">Latest Gadgets</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-[#795548] transition-colors">Fashion Collection</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-[#795548] transition-colors">Latest Gadgets</a></li>
                 </ul>
             </div>
             <div>
@@ -2569,6 +2813,68 @@
             document.getElementById('mobileMenu').style.transform = 'translateX(-100%)';
             document.getElementById('overlay').classList.add('hidden');
             document.body.style.overflow = 'auto';
+        });
+    </script>
+    <script type="module">
+        import { auth } from './assets/js/firebase-config.js';
+        import { isSignInWithEmailLink, signInWithEmailLink } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        async function handleEmailSignIn() {
+            if (isSignInWithEmailLink(auth, window.location.href)) {
+                let email = window.localStorage.getItem('emailForSignIn');
+                if (!email) {
+                    email = window.prompt('Please provide your email for confirmation');
+                }
+                
+                try {
+                    const result = await signInWithEmailLink(auth, email, window.location.href);
+                    window.localStorage.removeItem('emailForSignIn');
+                    
+                    // Extract name from email
+                    const firstName = email.split('@')[0].split('.')[0];
+                    const formattedName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+                    
+                    localStorage.setItem('userLoggedIn', 'true');
+                    localStorage.setItem('userName', formattedName);
+                    
+                    // Redirect to remove query params
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Error finishing sign-in:', error);
+                    alert('Error signing in: ' + error.message);
+                }
+            }
+        }
+
+        // Update Display based on Login State
+        function updateLoginUI() {
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            const userName = localStorage.getItem('userName');
+            
+            if (userLoggedIn === 'true' && userName) {
+                const loginText = document.getElementById('login-text');
+                if (loginText) loginText.textContent = userName;
+                
+                const profileLink = document.getElementById('profile-link');
+                if (profileLink) profileLink.href = 'Profile.html';
+                
+                const loginIcon = document.querySelector('ion-icon[name="person-circle-outline"]');
+                if (loginIcon) {
+                    loginIcon.style.color = '#5D4037';
+                    loginIcon.classList.remove('text-gray-400');
+                }
+            }
+        }
+
+        window.logout = function() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userName');
+            window.location.href = 'index.html';
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await handleEmailSignIn();
+            updateLoginUI();
         });
     </script>
     <script>
@@ -2939,6 +3245,236 @@
                 searchBtn.addEventListener('click', performSearch);
             }
         }
+    </script>
+    <script>
+        let addressMap;
+        let addressMarker;
+
+        function openAddressModal() {
+            const modal = document.getElementById('address-modal');
+            const container = document.getElementById('address-container');
+            const overlay = document.getElementById('overlay');
+            
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+                initAddressMap();
+            }, 10);
+        }
+
+        function closeAddressModal() {
+            const container = document.getElementById('address-container');
+            const overlay = document.getElementById('overlay');
+            
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                document.getElementById('address-modal').classList.add('hidden');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
+
+        function initAddressMap() {
+            if (addressMap) return; // Already initialized
+
+            // Default location (e.g., Bangalore)
+            const defaultLoc = [12.9716, 77.5946];
+            
+            addressMap = L.map('address-map').setView(defaultLoc, 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(addressMap);
+
+            addressMarker = L.marker(defaultLoc, { draggable: true }).addTo(addressMap);
+
+            // Update manual fields on drag end
+            addressMarker.on('dragend', function(e) {
+                const position = addressMarker.getLatLng();
+                reverseGeocode(position.lat, position.lng);
+            });
+
+            // Update on map click
+            addressMap.on('click', function(e) {
+                addressMarker.setLatLng(e.latlng);
+                reverseGeocode(e.latlng.lat, e.latlng.lng);
+            });
+        }
+
+        async function useGPS() {
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported by your browser");
+                return;
+            }
+
+            const gpsBtn = event.currentTarget;
+            const originalHTML = gpsBtn.innerHTML;
+            gpsBtn.innerHTML = '<ion-icon name="sync-outline" class="animate-spin text-lg"></ion-icon> Locating...';
+
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            };
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    addressMap.setView([latitude, longitude], 16);
+                    addressMarker.setLatLng([latitude, longitude]);
+                    reverseGeocode(latitude, longitude);
+                    gpsBtn.innerHTML = originalHTML;
+                },
+                (error) => {
+                    console.error("GPS Error:", error);
+                    let msg = "Unable to retrieve your location.";
+                    if (error.code === 1) msg = "Location permission denied. Please enable it in your browser settings.";
+                    else if (error.code === 2) msg = "Position unavailable. Please ensure your Wi-Fi is ON and you are in a location with signal.";
+                    else if (error.code === 3) msg = "Location request timed out. Please try again.";
+                    
+                    alert(msg);
+                    gpsBtn.innerHTML = originalHTML;
+                },
+                options
+            );
+        }
+
+        async function reverseGeocode(lat, lng) {
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
+                const data = await response.json();
+                
+                if (data.address) {
+                    const street = data.address.road || data.address.suburb || data.address.neighbourhood || '';
+                    const city = data.address.city || data.address.town || data.address.village || '';
+                    
+                    document.getElementById('manual-street').value = street;
+                    document.getElementById('manual-city').value = city;
+                }
+            } catch (err) {
+                console.error("Geocoding error:", err);
+            }
+        }
+
+        function saveAddress() {
+            const street = document.getElementById('manual-street').value;
+            const city = document.getElementById('manual-city').value;
+
+            if (!street || !city) {
+                alert("Please provide a complete address.");
+                return;
+            }
+
+            const fullAddress = `${street}, ${city}`;
+            localStorage.setItem('deliveryAddress', fullAddress);
+            
+            // Update UI
+            document.getElementById('current-address').textContent = fullAddress;
+            
+            // Success animation
+            const confirmBtn = event.currentTarget;
+            confirmBtn.innerHTML = 'Address Saved!';
+            confirmBtn.classList.replace('bg-[#5D4037]', 'bg-green-600');
+            
+            setTimeout(() => {
+                closeAddressModal();
+                // Reset button
+                setTimeout(() => {
+                    confirmBtn.innerHTML = 'Confirm Delivery Location';
+                    confirmBtn.classList.replace('bg-green-600', 'bg-[#5D4037]');
+                }, 1000);
+            }, 800);
+        }
+
+        // Load saved address on startup
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedAddress = localStorage.getItem('deliveryAddress');
+            if (savedAddress) {
+                const addrEl = document.getElementById('current-address');
+                if (addrEl) addrEl.textContent = savedAddress;
+            }
+        });
+    </script>
+    <script>
+        function showSearchDropdown() {
+            renderSearchHistory();
+            const dropdown = document.getElementById('search-suggestions');
+            if (dropdown) dropdown.style.display = 'block';
+        }
+
+        function renderSearchHistory() {
+            const list = document.getElementById('recent-searches-list');
+            if (!list) return;
+
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            
+            if (history.length === 0) {
+                list.innerHTML = '';
+                return;
+            }
+
+            list.innerHTML = history.map(term => `
+                <div class="search-item" onclick="handleSearchClick('${term}')">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <div class="flex-1">
+                        <p class="item-text">${term}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleSearchClick(term) {
+            const searchInput = document.getElementById('product-search');
+            searchInput.value = term;
+            saveSearchToHistory(term);
+            document.getElementById('search-suggestions').style.display = 'none';
+            
+            // Trigger actual search logic
+            const event = new Event('input', { bubbles: true });
+            searchInput.dispatchEvent(event);
+        }
+
+        function saveSearchToHistory(term) {
+            if (!term || term.trim() === '') return;
+            
+            let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            
+            // Remove if already exists to move to top
+            history = history.filter(h => h.toLowerCase() !== term.toLowerCase());
+            
+            // Add to top
+            history.unshift(term);
+            
+            // Limit to 5
+            history = history.slice(0, 5);
+            
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            renderSearchHistory();
+        }
+
+        // Intercept enter key on search input
+        document.getElementById('product-search').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const term = e.target.value;
+                saveSearchToHistory(term);
+                document.getElementById('search-suggestions').style.display = 'none';
+            }
+        });
+
+        // Close search dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('search-container');
+            const dropdown = document.getElementById('search-suggestions');
+            if (container && !container.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
     </script>
 </body>
 

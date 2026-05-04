@@ -50,6 +50,14 @@
             transform: skewX(10deg);
             display: inline-block;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -75,15 +83,46 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex gap-8 text-[11px] font-black uppercase tracking-widest">
-                <a href="#" class="hover:border-b-2 border-black pb-1">Men</a>
-                <a href="#" class="hover:border-b-2 border-black pb-1">Women</a>
-                <a href="#" class="hover:border-b-2 border-black pb-1">Kids</a>
-                <a href="#" class="text-red-600">Outlet</a>
+                <a href="Men.html" class="hover:border-b-2 border-black pb-1">Men</a>
+                <a href="Women.html" class="hover:border-b-2 border-black pb-1">Women</a>
+                <a href="Kids.html" class="hover:border-b-2 border-black pb-1">Kids</a>
+                <a href="Outlet.html" class="text-red-600">Outlet</a>
             </nav>
 
             <!-- Actions -->
             <div class="flex items-center gap-4 text-2xl">
                 <button class="hover:opacity-50"><ion-icon name="search-outline"></ion-icon></button>
+                <div class="hidden md:flex relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-black group">
+                        <span class="text-[11px] font-black uppercase tracking-widest">More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Become a Seller</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Notification Settings</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <button class="hover:opacity-50"><ion-icon name="heart-outline"></ion-icon></button>
                 <button class="hover:opacity-50 relative">
                     <ion-icon name="bag-handle-outline"></ion-icon>
@@ -108,7 +147,7 @@
                         <a href="#products"
                             class="bg-[#F5F5DC] text-black px-8 py-4 font-black uppercase text-sm skew-link"><span>Shop All
                                 Gear</span></a>
-                        <a href="#"
+                        <a href="javascript:void(0)"
                             class="border border-white text-white px-8 py-4 font-black uppercase text-sm skew-link hover:bg-[#F5F5DC] hover:text-black transition"><span>Explore
                                 Stories</span></a>
                     </div>
@@ -123,11 +162,11 @@
         <!-- CATEGORY QUICK LINKS -->
         <section class="bg-[#5D4037] text-white py-4 overflow-x-auto no-scrollbar border-b border-white/10">
             <div class="flex justify-center min-w-max gap-12 px-6 text-[10px] font-black uppercase tracking-[0.3em]">
-                <a href="#" class="hover:text-gray-400">Running</a>
-                <a href="#" class="hover:text-gray-400">Training</a>
-                <a href="#" class="hover:text-gray-400">Football</a>
-                <a href="#" class="hover:text-gray-400">Basketball</a>
-                <a href="#" class="hover:text-gray-400">Originals</a>
+                <a href="javascript:void(0)" class="hover:text-gray-400">Running</a>
+                <a href="javascript:void(0)" class="hover:text-gray-400">Training</a>
+                <a href="javascript:void(0)" class="hover:text-gray-400">Football</a>
+                <a href="javascript:void(0)" class="hover:text-gray-400">Basketball</a>
+                <a href="javascript:void(0)" class="hover:text-gray-400">Originals</a>
             </div>
         </section>
 
@@ -227,26 +266,26 @@
             <div class="space-y-6">
                 <h4 class="adidas-font text-sm">Products</h4>
                 <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition">Shoes</a></li>
-                    <li><a href="#" class="hover:text-white transition">Clothing</a></li>
-                    <li><a href="#" class="hover:text-white transition">Accessories</a></li>
-                    <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Shoes</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Clothing</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Accessories</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">New Arrivals</a></li>
                 </ul>
             </div>
             <div class="space-y-6">
                 <h4 class="adidas-font text-sm">Company Info</h4>
                 <ul class="text-[10px] text-gray-400 space-y-4 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition">Careers</a></li>
-                    <li><a href="#" class="hover:text-white transition">Press</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">About Us</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Careers</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Press</a></li>
                 </ul>
             </div>
             <div class="space-y-6">
                 <h4 class="adidas-font text-sm">Follow the stripes</h4>
                 <div class="flex gap-6 text-2xl">
-                    <a href="#" class="hover:opacity-60"><ion-icon name="logo-instagram"></ion-icon></a>
-                    <a href="#" class="hover:opacity-60"><ion-icon name="logo-tiktok"></ion-icon></a>
-                    <a href="#" class="hover:opacity-60"><ion-icon name="logo-twitter"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:opacity-60"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:opacity-60"><ion-icon name="logo-tiktok"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:opacity-60"><ion-icon name="logo-twitter"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -254,9 +293,9 @@
             class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.2em] text-gray-600">
             <p>© 2024 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> x Adidas. All rights reserved.</p>
             <div class="flex gap-8 mt-4 md:mt-0">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="#">Cookie Settings</a>
+                <a href="javascript:void(0)">Privacy Policy</a>
+                <a href="javascript:void(0)">Terms & Conditions</a>
+                <a href="javascript:void(0)">Cookie Settings</a>
             </div>
         </div>
     </footer>

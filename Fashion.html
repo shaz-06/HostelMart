@@ -131,6 +131,14 @@
             display: block;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
         .brand-pill-container {
             position: absolute;
             bottom: 45px;
@@ -1438,15 +1446,42 @@
 
                 <!-- Profile & Cart -->
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
-                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                    <a href="Login.html" class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
                         <ion-icon name="person-circle-outline"
                             class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
                         <span>Login</span>
                         <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
-                    </div>
-                    <div class="hidden md:flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
-                        <span>More</span>
-                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    </a>
+                    <div class="hidden md:flex relative group py-2">
+                        <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group">
+                            <span>More</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </div>
+                        
+                        <!-- More Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Become a Seller</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Notification Settings</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">24x7 Customer Care</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Advertise on HostelMart</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
                         <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
@@ -1518,55 +1553,55 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="Toys.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys & Baby</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="Food.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & Health</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="Auto.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc.</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="2 wheel.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheelers</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="Sports.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="Books.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
                     </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & Studio</span>
                 </a>
 
-                <a href="#" class="category-item flex flex-col items-center gap-1 group">
+                <a href="Furniture.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
@@ -1600,8 +1635,8 @@
                     <div id="mob-categories"
                         class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
                         <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
-                        <a href="#" class="block hover:text-[#795548] font-medium">Home Appliances</a>
-                        <a href="#" class="block hover:text-[#795548] font-medium">Accessories</a>
+                        <a href="Appliances.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="index.html" class="block hover:text-[#795548] font-medium">Accessories</a>
                     </div>
                 </li>
             </ul>
@@ -1635,14 +1670,14 @@
         <section class="container mx-auto px-4 py-8">
             <h2 class="text-xl font-bold mb-6">Shop for loved ones</h2>
             <div class="grid grid-cols-3 gap-4">
-                <a href="#" class="category-card flex flex-col items-center gap-3">
+                <a href="Women's.html" class="category-card flex flex-col items-center gap-3">
                     <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-[#F5F5DC]">
                         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80"
                             alt="Women" class="w-full h-full object-cover">
                     </div>
                     <span class="font-bold text-sm">Women</span>
                 </a>
-                <a href="#" class="category-card flex flex-col items-center gap-3">
+                <a href="index.html" class="category-card flex flex-col items-center gap-3">
                     <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-green-50 relative">
                         <img src="https://images.unsplash.com/photo-1523381235312-da59b1399430?auto=format&fit=crop&w=400&q=80"
                             alt="Gen Z" class="w-full h-full object-cover">
@@ -1652,7 +1687,7 @@
                     </div>
                     <span class="font-bold text-sm text-center">Gen Z drips</span>
                 </a>
-                <a href="#" class="category-card flex flex-col items-center gap-3">
+                <a href="Toys.html" class="category-card flex flex-col items-center gap-3">
                     <div class="rounded-3xl overflow-hidden aspect-[4/5] bg-[#F5F5DC]">
                         <img src="https://images.unsplash.com/photo-1514315384763-ba401779410f?auto=format&fit=crop&w=400&q=80"
                             alt="Kids" class="w-full h-full object-cover">
@@ -1917,7 +1952,7 @@
         <section class="py-8">
             <div class="container mx-auto px-4 flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold">Deals of the day</h2>
-                <a href="#" class="text-[#5D4037] font-bold text-sm">View All</a>
+                <a href="index.html" class="text-[#5D4037] font-bold text-sm">View All</a>
             </div>
             <div class="flex overflow-x-auto no-scrollbar gap-4 px-4 container mx-auto">
 
@@ -2692,7 +2727,7 @@
                     <h2 class="text-3xl font-black uppercase tracking-tighter text-[#5D4037]">Caps & Hats Collection
                     </h2>
                 </div>
-                <a href="#" class="text-sm font-bold uppercase tracking-widest text-[#795548] hover:underline">View
+                <a href="index.html" class="text-sm font-bold uppercase tracking-widest text-[#795548] hover:underline">View
                     All</a>
             </div>
 
@@ -2776,7 +2811,7 @@
                     <h2 class="text-3xl font-black uppercase tracking-tighter text-[#5D4037]">Men's Boxer Collection
                     </h2>
                 </div>
-                <a href="#" class="text-sm font-bold uppercase tracking-widest text-[#5D4037] hover:underline">View All
+                <a href="javascript:void(0)" class="text-sm font-bold uppercase tracking-widest text-[#5D4037] hover:underline">View All
                     Brands</a>
             </div>
 
@@ -3819,71 +3854,73 @@
                         <!-- Brand Scroller -->
                         <div id="brands-scroller" class="flex overflow-x-auto gap-6 no-scrollbar items-start py-2 px-4">
 
-                            <!-- Brand 1: Roadster -->
-                            <div class="brand-scroller-item">
+                            <!-- Brand 1: Levi's -->
+                            <a href="Levis.html" class="brand-scroller-item block group/brand">
                                 <div class="img-container">
-                                    <img src="https://images.unsplash.com/photo-1516822246374-6e093f2f083e?auto=format&fit=crop&w=300&q=80"
-                                        class="w-full h-full object-cover" alt="Roadster">
+                                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=300&q=80"
+                                        class="w-full h-full object-cover group-hover/brand:scale-110 transition-transform duration-500" alt="Levi's">
                                     <div class="logo-strip">
-                                        <span class="font-serif italic text-sm">Roadster</span>
+                                        <span class="font-black text-red-600">LEVI'S</span>
                                         <span class="text-xs text-gray-400">|</span>
-                                        <span class="text-xs">MAST & HARBOUR</span>
+                                        <span class="text-xs">DENIM ICON</span>
                                     </div>
                                 </div>
-                                <p class="offer">Min. 70% Off</p>
-                            </div>
+                                <p class="offer">Min. 40% Off</p>
+                            </a>
 
-                            <!-- Brand 2: HRX -->
-                            <div class="brand-scroller-item">
+                            <!-- Brand 2: Adidas -->
+                            <a href="Adidas.html" class="brand-scroller-item block group/brand">
+                                <div class="img-container">
+                                    <img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=300&q=80"
+                                        class="w-full h-full object-cover group-hover/brand:scale-110 transition-transform duration-500" alt="Adidas">
+                                    <div class="logo-strip">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg"
+                                            style="height: 20px;" alt="">
+                                        <span class="font-black">ADIDAS</span>
+                                    </div>
+                                </div>
+                                <p class="offer">Up to 60% Off</p>
+                            </a>
+
+                            <!-- Brand 3: Zara -->
+                            <a href="Zara.html" class="brand-scroller-item block group/brand">
+                                <div class="img-container">
+                                    <img src="https://images.unsplash.com/photo-1539109132374-348058a18f03?auto=format&fit=crop&w=300&q=80"
+                                        class="w-full h-full object-cover group-hover/brand:scale-110 transition-transform duration-500" alt="Zara">
+                                    <div class="logo-strip">
+                                        <span class="font-serif font-bold tracking-widest text-lg">ZARA</span>
+                                    </div>
+                                </div>
+                                <p class="offer">New Collection</p>
+                            </a>
+
+                            <!-- Brand 4: Nike -->
+                            <a href="Nike.html" class="brand-scroller-item block group/brand">
                                 <div class="img-container">
                                     <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=300&q=80"
-                                        class="w-full h-full object-cover" alt="HRX">
+                                        class="w-full h-full object-cover group-hover/brand:scale-110 transition-transform duration-500" alt="Nike">
                                     <div class="logo-strip">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/HRX_Logo.png"
-                                            style="height: 20px;" alt="">
-                                        <span class="font-black">HRX</span>
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg"
+                                            style="height: 15px;" alt="">
+                                        <span class="font-black">NIKE</span>
                                     </div>
                                 </div>
-                                <p class="offer">Min. 70% Off</p>
-                            </div>
+                                <p class="offer">Just Do It</p>
+                            </a>
 
-                            <!-- Brand 3: Wrogn -->
-                            <div class="brand-scroller-item">
+                            <!-- Brand 5: Puma -->
+                            <a href="Puma.html" class="brand-scroller-item block group/brand">
                                 <div class="img-container">
-                                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80"
-                                        class="w-full h-full object-cover" alt="Wrogn">
+                                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=300&q=80"
+                                        class="w-full h-full object-cover group-hover/brand:scale-110 transition-transform duration-500" alt="Puma">
                                     <div class="logo-strip">
-                                        <span class="font-bold">WROGN</span>
-                                        <span class="bg-[#5D4037] text-white px-2 rounded">PROVOGUE</span>
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Puma-Logo.png"
+                                            style="height: 15px;" alt="">
+                                        <span class="font-bold">PUMA</span>
                                     </div>
                                 </div>
-                                <p class="offer">Min. 70% Off</p>
-                            </div>
-
-                            <!-- Brand 4: Roadster Life -->
-                            <div class="brand-scroller-item">
-                                <div class="img-container">
-                                    <img src="https://images.unsplash.com/photo-1603487759130-80325c758295?auto=format&fit=crop&w=300&q=80"
-                                        class="w-full h-full object-cover" alt="Roadster Life">
-                                    <div class="logo-strip">
-                                        <span class="font-serif italic">The Roadster</span>
-                                    </div>
-                                </div>
-                                <p class="offer">Min. 75% Off</p>
-                            </div>
-
-                            <!-- Brand 5: Invicta -->
-                            <div class="brand-scroller-item">
-                                <div class="img-container">
-                                    <img src="https://images.unsplash.com/photo-1449241743080-c4481561fad2?auto=format&fit=crop&w=300&q=80"
-                                        class="w-full h-full object-cover" alt="Invicta">
-                                    <div class="logo-strip">
-                                        <span class="font-bold">PROVOGUE</span>
-                                        <span class="text-xs">INVICTA</span>
-                                    </div>
-                                </div>
-                                <p class="offer">Min. 75% Off</p>
-                            </div>
+                                <p class="offer">Min. 50% Off</p>
+                            </a>
 
                         </div>
                     </div>
@@ -3921,21 +3958,21 @@
                 <div>
                     <h4 class="font-bold text-lg mb-6">Shop by Dept.</h4>
                     <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Men's Fashion</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Women's Fashion</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Kids' Wear</a></li>
+                        <li><a href="Men's.html" class="hover:text-white transition-colors">Men's Fashion</a></li>
+                        <li><a href="Women's.html" class="hover:text-white transition-colors">Women's Fashion</a></li>
+                        <li><a href="Toys.html" class="hover:text-white transition-colors">Kids' Wear</a></li>
                         <li><a href="Jewelry.html" class="hover:text-white transition-colors">Fine Jewellery</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Footwear</a></li>
+                        <li><a href="Sports.html" class="hover:text-white transition-colors">Footwear</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-6">Customer Care</h4>
                     <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Track Order</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Returns & Refunds</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Size Guide</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Store Locator</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">Track Order</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">Returns & Refunds</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">Size Guide</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">Store Locator</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">Contact Us</a></li>
                     </ul>
                 </div>
                 <div>
@@ -3953,8 +3990,8 @@
                 class="flex justify-between items-center mt-10 text-xs text-gray-500 uppercase tracking-widest font-bold">
                 <p>&copy; 2024 HOSTELMART RETAIL PVT LTD. ALL RIGHTS RESERVED.</p>
                 <div class="flex gap-8">
-                    <a href="#" class="hover:text-white">Privacy Policy</a>
-                    <a href="#" class="hover:text-white">Terms of Use</a>
+                    <a href="javascript:void(0)" class="hover:text-white">Privacy Policy</a>
+                    <a href="javascript:void(0)" class="hover:text-white">Terms of Use</a>
                 </div>
             </div>
         </div>
@@ -4084,6 +4121,34 @@
                 document.body.style.overflow = 'auto';
             }
         }
+    </script>
+    <script>
+        // Handle User Login Display
+        document.addEventListener('DOMContentLoaded', () => {
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            const userName = localStorage.getItem('userName');
+            
+            if (userLoggedIn === 'true' && userName) {
+                // Update text to User Name
+                const loginSpans = Array.from(document.querySelectorAll('span')).filter(span => span.textContent.trim() === 'Login');
+                loginSpans.forEach(span => {
+                    span.textContent = userName;
+                });
+                
+                // Update href to Profile.html
+                const loginLinks = document.querySelectorAll('a[href="Login.html"]');
+                loginLinks.forEach(link => {
+                    link.href = 'Profile.html';
+                });
+                
+                // Update profile icon color for logged in state
+                const loginIcon = document.querySelector('ion-icon[name="person-circle-outline"]');
+                if (loginIcon) {
+                    loginIcon.style.color = '#5D4037';
+                    loginIcon.classList.remove('text-gray-400');
+                }
+            }
+        });
     </script>
 </body>
 

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minutes - 6 Minute Delivery | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .minutes-gradient {
+            background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(93, 64, 55, 0.1);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]">Hostel</span>
+                        <span class="text-[#C8A951] ml-1">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-[#5D4037] px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer shadow-md no-underline">
+                    <div
+                        class="bg-white text-[#5D4037] w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-white text-sm italic">Minutes</span>
+                </a>
+                <a href="javascript:void(0)"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+                </a>
+                <a href="javascript:void(0)"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
+            <div
+                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                    <ion-icon name="location" class="text-sm"></ion-icon>
+                    <span>Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] pb-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
+                            name="search-outline"></ion-icon></div>
+                    <input type="search" placeholder="Search for Groceries, Snacks and More"
+                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
+                </div>
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                    <a href="Login.html" class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                        <span>Login</span>
+                    </a>
+
+                    <!-- More Dropdown -->
+                    <div class="hidden md:flex relative group py-2">
+                        <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group">
+                            <span>More</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </div>
+                        
+                        <!-- More Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Become a Seller</span>
+                                </a>
+                                <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Notification Settings</span>
+                                </a>
+                                <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">24x7 Customer Care</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Advertise on HostelMart</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="minutes-gradient py-12 text-white overflow-hidden relative">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+                <div class="max-w-xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="bg-white text-[#5D4037] w-16 h-16 rounded-2xl flex items-center justify-center font-black text-4xl shadow-xl">6</div>
+                        <div>
+                            <h1 class="text-4xl md:text-6xl font-black italic tracking-tighter leading-tight">Minutes</h1>
+                            <p class="text-yellow-400 font-bold uppercase tracking-widest text-sm">Lightning Fast Delivery</p>
+                        </div>
+                    </div>
+                    <p class="text-lg opacity-90 mb-8 font-medium">Get your hostel essentials delivered in just 6 minutes. From late-night snacks to emergency stationery, we've got you covered.</p>
+                    <button class="bg-white text-[#5D4037] px-10 py-4 rounded-xl font-black uppercase text-sm shadow-xl hover:bg-yellow-400 transition-all">Start Shopping</button>
+                </div>
+                <div class="relative">
+                    <div class="w-64 h-64 md:w-96 md:h-96 bg-white/10 rounded-full blur-3xl absolute -top-10 -right-10"></div>
+                    <img src="https://img.icons8.com/color/512/000000/fast-delivery.png" class="w-64 h-64 md:w-80 md:h-80 relative z-10 animate-bounce" style="animation-duration: 3s;" alt="Fast Delivery">
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="container mx-auto px-4 py-16">
+            <h2 class="text-2xl font-black uppercase mb-10 tracking-tighter flex items-center gap-3">
+                <span class="w-2 h-6 bg-[#5D4037] rounded-full"></span> Rapid Categories
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <script>
+                    const rapidCategories = [
+                        { name: "Snacks & Munchies", icon: "https://img.icons8.com/color/96/000000/chips.png" },
+                        { name: "Cold Drinks & Juices", icon: "https://img.icons8.com/color/96/000000/soda-bottle.png" },
+                        { name: "Instant Noodles", icon: "https://img.icons8.com/color/96/000000/noodles.png" },
+                        { name: "Personal Care", icon: "https://img.icons8.com/color/96/000000/toothbrush.png" },
+                        { name: "Stationery", icon: "https://img.icons8.com/color/96/000000/pencil.png" },
+                        { name: "Pharma Essentials", icon: "https://img.icons8.com/color/96/000000/pill.png" }
+                    ];
+                    document.write(rapidCategories.map(cat => `
+                        <div class="category-card bg-white p-6 rounded-3xl border border-gray-100 flex flex-col items-center justify-center gap-4 transition-all cursor-pointer group">
+                            <div class="w-20 h-20 bg-[#F5F5DC] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <img src="${cat.icon}" class="w-12 h-12" alt="${cat.name}">
+                            </div>
+                            <span class="text-xs font-black text-center text-[#5D4037] uppercase tracking-wider">${cat.name}</span>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- WHY MINUTES? -->
+        <section class="bg-[#F5F5DC] py-20">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="flex flex-col items-center text-center">
+                        <ion-icon name="stopwatch-outline" class="text-6xl text-[#5D4037] mb-6"></ion-icon>
+                        <h3 class="text-xl font-black uppercase mb-4">Ultra Fast</h3>
+                        <p class="text-sm text-gray-500 font-medium">Optimized hyper-local warehouses ensure 6-minute delivery to your doorstep.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <ion-icon name="infinite-outline" class="text-6xl text-[#5D4037] mb-6"></ion-icon>
+                        <h3 class="text-xl font-black uppercase mb-4">No Minimum Order</h3>
+                        <p class="text-sm text-gray-500 font-medium">Need just a single pack of biscuits? We'll deliver it with the same speed.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <ion-icon name="moon-outline" class="text-6xl text-[#5D4037] mb-6"></ion-icon>
+                        <h3 class="text-xl font-black uppercase mb-4">Late Night Support</h3>
+                        <p class="text-sm text-gray-500 font-medium">Study sessions running late? We are operational until 2:00 AM for all your needs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#3E2723] text-white pt-20 pb-12">
+        <div class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-white/10">
+            <div class="space-y-6">
+                <a href="index.html" class="text-2xl font-black tracking-tighter uppercase"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></a>
+                <p class="text-xs text-gray-400 font-medium leading-relaxed uppercase tracking-widest">6 Minutes - Redefining speed for the modern student.</p>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6">Service Area</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-4 text-gray-500">
+                    <li>Main Campus</li>
+                    <li>West Wing Hostels</li>
+                    <li>Faculty Housing</li>
+                    <li>Research Block</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6">Support</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-4 text-gray-500">
+                    <li><a href="javascript:void(0)" class="hover:text-yellow-400 transition-colors">Track Delivery</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-yellow-400 transition-colors">Help Center</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-yellow-400 transition-colors">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[11px] font-black uppercase tracking-widest mb-6">Download App</h4>
+                <div class="flex flex-col gap-4">
+                    <div class="bg-black/50 p-4 rounded-xl border border-white/10 flex items-center gap-4">
+                        <ion-icon name="logo-apple" class="text-3xl"></ion-icon>
+                        <div>
+                            <p class="text-[8px] uppercase font-bold text-gray-400">Download on</p>
+                            <p class="text-xs font-black">App Store</p>
+                        </div>
+                    </div>
+                    <div class="bg-black/50 p-4 rounded-xl border border-white/10 flex items-center gap-4">
+                        <ion-icon name="logo-google-playstore" class="text-3xl"></ion-icon>
+                        <div>
+                            <p class="text-[8px] uppercase font-bold text-gray-400">Get it on</p>
+                            <p class="text-xs font-black">Google Play</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-12 py-8 text-center">
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em]">&copy; 2024 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> Minutes. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

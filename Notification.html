@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Preferences | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #5D4037;
+        }
+
+        .active-sidebar-item {
+            color: #5D4037;
+            background-color: #F5F5DC;
+            font-weight: 800;
+            border-right: 4px solid #5D4037;
+        }
+
+        .sidebar-item:hover:not(.active-sidebar-item) {
+            color: #8D6E63;
+            background-color: #FDFBF7;
+        }
+
+        .active-pref-item {
+            color: #5D4037;
+            background-color: white;
+            font-weight: 800;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .checkbox-custom:checked {
+            background-color: #5D4037;
+            border-color: #5D4037;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] py-3 shadow-sm sticky top-0 z-50 border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 md:px-10 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-1 no-underline">
+                <span class="font-black italic text-2xl flex items-center">
+                    <span class="text-[#8D6E63]">Hostel</span>
+                    <span class="text-[#C8A951] ml-1">Mart</span>
+                </span>
+            </a>
+            <div class="flex-1 max-w-xl mx-10 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search for products, brands and more" 
+                        class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded px-4 py-2 text-sm outline-none focus:border-[#5D4037]">
+                    <ion-icon name="search" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#5D4037]"></ion-icon>
+                </div>
+            </div>
+            <div class="flex items-center gap-8 text-sm font-bold text-[#5D4037]">
+                <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#8D6E63] group">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="Application.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Become a Seller</span>
+                            </a>
+                            <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Notification Settings</span>
+                            </a>
+                            <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">24x7 Customer Care</span>
+                            </a>
+                            <a href="Application.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer flex items-center gap-1">
+                    <span id="headerName">User</span>
+                    <ion-icon name="chevron-down" class="text-[10px]"></ion-icon>
+                </div>
+                <a href="javascript:void(0)" class="flex items-center gap-1 hover:text-[#8D6E63]">
+                    <ion-icon name="cart" class="text-lg"></ion-icon>
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 container mx-auto px-4 md:px-10 py-6 max-w-7xl">
+        <div class="flex flex-col md:flex-row gap-6">
+            
+            <!-- Sidebar (Dashboard Styles) -->
+            <aside class="w-full md:w-[280px] space-y-4">
+                <div class="bg-white p-3 flex items-center gap-4 shadow-sm rounded-sm">
+                    <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10" alt="Avatar">
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-500">Hello,</p>
+                        <h2 id="sidebarName" class="font-black text-base uppercase">User Name</h2>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-sm rounded-sm overflow-hidden">
+                    <div class="flex items-center gap-4 p-4 text-[#5D4037] border-b border-gray-100">
+                        <ion-icon name="notifications" class="text-2xl text-blue-500"></ion-icon>
+                        <span class="font-black text-gray-500 uppercase text-xs tracking-wider">Notification Preferences</span>
+                    </div>
+                    <div class="pb-2" id="notif-sidebar">
+                        <a href="javascript:void(0)" onclick="switchSection('desktop')" id="side-desktop" class="block pl-[60px] py-4 text-sm active-sidebar-item">Desktop Notifications</a>
+                        <a href="javascript:void(0)" onclick="switchSection('inapp')" id="side-inapp" class="block pl-[60px] py-4 text-sm sidebar-item text-gray-600 transition-colors">In-App Notifications</a>
+                        <a href="javascript:void(0)" onclick="switchSection('sms')" id="side-sms" class="block pl-[60px] py-4 text-sm sidebar-item text-gray-600 transition-colors">SMS</a>
+                        <a href="javascript:void(0)" onclick="switchSection('email')" id="side-email" class="block pl-[60px] py-4 text-sm sidebar-item text-gray-600 transition-colors">Email</a>
+                        <a href="javascript:void(0)" onclick="switchSection('whatsapp')" id="side-whatsapp" class="block pl-[60px] py-4 text-sm sidebar-item text-gray-600 transition-colors">WhatsApp</a>
+                    </div>
+                </div>
+
+                <!-- Back to Dashboard -->
+                <a href="Profile.html" class="flex items-center gap-3 p-4 bg-white shadow-sm rounded-sm hover:bg-gray-50 transition-colors">
+                    <ion-icon name="arrow-back-outline" class="text-xl"></ion-icon>
+                    <span class="font-bold text-xs uppercase tracking-widest">Back to Profile</span>
+                </a>
+            </aside>
+
+            <!-- Notification Content Area -->
+            <div id="content-area" class="flex-1 bg-white shadow-sm rounded-sm p-8 flex flex-col md:flex-row gap-12 min-h-[600px] animate-fadeIn">
+                <!-- Content will be injected here by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-bg text-white pt-16 pb-8 mt-auto">
+        <div class="container mx-auto px-4 md:px-10 pb-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-800">
+            <div class="space-y-4">
+                <h3 class="font-black text-lg italic tracking-tighter uppercase"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></h3>
+                <p class="text-xs text-gray-400 leading-relaxed">The ultimate shopping destination for hostelites. Quality products, fast delivery, and premium experience.</p>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-[0.2em] mb-6 text-gray-500">Shop By</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-3 text-gray-400">
+                    <li><a href="Fashion.html" class="footer-link">Fashion</a></li>
+                    <li><a href="Electronics.html" class="footer-link">Electronics</a></li>
+                    <li><a href="Home.html" class="footer-link">Home & Decor</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-[0.2em] mb-6 text-gray-500">Help</h4>
+                <ul class="text-[11px] font-bold uppercase space-y-3 text-gray-400">
+                    <li><a href="javascript:void(0)" class="footer-link">Payments</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Shipping</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-[0.2em] mb-6 text-gray-500">Social</h4>
+                <div class="flex gap-4 text-xl">
+                    <a href="javascript:void(0)" class="footer-link"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="javascript:void(0)" class="footer-link"><ion-icon name="logo-twitter"></ion-icon></a>
+                    <a href="javascript:void(0)" class="footer-link"><ion-icon name="logo-facebook"></ion-icon></a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-10 py-6 text-center">
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">&copy; 2024 HOSTELMART. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-10 right-10 z-[100] flex flex-col gap-4"></div>
+
+        const sections = {
+            desktop: {
+                title: 'Desktop Notifications',
+                subtitle: 'Receive alerts on your Desktop browser',
+                illustration: `
+                    <div class="relative w-48 h-48">
+                        <div class="absolute inset-0 bg-red-50 rounded-full animate-ping opacity-20"></div>
+                        <div class="absolute inset-4 bg-white rounded-full shadow-lg flex items-center justify-center">
+                            <div class="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center shadow-xl">
+                                <ion-icon name="notifications-off" class="text-4xl text-white"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 bg-white p-2 rounded-lg shadow-md"><ion-icon name="desktop-outline" class="text-gray-300"></ion-icon></div>
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4 bg-white p-2 rounded-lg shadow-md"><ion-icon name="laptop-outline" class="text-gray-300"></ion-icon></div>
+                        <div class="absolute left-0 top-1/2 -translate-x-4 -translate-y-1/2 bg-white p-2 rounded-lg shadow-md"><ion-icon name="browsers-outline" class="text-gray-300"></ion-icon></div>
+                        <div class="absolute right-0 top-1/2 translate-x-4 -translate-y-1/2 bg-white p-2 rounded-lg shadow-md"><ion-icon name="notifications-outline" class="text-gray-300"></ion-icon></div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-red-500 font-bold text-xs uppercase leading-tight">Oops! You are missing out on a lot of important notifications.</p>
+                        <p class="text-gray-400 text-[10px] font-medium">Please switch it on from Browser Settings.</p>
+                    </div>
+                    <div class="pt-4 border-t w-full border-gray-100">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">How to Unblock</p>
+                        <div class="flex items-center justify-center gap-2 text-xs font-black"><ion-icon name="lock-closed" class="text-green-500"></ion-icon><span class="text-gray-800">Notifications > Allow</span></div>
+                    </div>
+                `
+            },
+            inapp: {
+                title: 'In-App Notifications',
+                subtitle: 'Receive alerts ONLY on your HostelMart App',
+                illustration: `
+                    <div class="relative w-56 h-56 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-blue-50 rounded-full scale-110 opacity-30"></div>
+                        <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center shadow-2xl relative z-10 border-4 border-white">
+                            <ion-icon name="notifications" class="text-5xl text-white animate-bounce"></ion-icon>
+                        </div>
+                        <!-- Floating App Icons -->
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 bg-yellow-400 p-2 rounded-lg shadow-lg rotate-12">
+                            <ion-icon name="phone-portrait" class="text-white text-xl"></ion-icon>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-pink-500 p-2 rounded-lg shadow-lg -rotate-12">
+                            <ion-icon name="heart" class="text-white text-xl"></ion-icon>
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-green-500 p-2 rounded-lg shadow-lg rotate-6">
+                            <ion-icon name="cart" class="text-white text-xl"></ion-icon>
+                        </div>
+                        <div class="absolute top-1/2 right-0 translate-x-4 -translate-y-1/2 bg-orange-500 p-2 rounded-lg shadow-lg rotate-45">
+                            <ion-icon name="flash" class="text-white text-xl"></ion-icon>
+                        </div>
+                        <div class="absolute top-1/2 left-0 -translate-x-4 -translate-y-1/2 bg-purple-500 p-2 rounded-lg shadow-lg -rotate-45">
+                            <ion-icon name="gift" class="text-white text-xl"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-blue-600 font-black text-sm uppercase tracking-tighter">App Notifications Active</p>
+                        <p class="text-gray-400 text-[10px] font-medium leading-relaxed">Stay updated with real-time alerts on the go. <br> Download our app for the best experience.</p>
+                    </div>
+                    <div class="flex gap-2 pt-4">
+                        <div class="bg-black text-white px-3 py-1.5 rounded flex items-center gap-2 cursor-pointer hover:bg-gray-800 transition-all">
+                            <ion-icon name="logo-apple" class="text-lg"></ion-icon>
+                            <span class="text-[8px] font-bold uppercase">App Store</span>
+                        </div>
+                        <div class="bg-black text-white px-3 py-1.5 rounded flex items-center gap-2 cursor-pointer hover:bg-gray-800 transition-all">
+                            <ion-icon name="logo-google-playstore" class="text-lg"></ion-icon>
+                            <span class="text-[8px] font-bold uppercase">Play Store</span>
+                        </div>
+                    </div>
+                `
+            },
+            sms: {
+                title: 'SMS Notifications',
+                subtitle: 'Get text alerts on your mobile number',
+                illustration: '<div class="text-gray-300"><ion-icon name="chatbubbles-outline" class="text-9xl"></ion-icon><p class="mt-4 text-xs font-bold uppercase tracking-widest">Coming Soon</p></div>'
+            },
+            email: {
+                title: 'Email Notifications',
+                subtitle: 'Receive updates in your inbox',
+                illustration: '<div class="text-gray-300"><ion-icon name="mail-unread-outline" class="text-9xl"></ion-icon><p class="mt-4 text-xs font-bold uppercase tracking-widest">Coming Soon</p></div>'
+            },
+            whatsapp: {
+                title: 'WhatsApp Notifications',
+                subtitle: 'Direct updates on your WhatsApp',
+                illustration: '<div class="text-gray-300"><ion-icon name="logo-whatsapp" class="text-9xl"></ion-icon><p class="mt-4 text-xs font-bold uppercase tracking-widest">Coming Soon</p></div>'
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('userName');
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+
+            if (userLoggedIn !== 'true') {
+                window.location.href = 'Login.html';
+                return;
+            }
+
+            const headerName = document.getElementById('headerName');
+            const sidebarName = document.getElementById('sidebarName');
+
+            if (userName) {
+                if (headerName) headerName.textContent = userName;
+                if (sidebarName) sidebarName.textContent = userName;
+            }
+
+            switchSection('desktop');
+        });
+
+        function switchSection(sectionId) {
+            // Update Sidebar
+            const sidebar = document.getElementById('notif-sidebar');
+            sidebar.querySelectorAll('a').forEach(a => {
+                a.classList.remove('active-sidebar-item');
+                a.classList.add('sidebar-item', 'text-gray-600');
+            });
+            
+            const activeLink = document.getElementById(`side-${sectionId}`);
+            activeLink.classList.add('active-sidebar-item');
+            activeLink.classList.remove('sidebar-item', 'text-gray-600');
+
+            // Render Content
+            const section = sections[sectionId];
+            const contentArea = document.getElementById('content-area');
+            
+            contentArea.innerHTML = `
+                <div class="flex-1">
+                    <div class="mb-8 border-b pb-4">
+                        <h2 class="text-xl font-black uppercase tracking-tight">${section.title}</h2>
+                        <p class="text-xs text-gray-400 font-medium mt-1">${section.subtitle}</p>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        ${Object.keys(notificationData).map(key => `
+                            <div class="flex items-start gap-4 group cursor-pointer border-b border-gray-50 pb-6">
+                                <input type="checkbox" id="pref-${sectionId}-${key}" onchange="savePreference('${sectionId}', '${key}')" 
+                                    class="mt-1.5 w-4 h-4 rounded border-gray-300 text-[#5D4037] focus:ring-[#5D4037]">
+                                <div class="flex-1" onclick="simulatePush('${sectionId}', '${key}')">
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="font-bold text-sm text-gray-800">${key.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ').replace('Orders', 'My Orders').replace('Reminders', 'Reminders').replace('Recommendations', 'Recommendations by HostelMart').replace('Offers', 'New Offers').replace('Community', 'My HostelMart Community')}</h3>
+                                        <ion-icon name="chevron-down-outline" class="text-gray-400"></ion-icon>
+                                    </div>
+                                    <p class="text-xs text-gray-400 mt-1">${notificationData[key].message.split('!')[0]}...</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="w-full md:w-80 flex flex-col items-center justify-center text-center space-y-6 pt-10">
+                    ${section.illustration}
+                </div>
+            `;
+
+            loadPreferences(sectionId);
+        }
+
+        function savePreference(section, key) {
+            const checkbox = document.getElementById(`pref-${section}-${key}`);
+            localStorage.setItem(`notif_pref_${section}_${key}`, checkbox.checked);
+            
+            if (checkbox.checked) {
+                showToast('Success', `Enabled ${key} for ${section}.`, 'checkmark-circle', 'bg-green-600');
+            } else {
+                showToast('Disabled', `Disabled ${key} for ${section}.`, 'close-circle', 'bg-gray-600');
+            }
+        }
+
+        function loadPreferences(sectionId) {
+            Object.keys(notificationData).forEach(key => {
+                const saved = localStorage.getItem(`notif_pref_${sectionId}_${key}`);
+                const checkbox = document.getElementById(`pref-${sectionId}-${key}`);
+                if (checkbox) {
+                    checkbox.checked = saved === null ? true : saved === 'true';
+                }
+            });
+        }
+
+        function simulatePush(section, key) {
+            const isEnabled = localStorage.getItem(`notif_pref_${section}_${key}`) !== 'false';
+            
+            if (isEnabled) {
+                const data = notificationData[key];
+                showToast(data.title, data.message, data.icon, 'bg-[#5D4037]');
+            } else {
+                showToast('Notification Blocked', `Enable "${key}" in ${section} to see this.`, 'notifications-off', 'bg-red-500');
+            }
+        }
+
+        function showToast(title, message, icon, bgColor) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `animate-fadeIn bg-white border-l-4 ${bgColor.replace('bg-', 'border-')} shadow-2xl rounded-lg p-4 flex items-center gap-4 min-w-[300px] transform transition-all duration-300 hover:scale-105`;
+            
+            toast.innerHTML = `
+                <div class="${bgColor} w-10 h-10 rounded-full flex items-center justify-center text-white shrink-0 shadow-lg">
+                    <ion-icon name="${icon}" class="text-xl"></ion-icon>
+                </div>
+                <div class="flex-1">
+                    <h4 class="text-sm font-black text-gray-800">${title}</h4>
+                    <p class="text-[10px] text-gray-500 font-medium">${message}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-600">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(20px)';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>

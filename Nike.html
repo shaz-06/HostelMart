@@ -53,6 +53,14 @@
         .transition-soft {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -62,18 +70,18 @@
     <div
         class="bg-[#F5F5F5] py-2 px-6 md:px-12 flex justify-between items-center text-[11px] font-medium border-b border-gray-200">
         <div class="flex gap-4">
-            <a href="#" class="hover:opacity-60 transition"><img
+            <a href="javascript:void(0)" class="hover:opacity-60 transition"><img
                     src="https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Jumpman_logo.svg/1200px-Jumpman_logo.svg.png"
                     class="h-4" alt="Jordan"></a>
         </div>
         <div class="flex gap-4">
-            <a href="#" class="hover:opacity-60 transition">Find a Store</a>
+            <a href="javascript:void(0)" class="hover:opacity-60 transition">Find a Store</a>
             <span>|</span>
-            <a href="#" class="hover:opacity-60 transition">Help</a>
+            <a href="javascript:void(0)" class="hover:opacity-60 transition">Help</a>
             <span>|</span>
-            <a href="#" class="hover:opacity-60 transition">Join Us</a>
+            <a href="javascript:void(0)" class="hover:opacity-60 transition">Join Us</a>
             <span>|</span>
-            <a href="#" class="hover:opacity-60 transition">Sign In</a>
+            <a href="javascript:void(0)" class="hover:opacity-60 transition">Sign In</a>
         </div>
     </div>
 
@@ -95,11 +103,11 @@
 
         <!-- Desktop Nav -->
         <nav class="hidden lg:flex gap-8 font-bold text-sm tracking-tight">
-            <a href="#" class="nav-link">New & Featured</a>
-            <a href="#" class="nav-link">Men</a>
-            <a href="#" class="nav-link">Women</a>
-            <a href="#" class="nav-link">Kids</a>
-            <a href="#" class="nav-link">Sale</a>
+            <a href="javascript:void(0)" class="nav-link">New & Featured</a>
+            <a href="Men.html" class="nav-link">Men</a>
+            <a href="Women.html" class="nav-link">Women</a>
+            <a href="Kids.html" class="nav-link">Kids</a>
+            <a href="Sale.html" class="nav-link">Sale</a>
         </nav>
 
         <!-- Actions -->
@@ -109,6 +117,40 @@
                 <input type="text" placeholder="Search"
                     class="bg-transparent border-none outline-none pl-2 text-sm w-32">
             </div>
+
+            <!-- More Dropdown -->
+            <div class="hidden lg:flex relative group py-2">
+                <div class="flex items-center gap-1 cursor-pointer hover:text-black group">
+                    <span class="text-sm font-bold">More</span>
+                    <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                </div>
+                
+                <!-- More Dropdown Menu -->
+                <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                    <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                    </div>
+                    <div class="space-y-0.5">
+                        <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                            <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                            <span class="text-sm font-medium">Become a Seller</span>
+                        </a>
+                        <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                            <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                            <span class="text-sm font-medium">Notification Settings</span>
+                        </a>
+                        <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                            <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                            <span class="text-sm font-medium">24x7 Customer Care</span>
+                        </a>
+                        <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                            <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                            <span class="text-sm font-medium">Advertise on HostelMart</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <button class="text-2xl hover:bg-gray-100 p-2 rounded-full transition"><ion-icon
                     name="heart-outline"></ion-icon></button>
             <button class="text-2xl hover:bg-gray-100 p-2 rounded-full transition relative">
@@ -128,11 +170,11 @@
             <button onclick="toggleMobileMenu()" class="text-4xl"><ion-icon name="close-outline"></ion-icon></button>
         </div>
         <ul class="space-y-6 text-2xl font-black lowercase tracking-tighter italic">
-            <li><a href="#" class="hover:text-gray-500 transition">new & featured</a></li>
-            <li><a href="#" class="hover:text-gray-500 transition">men</a></li>
-            <li><a href="#" class="hover:text-gray-500 transition">women</a></li>
-            <li><a href="#" class="hover:text-gray-500 transition">kids</a></li>
-            <li><a href="#" class="hover:text-gray-500 transition">sale</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-gray-500 transition">new & featured</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-gray-500 transition">men</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-gray-500 transition">women</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-gray-500 transition">kids</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-gray-500 transition">sale</a></li>
         </ul>
     </div>
 
@@ -152,7 +194,7 @@
                         <a href="#shop"
                             class="bg-[#F5F5DC] text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition">Shop
                             Now</a>
-                        <a href="#"
+                        <a href="javascript:void(0)"
                             class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-[#F5F5DC] hover:text-black transition">Explore
                             More</a>
                     </div>
@@ -263,30 +305,30 @@
                 <div class="space-y-3">
                     <h4 class="font-black text-xs uppercase tracking-[0.1em] text-white">Get Help</h4>
                     <ul class="text-[11px] text-gray-400 space-y-3 font-medium">
-                        <li><a href="#" class="hover:text-white transition">Order Status</a></li>
-                        <li><a href="#" class="hover:text-white transition">Shipping & Delivery</a></li>
-                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
-                        <li><a href="#" class="hover:text-white transition">Payment Options</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Order Status</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Shipping & Delivery</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Returns</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Payment Options</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="space-y-3">
                     <h4 class="font-black text-xs uppercase tracking-[0.1em] text-white">About Nike</h4>
                     <ul class="text-[11px] text-gray-400 space-y-3 font-medium">
-                        <li><a href="#" class="hover:text-white transition">News</a></li>
-                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
-                        <li><a href="#" class="hover:text-white transition">Investors</a></li>
-                        <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">News</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Investors</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition">Sustainability</a></li>
                     </ul>
                 </div>
                 <div class="flex gap-4">
-                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                    <a href="javascript:void(0)" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
                             name="logo-twitter"></ion-icon></a>
-                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                    <a href="javascript:void(0)" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
                             name="logo-facebook"></ion-icon></a>
-                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                    <a href="javascript:void(0)" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
                             name="logo-youtube"></ion-icon></a>
-                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
+                    <a href="javascript:void(0)" class="text-2xl text-gray-400 hover:text-white transition"><ion-icon
                             name="logo-instagram"></ion-icon></a>
                 </div>
             </div>
@@ -298,10 +340,10 @@
                         Reserved</span>
                 </div>
                 <div class="flex gap-6 text-[10px] text-gray-500 font-medium">
-                    <a href="#" class="hover:text-white transition">Guides</a>
-                    <a href="#" class="hover:text-white transition">Terms of Sale</a>
-                    <a href="#" class="hover:text-white transition">Terms of Use</a>
-                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="javascript:void(0)" class="hover:text-white transition">Guides</a>
+                    <a href="Sale.html" class="hover:text-white transition">Terms of Sale</a>
+                    <a href="javascript:void(0)" class="hover:text-white transition">Terms of Use</a>
+                    <a href="javascript:void(0)" class="hover:text-white transition">Privacy Policy</a>
                 </div>
             </div>
         </div>

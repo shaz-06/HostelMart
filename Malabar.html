@@ -86,6 +86,14 @@
             border: 1px solid rgba(212, 175, 55, 0.1);
             pointer-events: none;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -93,19 +101,63 @@
 
     <!-- HEADER -->
     <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
-        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col items-center">
-            <!-- Brand Identity -->
-            <a href="index.html"
-                class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none text-black">
-                <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
-            </a>
-            <!-- Malabar Sub-Brand -->
-            <div class="mt-1 flex items-center gap-3">
-                <div class="h-[1px] w-8 bg-gold/50"></div>
-                <span class="luxury-font text-lg md:text-xl font-bold malabar-green tracking-[0.15em]">MALABAR</span>
-                <div class="h-[1px] w-8 bg-gold/50"></div>
+        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col items-center md:items-start">
+                <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none text-black">
+                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
+                </a>
+                <!-- Malabar Sub-Brand -->
+                <div class="mt-1 flex items-center gap-3">
+                    <div class="h-[1px] w-8 bg-gold/50"></div>
+                    <span class="luxury-font text-lg md:text-xl font-bold malabar-green tracking-[0.15em]">MALABAR</span>
+                    <div class="h-[1px] w-8 bg-gold/50"></div>
+                </div>
+                <p class="text-[8px] uppercase tracking-[0.3em] gold-accent font-bold mt-1">Gold & Diamonds</p>
             </div>
-            <p class="text-[8px] uppercase tracking-[0.3em] gold-accent font-bold mt-1">Gold & Diamonds</p>
+
+            <!-- Header Actions & More -->
+            <div class="flex items-center gap-6 md:gap-10 text-[#5D4037]">
+                <!-- More Dropdown -->
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#d4af37] group transition-colors">
+                        <span class="text-[10px] md:text-xs font-black uppercase tracking-widest">More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn text-[#5D4037]">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Become a Seller</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Notification Settings</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 text-2xl">
+                    <button class="hover:text-[#d4af37] transition-colors"><ion-icon name="search-outline"></ion-icon></button>
+                    <button class="hover:text-[#d4af37] transition-colors relative">
+                        <ion-icon name="cart-outline"></ion-icon>
+                        <span class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -126,7 +178,7 @@
                         <a href="#shop"
                             class="bg-gold text-white px-10 py-3.5 text-[10px] font-bold uppercase tracking-widest hover:bg-[#F5F5DC] hover:text-malabar-green transition duration-500 shadow-2xl">View
                             Collection</a>
-                        <a href="#"
+                        <a href="javascript:void(0)"
                             class="border border-white/30 text-white px-10 py-3.5 text-[10px] font-bold uppercase tracking-widest hover:bg-[#F5F5DC] hover:text-black transition duration-500">Our
                             Heritage</a>
                     </div>
@@ -273,26 +325,26 @@
             <div>
                 <h4 class="luxury-font text-xl gold-accent mb-8">Departments</h4>
                 <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-gold transition">Traditional Gold</a></li>
-                    <li><a href="#" class="hover:text-gold transition">Mine Diamonds</a></li>
-                    <li><a href="#" class="hover:text-gold transition">Era Uncut</a></li>
-                    <li><a href="#" class="hover:text-gold transition">Platinum</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-gold transition">Traditional Gold</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-gold transition">Mine Diamonds</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-gold transition">Era Uncut</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-gold transition">Platinum</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="luxury-font text-xl gold-accent mb-8">Help & Support</h4>
                 <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-gold transition">Care & Cleaning</a></li>
-                    <li><a href="#" class="hover:text-gold transition">Gold Rate Today</a></li>
-                    <li><a href="#" class="hover:text-gold transition">Privacy Policy</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-gold transition">Care & Cleaning</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-gold transition">Gold Rate Today</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-gold transition">Privacy Policy</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="luxury-font text-xl gold-accent mb-8">Social</h4>
                 <div class="flex gap-6 text-2xl text-gray-500">
-                    <a href="#" class="hover:text-gold transition"><ion-icon name="logo-instagram"></ion-icon></a>
-                    <a href="#" class="hover:text-gold transition"><ion-icon name="logo-facebook"></ion-icon></a>
-                    <a href="#" class="hover:text-gold transition"><ion-icon name="logo-youtube"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-gold transition"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-gold transition"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-gold transition"><ion-icon name="logo-youtube"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -300,8 +352,8 @@
             class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.3em] text-gray-600">
             <p>© 2024 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> x Malabar Gold & Diamonds. Authentic Craftsmanship.</p>
             <div class="flex gap-8 mt-4 md:mt-0">
-                <a href="#" class="hover:text-white transition">Terms of Sale</a>
-                <a href="#" class="hover:text-white transition">HUID Verification</a>
+                <a href="Sale.html" class="hover:text-white transition">Terms of Sale</a>
+                <a href="javascript:void(0)" class="hover:text-white transition">HUID Verification</a>
             </div>
         </div>
     </footer>

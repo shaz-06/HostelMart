@@ -41,6 +41,13 @@
         ::-webkit-scrollbar-thumb {
             background: #5D4037;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -56,10 +63,10 @@
                     </a>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center text-sm uppercase tracking-widest font-medium">
-                    <a href="#" class="hover:text-stone-500 transition-colors">Suits</a>
-                    <a href="#" class="hover:text-stone-500 transition-colors">Dresses</a>
-                    <a href="#" class="hover:text-stone-500 transition-colors">Accessories</a>
-                    <a href="#" class="hover:text-stone-500 transition-colors">Student Deals</a>
+                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Suits</a>
+                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Dresses</a>
+                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Accessories</a>
+                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Student Deals</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <!-- Search Input and Button -->
@@ -75,16 +82,52 @@
                             </svg>
                         </button>
                     </div>
-                    <button class="p-2 hover:bg-[#FDF5E6] rounded-full transition-all relative" onclick="toggleCart()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                            <path d="M3 6h18" />
-                            <path d="M16 10a4 4 0 0 1-8 0" />
-                        </svg>
-                        <span id="cart-count"
-                            class="absolute top-0 right-0 bg-stone-900 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
-                    </button>
+                    <div class="flex items-center gap-8 text-[#5D4037] font-bold text-sm">
+                        <a href="Login.html" class="flex items-center gap-2 cursor-pointer hover:text-black group">
+                            <ion-icon name="person-circle-outline"
+                                class="text-2xl text-gray-400 group-hover:text-black transition-colors"></ion-icon>
+                            <span>Login</span>
+                        </a>
+
+                        <!-- More Dropdown -->
+                        <div class="hidden md:flex relative group py-2">
+                            <div class="flex items-center gap-1 cursor-pointer hover:text-black group">
+                                <span>More</span>
+                                <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                            </div>
+                            
+                            <!-- More Dropdown Menu -->
+                            <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                                <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                                </div>
+                                <div class="space-y-0.5">
+                                    <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                        <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                        <span class="text-sm font-medium">Become a Seller</span>
+                                    </a>
+                                    <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                        <span class="text-sm font-medium">Notification Settings</span>
+                                    </a>
+                                    <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                        <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                        <span class="text-sm font-medium">24x7 Customer Care</span>
+                                    </a>
+                                    <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                        <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                        <span class="text-sm font-medium">Advertise on HostelMart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 cursor-pointer hover:text-black relative" onclick="toggleCart()">
+                            <ion-icon name="bag-handle-outline" class="text-2xl"></ion-icon>
+                            <span id="cart-count"
+                                class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,27 +222,27 @@
             <div>
                 <h4 class="text-xs uppercase tracking-widest font-bold mb-6">Store</h4>
                 <ul class="space-y-4 text-sm text-stone-500">
-                    <li><a href="#" class="hover:text-stone-900">Interview Suits</a></li>
-                    <li><a href="#" class="hover:text-stone-900">Graduation Gowns</a></li>
-                    <li><a href="#" class="hover:text-stone-900">Daily Formals</a></li>
-                    <li><a href="#" class="hover:text-stone-900">Footwear</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Interview Suits</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Graduation Gowns</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Daily Formals</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Footwear</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-xs uppercase tracking-widest font-bold mb-6">Assistance</h4>
                 <ul class="space-y-4 text-sm text-stone-500">
-                    <li><a href="#" class="hover:text-stone-900">Hostel Delivery Info</a></li>
-                    <li><a href="#" class="hover:text-stone-900">Size Exchange</a></li>
-                    <li><a href="#" class="hover:text-stone-900">Student Verification</a></li>
-                    <li><a href="#" class="hover:text-stone-900">Help Center</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Hostel Delivery Info</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Size Exchange</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Student Verification</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Help Center</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-xs uppercase tracking-widest font-bold mb-6">Social</h4>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-stone-400 hover:text-stone-900">Instagram</a>
-                    <a href="#" class="text-stone-400 hover:text-stone-900">LinkedIn</a>
-                    <a href="#" class="text-stone-400 hover:text-stone-900">Campus Hub</a>
+                    <a href="javascript:void(0)" class="text-stone-400 hover:text-stone-900">Instagram</a>
+                    <a href="javascript:void(0)" class="text-stone-400 hover:text-stone-900">LinkedIn</a>
+                    <a href="javascript:void(0)" class="text-stone-400 hover:text-stone-900">Campus Hub</a>
                 </div>
             </div>
         </div>

@@ -62,6 +62,13 @@
         .snap-center {
             scroll-snap-align: center;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -79,14 +86,51 @@
                     Department</span>
             </div>
 
-            <div class="flex items-center gap-4 text-2xl">
-                <button class="hover:text-pink-500 transition-colors"><ion-icon
-                        name="search-outline"></ion-icon></button>
-                <button class="hover:text-pink-500 relative transition-colors">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
+            <div class="flex items-center gap-8 text-[#5D4037] font-bold text-sm">
+                <a href="Login.html" class="flex items-center gap-2 cursor-pointer hover:text-pink-500 group">
+                    <ion-icon name="person-circle-outline"
+                        class="text-2xl text-gray-400 group-hover:text-pink-500 transition-colors"></ion-icon>
+                    <span>Login</span>
+                </a>
+
+                <!-- More Dropdown -->
+                <div class="hidden md:flex relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-pink-500 group">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Become a Seller</span>
+                            </a>
+                            <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Notification Settings</span>
+                            </a>
+                            <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 cursor-pointer hover:text-pink-500 relative">
+                    <ion-icon name="bag-handle-outline" class="text-2xl"></ion-icon>
                     <span
                         class="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                </button>
+                </div>
             </div>
         </div>
     </header>
@@ -294,7 +338,7 @@
         <div
             class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-50 pb-12">
             <div class="space-y-6">
-                <a href="#" class="text-2xl font-black tracking-tighter text-[#5D4037] uppercase"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></a>
+                <a href="javascript:void(0)" class="text-2xl font-black tracking-tighter text-[#5D4037] uppercase"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></a>
                 <p class="text-xs text-gray-400 font-medium leading-relaxed uppercase tracking-widest">Premium
                     department store for the modern woman. Curating global styles from ZARA to Biba.</p>
             </div>
@@ -310,9 +354,9 @@
             <div>
                 <h4 class="text-[11px] font-black uppercase tracking-widest mb-6">Service</h4>
                 <ul class="text-[11px] font-bold uppercase space-y-4 text-gray-500">
-                    <li><a href="#" class="hover:text-pink-500 transition-colors">Size Guide</a></li>
-                    <li><a href="#" class="hover:text-pink-500 transition-colors">Shipping</a></li>
-                    <li><a href="#" class="hover:text-pink-500 transition-colors">Returns</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Size Guide</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Shipping</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Returns</a></li>
                 </ul>
             </div>
             <div>

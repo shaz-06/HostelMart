@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #5D4037;
+        }
+
+        .active-sidebar-item {
+            color: #5D4037;
+            background-color: #F5F5DC;
+            font-weight: 800;
+            border-right: 4px solid #5D4037;
+        }
+
+        .sidebar-item:hover:not(.active-sidebar-item) {
+            color: #8D6E63;
+            background-color: #FDFBF7;
+        }
+
+        .input-box {
+            border: 1px solid #D7CCC8;
+            background-color: #FDF5E6;
+        }
+
+        .input-box:focus {
+            border-color: #5D4037;
+            outline: none;
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(93, 64, 55, 0.1);
+        }
+
+        .footer-bg {
+            background-color: #3E2723;
+        }
+
+        .footer-link:hover {
+            color: #C8A951;
+            text-decoration: underline;
+        }
+
+        .payment-strip {
+            background-color: #2D1B18;
+            border-top: 1px solid #5D4037;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER (Simplified for Profile) -->
+    <header class="bg-[#F5F5DC] py-3 shadow-sm sticky top-0 z-50 border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 md:px-10 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-1 no-underline">
+                <span class="font-black italic text-2xl flex items-center">
+                    <span class="text-[#8D6E63]">Hostel</span>
+                    <span class="text-[#C8A951] ml-1">Mart</span>
+                </span>
+            </a>
+            <div class="flex-1 max-w-xl mx-10 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search for products, brands and more" 
+                        class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded px-4 py-2 text-sm outline-none focus:border-[#5D4037]">
+                    <ion-icon name="search" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#5D4037]"></ion-icon>
+                </div>
+            </div>
+            <div class="flex items-center gap-8 text-sm font-bold text-[#5D4037]">
+                <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#8D6E63] group">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Become a Seller</span>
+                            </a>
+                            <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Notification Settings</span>
+                            </a>
+                            <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer flex items-center gap-1">
+                    <span id="headerName">User</span>
+                    <ion-icon name="chevron-down" class="text-[10px]"></ion-icon>
+                </div>
+                <a href="javascript:void(0)" class="flex items-center gap-1 hover:text-[#8D6E63]">
+                    <ion-icon name="cart" class="text-lg"></ion-icon>
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 container mx-auto px-4 md:px-10 py-6 max-w-7xl">
+        <div class="flex flex-col md:flex-row gap-4">
+            
+            <!-- Sidebar -->
+            <aside class="w-full md:w-[280px] space-y-4">
+                <!-- User Header -->
+                <div class="bg-white p-3 flex items-center gap-4 shadow-sm rounded-sm">
+                    <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10" alt="Avatar">
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-500">Hello,</p>
+                        <h2 id="sidebarName" class="font-black text-base">User Name</h2>
+                    </div>
+                </div>
+
+                <!-- Nav Menu -->
+                <div class="bg-white shadow-sm rounded-sm overflow-hidden">
+                    <!-- My Orders -->
+                    <a href="Orders.html" class="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 group">
+                        <div class="flex items-center gap-4 text-[#5D4037]">
+                            <ion-icon name="folder-outline" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider group-hover:text-[#5D4037]">My Orders</span>
+                        </div>
+                        <ion-icon name="chevron-forward" class="text-gray-300"></ion-icon>
+                    </a>
+
+                    <!-- Account Settings -->
+                    <div class="border-b border-gray-100">
+                        <div class="flex items-center gap-4 p-4 text-[#5D4037]">
+                            <ion-icon name="person" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">Account Settings</span>
+                        </div>
+                        <div class="pb-2">
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm active-sidebar-item">Profile Information</a>
+                            <a href="Address.html" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">Manage Addresses</a>
+                            <a href="PAN.html" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">PAN Card Information</a>
+                        </div>
+                    </div>
+
+                    <!-- Payments -->
+                    <div class="border-b border-gray-100">
+                        <div class="flex items-center gap-4 p-4 text-[#5D4037]">
+                            <ion-icon name="wallet" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">Payments</span>
+                        </div>
+                        <div class="pb-2">
+                            <div class="flex justify-between items-center pl-[60px] pr-4 py-3 cursor-pointer sidebar-item">
+                                <span class="text-sm text-gray-600">Gift Cards</span>
+                                <span class="text-xs font-black text-green-600">₹0</span>
+                            </div>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">Saved UPI</a>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">Saved Cards</a>
+                        </div>
+                    </div>
+
+                    <!-- My Stuff -->
+                    <div class="border-b border-gray-100">
+                        <div class="flex items-center gap-4 p-4 text-[#5D4037]">
+                            <ion-icon name="bookmarks" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">My Stuff</span>
+                        </div>
+                        <div class="pb-2">
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">My Coupons</a>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">My Reviews & Ratings</a>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">All Notifications</a>
+                            <a href="Wishlist.html" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">My Wishlist</a>
+                        </div>
+                    </div>
+
+                    <!-- Logout -->
+                    <button onclick="logout()" class="w-full flex items-center gap-4 p-4 text-[#5D4037] hover:bg-gray-50 transition-colors">
+                        <ion-icon name="power" class="text-xl"></ion-icon>
+                        <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">Logout</span>
+                    </button>
+                </div>
+
+                <!-- Frequently Visited -->
+                <div class="bg-white p-4 shadow-sm rounded-sm">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Frequently Visited:</p>
+                    <div class="flex gap-4 text-[10px] font-medium text-gray-500">
+                        <a href="javascript:void(0)" class="hover:text-blue-600">Track Order</a>
+                        <a href="javascript:void(0)" class="hover:text-blue-600">Help Center</a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Panel -->
+            <section class="flex-1 bg-white shadow-sm rounded-sm p-8">
+                <!-- Personal Info -->
+                <div class="mb-12">
+                    <div class="flex items-baseline gap-6 mb-6">
+                        <h2 class="text-lg font-bold">Personal Information</h2>
+                        <button onclick="toggleEdit('personal')" id="editBtn-personal" class="text-[#5D4037] font-bold text-sm hover:underline transition-colors">Edit</button>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-4 mb-6">
+                        <input type="text" id="firstNameInput" value="Shashank" class="flex-1 p-3 input-box rounded-sm text-sm" disabled>
+                        <input type="text" id="lastNameInput" value="Shetty" class="flex-1 p-3 input-box rounded-sm text-sm" disabled>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-sm font-medium">Your Gender</p>
+                        <div class="flex gap-8">
+                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                <input type="radio" name="gender" class="w-4 h-4 accent-[#5D4037]" checked disabled>
+                                Male
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                <input type="radio" name="gender" class="w-4 h-4 accent-[#5D4037]" disabled>
+                                Female
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-12">
+                    <div class="flex items-baseline gap-6 mb-6">
+                        <h2 class="text-lg font-bold">Email Address</h2>
+                        <button onclick="toggleEdit('email')" id="editBtn-email" class="text-[#5D4037] font-bold text-sm hover:underline transition-colors">Edit</button>
+                    </div>
+                    <input type="email" id="emailInput" value="shashank@hostelmart.com" 
+                        class="w-full md:w-1/2 p-3 input-box rounded-sm text-sm" disabled>
+                </div>
+
+                <!-- Mobile -->
+                <div class="mb-12">
+                    <div class="flex items-baseline gap-6 mb-6">
+                        <h2 class="text-lg font-bold">Mobile Number</h2>
+                        <button onclick="toggleEdit('mobile')" id="editBtn-mobile" class="text-[#5D4037] font-bold text-sm hover:underline transition-colors">Edit</button>
+                    </div>
+                    <input type="text" id="mobileInput" value="+916363849864" 
+                        class="w-full md:w-1/2 p-3 input-box rounded-sm text-sm" disabled>
+                </div>
+
+                <!-- FAQs -->
+                <div class="pt-10 border-t border-gray-100">
+                    <h3 class="text-lg font-bold mb-6">FAQs</h3>
+                    <div class="space-y-6 text-sm text-gray-800 leading-relaxed">
+                        <div>
+                            <p class="font-bold mb-2">What happens when I update my email address (or mobile number)?</p>
+                            <p class="text-gray-600">Your login email id (or mobile number) changes, likewise. You'll receive all your account related communication on your updated email address (or mobile number).</p>
+                        </div>
+                        <div>
+                            <p class="font-bold mb-2">When will my HostelMart account be updated with the new email address (or mobile number)?</p>
+                            <p class="text-gray-600">It happens as soon as you confirm the verification code sent to your email (or mobile) and save the changes.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold mb-2">What happens to my existing HostelMart account when I update my email address (or mobile number)?</p>
+                            <p class="text-gray-600">Updating your email address (or mobile number) doesn't invalidate your account. Your account remains fully functional. You'll continue seeing your Order history, saved information and personal details.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold mb-2">Does my Seller account get affected when I update my email address?</p>
+                            <p class="text-gray-600">HostelMart has a 'single sign-on' policy. Any changes will reflect in your Seller account also.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 space-y-4 pt-10 border-t border-gray-100">
+                    <button class="text-[#8D6E63] font-bold text-sm block hover:underline">Deactivate Account</button>
+                    <button class="text-[#D32F2F] font-bold text-sm block hover:underline">Delete Account</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-bg text-white pt-16 mt-10">
+        <div class="container mx-auto px-4 md:px-10 pb-16 grid grid-cols-2 md:grid-cols-6 gap-8">
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">About</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Contact Us</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">About Us</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Careers</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">HostelMart Stories</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Press</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Corporate Information</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Group Companies</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Myntra</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Cleartrip</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Shopsy</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Help</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Payments</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Shipping</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Cancellation & Returns</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4 border-l border-gray-700 pl-8 col-span-2 md:col-span-1">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Consumer Policy</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Cancellation & Returns</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Terms Of Use</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Security</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Privacy</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Sitemap</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Grievance Redressal</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">EPR Compliance</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4 col-span-2 md:col-span-1 border-l border-gray-700 pl-8">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Mail Us:</h4>
+                <p class="text-[11px] leading-relaxed text-gray-300">
+                    HostelMart Internet Private Limited,<br>
+                    Buildings Alyssa, Begonia &<br>
+                    Clove Embassy Tech Village,<br>
+                    Outer Ring Road, Devarabeesanahalli Village,<br>
+                    Bengaluru, 560103,<br>
+                    Karnataka, India
+                </p>
+                <div class="flex gap-4 pt-4 text-lg">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    <ion-icon name="logo-twitter"></ion-icon>
+                    <ion-icon name="logo-youtube"></ion-icon>
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </div>
+            </div>
+            <div class="space-y-4 col-span-2 md:col-span-1">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Registered Office Address:</h4>
+                <p class="text-[11px] leading-relaxed text-gray-300">
+                    HostelMart Internet Private Limited,<br>
+                    Buildings Alyssa, Begonia &<br>
+                    Clove Embassy Tech Village,<br>
+                    Outer Ring Road, Devarabeesanahalli Village,<br>
+                    Bengaluru, 560103,<br>
+                    Karnataka, India<br>
+                    CIN : U51109KA2012PTC066107<br>
+                    Telephone: <a href="tel:044-45614700" class="text-blue-400">044-45614700</a> / <a href="tel:044-67415800" class="text-blue-400">044-67415800</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Bottom Payment Strip -->
+        <div class="payment-strip py-6">
+            <div class="container mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex flex-wrap gap-10 text-[11px] font-bold items-center">
+                    <a href="javascript:void(0)" class="flex items-center gap-2 text-yellow-400 hover:underline">
+                        <ion-icon name="briefcase" class="text-lg"></ion-icon>
+                        Become a Seller
+                    </a>
+                    <a href="javascript:void(0)" class="flex items-center gap-2 text-yellow-400 hover:underline">
+                        <ion-icon name="star" class="text-lg"></ion-icon>
+                        Advertise
+                    </a>
+                    <a href="javascript:void(0)" class="flex items-center gap-2 text-yellow-400 hover:underline">
+                        <ion-icon name="gift" class="text-lg"></ion-icon>
+                        Gift Cards
+                    </a>
+                    <a href="javascript:void(0)" class="flex items-center gap-2 text-yellow-400 hover:underline">
+                        <ion-icon name="help-circle" class="text-lg"></ion-icon>
+                        Help Center
+                    </a>
+                </div>
+                <div class="text-[11px] font-medium">
+                    &copy; 2007-2026 HostelMart.com
+                </div>
+                <div class="flex gap-2">
+                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/payment-method-c45441.svg" alt="Payments" class="h-6">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('userName');
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+
+            if (userLoggedIn !== 'true') {
+                window.location.href = 'Login.html';
+                return;
+            }
+
+            // Clear all inputs by default as requested
+            const firstNameInput = document.getElementById('firstNameInput');
+            const lastNameInput = document.getElementById('lastNameInput');
+            const emailInput = document.getElementById('emailInput');
+            const mobileInput = document.getElementById('mobileInput');
+            const headerName = document.getElementById('headerName');
+            const sidebarName = document.getElementById('sidebarName');
+
+            if (firstNameInput) firstNameInput.value = '';
+            if (lastNameInput) lastNameInput.value = '';
+            if (emailInput) emailInput.value = '';
+            if (mobileInput) mobileInput.value = '';
+
+            // Set only the Name from localStorage (derived from login email)
+            if (userName) {
+                if (headerName) headerName.textContent = userName;
+                if (sidebarName) sidebarName.textContent = userName;
+                if (firstNameInput) firstNameInput.value = userName;
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userName');
+            window.location.href = 'index.html';
+        }
+
+        function toggleEdit(section) {
+            const btn = document.getElementById(`editBtn-${section}`);
+            const isEditing = btn.textContent === 'Save';
+            
+            let inputs = [];
+            if (section === 'personal') {
+                inputs = [
+                    document.getElementById('firstNameInput'), 
+                    document.getElementById('lastNameInput'), 
+                    ...document.querySelectorAll('input[name="gender"]')
+                ];
+            } else if (section === 'email') {
+                inputs = [document.getElementById('emailInput')];
+            } else if (section === 'mobile') {
+                inputs = [document.getElementById('mobileInput')];
+            }
+            
+            if (isEditing) {
+                // Save logic
+                inputs.forEach(input => input.disabled = true);
+                btn.textContent = 'Edit';
+                btn.classList.remove('text-green-600');
+                btn.classList.add('text-[#5D4037]');
+                
+                // Update UI and Storage if personal info changed
+                if (section === 'personal') {
+                    const first = document.getElementById('firstNameInput').value;
+                    const last = document.getElementById('lastNameInput').value;
+                    const fullName = `${first} ${last}`.trim() || 'User Name';
+                    
+                    localStorage.setItem('userName', fullName);
+                    if (document.getElementById('headerName')) document.getElementById('headerName').textContent = fullName;
+                    if (document.getElementById('sidebarName')) document.getElementById('sidebarName').textContent = fullName;
+                }
+                
+                // Show success feedback
+                const originalText = btn.textContent;
+                btn.textContent = 'Saved!';
+                setTimeout(() => btn.textContent = originalText, 1500);
+            } else {
+                // Edit logic
+                inputs.forEach(input => input.disabled = false);
+                btn.textContent = 'Save';
+                btn.classList.remove('text-[#5D4037]');
+                btn.classList.add('text-green-600');
+                if (inputs[0]) inputs[0].focus();
+            }
+        }
+    </script>
+</body>
+
+</html>

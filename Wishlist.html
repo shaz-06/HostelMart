@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #5D4037;
+        }
+
+        .active-sidebar-item {
+            color: #5D4037;
+            background-color: #F5F5DC;
+            font-weight: 800;
+            border-right: 4px solid #5D4037;
+        }
+
+        .sidebar-item:hover:not(.active-sidebar-item) {
+            color: #8D6E63;
+            background-color: #FDFBF7;
+        }
+
+        .wishlist-card {
+            border-bottom: 1px solid #D7CCC8;
+            transition: background-color 0.2s ease;
+        }
+
+        .wishlist-card:hover {
+            background-color: #FDF5E6;
+        }
+
+        .footer-bg {
+            background-color: #3E2723;
+        }
+
+        .footer-link:hover {
+            color: #C8A951;
+            text-decoration: underline;
+        }
+
+        .payment-strip {
+            background-color: #2D1B18;
+            border-top: 1px solid #5D4037;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] py-3 shadow-sm sticky top-0 z-50 border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 md:px-10 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-1 no-underline">
+                <span class="font-black italic text-2xl flex items-center">
+                    <span class="text-[#8D6E63]">Hostel</span>
+                    <span class="text-[#C8A951] ml-1">Mart</span>
+                </span>
+            </a>
+            <div class="flex-1 max-w-xl mx-10 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search for products, brands and more" 
+                        class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded px-4 py-2 text-sm outline-none focus:border-[#5D4037]">
+                    <ion-icon name="search" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#5D4037]"></ion-icon>
+                </div>
+            </div>
+            <div class="flex items-center gap-8 text-sm font-bold text-[#5D4037]">
+                <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#8D6E63] group">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Become a Seller</span>
+                            </a>
+                            <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Notification Settings</span>
+                            </a>
+                            <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer flex items-center gap-1">
+                    <span id="headerName">User</span>
+                    <ion-icon name="chevron-down" class="text-[10px]"></ion-icon>
+                </div>
+                <a href="javascript:void(0)" class="flex items-center gap-1 hover:text-[#8D6E63]">
+                    <ion-icon name="cart" class="text-lg"></ion-icon>
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 container mx-auto px-4 md:px-10 py-6 max-w-7xl">
+        <div class="flex flex-col md:flex-row gap-4">
+            
+            <!-- Sidebar -->
+            <aside class="w-full md:w-[280px] space-y-4">
+                <div class="bg-white p-3 flex items-center gap-4 shadow-sm rounded-sm">
+                    <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10" alt="Avatar">
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-500">Hello,</p>
+                        <h2 id="sidebarName" class="font-black text-base">User Name</h2>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-sm rounded-sm overflow-hidden">
+                    <a href="Orders.html" class="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 group">
+                        <div class="flex items-center gap-4 text-[#5D4037]">
+                            <ion-icon name="folder-outline" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider group-hover:text-[#5D4037]">My Orders</span>
+                        </div>
+                        <ion-icon name="chevron-forward" class="text-gray-300"></ion-icon>
+                    </a>
+
+                    <div class="border-b border-gray-100">
+                        <div class="flex items-center gap-4 p-4 text-[#5D4037]">
+                            <ion-icon name="person" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">Account Settings</span>
+                        </div>
+                        <div class="pb-2">
+                            <a href="Profile.html" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">Profile Information</a>
+                            <a href="Address.html" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">Manage Addresses</a>
+                            <a href="PAN.html" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">PAN Card Information</a>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-100">
+                        <div class="flex items-center gap-4 p-4 text-[#5D4037]">
+                            <ion-icon name="wallet" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">Payments</span>
+                        </div>
+                        <div class="pb-2">
+                            <div class="flex justify-between items-center pl-[60px] pr-4 py-3 cursor-pointer sidebar-item">
+                                <span class="text-sm text-gray-600">Gift Cards</span>
+                                <span class="text-xs font-black text-green-600">₹0</span>
+                            </div>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">Saved UPI</a>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">Saved Cards</a>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-100">
+                        <div class="flex items-center gap-4 p-4 text-[#5D4037]">
+                            <ion-icon name="bookmarks" class="text-xl"></ion-icon>
+                            <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">My Stuff</span>
+                        </div>
+                        <div class="pb-2">
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">My Coupons</a>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">My Reviews & Ratings</a>
+                            <a href="javascript:void(0)" class="block pl-[60px] py-3 text-sm sidebar-item text-gray-600">All Notifications</a>
+                            <a href="Wishlist.html" class="block pl-[60px] py-3 text-sm active-sidebar-item">My Wishlist</a>
+                        </div>
+                    </div>
+
+                    <button onclick="logout()" class="w-full flex items-center gap-4 p-4 text-[#5D4037] hover:bg-gray-50 transition-colors">
+                        <ion-icon name="power" class="text-xl"></ion-icon>
+                        <span class="font-bold text-gray-500 uppercase text-xs tracking-wider">Logout</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Panel -->
+            <section class="flex-1 bg-white shadow-sm rounded-sm overflow-hidden">
+                <div class="p-6 border-b border-gray-100">
+                    <h1 class="text-lg font-bold">My Wishlist (<span id="wishlistCount">0</span>)</h1>
+                </div>
+
+                <div id="wishlist-container">
+                    <!-- Wishlist items will be injected here -->
+                    <div id="empty-wishlist" class="p-20 text-center">
+                        <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/mywishlist-empty_39f7a5.png" class="w-64 mx-auto mb-6 opacity-80" alt="Empty Wishlist">
+                        <h3 class="text-lg font-bold mb-2">Empty Wishlist</h3>
+                        <p class="text-sm text-gray-400 mb-8">You have no items in your wishlist. Start adding!</p>
+                        <a href="Fashion.html" class="bg-[#5D4037] text-white px-12 py-3 rounded-sm text-sm font-black uppercase tracking-widest shadow-md hover:bg-[#3E2723] transition-all">
+                            Add Items
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-bg text-white pt-16 mt-10">
+        <div class="container mx-auto px-4 md:px-10 pb-16 grid grid-cols-2 md:grid-cols-6 gap-8">
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">About</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Contact Us</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">About Us</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Careers</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Help</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Payments</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Shipping</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4 col-span-2 md:col-span-2 border-l border-gray-700 pl-8">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Mail Us:</h4>
+                <p class="text-[11px] leading-relaxed text-gray-300">
+                    HostelMart Internet Private Limited,<br>
+                    Buildings Alyssa, Begonia & Clove Embassy Tech Village,<br>
+                    Bengaluru, 560103, Karnataka, India
+                </p>
+            </div>
+            <div class="space-y-4 col-span-2 md:col-span-2 border-l border-gray-700 pl-8">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Social</h4>
+                <div class="flex gap-4 pt-2 text-xl">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    <ion-icon name="logo-twitter"></ion-icon>
+                    <ion-icon name="logo-youtube"></ion-icon>
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-strip py-6">
+            <div class="container mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-[11px] font-medium">
+                    &copy; 2007-2026 HostelMart.com
+                </div>
+                <div class="flex gap-2">
+                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/payment-method-c45441.svg" alt="Payments" class="h-6">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('userName');
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+
+            if (userLoggedIn !== 'true') {
+                window.location.href = 'Login.html';
+                return;
+            }
+
+            if (userName) {
+                if (document.getElementById('headerName')) document.getElementById('headerName').textContent = userName;
+                if (document.getElementById('sidebarName')) document.getElementById('sidebarName').textContent = userName;
+            }
+
+            // Wishlist Logic
+            const wishlistItems = JSON.parse(localStorage.getItem('userWishlist') || '[]');
+            const container = document.getElementById('wishlist-container');
+            const countSpan = document.getElementById('wishlistCount');
+            const emptyState = document.getElementById('empty-wishlist');
+
+            // For demo purposes, if wishlist is empty, we can add some mock items 
+            // if the user wants to see the design. But let's stick to empty by default.
+            
+            if (wishlistItems.length > 0) {
+                emptyState.classList.add('hidden');
+                countSpan.textContent = wishlistItems.length;
+                
+                wishlistItems.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'wishlist-card p-6 flex gap-6 items-start relative';
+                    card.innerHTML = `
+                        <div class="w-24 h-24 flex-shrink-0">
+                            <img src="${item.image}" class="max-h-full mx-auto" alt="${item.title}">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-medium mb-2 pr-10">${item.title}</h3>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-base font-bold">₹${item.price}</span>
+                                <span class="text-xs text-gray-400 line-through">₹${item.originalPrice}</span>
+                                <span class="text-[11px] font-bold text-green-600">${item.discount}% off</span>
+                            </div>
+                            ${item.assured ? '<img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-4" alt="Assured">' : ''}
+                        </div>
+                        <button onclick="removeFromWishlist(${index})" class="absolute top-6 right-6 text-gray-300 hover:text-red-500 transition-colors">
+                            <ion-icon name="trash" class="text-xl"></ion-icon>
+                        </button>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                countSpan.textContent = '0';
+            }
+        });
+
+        function removeFromWishlist(index) {
+            let wishlist = JSON.parse(localStorage.getItem('userWishlist') || '[]');
+            wishlist.splice(index, 1);
+            localStorage.setItem('userWishlist', JSON.stringify(wishlist));
+            location.reload();
+        }
+
+        function logout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userName');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>

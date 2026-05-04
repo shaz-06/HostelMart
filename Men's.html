@@ -42,6 +42,13 @@
         .accordion-content.active {
             max-height: 1000px;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -53,15 +60,51 @@
             <div class="container mx-auto px-4 flex items-center justify-between gap-4">
                 <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter text-[#5D4037]"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></a>
 
-                <div class="hidden md:flex items-center gap-5 text-2xl text-[#5D4037]">
-                    <button class="hover:text-pink-500 transition-colors"><ion-icon
-                            name="person-outline"></ion-icon></button>
-                    <button class="hover:text-pink-500 relative transition-colors"><ion-icon
-                            name="heart-outline"></ion-icon><span
-                            class="absolute -top-1.5 -right-1.5 bg-pink-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span></button>
-                    <button class="hover:text-pink-500 relative transition-colors"><ion-icon
-                            name="bag-handle-outline"></ion-icon><span
-                            class="absolute -top-1.5 -right-1.5 bg-pink-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span></button>
+                <div class="hidden md:flex items-center gap-8 text-[#5D4037] font-bold text-sm">
+                    <a href="Login.html" class="flex items-center gap-2 cursor-pointer hover:text-pink-500 group">
+                        <ion-icon name="person-circle-outline"
+                            class="text-2xl text-gray-400 group-hover:text-pink-500 transition-colors"></ion-icon>
+                        <span>Login</span>
+                    </a>
+
+                    <!-- More Dropdown -->
+                    <div class="hidden md:flex relative group py-2">
+                        <div class="flex items-center gap-1 cursor-pointer hover:text-pink-500 group">
+                            <span>More</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </div>
+                        
+                        <!-- More Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Become a Seller</span>
+                                </a>
+                                <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Notification Settings</span>
+                                </a>
+                                <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">24x7 Customer Care</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Advertise on HostelMart</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-pink-500 relative">
+                        <ion-icon name="bag-handle-outline" class="text-2xl"></ion-icon>
+                        <span
+                            class="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,7 +181,7 @@
                 ];
 
                 document.write(categories.map(cat => `
-                    <a href="#" class="category-card group block bg-[#F5F5DC] border border-[#D7CCC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+                    <a href="javascript:void(0)" class="category-card group block bg-[#F5F5DC] border border-[#D7CCC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
                         <div class="relative h-32 md:h-48 overflow-hidden">
                             <img src="${cat.img}" alt="${cat.name}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-[#5D4037]/10 group-hover:bg-[#5D4037]/20 transition-colors"></div>
@@ -212,9 +255,9 @@
             <div>
                 <h3 class="text-[#5D4037] font-black uppercase text-xs tracking-widest mb-6">Customer Support</h3>
                 <ul class="space-y-3 text-xs font-bold uppercase tracking-tight">
-                    <li><a href="#" class="hover:text-pink-500 transition-colors">Track Order</a></li>
-                    <li><a href="#" class="hover:text-pink-500 transition-colors">Return Policy</a></li>
-                    <li><a href="#" class="hover:text-pink-500 transition-colors">Size Guide</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Track Order</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Return Policy</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Size Guide</a></li>
                 </ul>
             </div>
             <div>

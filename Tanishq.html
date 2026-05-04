@@ -58,6 +58,14 @@
             box-shadow: 0 20px 40px -15px rgba(131, 39, 45, 0.15);
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
         .item-overlay {
             background: linear-gradient(to top, rgba(131, 39, 45, 0.9), transparent);
             opacity: 0;
@@ -90,17 +98,61 @@
 
     <!-- HEADER -->
     <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
-        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col items-center">
-            <!-- Brand Identity -->
-            <a href="index.html"
-                class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none text-black">
-                <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
-            </a>
-            <!-- Tanishq Sub-Brand Identity -->
-            <div class="mt-1 flex items-center gap-2">
-                <span class="h-[1px] w-4 bg-gray-300"></span>
-                <span class="luxury-font text-xl md:text-2xl font-bold tanishq-maroon tracking-tight">TANISHQ</span>
-                <span class="h-[1px] w-4 bg-gray-300"></span>
+        <div class="container mx-auto px-4 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col items-center md:items-start">
+                <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter uppercase leading-none text-black">
+                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
+                </a>
+                <!-- Tanishq Sub-Brand Identity -->
+                <div class="mt-1 flex items-center gap-2">
+                    <span class="h-[1px] w-4 bg-gray-300"></span>
+                    <span class="luxury-font text-xl md:text-2xl font-bold tanishq-maroon tracking-tight">TANISHQ</span>
+                    <span class="h-[1px] w-4 bg-gray-300"></span>
+                </div>
+            </div>
+
+            <!-- Header Actions & More -->
+            <div class="flex items-center gap-6 md:gap-10 text-[#5D4037]">
+                <!-- More Dropdown -->
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#83272d] group transition-colors">
+                        <span class="text-[10px] md:text-xs font-black uppercase tracking-widest">More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn text-[#5D4037]">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Become a Seller</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Notification Settings</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium uppercase tracking-tight">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 text-2xl">
+                    <button class="hover:text-[#83272d] transition-colors"><ion-icon name="search-outline"></ion-icon></button>
+                    <button class="hover:text-[#83272d] transition-colors relative">
+                        <ion-icon name="cart-outline"></ion-icon>
+                        <span class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -271,26 +323,26 @@
             <div>
                 <h4 class="luxury-font text-xl gold-text mb-6">Collections</h4>
                 <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition">Wedding</a></li>
-                    <li><a href="#" class="hover:text-white transition">Rivaah</a></li>
-                    <li><a href="#" class="hover:text-white transition">Mia by Tanishq</a></li>
-                    <li><a href="#" class="hover:text-white transition">Zoya</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Wedding</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Rivaah</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Mia by Tanishq</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Zoya</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="luxury-font text-xl gold-text mb-6">Services</h4>
                 <ul class="text-[10px] space-y-4 text-gray-400 font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition">Virtual Try-on</a></li>
-                    <li><a href="#" class="hover:text-white transition">Gold Schemes</a></li>
-                    <li><a href="#" class="hover:text-white transition">Book Appointment</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Virtual Try-on</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Gold Schemes</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-white transition">Book Appointment</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="luxury-font text-xl gold-text mb-6">Concierge</h4>
                 <div class="flex gap-6 text-2xl text-gray-500">
-                    <a href="#" class="hover:text-white transition"><ion-icon name="logo-instagram"></ion-icon></a>
-                    <a href="#" class="hover:text-white transition"><ion-icon name="logo-facebook"></ion-icon></a>
-                    <a href="#" class="hover:text-white transition"><ion-icon name="logo-pinterest"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-white transition"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-white transition"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-white transition"><ion-icon name="logo-pinterest"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -298,8 +350,8 @@
             class="container mx-auto px-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.3em] text-gray-600">
             <p>© 2024 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> x Titan Company Limited. All rights reserved.</p>
             <div class="flex gap-8 mt-4 md:mt-0">
-                <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition">Purity Certificate</a>
+                <a href="javascript:void(0)" class="hover:text-white transition">Privacy Policy</a>
+                <a href="javascript:void(0)" class="hover:text-white transition">Purity Certificate</a>
             </div>
         </div>
     </footer>

@@ -53,6 +53,14 @@
             font-style: italic;
             letter-spacing: -2px;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -79,18 +87,56 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex gap-8 text-xs font-bold uppercase tracking-tight">
-                <a href="#" class="hover:underline underline-offset-8 decoration-2">Ladies</a>
-                <a href="#" class="hover:underline underline-offset-8 decoration-2">Men</a>
-                <a href="#" class="hover:underline underline-offset-8 decoration-2">Divided</a>
-                <a href="#" class="hover:underline underline-offset-8 decoration-2">Baby</a>
-                <a href="#" class="hover:underline underline-offset-8 decoration-2">Kids</a>
-                <a href="#" class="hm-red">Sale</a>
+                <a href="javascript:void(0)" class="hover:underline underline-offset-8 decoration-2">Ladies</a>
+                <a href="Men.html" class="hover:underline underline-offset-8 decoration-2">Men</a>
+                <a href="javascript:void(0)" class="hover:underline underline-offset-8 decoration-2">Divided</a>
+                <a href="javascript:void(0)" class="hover:underline underline-offset-8 decoration-2">Baby</a>
+                <a href="Kids.html" class="hover:underline underline-offset-8 decoration-2">Kids</a>
+                <a href="Sale.html" class="hm-red">Sale</a>
             </nav>
 
             <!-- Actions -->
             <div class="flex items-center gap-5 text-2xl text-[#5D4037]">
                 <button class="hover:hm-red transition-colors"><ion-icon name="search-outline"></ion-icon></button>
-                <button class="hover:hm-red transition-colors"><ion-icon name="person-outline"></ion-icon></button>
+                <div class="relative group py-2">
+                    <button class="hover:hm-red transition-colors flex items-center gap-1">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </button>
+                </div>
+
+                <!-- More Dropdown -->
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-black group">
+                        <span class="text-xs font-bold uppercase tracking-tight">More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Become a Seller</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Notification Settings</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <button class="hover:hm-red relative transition-colors">
                     <ion-icon name="bag-handle-outline"></ion-icon>
                     <span
@@ -122,13 +168,13 @@
         <!-- CATEGORY STRIP -->
         <div
             class="container mx-auto px-4 md:px-12 py-4 flex gap-6 overflow-x-auto no-scrollbar border-b border-gray-50 whitespace-nowrap text-[11px] font-bold uppercase tracking-wider text-gray-500">
-            <a href="#" class="text-black border-b border-black pb-1">View All</a>
-            <a href="#" class="hover:text-black transition">T-shirts & Tops</a>
-            <a href="#" class="hover:text-black transition">Shirts</a>
-            <a href="#" class="hover:text-black transition">Jeans</a>
-            <a href="#" class="hover:text-black transition">Trousers</a>
-            <a href="#" class="hover:text-black transition">Shorts</a>
-            <a href="#" class="hover:text-black transition">Accessories</a>
+            <a href="javascript:void(0)" class="text-black border-b border-black pb-1">View All</a>
+            <a href="javascript:void(0)" class="hover:text-black transition">T-shirts & Tops</a>
+            <a href="javascript:void(0)" class="hover:text-black transition">Shirts</a>
+            <a href="javascript:void(0)" class="hover:text-black transition">Jeans</a>
+            <a href="javascript:void(0)" class="hover:text-black transition">Trousers</a>
+            <a href="javascript:void(0)" class="hover:text-black transition">Shorts</a>
+            <a href="javascript:void(0)" class="hover:text-black transition">Accessories</a>
         </div>
 
         <!-- PRODUCT GRID (30 Items) -->
@@ -195,7 +241,7 @@
                 <h3 class="text-2xl font-black uppercase mb-4 tracking-tighter">Let's remake fashion</h3>
                 <p class="text-sm text-gray-600 leading-relaxed mb-8">We are committed to making fashion sustainable and
                     sustainability fashionable. Discover our Conscious choice collection.</p>
-                <a href="#"
+                <a href="javascript:void(0)"
                     class="inline-block border-2 border-black px-10 py-3 text-xs font-black uppercase hover:bg-[#5D4037] hover:text-white transition">Read
                     More</a>
             </div>
@@ -209,36 +255,36 @@
                 <div class="hm-logo-font text-3xl hm-red">H&M</div>
                 <p class="text-xs text-gray-400 font-medium uppercase tracking-widest">A <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> Curated Store</p>
                 <div class="flex gap-6 text-xl text-gray-400">
-                    <a href="#" class="hover:text-black"><ion-icon name="logo-facebook"></ion-icon></a>
-                    <a href="#" class="hover:text-black"><ion-icon name="logo-instagram"></ion-icon></a>
-                    <a href="#" class="hover:text-black"><ion-icon name="logo-twitter"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-black"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-black"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-black"><ion-icon name="logo-twitter"></ion-icon></a>
                 </div>
             </div>
             <div>
                 <h4 class="text-xs font-black uppercase tracking-widest mb-6">Shop</h4>
                 <ul class="text-xs space-y-4 text-gray-500 font-medium">
-                    <li><a href="#" class="hover:text-black">Ladies</a></li>
-                    <li><a href="#" class="hover:text-black">Men</a></li>
-                    <li><a href="#" class="hover:text-black">Divided</a></li>
-                    <li><a href="#" class="hover:text-black">Baby</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Ladies</a></li>
+                    <li><a href="Men.html" class="hover:text-black">Men</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Divided</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Baby</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-xs font-black uppercase tracking-widest mb-6">Corporate Info</h4>
                 <ul class="text-xs space-y-4 text-gray-500 font-medium">
-                    <li><a href="#" class="hover:text-black">Career at H&M</a></li>
-                    <li><a href="#" class="hover:text-black">Sustainability</a></li>
-                    <li><a href="#" class="hover:text-black">Press</a></li>
-                    <li><a href="#" class="hover:text-black">Investor Relations</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Career at H&M</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Sustainability</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Press</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Investor Relations</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-xs font-black uppercase tracking-widest mb-6">Help</h4>
                 <ul class="text-xs space-y-4 text-gray-500 font-medium">
-                    <li><a href="#" class="hover:text-black">Customer Service</a></li>
-                    <li><a href="#" class="hover:text-black">My Account</a></li>
-                    <li><a href="#" class="hover:text-black">Legal & Privacy</a></li>
-                    <li><a href="#" class="hover:text-black">Contact</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Customer Service</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">My Account</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Legal & Privacy</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-black">Contact</a></li>
                 </ul>
             </div>
         </div>

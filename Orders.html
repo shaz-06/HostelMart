@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #5D4037;
+        }
+
+        .filter-section h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .filter-item {
+            display: flex;
+            items-center;
+            gap: 10px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .order-card {
+            border: 1px solid #D7CCC8;
+            transition: all 0.2s ease;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.08);
+        }
+
+        .footer-bg {
+            background-color: #3E2723;
+        }
+
+        .footer-link:hover {
+            color: #C8A951;
+            text-decoration: underline;
+        }
+
+        .payment-strip {
+            background-color: #2D1B18;
+            border-top: 1px solid #5D4037;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] py-3 shadow-sm sticky top-0 z-50 border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 md:px-10 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-1 no-underline">
+                <span class="font-black italic text-2xl flex items-center">
+                    <span class="text-[#8D6E63]">Hostel</span>
+                    <span class="text-[#C8A951] ml-1">Mart</span>
+                </span>
+            </a>
+            <div class="flex-1 max-w-xl mx-10 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search for products, brands and more" 
+                        class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded px-4 py-2 text-sm outline-none focus:border-[#5D4037]">
+                    <ion-icon name="search" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#5D4037]"></ion-icon>
+                </div>
+            </div>
+            <div class="flex items-center gap-8 text-sm font-bold text-[#5D4037]">
+                <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
+                <div class="relative group py-2">
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-[#8D6E63] group">
+                        <span>More</span>
+                        <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                    </div>
+                    
+                    <!-- More Dropdown Menu -->
+                    <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                        <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
+                        </div>
+                        <div class="space-y-0.5">
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Become a Seller</span>
+                            </a>
+                            <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Notification Settings</span>
+                            </a>
+                            <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">24x7 Customer Care</span>
+                            </a>
+                            <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">Advertise on HostelMart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer flex items-center gap-1">
+                    <span id="headerName">User</span>
+                    <ion-icon name="chevron-down" class="text-[10px]"></ion-icon>
+                </div>
+                <a href="javascript:void(0)" class="flex items-center gap-1 hover:text-[#8D6E63]">
+                    <ion-icon name="cart" class="text-lg"></ion-icon>
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 container mx-auto px-4 md:px-10 py-4 max-w-7xl">
+        <!-- Breadcrumbs -->
+        <nav class="text-[10px] text-gray-400 mb-4 flex items-center gap-2 font-medium">
+            <a href="index.html" class="hover:text-[#5D4037]">Home</a>
+            <ion-icon name="chevron-forward" class="text-[8px]"></ion-icon>
+            <a href="Profile.html" class="hover:text-[#5D4037]">My Account</a>
+            <ion-icon name="chevron-forward" class="text-[8px]"></ion-icon>
+            <span class="text-[#5D4037]">My Orders</span>
+        </nav>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            
+            <!-- Filters Sidebar -->
+            <aside class="w-full md:w-[280px]">
+                <div class="bg-white shadow-sm rounded-sm p-4">
+                    <h2 class="text-lg font-bold mb-6">Filters</h2>
+                    
+                    <div class="filter-section mb-8">
+                        <h3>Order Status</h3>
+                        <div class="space-y-3">
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>On the way</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>Delivered</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>Cancelled</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>Returned</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section border-t border-gray-100 pt-6">
+                        <h3>Order Time</h3>
+                        <div class="space-y-3">
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>Last 30 days</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>2024</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>2023</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox" class="w-4 h-4 accent-[#5D4037]">
+                                <span>Older</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="flex-1 space-y-4">
+                <!-- Search Orders -->
+                <div class="flex shadow-sm">
+                    <input type="text" placeholder="Search your orders here" 
+                        class="flex-1 p-3 text-sm outline-none border border-r-0 border-[#D7CCC8] rounded-l-sm bg-white">
+                    <button class="bg-[#5D4037] text-white px-6 py-3 text-sm font-bold flex items-center gap-2 rounded-r-sm hover:bg-[#3E2723]">
+                        <ion-icon name="search"></ion-icon>
+                        Search Orders
+                    </button>
+                </div>
+
+                <!-- Orders Container -->
+                <div id="orders-container" class="space-y-4">
+                    <!-- Empty State -->
+                    <div id="no-orders-msg" class="bg-white p-20 text-center shadow-sm rounded-sm">
+                        <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/myorders-empty_825da1.png" class="w-64 mx-auto mb-6 opacity-80" alt="No Orders">
+                        <h3 class="text-lg font-bold mb-2 text-[#5D4037]">You have no orders</h3>
+                        <p class="text-sm text-gray-400 mb-8">Start shopping now to fill this space!</p>
+                        <a href="Fashion.html" class="inline-block bg-[#5D4037] text-white px-12 py-3 rounded-sm text-sm font-black uppercase tracking-widest shadow-md hover:bg-[#3E2723] transition-all">
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-bg text-white pt-16 mt-10">
+        <div class="container mx-auto px-4 md:px-10 pb-16 grid grid-cols-2 md:grid-cols-6 gap-8">
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">About</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Contact Us</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">About Us</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Careers</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Help</h4>
+                <ul class="text-xs space-y-2 font-medium">
+                    <li><a href="javascript:void(0)" class="footer-link">Payments</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">Shipping</a></li>
+                    <li><a href="javascript:void(0)" class="footer-link">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4 col-span-2 md:col-span-2 border-l border-gray-700 pl-8">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Mail Us:</h4>
+                <p class="text-[11px] leading-relaxed text-gray-300">
+                    HostelMart Internet Private Limited,<br>
+                    Buildings Alyssa, Begonia & Clove Embassy Tech Village,<br>
+                    Bengaluru, 560103, Karnataka, India
+                </p>
+            </div>
+            <div class="space-y-4 col-span-2 md:col-span-2 border-l border-gray-700 pl-8">
+                <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Social</h4>
+                <div class="flex gap-4 pt-2 text-xl">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    <ion-icon name="logo-twitter"></ion-icon>
+                    <ion-icon name="logo-youtube"></ion-icon>
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-strip py-6">
+            <div class="container mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-[11px] font-medium">
+                    &copy; 2007-2026 HostelMart.com
+                </div>
+                <div class="flex gap-2">
+                    <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/payment-method-c45441.svg" alt="Payments" class="h-6">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('userName');
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+
+            if (userLoggedIn !== 'true') {
+                window.location.href = 'Login.html';
+                return;
+            }
+
+            if (userName) {
+                if (document.getElementById('headerName')) document.getElementById('headerName').textContent = userName;
+            }
+
+            // Check for orders in localStorage
+            const orders = JSON.parse(localStorage.getItem('userOrders') || '[]');
+            const container = document.getElementById('orders-container');
+            const emptyMsg = document.getElementById('no-orders-msg');
+
+            if (orders.length > 0) {
+                emptyMsg.classList.add('hidden');
+                orders.forEach(order => {
+                    const card = document.createElement('div');
+                    card.className = 'order-card bg-white p-6 rounded-sm flex flex-col md:flex-row gap-6';
+                    card.innerHTML = `
+                        <div class="w-20 h-20 flex-shrink-0 border border-gray-100 p-1 flex items-center justify-center">
+                            <img src="${order.image}" class="max-h-full" alt="${order.title}">
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-medium mb-1 hover:text-[#8D6E63] cursor-pointer transition-colors">${order.title}</h4>
+                            <p class="text-[11px] text-gray-400">Color: ${order.color} &nbsp; Size: ${order.size}</p>
+                        </div>
+                        <div class="md:w-32">
+                            <p class="text-sm font-bold">₹${order.price}</p>
+                        </div>
+                        <div class="md:w-64">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="w-2 h-2 rounded-full ${order.status === 'Cancelled' ? 'bg-red-500' : 'bg-green-500'}"></span>
+                                <span class="text-sm font-bold">${order.status} on ${order.date}</span>
+                            </div>
+                            <p class="text-[11px] text-gray-500">${order.message}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userName');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>

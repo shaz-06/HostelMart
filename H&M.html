@@ -61,6 +61,29 @@
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out forwards;
         }
+
+        /* Variant Modal Styles */
+        #variant-modal {
+            transition: visibility 0s, opacity 0.3s ease;
+            visibility: hidden;
+            opacity: 0;
+        }
+        #variant-modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        #variant-modal-container {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(100%);
+        }
+        #variant-modal.active #variant-modal-container {
+            transform: translateY(0);
+        }
+        .size-btn-modal.active {
+            background-color: #E50012;
+            color: white;
+            border-color: #E50012;
+        }
     </style>
 </head>
 
@@ -121,6 +144,10 @@
                                 <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
                                 <span class="text-sm font-medium">Become a Seller</span>
                             </a>
+                            <a href="Orders.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-50 pb-2 mb-2">
+                                <ion-icon name="cube-outline" class="text-lg text-gray-400"></ion-icon>
+                                <span class="text-sm font-medium">My Orders</span>
+                            </a>
                             <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
                                 <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
                                 <span class="text-sm font-medium">Notification Settings</span>
@@ -145,6 +172,50 @@
             </div>
         </div>
     </header>
+
+    <!-- Variant Selection Modal (Side Drawer Style) -->
+    <div id="variant-modal" class="fixed inset-0 z-[200] flex items-end justify-center">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeVariantModal()"></div>
+        <div id="variant-modal-container" class="bg-white w-full max-w-md rounded-t-[2.5rem] relative z-10 overflow-hidden shadow-2xl flex flex-col max-h-[80vh]">
+            <div class="p-8 space-y-8">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-black uppercase tracking-[0.2em] text-gray-400">Select Variant</h3>
+                    <button onclick="closeVariantModal()" class="text-2xl hover:scale-110 transition-transform">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="w-24 aspect-[3/4] bg-[#FDF5E6] rounded-2xl overflow-hidden shadow-md flex-shrink-0">
+                        <img id="modal-product-img" src="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-2 flex-1">
+                        <h4 id="modal-product-brand" class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">H&M</h4>
+                        <p id="modal-product-title" class="text-sm font-black text-[#5D4037] leading-tight">Product Title</p>
+                        <div class="flex items-center gap-2">
+                            <span id="modal-current-price" class="text-lg font-black text-[#E50012]">₹0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Select Size</p>
+                    <div class="flex gap-3 justify-between">
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal w-[18%] aspect-square rounded-xl border border-gray-200 flex items-center justify-center text-xs font-black transition-all hover:border-[#E50012]">S</button>
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal w-[18%] aspect-square rounded-xl border border-gray-200 flex items-center justify-center text-xs font-black transition-all hover:border-[#E50012]">M</button>
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal w-[18%] aspect-square rounded-xl border border-gray-200 flex items-center justify-center text-xs font-black transition-all hover:border-[#E50012]">L</button>
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal w-[18%] aspect-square rounded-xl border border-gray-200 flex items-center justify-center text-xs font-black transition-all hover:border-[#E50012]">XL</button>
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal w-[18%] aspect-square rounded-xl border border-gray-200 flex items-center justify-center text-xs font-black transition-all hover:border-[#E50012]">XXL</button>
+                    </div>
+                </div>
+
+                <button id="modal-continue-btn" disabled onclick="confirmVariantSelection()"
+                    class="w-full bg-[#E50012] text-white py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl transition-all duration-300 mt-auto">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
 
     <main>
         <!-- HERO CAMPAIGN -->
@@ -218,15 +289,18 @@
                     document.write(hmProducts.map(p => `
                         <div class="product-card group cursor-pointer relative">
                             <div class="aspect-[3/4] bg-[#FDF5E6] overflow-hidden mb-3 relative">
-                                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.name}">
-                                <div class="absolute inset-x-0 bottom-0 p-4 quick-add">
-                                    <button class="w-full bg-[#F5F5DC]/90 backdrop-blur py-2 text-[10px] font-black uppercase tracking-widest border border-gray-200 hover:bg-[#5D4037] hover:text-white transition-colors">Quick Add</button>
+                                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 product-img" alt="${p.name}">
+                                <div class="absolute inset-x-0 bottom-0 p-4 quick-add bg-white/10 backdrop-blur-sm">
+                                    <div class="flex gap-2">
+                                        <button onclick="handleAddToCart(this, event)" class="add-to-cart flex-1 bg-white text-black py-2.5 text-[9px] font-black uppercase tracking-widest border border-gray-200 hover:bg-gray-100 transition-all">Add to Bag</button>
+                                        <button onclick="handleBuyNow(this, event)" class="buy-now flex-1 bg-black text-white py-2.5 text-[9px] font-black uppercase tracking-widest hover:bg-zinc-800 transition-all">Buy Now</button>
+                                    </div>
                                 </div>
-                                <button class="absolute top-3 right-3 text-2xl text-gray-400 hover:text-hm-red transition-colors"><ion-icon name="heart-outline"></ion-icon></button>
+                                <button class="absolute top-3 right-3 text-2xl text-gray-400 hover:text-hm-red transition-colors z-10"><ion-icon name="heart-outline"></ion-icon></button>
                             </div>
                             <div class="space-y-1">
-                                <h3 class="text-[11px] font-medium text-[#5D4037]">${p.name}</h3>
-                                <p class="text-xs font-black hm-red">$${p.price}</p>
+                                <h3 class="product-title text-[11px] font-medium text-[#5D4037]">${p.name}</h3>
+                                <p class="current-price text-xs font-black hm-red">₹${Math.round(parseFloat(p.price) * 80)}</p>
                             </div>
                         </div>
                     `).join(''));
@@ -299,6 +373,95 @@
         </div>
     </footer>
 
+    </footer>
+
+    <script>
+        let currentTargetButton = null;
+
+        function openVariantModal(data) {
+            const modal = document.getElementById('variant-modal');
+            
+            // Populate modal
+            document.getElementById('modal-product-img').src = data.img;
+            document.getElementById('modal-product-title').textContent = data.title;
+            document.getElementById('modal-current-price').textContent = data.currentPrice;
+
+            // Reset modal state
+            document.querySelectorAll('.size-btn-modal').forEach(b => b.classList.remove('active'));
+            document.getElementById('modal-continue-btn').disabled = true;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeVariantModal() {
+            const modal = document.getElementById('variant-modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function selectSizeModal(btn) {
+            document.querySelectorAll('.size-btn-modal').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('modal-continue-btn').disabled = false;
+        }
+
+        function handleAddToCart(btn, e) {
+            if (e) e.stopPropagation();
+            currentTargetButton = btn;
+            const card = btn.closest('.product-card');
+            const data = {
+                img: card.querySelector('.product-img').src,
+                title: card.querySelector('.product-title').textContent,
+                currentPrice: card.querySelector('.current-price').textContent
+            };
+            openVariantModal(data);
+        }
+
+        function handleBuyNow(btn, e) {
+            if (e) e.stopPropagation();
+            currentTargetButton = btn;
+            btn.classList.add('buy-now');
+            const card = btn.closest('.product-card');
+            const data = {
+                img: card.querySelector('.product-img').src,
+                title: card.querySelector('.product-title').textContent,
+                currentPrice: card.querySelector('.current-price').textContent
+            };
+            openVariantModal(data);
+        }
+
+        function confirmVariantSelection() {
+            if (currentTargetButton) {
+                const selectedSize = document.querySelector('.size-btn-modal.active').innerText;
+                const card = currentTargetButton.closest('.product-card');
+                
+                const data = {
+                    img: card.querySelector('.product-img').src,
+                    brand: 'H&M',
+                    title: card.querySelector('.product-title').textContent,
+                    currentPrice: card.querySelector('.current-price').textContent,
+                    size: selectedSize,
+                    qty: 1
+                };
+
+                if (currentTargetButton.classList.contains('buy-now')) {
+                    localStorage.setItem('checkoutItem', JSON.stringify(data));
+                    window.location.href = 'Checkout.html';
+                } else {
+                    // Logic for add to cart
+                    alert('Added to bag: ' + data.title + ' (Size: ' + selectedSize + ')');
+                    closeVariantModal();
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

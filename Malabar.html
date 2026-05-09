@@ -152,10 +152,12 @@
 
                 <div class="flex items-center gap-4 text-2xl">
                     <button class="hover:text-[#d4af37] transition-colors"><ion-icon name="search-outline"></ion-icon></button>
-                    <button class="hover:text-[#d4af37] transition-colors relative">
-                        <ion-icon name="cart-outline"></ion-icon>
-                        <span class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                    </button>
+                                                            <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids' Collection | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="address_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .kids-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        #category-explorer {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        #category-explorer.active {
+            max-height: 2000px;
+            opacity: 1;
+            pointer-events: auto;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .category-toggle-btn ion-icon {
+            transition: transform 0.4s ease;
+        }
+
+        .category-toggle-btn.active ion-icon {
+            transform: rotate(180deg);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .sticky-brand-nav {
+            top: 64px; /* Height of header */
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+            opacity: 1;
+            padding-bottom: 10px;
+        }
+
+        [onclick^="toggleAccordion"] ion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .active-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-[#FDFBF7] text-[#5D4037] antialiased">
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
+
+    <!-- ADDRESS MODAL -->
+    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="address-container">
+            <button onclick="closeAddressModal()"
+                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            
+            <div class="p-8 md:p-10 space-y-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
+                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
+                </div>
+
+                <!-- Map Section -->
+                <div class="relative group">
+                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
+                    <button onclick="useGPS(event)" 
+                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
+                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
+                        Use GPS
+                    </button>
+                </div>
+
+                <!-- Manual Input Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                </div>
+
+                <button onclick="saveAddress(event)"
+                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
+                    Confirm Delivery Location
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 md:px-12 py-3 md:py-4 flex items-center justify-between">
+            <div class="flex flex-col items-start leading-none group cursor-pointer">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
+                </a>
+                <div onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] mt-1">
+                    <ion-icon name="location-outline" class="text-[10px] text-gray-400"></ion-icon>
+                    <span id="current-location" class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-gray-400">Add Delivery Address</span>
+                    <ion-icon name="chevron-down-outline" class="text-[8px] text-gray-400"></ion-icon>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-8 text-[#5D4037] font-bold text-sm">
+                <button onclick="toggleCategoryExplorer()" class="category-toggle-btn flex items-center gap-2 hover:text-[#8D6E63] transition-colors group">
+                    <ion-icon name="grid-outline" class="text-xl"></ion-icon>
+                    <span>Categories</span>
+                    <ion-icon name="chevron-down-outline" class="text-[10px]"></ion-icon>
+                </button>
+
+                <a href="Login.html" class="flex items-center gap-2 cursor-pointer hover:text-pink-500 group">
+                    <ion-icon name="person-circle-outline" class="text-2xl text-gray-400 group-hover:text-pink-500 transition-colors"></ion-icon>
+                    <span>Login</span>
+                </a>
+
+                <div class="flex items-center gap-2 cursor-pointer hover:text-pink-500 relative">
+                    <ion-icon name="bag-handle-outline" class="text-2xl"></ion-icon>
+                    <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CATEGORY EXPLORER MEGA SECTION -->
+    <section id="category-explorer" class="bg-[#FDFBF7] border-b border-[#D7CCC8]/50 relative overflow-hidden">
+        <!-- Subtle background pattern -->
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#5D4037 1px, transparent 1px); background-size: 24px 24px;"></div>
+        
+        <div class="container mx-auto px-4 md:px-12 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-12">
+                <!-- Girls Wear -->
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#C8A951] rounded-full"></span>
+                        Girls Wear
+                    </h3>
+                    <ul class="space-y-2.5 text-[10px] font-bold text-[#8D6E63]">
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Cargo Pants</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Frocks</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Tops</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Dresses</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Jeans</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Jumpsuits</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Shorts</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Skirts</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Swimsuits</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Trackpants</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Underwear</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Night Suits</a></li>
+                    </ul>
+                </div>
+
+                <!-- Girls Ethnic Wear -->
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#C8A951] rounded-full"></span>
+                        Girls Ethnic
+                    </h3>
+                    <ul class="space-y-2.5 text-[10px] font-bold text-[#8D6E63]">
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Gowns</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Sarees</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Lehenga Choli</a></li>
+                    </ul>
+                </div>
+
+                <!-- Boys Wear -->
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#C8A951] rounded-full"></span>
+                        Boys Wear
+                    </h3>
+                    <ul class="space-y-2.5 text-[10px] font-bold text-[#8D6E63]">
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Cargo Pants</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Jeans</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Night Suits</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Shorts</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Swimwear</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Trackpants</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Kurtas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kids Western Wear -->
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#C8A951] rounded-full"></span>
+                        Western Wear
+                    </h3>
+                    <ul class="space-y-2.5 text-[10px] font-bold text-[#8D6E63]">
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Jackets</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Jeans</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Shirts</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Trousers</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Shorts</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">T-Shirts</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Dungarees</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Waistcoats</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Three Fourths</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Blazer</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Clothing Sets</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kids Innerwear & Activewear -->
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#C8A951] rounded-full"></span>
+                        Active & Inner
+                    </h3>
+                    <ul class="space-y-2.5 text-[10px] font-bold text-[#8D6E63]">
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Night Suits</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Innerwear</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Dhotis</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Ethnic Wear</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Vests</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Track Pants</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Tracksuits</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kids Ethnic Wear -->
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#C8A951] rounded-full"></span>
+                        Ethnic Wear
+                    </h3>
+                    <ul class="space-y-2.5 text-[10px] font-bold text-[#8D6E63]">
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Dhotis</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Sherwanis</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Ethnic Wear</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kids Winter Wear -->
+                <div class="space-y-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#C8A951] rounded-full"></span>
+                        Winter Wear
+                    </h3>
+                    <ul class="space-y-2.5 text-[10px] font-bold text-[#8D6E63]">
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Shrugs</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Socks</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Sweaters</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Sweatshirts</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-[#5D4037] hover:translate-x-1 inline-block transition-all">Thermal</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- HERO DEPARTMENT BANNER (Standardized) -->
+        <section class="relative h-[40vh] md:h-[60vh] bg-[#C8A951] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1503919919749-64674562ee93?q=80&w=2000&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-80" alt="Kids' Department">
+            <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
+                <p class="kids-font text-lg md:text-xl font-bold uppercase tracking-widest mb-2 drop-shadow-md">Playful Styles</p>
+                <h1 class="kids-font text-5xl md:text-8xl font-black uppercase tracking-tight mb-6 drop-shadow-lg">Kids' Corner</h1>
+                <p class="max-w-xl text-sm md:text-base opacity-90 font-medium text-white shadow-sm">Comfort meets style for every little adventure. Shop the latest in kids' fashion.</p>
+            </div>
+        </section>
+
+        <!-- CONTENT SECTION WITH SIDEBAR -->
+        <div class="container mx-auto px-4 md:px-12 flex gap-10 py-16">
+            <!-- SIDEBAR FILTERS (Standardized) -->
+            <aside class="hidden lg:block w-72 flex-shrink-0 sticky sticky-brand-nav self-start overflow-y-auto no-scrollbar pb-20" style="height: calc(100vh - 120px);">
+                <div class="bg-white/50 backdrop-blur-sm border border-[#D7CCC8] rounded-3xl p-6 space-y-8">
+                    <!-- Filters Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-[#D7CCC8]">
+                        <h2 class="text-xl font-black uppercase tracking-tighter">Filters</h2>
+                        <button class="text-[10px] font-bold uppercase text-blue-600 hover:underline">Clear All</button>
+                    </div>
+
+                    <!-- Categories (Kids Specific) -->
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Categories</p>
+                        <p class="text-sm font-bold text-[#5D4037]">Kids' Clothing</p>
+                    </div>
+
+                    <!-- Price Filter (Standardized) -->
+                    <div class="space-y-4 pt-4 border-t border-[#D7CCC8]/30">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleAccordion('filter-price')">
+                            <h3 class="text-[11px] font-black uppercase tracking-widest text-[#5D4037]">Price</h3>
+                            <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                        </div>
+                        <div id="filter-price" class="accordion-content active space-y-4 pt-2">
+                            <div class="flex items-center gap-3">
+                                <select class="flex-1 bg-[#FDF5E6] border border-[#D7CCC8] rounded-lg px-2 py-2 text-[10px] font-bold outline-none cursor-pointer">
+                                    <option selected>Min</option>
+                                    <option>₹100</option>
+                                    <option>₹250</option>
+                                    <option>₹500</option>
+                                    <option>₹1000</option>
+                                </select>
+                                <span class="text-[10px] font-bold text-gray-400">to</span>
+                                <select class="flex-1 bg-[#FDF5E6] border border-[#D7CCC8] rounded-lg px-2 py-2 text-[10px] font-bold outline-none cursor-pointer">
+                                    <option>₹250</option>
+                                    <option>₹500</option>
+                                    <option>₹1000</option>
+                                    <option>₹1500</option>
+                                    <option selected>1500+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Filter Accordions -->
+                    <div id="dynamic-filters-container">
+                        <script>
+                            const filterSections = [
+                                { id: 'gender', name: 'Gender' },
+                                { id: 'f-assured', name: 'HM-ASSURED' },
+                                { id: 'brand', name: 'Brand' },
+                                { id: 'new-arrivals', name: 'New Arrivals' },
+                                { id: 'type', name: 'Type' },
+                                { id: 'offers', name: 'Offers' },
+                                { id: 'fit', name: 'Fit' },
+                                { id: 'occasion', name: 'Occasion' },
+                                { id: 'discount', name: 'Discount' },
+                                { id: 'availability', name: 'Availability' },
+                                { id: 'ratings', name: 'Customer Ratings' }
+                            ];
+
+                            document.write(filterSections.map(section => {
+                                let customContent = `<p class="text-[10px] font-medium text-gray-400 italic">Select ${section.name}...</p>`;
+                                
+                                if (section.id === 'gender') {
+                                    const genders = [
+                                        { name: 'Boys', checked: false },
+                                        { name: 'Girls', checked: false },
+                                        { name: 'Boys & Girls', checked: false },
+                                        { name: 'Infants', checked: false }
+                                    ];
+                                    const extraGenders = [
+                                        'Baby Boys',
+                                        'Baby Girls',
+                                        'Baby Boys & Baby Girls',
+                                        'Unisex Kids'
+                                    ];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            <div class="flex items-center justify-between text-[10px] font-bold text-gray-400 pb-2 clear-all-link" style="display: none;">
+                                                <button onclick="clearGenderFilters()" class="flex items-center gap-1 hover:text-[#5D4037] transition-colors">
+                                                    <ion-icon name="close-outline"></ion-icon> Clear All
+                                                </button>
+                                            </div>
+                                            ${genders.map(g => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" ${g.checked ? 'checked' : ''} onchange="updateClearAllVisibility()" class="gender-checkbox w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${g.name}</span>
+                                                </label>
+                                            `).join('')}
+                                            
+                                            <div id="extra-genders" class="space-y-3 hidden animate-fadeIn">
+                                                ${extraGenders.map(name => `
+                                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                                        <input type="checkbox" onchange="updateClearAllVisibility()" class="gender-checkbox w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                        <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${name}</span>
+                                                    </label>
+                                                `).join('')}
+                                                <button onclick="toggleExtraGenders()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">SHOW LESS</button>
+                                            </div>
+                                            
+                                            <button id="show-more-btn" onclick="toggleExtraGenders()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">4 MORE</button>
+                                        </div>
+                                    `;
+                                } else if (section.id === 'f-assured') {
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            <label class="flex items-center gap-3 cursor-pointer group">
+                                                <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">HM-ASSURED</span>
+                                            </label>
+                                        </div>
+                                    `;
+                                } else if (section.id === 'brand') {
+                                    const brands = ["Gini & Jony", "U.S. Polo Assn. Kids", "Mothercare", "Lilliput", "Allen Solly Junior"];
+                                    const extraBrands = ["Puma Kids", "Levis Kids", "United Colors of Benetton", "Gap Kids", "Disney"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            <div class="relative mb-3">
+                                                <ion-icon name="search-outline" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></ion-icon>
+                                                <input type="text" id="brand-search-input" onkeyup="filterBrands()" placeholder="Search Brand" class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl pl-9 pr-4 py-2 text-[10px] font-bold outline-none focus:ring-1 focus:ring-[#5D4037]">
+                                            </div>
+                                            <div id="brands-list" class="space-y-3">
+                                                ${brands.map(brand => `
+                                                    <label class="brand-item flex items-center gap-3 cursor-pointer group" data-brand="${brand.toLowerCase()}">
+                                                        <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                        <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${brand}</span>
+                                                    </label>
+                                                `).join('')}
+                                                <div id="extra-brands" class="space-y-3 hidden animate-fadeIn">
+                                                    ${extraBrands.map(brand => `
+                                                        <label class="brand-item flex items-center gap-3 cursor-pointer group" data-brand="${brand.toLowerCase()}">
+                                                            <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                            <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${brand}</span>
+                                                        </label>
+                                                    `).join('')}
+                                                    <button onclick="toggleExtraBrands()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">SHOW LESS</button>
+                                                </div>
+                                                <button id="show-more-brands-btn" onclick="toggleExtraBrands()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">5 MORE</button>
+                                            </div>
+                                        </div>
+                                    `;
+                                } else if (section.id === 'type') {
+                                    const types = ["T-Shirts", "Shirts", "Jeans", "Frocks", "Dresses", "Shorts"];
+                                    const extraTypes = ["Jumpsuits", "Skirts", "Swimwear", "Trackpants", "Night Suits", "Kurtas", "Sherwanis"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${types.map(type => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${type}</span>
+                                                </label>
+                                            `).join('')}
+                                            
+                                            <div id="extra-types" class="space-y-3 hidden animate-fadeIn">
+                                                ${extraTypes.map(type => `
+                                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                                        <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                        <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${type}</span>
+                                                    </label>
+                                                `).join('')}
+                                                <button onclick="toggleExtraTypes()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">SHOW LESS</button>
+                                            </div>
+                                            <button id="show-more-types-btn" onclick="toggleExtraTypes()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">7 MORE</button>
+                                        </div>
+                                    `;
+                                } else if (section.id === 'offers') {
+                                    const offers = ["Buy 1 Get 1 Free", "Season's Sale", "Special Price"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${offers.map(offer => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${offer}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'fit') {
+                                    const fits = ["Regular", "Slim", "Relaxed", "Comfort Fit"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${fits.map(fit => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${fit}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'occasion') {
+                                    const occasions = ["Casual", "Party", "Ethnic", "School Wear", "Sports"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${occasions.map(occ => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${occ}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'discount') {
+                                    const discounts = ["20% and above", "30% and above", "40% and above", "50% and above"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${discounts.map(d => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${d}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'availability') {
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            <label class="flex items-center gap-3 cursor-pointer group">
+                                                <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">Include Out of Stock</span>
+                                            </label>
+                                        </div>
+                                    `;
+                                } else if (section.id === 'ratings') {
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            <label class="flex items-center gap-3 cursor-pointer group">
+                                                <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">4★ & above</span>
+                                            </label>
+                                            <label class="flex items-center gap-3 cursor-pointer group">
+                                                <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">3★ & above</span>
+                                            </label>
+                                        </div>
+                                    `;
+                                }
+
+                                return `
+                                    <div class="space-y-4 pt-4 border-t border-[#D7CCC8]/30">
+                                        <div class="flex items-center justify-between cursor-pointer group" onclick="toggleAccordion('filter-${section.id}')">
+                                            <h3 class="text-[11px] font-black uppercase tracking-widest text-[#5D4037] group-hover:text-[#C8A951] transition-colors">${section.name}</h3>
+                                            <ion-icon name="chevron-down-outline" class="text-xs transition-transform duration-300 ${section.id === 'gender' ? 'active-icon' : ''}"></ion-icon>
+                                        </div>
+                                        <div id="filter-${section.id}" class="accordion-content ${section.id === 'gender' ? 'active' : ''}">
+                                            ${customContent}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join(''));
+                        </script>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA -->
+            <div class="flex-1">
+                <!-- SHOP BY CATEGORY -->
+                <section class="mb-16">
+                    <h2 class="kids-font text-3xl font-black text-[#5D4037] mb-10 text-center md:text-left">Shop by Category</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <script>
+                            const kidsCats = [
+                                { name: "Boys Wear", img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=500&q=80" },
+                                { name: "Girls Wear", img: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=500&q=80" },
+                                { name: "Infants", img: "https://images.unsplash.com/photo-1522771935876-2497116a7a9e?w=500&q=80" },
+                                { name: "Accessories", img: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&q=80" }
+                            ];
+                            document.write(kidsCats.map(cat => `
+                                <div class="product-card group cursor-pointer">
+                                    <div class="aspect-square bg-gray-100 rounded-3xl overflow-hidden relative shadow-md">
+                                        <img src="${cat.img}" class="w-full h-full object-cover transition-transform duration-500" alt="${cat.name}">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end justify-center p-6">
+                                            <h3 class="text-white kids-font text-xl font-bold text-center">${cat.name}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join(''));
+                        </script>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] py-12">
+        <div class="container mx-auto px-4 text-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter text-[#5D4037] uppercase"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></a>
+            <p class="text-xs text-gray-400 font-medium mt-4 uppercase tracking-[0.3em]">&copy; 2024 HostelMart Kids. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const header = content.previousElementSibling;
+            const icon = header.querySelector('ion-icon');
+            const isActive = content.classList.contains('active');
+            
+            if (!isActive) {
+                content.classList.add('active');
+                if (icon) icon.classList.add('active-icon');
+            } else {
+                content.classList.remove('active');
+                if (icon) icon.classList.remove('active-icon');
+            }
+        }
+
+        function toggleCategoryExplorer() {
+            const explorer = document.getElementById('category-explorer');
+            const btn = document.querySelector('.category-toggle-btn');
+            explorer.classList.toggle('active');
+            btn.classList.toggle('active');
+            
+            // Scroll to explorer if opening
+            if (explorer.classList.contains('active')) {
+                setTimeout(() => {
+                    explorer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
+        }
+
+        function toggleExtraGenders() {
+            const extra = document.getElementById('extra-genders');
+            const btn = document.getElementById('show-more-btn');
+            const isHidden = extra.classList.contains('hidden');
+            
+            if (isHidden) {
+                extra.classList.remove('hidden');
+                btn.classList.add('hidden');
+            } else {
+                extra.classList.add('hidden');
+                btn.classList.remove('hidden');
+            }
+        }
+
+        function toggleExtraBrands() {
+            const extra = document.getElementById('extra-brands');
+            const btn = document.getElementById('show-more-brands-btn');
+            const isHidden = extra.classList.contains('hidden');
+            
+            if (isHidden) {
+                extra.classList.remove('hidden');
+                btn.classList.add('hidden');
+            } else {
+                extra.classList.add('hidden');
+                btn.classList.remove('hidden');
+            }
+        }
+
+        function toggleExtraTypes() {
+            const extra = document.getElementById('extra-types');
+            const btn = document.getElementById('show-more-types-btn');
+            const isHidden = extra.classList.contains('hidden');
+            
+            if (isHidden) {
+                extra.classList.remove('hidden');
+                btn.classList.add('hidden');
+            } else {
+                extra.classList.add('hidden');
+                btn.classList.remove('hidden');
+            }
+        }
+
+        function filterBrands() {
+            const query = document.getElementById('brand-search-input').value.toLowerCase();
+            const items = document.querySelectorAll('.brand-item');
+            const extra = document.getElementById('extra-brands');
+            const moreBtn = document.getElementById('show-more-brands-btn');
+            
+            items.forEach(item => {
+                const brandName = item.getAttribute('data-brand').toLowerCase();
+                if (brandName.includes(query)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            if (query.length > 0) {
+                extra.classList.remove('hidden');
+                moreBtn.classList.add('hidden');
+            } else {
+                extra.classList.add('hidden');
+                moreBtn.classList.remove('hidden');
+            }
+        }
+
+        function updateClearAllVisibility() {
+            const checkboxes = document.querySelectorAll('.gender-checkbox');
+            const clearAll = document.querySelector('.clear-all-link');
+            if (clearAll) {
+                const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+                clearAll.style.display = anyChecked ? 'flex' : 'none';
+            }
+        }
+
+        function clearGenderFilters() {
+            const checkboxes = document.querySelectorAll('.gender-checkbox');
+            checkboxes.forEach(cb => cb.checked = false);
+            updateClearAllVisibility();
+        }
+
+        // Initial check
+        window.addEventListener('load', updateClearAllVisibility);
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

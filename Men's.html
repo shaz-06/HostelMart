@@ -4,72 +4,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Men's Collection - HostelMart</title>
+    <title>Men's Fashion - HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="address_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
         }
 
-        .has-scrollbar::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        .has-scrollbar::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 5px;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        .category-card:hover img {
-            transform: scale(1.1);
+        .accent-gold {
+            color: #C5A059;
         }
 
-        .nav-pill-glow {
-            border: 1px solid rgba(236, 72, 153, 0.2);
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.1);
+        .accent-gold-bg {
+            background-color: #C5A059;
         }
 
-        .accordion-content {
-            max-height: 0;
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .fashion-hero-gradient {
+            background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);
+        }
+
+        .promo-blue {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .formal-gradient {
+            background: linear-gradient(135deg, #EBE9E4 0%, #D7D3CD 100%);
+        }
+
+        /* Custom card styling for fashion */
+        .style-card {
+            background: white;
+            border: 1px solid #e7e5e4;
+            border-radius: 32px;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
         }
 
-        .accordion-content.active {
-            max-height: 1000px;
+        /* Circular budget items */
+        .budget-circle {
+            background: #3E2723;
+            color: #FDFBF7;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
+
+        .budget-circle:hover {
+            background: #C5A059;
+            transform: scale(1.05);
+        }
+
+        #address-map {
+            height: 300px;
+            width: 100%;
+            border-radius: 1rem;
+            z-index: 10;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out forwards;
         }
     </style>
+    <link rel="stylesheet" href="search_styles.css">
+    <script src="search_global.js" defer></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </head>
 
-<body class="bg-[#FDF5E6] text-[#5D4037] antialiased">
+<body class="antialiased">
 
-    <!-- HEADER (Consistent with Main Page) -->
-    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-sm">
-        <div class="py-4 border-b border-[#D7CCC8]">
-            <div class="container mx-auto px-4 flex items-center justify-between gap-4">
-                <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter text-[#5D4037]"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></a>
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
 
-                <div class="hidden md:flex items-center gap-8 text-[#5D4037] font-bold text-sm">
-                    <a href="Login.html" class="flex items-center gap-2 cursor-pointer hover:text-pink-500 group">
-                        <ion-icon name="person-circle-outline"
-                            class="text-2xl text-gray-400 group-hover:text-pink-500 transition-colors"></ion-icon>
-                        <span>Login</span>
-                    </a>
+    <!-- ADDRESS MODAL -->
+    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="address-container">
+            <button onclick="closeAddressModal()"
+                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            
+            <div class="p-8 md:p-10 space-y-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
+                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
+                </div>
 
-                    <!-- More Dropdown -->
+                <!-- Map Section -->
+                <div class="relative group">
+                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
+                    <button onclick="useGPS(event)" 
+                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
+                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
+                        Use GPS
+                    </button>
+                </div>
+
+                <!-- Manual Input Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                </div>
+
+                <button onclick="saveAddress(event)"
+                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
+                    Confirm Delivery Location
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. TOP UTILITY NAV -->
+    <nav class="bg-[#F5F5DC] border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 py-3 flex items-center gap-4 overflow-x-auto no-scrollbar">
+            <a href="index.html" class="bg-[#FDF5E6] px-4 py-2 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1 hover:shadow-md transition-all">
+                <span class="font-black italic text-base flex items-center">
+                    <span class="text-[#8D6E63]">Hostel</span>
+                    <span class="text-[#C8A951] ml-1">Mart</span>
+                </span>
+            </a>
+            <a href="Minutes.html" class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors whitespace-nowrap">
+                <div class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">6</div>
+                <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+            </a>
+            <div class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors whitespace-nowrap">
+                <svg class="w-5 h-5 text-[#8D6E63]" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+            </div>
+            <div class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors whitespace-nowrap">
+                <div class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">Xtra Saver</div>
+                <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. MAIN HEADER -->
+    <header class="bg-[#F5F5DC] py-4 border-b border-[#D7CCC8] sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 flex flex-col gap-3">
+            <!-- Top row: Location & Points -->
+            <div class="flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
+                    <ion-icon name="location" class="text-sm group-hover:scale-125 transition-transform"></ion-icon>
+                    <span id="current-address">Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+            
+            <!-- Bottom row: Search & Actions -->
+            <div class="flex items-center gap-4 md:gap-12">
+                <div class="flex-1 relative group" id="search-container">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl z-10">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+                    <input type="search" id="product-search" placeholder="Search for Products, Brands and More" 
+                        class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium relative z-10"
+                        onfocus="showSearchDropdown()" autocomplete="off">
+                    
+                    <!-- Search Dropdown -->
+                    <div id="search-suggestions" class="search-dropdown">
+                        <!-- Recent Searches Container -->
+                        <div id="recent-searches-list">
+                            <!-- Dynamically populated -->
+                        </div>
+
+                        <!-- Trending Section -->
+                        <div class="dropdown-section-title">Trending</div>
+                        <div class="search-item" onclick="handleSearchClick('mobiles')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">mobiles</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('shoes')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">shoes</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('t shirts')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">t shirts</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('laptops')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">laptops</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('watches')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">watches</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <div class="hidden md:flex relative group py-2">
-                        <div class="flex items-center gap-1 cursor-pointer hover:text-pink-500 group">
+                        <a href="Login.html" id="profile-link" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                            <ion-icon name="person-circle-outline"
+                                class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                            <span id="login-text">Login</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </a>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-64 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Your Account</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="Profile.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="person-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">My Profile</span>
+                                </a>
+                                <a href="Orders.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="cube-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Orders</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="ticket-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Coupons</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="flash-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Supercoin</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="star-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">HostelMart Plus Zone</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="wallet-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Cards & Wallet</span>
+                                </a>
+                                <a href="Address.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="location-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Addresses</span>
+                                </a>
+                                <a href="Wishlist.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="heart-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Wishlist</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-50 pb-3">
+                                    <ion-icon name="gift-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Gift Cards</span>
+                                </a>
+                                <button onclick="logout()" class="w-full flex items-center gap-3 px-6 py-3 hover:bg-red-50 text-red-600 transition-colors mt-2">
+                                    <ion-icon name="log-out-outline" class="text-lg"></ion-icon>
+                                    <span class="text-sm font-bold uppercase tracking-widest">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex relative group py-2">
+                        <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group">
                             <span>More</span>
                             <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
                         </div>
@@ -99,182 +328,850 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="flex items-center gap-2 cursor-pointer hover:text-pink-500 relative">
-                        <ion-icon name="bag-handle-outline" class="text-2xl"></ion-icon>
+                                                                                <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
                         <span
-                            class="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                    </div>
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- BREADCRUMBS -->
-    <nav class="bg-gray-100 py-3">
-        <div class="container mx-auto px-4 text-xs font-medium text-gray-500 flex items-center gap-2">
-            <a href="index.html" class="hover:text-pink-500">Home</a>
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-            <span class="text-[#5D4037]">Men's Section</span>
+    <!-- 3. CATEGORY NAV -->
+    <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
+        <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+            <!-- For You -->
+            <a href="index.html" class="flex flex-col items-center gap-1 group relative pb-1">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/prize--v1.png" class="w-8 h-8 object-contain" alt="For You">
+                </div>
+                <span class="text-[10px] font-bold text-[#5D4037]">For You</span>
+            </a>
+            <!-- Fashion -->
+            <a href="Fashion.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/t-shirt.png" class="w-8 h-8 object-contain" alt="Fashion">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
+            </a>
+            <!-- Wedding -->
+            <a href="WeddingStore.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/wedding-rings.png" class="w-8 h-8 object-contain" alt="Wedding">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Wedding</span>
+            </a>
+            <!-- Mobiles -->
+            <a href="Mobile.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/iphone.png" class="w-8 h-8 object-contain" alt="Mobiles">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
+            </a>
+            <!-- Beauty -->
+            <a href="Beauty.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/lipstick.png" class="w-8 h-8 object-contain" alt="Beauty">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
+            </a>
+            <!-- Electronics -->
+            <a href="Electronics.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/monitor.png" class="w-8 h-8 object-contain" alt="Electronics">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
+            </a>
+            <!-- Home -->
+            <a href="Home.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/lamp.png" class="w-8 h-8 object-contain" alt="Home">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
+            </a>
+            <!-- Appliances -->
+            <a href="Appliances.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/refrigerator.png" class="w-8 h-8 object-contain" alt="Appliances">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
+            </a>
+            <!-- Toys -->
+            <a href="Toys.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/teddy-bear.png" class="w-8 h-8 object-contain" alt="Toys">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
+            </a>
+            <!-- Food -->
+            <a href="Food.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/honey.png" class="w-8 h-8 object-contain" alt="Food">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
+            </a>
+            <!-- Auto -->
+            <a href="Auto.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/car-service.png" class="w-8 h-8 object-contain" alt="Auto">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
+            </a>
+            <!-- 2 Wheele -->
+            <a href="2 wheel.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/motorcycle.png" class="w-8 h-8 object-contain" alt="2 Wheele">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
+            </a>
+            <!-- Sports -->
+            <a href="Sports.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/basketball.png" class="w-8 h-8 object-contain" alt="Sports">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
+            </a>
+            <!-- Books -->
+            <a href="Books.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/books.png" class="w-8 h-8 object-contain" alt="Books">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
+            </a>
+            <!-- Furniture -->
+            <a href="Furniture.html" class="flex flex-col items-center gap-1 group">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all hover:bg-[#FDF5E6] hover:-translate-y-1">
+                    <img src="https://img.icons8.com/color/96/armchair.png" class="w-8 h-8 object-contain" alt="Furniture">
+                </div>
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
+            </a>
         </div>
-    </nav>
+    </div>
 
-    <main class="container mx-auto px-4 py-8">
-
-        <!-- HERO TITLE -->
-        <div class="mb-12 text-center md:text-left">
-            <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#5D4037] mb-4">Men's <span
-                    class="text-pink-500">&</span> Collections</h1>
-            <p class="text-gray-500 max-w-2xl">Explore our extensive range of apparel, from classic T-Shirts and Formal
-                Suits to traditional Ethnic wear and high-performance Activewear.</p>
-        </div>
-
-        <!-- SHOP BY BRAND -->
-        <div class="mb-16">
-            <h2 class="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-3">
-                <span class="w-2 h-6 bg-pink-500 rounded-full"></span> Top Brands
+    <main class="container mx-auto px-4 py-8 space-y-12">
+        <!-- SEARCH RESULTS AREA (Overlay) -->
+        <section id="search-results-area" class="hidden space-y-8">
+            <h2 id="search-results-title" class="text-2xl font-black uppercase tracking-tighter flex items-center gap-3 text-[#5D4037]">
+                <span class="w-2 h-6 bg-[#795548] rounded-full"></span>
+                Search Results
             </h2>
-            <div class="flex overflow-x-auto gap-6 pb-4 has-scrollbar no-scrollbar snap-x">
-                <script>
-                    const topBrands = [
-                        { name: "Nike", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg", url: "Nike.html" },
-                        { name: "Adidas", logo: "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg", url: "Adidas.html" },
-                        { name: "Zara", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg", url: "Zara.html" },
-                        { name: "Levi's", logo: "levis.png", url: "Levis.html" },
-                        { name: "Puma", logo: "puma.png", url: "Puma.html" },
-                        { name: "H&M", logo: "https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg", url: "H&M.html" }
-                    ];
-
-                    document.write(topBrands.map(brand => `
-                        <a href="${brand.url}" class="min-w-[120px] md:min-w-[160px] snap-start bg-[#F5F5DC] border border-[#D7CCC8] p-6 rounded-3xl flex flex-col items-center justify-center gap-4 hover:shadow-xl hover:border-pink-200 transition-all cursor-pointer group">
-                            <div class="h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <img src="${brand.logo}" alt="${brand.name}" class="h-full object-contain grayscale group-hover:grayscale-0 transition-all">
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:text-pink-500">${brand.name}</span>
-                        </a>
-                    `).join(''));
-                </script>
+            <div id="search-results-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+                <!-- Results will be injected here -->
             </div>
-        </div>
+        </section>
 
-        <!-- CATEGORY GRID -->
-        <h2 class="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-3">
-            <span class="w-2 h-6 bg-pink-500 rounded-full"></span> Browse Categories
-        </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-
-            <!-- Category Item Template -->
-            <script>
-                const categories = [
-                    { name: "T-Shirts", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" },
-                    { name: "Casual & Formal Shirts", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&q=80" },
-                    { name: "Jeans & Denim", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=80" },
-                    { name: "Tracksuits & Activewear", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80" },
-                    { name: "Jackets & Winter Wear", img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?w=400&q=80" },
-                    { name: "Hoodies & Sweatshirts", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80" },
-                    { name: "Suits & Blazers", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&q=80" },
-                    { name: "Trousers & Chinos", img: "https://images.unsplash.com/photo-1624371414361-e6e9eaec612e?w=400&q=80" },
-                    { name: "Shorts & Swimwear", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&q=80" },
-                    { name: "Ethnic & Kurta Wear", img: "https://images.unsplash.com/photo-1583313261122-990add2f317b?w=400&q=80" },
-                    { name: "Innerwear & Basics", img: "https://images.unsplash.com/photo-1582719202047-76d3432ee323?w=400&q=80" },
-                    { name: "Accessories & Caps", img: "https://images.unsplash.com/photo-1502389614483-e475fc3340b7?w=400&q=80" }
-                ];
-
-                document.write(categories.map(cat => `
-                    <a href="javascript:void(0)" class="category-card group block bg-[#F5F5DC] border border-[#D7CCC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
-                        <div class="relative h-32 md:h-48 overflow-hidden">
-                            <img src="${cat.img}" alt="${cat.name}" class="w-full h-full object-cover transition-transform duration-700">
-                            <div class="absolute inset-0 bg-[#5D4037]/10 group-hover:bg-[#5D4037]/20 transition-colors"></div>
-                        </div>
-                        <div class="p-3 md:p-5 text-center">
-                            <h3 class="text-[10px] md:text-xs font-black uppercase tracking-widest text-[#5D4037] group-hover:text-pink-500 transition-colors">${cat.name}</h3>
-                        </div>
-                    </a>
-                `).join(''));
-            </script>
-        </div>
-
-        <!-- FEATURED IN SECTION -->
-        <section class="mt-20">
-            <h2 class="text-2xl font-black uppercase mb-10 tracking-tighter flex items-center gap-3">
-                <span class="w-2 h-6 bg-pink-500 rounded-full"></span> Featured Items
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Product Card 1 -->
+        <!-- 4. HERO BANNERS (Big Bachat Days) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-8 relative rounded-[40px] p-10 overflow-hidden fashion-hero-gradient text-white min-h-[340px] flex flex-col justify-center">
+                <div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </div>
+                <div class="relative z-10 space-y-4">
+                    <div
+                        class="bg-yellow-400 text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
+                        BIG BACHAT DAYS</div>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight uppercase italic">Louis Philippe, Van
+                        Heusen <br><span class="text-2xl font-bold accent-gold">Min. 50% Off</span></h2>
+                    <p class="text-sm font-bold opacity-80 italic">The Formal & Casual Collection '26</p>
+                    <button
+                        class="bg-white text-[#3E2723] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Shop
+                        Collection</button>
+                </div>
+            </div>
+            <div
+                class="lg:col-span-4 promo-blue rounded-[40px] p-8 flex flex-col justify-between text-white relative overflow-hidden group cursor-pointer">
+                <div class="relative z-10 space-y-2">
+                    <h3 class="text-3xl font-black italic">USPA</h3>
+                    <p class="text-lg font-bold">Min. 40% Off</p>
+                    <p class="text-[10px] font-black uppercase opacity-60">Iconic American Style</p>
+                </div>
+                <button
+                    class="bg-white/20 backdrop-blur-md text-white border border-white/30 w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest mt-4">Explore
+                    USPA</button>
+                <!-- Decorative circle -->
                 <div
-                    class="bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
-                    <div class="relative aspect-[4/5] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <span
-                            class="absolute top-4 left-4 bg-[#5D4037] text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">Premium</span>
+                    class="absolute -right-8 -bottom-8 w-40 h-40 bg-white/10 rounded-full group-hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SHOP BY PREFERENCE (Screenshot 09.57.19.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Shop by
+                preference</h3>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="T-shirts" class="mix-blend-multiply opacity-80">
                     </div>
-                    <div class="p-6">
-                        <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest">Blazers & Suits</p>
-                        <h3 class="font-bold text-[#5D4037] truncate text-base mt-1">Slim-Fit Charcoal Blazer</h3>
-                        <div class="flex items-center justify-between mt-4">
-                            <span class="font-black text-xl">$129.00</span>
-                            <button class="bg-[#5D4037] text-white p-2 rounded-xl hover:bg-pink-500 transition-colors">
-                                <ion-icon name="cart-outline" class="text-xl"></ion-icon>
-                            </button>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">T-shirts</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Jeans" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Jeans</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Shirts" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Shirts</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Casual Shoes"
+                            class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter text-center">Casual Shoes</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Watches" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Watches</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Sunglasses"
+                            class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Sunglasses</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SAVE ON TOP BRANDS (Screenshot 09.57.36.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Save on top
+                brands</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs italic">USPA</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 40% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase tracking-tighter">Puma</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 50% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase italic">Levi'S</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Under ₹999</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase">Adidas</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 30% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs italic">Tommy</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 40% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase">Nike</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Flat 25% Off</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROTECTION PLANS SECTION -->
+        <section class="space-y-10 py-12">
+            <div class="text-center space-y-2">
+                <h2 class="text-6xl md:text-7xl font-['Playfair_Display'] italic tracking-tighter text-[#1A1A1A]">PROTECTION PLANS</h2>
+                <p class="text-lg md:text-xl font-black tracking-[0.2em] text-[#333]">SAFEGUARD YOUR STYLE!</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto px-4">
+                <!-- Footwear Card -->
+                <div class="flex-1 bg-[#F9F1DC] rounded-[3rem] p-10 relative flex flex-col items-center shadow-sm border border-[#EBE3CC] hover-lift">
+                    <div class="absolute -top-4 bg-[#3BA17D] text-white text-[11px] font-black px-5 py-2 rounded-xl shadow-lg uppercase tracking-wider">
+                        First time online
+                    </div>
+                    
+                    <h3 class="text-4xl font-['Playfair_Display'] italic mt-6 mb-8 text-[#3E2723]">For footwear</h3>
+                    
+                    <div class="w-full border-2 border-dashed border-[#D6CCB4] rounded-[2rem] p-8 space-y-6 mb-10 bg-white/30">
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 flex items-center justify-center text-[#3E2723]">
+                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M3 17.5L5 15.5L8.5 19M6 11.5L8.5 9L12 12.5M10 5.5L12 3.5L15.5 7" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 21L17 17" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-[#3E2723]/90">Accidental damage</span>
+                        </div>
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 flex items-center justify-center text-[#3E2723]">
+                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-[#3E2723]/90">Liquid damage</span>
+                        </div>
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#3E2723] flex items-center justify-center font-black text-xl text-[#3E2723]">₹</div>
+                            </div>
+                            <span class="text-xl font-bold text-[#3E2723]/90">Best value plan</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 cursor-pointer group mt-auto">
+                        <span class="text-3xl font-black text-[#3E2723]">From ₹79</span>
+                        <div class="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product Card 2 -->
-                <div
-                    class="bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
-                    <div class="relative aspect-[4/5] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=600&q=80"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <!-- Watches Card -->
+                <div class="flex-1 bg-[#F9F1DC] rounded-[3rem] p-10 relative flex flex-col items-center shadow-sm border border-[#EBE3CC] hover-lift">
+                    <h3 class="text-4xl font-['Playfair_Display'] italic mt-6 mb-8 text-[#3E2723]">For watches</h3>
+                    
+                    <div class="w-full border-2 border-dashed border-[#D6CCB4] rounded-[2rem] p-8 space-y-6 mb-10 bg-white/30">
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 flex items-center justify-center text-[#3E2723]">
+                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="7" stroke-linecap="round"/>
+                                    <path d="M12 9v3l2 2" stroke-linecap="round"/>
+                                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-[#3E2723]/90">Accidental damage</span>
+                        </div>
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 flex items-center justify-center text-[#3E2723]">
+                                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-[#3E2723]/90">Liquid damage</span>
+                        </div>
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#3E2723] flex items-center justify-center font-black text-xl text-[#3E2723]">₹</div>
+                            </div>
+                            <span class="text-xl font-bold text-[#3E2723]/90">Best value plan</span>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <p class="text-[10px] text-pink-500 font-black uppercase tracking-widest">Denim Wear</p>
-                        <h3 class="font-bold text-[#5D4037] truncate text-base mt-1">Classic Indigo Denim Jacket</h3>
-                        <div class="flex items-center justify-between mt-4">
-                            <span class="font-black text-xl">$75.00</span>
-                            <button class="bg-[#5D4037] text-white p-2 rounded-xl hover:bg-pink-500 transition-colors">
-                                <ion-icon name="cart-outline" class="text-xl"></ion-icon>
-                            </button>
+                    
+                    <div class="flex items-center gap-4 cursor-pointer group mt-auto">
+                        <span class="text-3xl font-black text-[#3E2723]">From ₹59</span>
+                        <div class="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-    </main>
+
+        <!-- 7. MUST-HAVE STYLES (Screenshot 09.59.20.jpg) -->
+        <section class="space-y-8">
+            <div class="flex items-end justify-between">
+                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Must-have
+                    styles</h3>
+                <a href="#"
+                    class="text-[10px] font-black uppercase tracking-widest text-accent-gold hover:underline">See All
+                    Styles</a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <div
+                            class="absolute top-4 left-4 bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded">
+                            NEW</div>
+                        <img src="https://via.placeholder.com/180x200" alt="Style 1"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Campus casuals</p>
+                        <h4 class="font-bold text-sm">Cotton Graphic Tees</h4>
+                        <p class="text-base font-black">Under ₹399</p>
+                    </div>
+                </div>
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <img src="https://via.placeholder.com/180x200" alt="Style 2"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Athletic edge</p>
+                        <h4 class="font-bold text-sm">Lightweight Joggers</h4>
+                        <p class="text-base font-black">Min. 40% Off</p>
+                    </div>
+                </div>
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <img src="https://via.placeholder.com/180x200" alt="Style 3"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Street smart</p>
+                        <h4 class="font-bold text-sm">Denim Trucker Jackets</h4>
+                        <p class="text-base font-black">From ₹1,299</p>
+                    </div>
+                </div>
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <img src="https://via.placeholder.com/180x200" alt="Style 4"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Luxe vibes</p>
+                        <h4 class="font-bold text-sm">Linen Blend Shirts</h4>
+                        <p class="text-base font-black">Flat 30% Off</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. BUDGET CORNER (Screenshot 09.59.50.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Budget corner
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-lg">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹499</p>
+                    <div class="h-1 w-8 bg-white/20 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-lg">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹699</p>
+                    <div class="h-1 w-8 bg-white/20 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-lg">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹999</p>
+                    <div class="h-1 w-8 bg-white/20 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-lg">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹1499</p>
+                    <div class="h-1 w-8 bg-white/20 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-lg">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Steals</p>
+                    <p class="text-3xl font-black tracking-tighter">70%<span class="text-sm">Off</span></p>
+                    <div class="h-1 w-8 bg-white/20 rounded-full mt-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. ASSOCIATE SPONSORS (Screenshot 10.00.17.jpg) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Associate
+                Sponsors</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Allen Solly</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">LP Sport</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Flying Machine</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Jack & Jones</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Peter England</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Wildcraft</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. LUXE FORMAL WEAR (Screenshot 10.07.10.jpg) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-12 relative formal-gradient rounded-[40px] p-10 overflow-hidden min-h-[300px] flex flex-col justify-center text-[#3E2723] border border-stone-200">
+                <div class="relative z-10 space-y-4">
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#C5A059]">Executive
+                        Collection</span>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight italic uppercase tracking-tighter">Luxe
+                        formal wear</h2>
+                    <p class="text-lg font-bold opacity-60">Van Heusen, Peter England & More</p>
+                    <button
+                        class="dark-brown-bg text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Explore
+                        Formals</button>
+                </div>
+                <!-- Abstract visual placeholder -->
+                <div class="absolute right-12 top-1/2 -translate-y-1/2 w-64 h-64 bg-white/50 rounded-full blur-[80px]">
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. FORMAL GRID (Screenshot 10.07.22.jpg) -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
+                    <div
+                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
+                        Formal Shirt</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Van Heusen</p>
+                    <h4 class="font-bold text-sm">Slim Fit Solid Shirt</h4>
+                    <p class="text-base font-black">From ₹1,299</p>
+                </div>
+            </div>
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
+                    <div
+                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
+                        Formal Shirt</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Peter England</p>
+                    <h4 class="font-bold text-sm">Cotton Formal Shirt</h4>
+                    <p class="text-base font-black">From ₹999</p>
+                </div>
+            </div>
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
+                    <div
+                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
+                        Formal Shirt</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Louis Philippe</p>
+                    <h4 class="font-bold text-sm">Textured Formal Shirt</h4>
+                    <p class="text-base font-black">Min. 40% Off</p>
+                </div>
+            </div>
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
+                    <div
+                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
+                        Formal Shirt</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Arrow</p>
+                    <h4 class="font-bold text-sm">Premium Formal Shirt</h4>
+                    <p class="text-base font-black">Under ₹1,499</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. FOOTWEAR SECTION (Screenshot 10.07.44.jpg) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-12 relative dark-brown-bg rounded-[40px] p-10 overflow-hidden min-h-[300px] flex flex-col justify-center text-white">
+                <div
+                    class="absolute right-0 top-0 w-1/2 h-full opacity-10 bg-[radial-gradient(circle_at_center,#C5A059,transparent_70%)]">
+                </div>
+                <div class="relative z-10 space-y-4">
+                    <span
+                        class="bg-[#C5A059] text-white px-3 py-1 rounded-lg font-black text-[10px] w-fit uppercase tracking-widest">Step
+                        into Style</span>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight uppercase italic tracking-tighter">Premium
+                        footwear</h2>
+                    <p class="text-lg font-bold opacity-70">Nike, Adidas, Red Tape & More</p>
+                    <button
+                        class="bg-white text-[#3E2723] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Shop
+                        Footwear</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. FOOTWEAR GRID (Screenshot 10.08.04.jpg) -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
+                    <div
+                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
+                        Sneaker</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Red Tape</p>
+                    <h4 class="font-bold text-sm">Lifestyle Sneakers</h4>
+                    <p class="text-base font-black">Under ₹1,499</p>
+                </div>
+            </div>
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
+                    <div
+                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
+                        Sneaker</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Puma</p>
+                    <h4 class="font-bold text-sm">Casual Canvas Shoes</h4>
+                    <p class="text-base font-black">Min. 50% Off</p>
+                </div>
+            </div>
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
+                    <div
+                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
+                        Sneaker</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Sparx</p>
+                    <h4 class="font-bold text-sm">Sporty Walking Shoes</h4>
+                    <p class="text-base font-black">Under ₹899</p>
+                </div>
+            </div>
+            <div class="style-card hover-lift cursor-pointer border-stone-100">
+                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
+                    <div
+                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
+                        Sneaker</div>
+                </div>
+                <div class="p-5 text-center space-y-1">
+                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Campus</p>
+                    <h4 class="font-bold text-sm">Mesh Running Shoes</h4>
+                    <p class="text-base font-black">Min. 30% Off</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. GROOMING SECTION (Screenshot 10.08.22.jpg) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-12 relative bg-[#F3EFE9] rounded-[40px] p-10 overflow-hidden min-h-[300px] flex flex-col justify-center text-[#3E2723] border border-stone-200">
+                <div class="relative z-10 space-y-4">
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#C5A059]">Self Care
+                        Rituals</span>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight italic uppercase tracking-tighter">Grooming
+                        specials</h2>
+                    <p class="text-lg font-bold opacity-60">Beardo, Bombay Shaving Co & More</p>
+                    <button
+                        class="dark-brown-bg text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Explore
+                        Grooming</button>
+                </div>
+                <div class="absolute right-12 bottom-0 w-72 h-72 bg-white/40 rounded-full blur-[60px] translate-y-24">
+                </div>
+            </div>
+        </section>
+
+        <!-- 15. GROOMING STRIP (Screenshot 10.08.38.jpg) -->
+        <section class="flex gap-6 overflow-x-auto no-scrollbar pb-4">
+            <div
+                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
+                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
+                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Face Washes</h4>
+                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Min. 40% Off</p>
+                </div>
+            </div>
+            <div
+                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
+                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
+                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Beard Oils</h4>
+                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Under ₹299</p>
+                </div>
+            </div>
+            <div
+                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
+                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
+                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Fragrances</h4>
+                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Up to 70% Off</p>
+                </div>
+            </div>
+            <div
+                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
+                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
+                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Hair Styling</h4>
+                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Min. 25% Off</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 16. FINAL PROMO (Screenshot 10.08.46.jpg) -->
+        <section class="bg-[#3E2723] rounded-[40px] p-12 text-center space-y-6 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,#C5A059,transparent_70%)]">
+            </div>
+            <h3
+                class="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter leading-tight relative z-10">
+                The ultimate men's fashion destination</h3>
+            <p class="text-[#FDFBF7]/60 text-sm max-w-lg mx-auto relative z-10">Premium brands, exclusive campus
+                pricing, and ultra-fast delivery at your fingertips.</p>
+            <button
+                class="bg-[#C5A059] text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:scale-105 transition-transform relative z-10">Start
+                Shopping</button>
+        </section>
+
+    </div>
+
 
     <!-- FOOTER -->
-    <footer class="bg-[#F5F5DC] text-gray-500 pt-16 pb-12 border-t border-[#D7CCC8] mt-20">
-        <div
-            class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-gray-50 text-center md:text-left">
-            <div>
-                <a href="index.html" class="text-2xl font-black tracking-tighter text-[#5D4037]"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></a>
-                <p class="text-sm mt-4 leading-relaxed">Your one-stop destination for the latest in global fashion
-                    trends and high-quality apparel.</p>
+    <!-- FOOTER -->
+    <footer class="bg-stone-100 border-t border-stone-200 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+            <div class="col-span-1 space-y-4">
+                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
+                        class="accent-gold">MART</span></h2>
+                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">Premium Men's
+                    Fashion & Lifestyle. Quality threads, student-only deals, 6-minute campus delivery.</p>
             </div>
-            <div>
-                <h3 class="text-[#5D4037] font-black uppercase text-xs tracking-widest mb-6">Customer Support</h3>
-                <ul class="space-y-3 text-xs font-bold uppercase tracking-tight">
-                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Track Order</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Return Policy</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-pink-500 transition-colors">Size Guide</a></li>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Categories</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="index.html" class="hover:text-[#C5A059]">Home</a></li>
+                    <li><a href="electronics.html" class="hover:text-[#C5A059]">Electronics</a></li>
+                    <li><a href="beauty.html" class="hover:text-[#C5A059]">Beauty</a></li>
+                    <li><a href="books.html" class="hover:text-[#C5A059]">Books</a></li>
                 </ul>
             </div>
-            <div>
-                <h3 class="text-[#5D4037] font-black uppercase text-xs tracking-widest mb-6">Newsletter</h3>
-                <form class="flex gap-2">
-                    <input type="email" placeholder="Enter your email"
-                        class="flex-1 bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs outline-none focus:ring-1 focus:ring-pink-500">
-                    <button
-                        class="bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#5D4037] transition-colors">JOIN</button>
-                </form>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Support</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="#" class="hover:text-[#C5A059]">Track Order</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Returns</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Size Guide</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Contact</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Social</h4>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="container mx-auto px-4 py-8 text-center">
-            <p class="text-[10px] font-bold uppercase tracking-widest">&copy; 2024 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>. Crafted for Style.</p>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
+            <p class="text-[10px] font-bold text-stone-400">© 2026 HOSTELMART MEN'S FASHION. WEAR THE VIBE.</p>
         </div>
     </footer>
+    </main>
 
+    <!-- ADDRESS MODAL -->
+    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="address-container">
+            <button onclick="closeAddressModal()"
+                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            
+            <div class="p-8 md:p-10 space-y-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
+                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
+                </div>
+
+                <!-- Map Section -->
+                <div class="relative group">
+                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
+                    <button onclick="useGPS(event)" 
+                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
+                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
+                        Use GPS
+                    </button>
+                </div>
+
+                <!-- Manual Input Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                </div>
+
+                <button onclick="saveAddress(event)"
+                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
+                    Confirm Delivery Location
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

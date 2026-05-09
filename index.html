@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="address_global.js" defer></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -95,6 +96,19 @@
         .active-dot {
             background-color: #5D4037 !important;
             width: 24px !important;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: #D7CCC8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot:hover {
+            background-color: #8D6E63;
         }
 
         .hostelmart-gradient {
@@ -202,7 +216,179 @@
             background-color: #F5F5DC;
             border-bottom: 1px solid #D7CCC8;
         }
+
+        /* Promo Card Styles */
+        .promo-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .promo-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(93, 64, 55, 0.15);
+        }
+        .sasa-lele-badge {
+            background: #FFD700;
+            color: black;
+            font-weight: 900;
+            padding: 4px 6px;
+            font-size: 9px;
+            border-radius: 4px;
+            line-height: 1;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .sbi-offer-badge {
+            background: white;
+            border-radius: 8px;
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #D7CCC8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Student's Category Card Styles */
+        .student-category-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .student-category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .student-category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .student-card {
+            background: linear-gradient(135deg, #FDF5E6 0%, #F5F5DC 100%);
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+            border: 3px solid #D7CCC8;
+            box-shadow: 0 15px 35px rgba(93, 64, 55, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(93, 64, 55, 0.15);
+            border-color: #5D4037;
+        }
+
+        .student-card::before, .student-card::after {
+            content: '';
+            position: absolute;
+            top: -10%;
+            bottom: -10%;
+            width: 50px;
+            background: #5D4037;
+            z-index: 2;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        .student-card::before {
+            left: -10px;
+            transform: rotate(-2deg);
+            background: linear-gradient(to right, #2D1B15, #5D4037 40%, #3E2723 60%, #2D1B15);
+            border-radius: 0 20px 20px 0;
+        }
+
+        .student-card::after {
+            right: -10px;
+            transform: rotate(2deg);
+            background: linear-gradient(to left, #2D1B15, #5D4037 40%, #3E2723 60%, #2D1B15);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .card-lights {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, #5D4037 0.8px, transparent 1.2px);
+            background-size: 25px 25px;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .card-top-fringe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: repeating-linear-gradient(90deg, #5D4037 0, #5D4037 10px, #8D6E63 10px, #8D6E63 20px);
+            z-index: 3;
+            opacity: 0.9;
+        }
+
+        /* Trust Banner Styles */
+        .trust-banner-pill {
+            background: linear-gradient(135deg, #FDFBF7 0%, #F5F5DC 100%);
+            border: 3px solid #D7CCC8;
+            border-radius: 9999px;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 15px 45px rgba(93, 64, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .trust-banner-pill:hover {
+            box-shadow: 0 20px 50px rgba(93, 64, 55, 0.15);
+            border-color: #5D4037;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .trust-icon-box {
+            font-size: 2.2rem;
+            color: #8D6E63;
+            transition: transform 0.3s ease;
+        }
+
+        .trust-item:hover .trust-icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .trust-title {
+            font-size: 1rem;
+            font-weight: 900;
+            color: #5D4037;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 768px) {
+            .trust-banner-pill {
+                border-radius: 2rem;
+                padding: 1.5rem;
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="search_styles.css">
+    <script src="search_global.js" defer></script>
 </head>
 
 <body class="bg-[#FDFBF7] text-[#5D4037] antialiased">
@@ -522,6 +708,14 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
                 </a>
 
+                <a href="WeddingStore.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3656/3656842.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Wedding</span>
+                </a>
+
                 <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
@@ -619,7 +813,7 @@
                 </a>
             </div>
         </div>
-    </header>r>
+    </header>
 
     <!-- MOBILE MENU DRAWER (Updated Order) -->
     <div id="mobileMenu"
@@ -647,6 +841,9 @@
                         class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
                         <a href="javascript:void(0)" class="block hover:text-[#795548] font-medium">Electronics</a>
                         <a href="index.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
+                        <a href="Beauty.html" class="block hover:text-[#795548] font-medium">Beauty</a>
+                        <a href="Skincare.html" class="block hover:text-[#795548] font-medium">Skincare</a>
+                        <a href="Haircare.html" class="block hover:text-[#795548] font-medium">Hair care</a>
                         <a href="javascript:void(0)" class="block hover:text-[#795548] font-medium">Accessories</a>
                     </div>
                 </li>
@@ -724,6 +921,213 @@
             </div>
         </section>
 
+        <!-- PROMOTIONAL CAROUSEL -->
+        <section id="promo-carousel" class="relative group">
+            <div id="hero-banner" class="slider-container no-scrollbar gap-4 md:gap-6 px-1">
+                <!-- Card 1: Samsung -->
+                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-gradient-to-br from-[#5D4037] to-[#2D1B15]">
+                    <img src="assets/images/samsung_banner.png" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="Samsung">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#1A0F0B] via-[#1A0F0B]/40 to-transparent"></div>
+                    <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">SAMSUNG</span>
+                            <div class="sasa-lele-badge">
+                                SASA<br>LELE
+                            </div>
+                        </div>
+                        <div class="space-y-1 md:space-y-2">
+                            <p class="text-[#F5F5DC] font-black text-2xl md:text-3xl leading-tight">Galaxy S25 FE</p>
+                            <p class="text-[#C8A951] font-black text-xl md:text-2xl">Just ₹59,999</p>
+                            <p class="text-[#D7CCC8] text-xs md:text-sm font-medium opacity-80">Capture bright, clean photos</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="sbi-offer-badge">
+                                <div class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
+                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                </div>
+                            </div>
+                            <span class="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Luminous -->
+                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#FDFBF7]">
+                    <img src="assets/images/luminous_banner.png" class="absolute inset-0 w-full h-full object-cover" alt="Luminous">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/60 via-white/20 to-transparent"></div>
+                    <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[#5D4037] font-black text-xl tracking-tighter uppercase italic">LUMINOUS</span>
+                            <div class="sasa-lele-badge">
+                                SASA<br>LELE
+                            </div>
+                        </div>
+                        <div class="space-y-1 md:space-y-2">
+                            <p class="text-[#5D4037] font-black text-2xl md:text-3xl leading-tight">Complete power solutions</p>
+                            <p class="text-[#8D6E63] font-black text-xl md:text-2xl">Up to 40% Off</p>
+                            <p class="text-[#A1887F] text-xs md:text-sm font-medium">Be summer ready</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="sbi-offer-badge">
+                                <div class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
+                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                </div>
+                            </div>
+                            <span class="text-[#5D4037]/10 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: POCO (Carousel 1) -->
+                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-black">
+                    <img src="assets/images/poco_banner.png" class="absolute inset-0 w-full h-full object-cover opacity-70" alt="POCO">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
+                    <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center gap-3">
+                                <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">POCO</span>
+                                <div class="w-px h-5 bg-white/20"></div>
+                                <div class="flex items-center gap-1 bg-[#ffe11b] px-1.5 py-0.5 rounded-sm">
+                                    <span class="text-[#2874f0] font-black text-[9px] italic">Flipkart</span>
+                                    <svg viewBox="0 0 24 24" class="w-2.5 h-2.5 fill-[#2874f0]"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                            <div class="sasa-lele-badge">
+                                SASA<br>LELE
+                            </div>
+                        </div>
+                        <div class="space-y-1 md:space-y-2">
+                            <p class="text-white font-black text-2xl md:text-3xl leading-tight">POCO X8 Pro Max 5G</p>
+                            <p class="text-[#C8A951] font-black text-xl md:text-2xl">From ₹4,445/M*</p>
+                            <p class="text-gray-400 text-xs md:text-sm font-medium">Flagship Dimensity 9500s processor</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="sbi-offer-badge">
+                                <div class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
+                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                </div>
+                            </div>
+                            <span class="text-white/10 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Minutes (Combined) -->
+                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#E0F7FA]">
+                    <img src="assets/images/minutes_grocery_banner.png" class="absolute inset-0 w-full h-full object-cover" alt="Minutes">
+                    <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <div class="flex flex-col">
+                                <span class="text-gray-600 font-bold text-[10px] md:text-xs">Get everything in</span>
+                                <span class="text-[#D81B60] font-black text-xl md:text-2xl tracking-tighter uppercase italic">MINUTES</span>
+                            </div>
+                            <div class="sasa-lele-badge">
+                                SASA<br>LELE
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-[#D81B60] font-black text-xl md:text-2xl leading-none">ZERO + FREE</p>
+                            <p class="text-gray-700 font-bold text-[10px] md:text-xs">Platform fee | Delivery at ₹99</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="bg-[#D81B60] text-white px-3 py-1 rounded-full border border-white/20 shadow-sm">
+                                <p class="font-black text-[10px] md:text-xs">From ₹8</p>
+                            </div>
+                            <span class="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Vivo (Combined) -->
+                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#1A237E]">
+                    <img src="assets/images/vivo_t5x_banner.png" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="Vivo">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0D47A1] via-transparent to-transparent"></div>
+                    <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center gap-3">
+                                <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">VIVO</span>
+                                <div class="w-px h-5 bg-white/20"></div>
+                                <span class="text-white font-bold text-[10px]">Flipkart Unique</span>
+                            </div>
+                            <div class="sasa-lele-badge">
+                                SASA<br>LELE
+                            </div>
+                        </div>
+                        <div class="space-y-1 md:space-y-2">
+                            <p class="text-white font-black text-xl md:text-2xl leading-tight">T5x 5G | 7200 mAh</p>
+                            <p class="text-[#FFB300] font-black text-lg md:text-xl">Sale is live</p>
+                            <p class="text-gray-300 text-[10px] md:text-xs font-medium">Segment's biggest battery</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="sbi-offer-badge">
+                                <div class="w-6 h-6 md:w-7 md:h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-[9px] md:text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
+                                    <p class="text-[7px] md:text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                </div>
+                            </div>
+                            <span class="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Samsung (Combined) -->
+                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-black">
+                    <img src="assets/images/samsung_banner.png" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Samsung">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
+                    <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">SAMSUNG</span>
+                            <div class="sasa-lele-badge">
+                                SASA<br>LELE
+                            </div>
+                        </div>
+                        <div class="space-y-1 md:space-y-2">
+                            <p class="text-white font-black text-xl md:text-2xl leading-tight">Galaxy S25 FE</p>
+                            <p class="text-[#C8A951] font-black text-lg md:text-xl">Just ₹59,999</p>
+                            <p class="text-gray-400 text-[10px] md:text-xs font-medium">Capture bright, clean photos</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="sbi-offer-badge">
+                                <div class="w-6 h-6 md:w-7 md:h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-[9px] md:text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
+                                    <p class="text-[7px] md:text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                </div>
+                            </div>
+                            <span class="text-white/10 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider Dots -->
+            <div class="flex justify-center gap-2 mt-8">
+                <div class="slider-dot active-dot" onclick="slideTo(0)"></div>
+                <div class="slider-dot" onclick="slideTo(1)"></div>
+                <div class="slider-dot" onclick="slideTo(2)"></div>
+                <div class="slider-dot" onclick="slideTo(3)"></div>
+                <div class="slider-dot" onclick="slideTo(4)"></div>
+                <div class="slider-dot" onclick="slideTo(5)"></div>
+            </div>
+        </section>
+
         <!-- HERO BANNERS GRID -->
         <section id="hero-banners" class="grid grid-cols-1 md:grid-cols-12 gap-4">
             <!-- Banner 1: Minutes -->
@@ -788,6 +1192,45 @@
                 </div>
             </div>
         </section>
+
+        <!-- TRUST BANNER SECTION -->
+        <div class="container mx-auto px-4 my-12">
+            <div class="trust-banner-pill">
+                <!-- Sparkle background effect -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, #5D4037 1px, transparent 1.5px); background-size: 30px 30px;"></div>
+                
+                <div class="trust-item">
+                    <div class="trust-icon-box">
+                        <ion-icon name="reload-outline"></ion-icon>
+                    </div>
+                    <div class="trust-text">
+                        <span class="trust-title">Easy<br>Returns</span>
+                    </div>
+                </div>
+
+                <div class="w-px h-12 bg-[#D7CCC8] hidden md:block opacity-50"></div>
+
+                <div class="trust-item">
+                    <div class="trust-icon-box">
+                        <ion-icon name="ribbon-outline"></ion-icon>
+                    </div>
+                    <div class="trust-text">
+                        <span class="trust-title">Top Rated<br>Products</span>
+                    </div>
+                </div>
+
+                <div class="w-px h-12 bg-[#D7CCC8] hidden md:block opacity-50"></div>
+
+                <div class="trust-item">
+                    <div class="trust-icon-box">
+                        <ion-icon name="car-outline"></ion-icon>
+                    </div>
+                    <div class="trust-text">
+                        <span class="trust-title">Cash<br>on Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section id="personalized-scroller"
             class="relative bg-[#F5F5DC]/40 rounded-3xl p-6 md:p-8 overflow-hidden border border-[#D7CCC8]/30">
@@ -868,6 +1311,211 @@
                     class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#F5F5DC] rounded-full shadow-lg flex items-center justify-center z-20 translate-x-5 opacity-0 group-hover/scroller:opacity-100 transition-opacity">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </button>
+            </div>
+        </section>
+
+        <!-- STUDENT'S CATEGORY SECTION -->
+        <section id="students-category" class="container mx-auto px-4 py-12 space-y-8">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter flex items-center gap-3 text-[#5D4037]">
+                    <span class="w-2 h-8 bg-[#5D4037] rounded-full"></span>
+                    Student's Category
+                </h2>
+                <a href="javascript:void(0)" class="text-sm font-bold text-[#8D6E63] hover:underline uppercase tracking-widest">View All Offers</a>
+            </div>
+
+            <div class="student-category-grid">
+                <!-- Card 1: Graphic Tees -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Graphic Tees & more</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Top Styles</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹79</p>
+                        </div>
+                        <div class="w-32 h-32 relative">
+                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain drop-shadow-2xl transform group-hover:scale-110 transition-transform duration-500" alt="Graphic Tees">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Kitchen -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Kitchen Bestsellers</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Mega Offers</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹80</p>
+                        </div>
+                        <div class="w-32 h-32 relative">
+                            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Kitchen">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Shoes -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Casual Shoes</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Cool Picks</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹145</p>
+                        </div>
+                        <div class="w-32 h-32 bg-[#FDF5E6] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Shoes">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Audio -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Best of Audio</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Groovy Steals</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹60</p>
+                        </div>
+                        <div class="w-32 h-32 bg-[#E0F7FA] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Audio">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Sarees -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Silk Sarees & more</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Elegant Picks</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹99</p>
+                        </div>
+                        <div class="w-32 h-32 relative">
+                            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Sarees">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Beauty -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Beauty Gadgets</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Must Haves</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹129</p>
+                        </div>
+                        <div class="w-32 h-32 bg-[#FCE4EC] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Beauty">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Watches -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Men's Watches</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Big Savings</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹60</p>
+                        </div>
+                        <div class="w-32 h-32 bg-[#F5F5F5] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Watches">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Bedsheets -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Double Bedsheets</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Maha Offers</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹139</p>
+                        </div>
+                        <div class="w-32 h-32 relative">
+                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Bedsheets">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9: Face Wash -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Face Wash & more</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Top Steals</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹49</p>
+                        </div>
+                        <div class="w-32 h-32 bg-[#E8F5E9] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Face Wash">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10: Perfumes -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Perfumes & more</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Maha Bachat</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹49</p>
+                        </div>
+                        <div class="w-32 h-32 bg-[#F3E5F5] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Perfumes">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11: Crepe Kurtis -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Crepe Kurtis & more</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Trendy Finds</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹99</p>
+                        </div>
+                        <div class="w-32 h-32 relative">
+                            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Kurtis">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 12: Casual Shirts -->
+                <div class="student-card group">
+                    <div class="card-lights"></div>
+                    <div class="card-top-fringe"></div>
+                    <div class="relative z-10 h-full p-6 flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Casual Shirts</p>
+                            <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Huge Deals</h3>
+                            <p class="text-[#8D6E63] font-black text-xl">From ₹149</p>
+                        </div>
+                        <div class="w-32 h-32 bg-[#E3F2FD] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Casual Shirts">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2734,13 +3382,17 @@
             let currentSlide = 0;
             const slider = document.getElementById('hero-banner');
             const dots = document.querySelectorAll('.slider-dot');
-            const totalSlides = document.querySelectorAll('.slider-item').length;
+            const sliderItems = slider.querySelectorAll('.slider-item');
+            const totalSlides = sliderItems.length;
 
             window.slideTo = (index) => {
+                if (!slider || !sliderItems[0]) return;
                 currentSlide = index;
-                const width = slider.offsetWidth;
+                const itemWidth = sliderItems[0].offsetWidth;
+                const gap = parseInt(window.getComputedStyle(slider).gap) || 0;
+                
                 slider.scrollTo({
-                    left: width * index,
+                    left: (itemWidth + gap) * index,
                     behavior: 'smooth'
                 });
                 updateDots();
@@ -2754,22 +3406,30 @@
             }
 
             function autoSlide() {
+                if (isSliderPaused) return;
                 currentSlide = (currentSlide + 1) % totalSlides;
                 window.slideTo(currentSlide);
             }
 
-            let slideInterval = setInterval(autoSlide, 5000);
+            let isSliderPaused = false;
+            let slideInterval = setInterval(autoSlide, 4000);
 
-            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-            slider.addEventListener('mouseleave', () => slideInterval = setInterval(autoSlide, 5000));
+            slider.addEventListener('mouseenter', () => isSliderPaused = true);
+            slider.addEventListener('mouseleave', () => isSliderPaused = false);
 
             // Update dots on manual scroll
+            let scrollTimeout;
             slider.addEventListener('scroll', () => {
-                const index = Math.round(slider.scrollLeft / slider.offsetWidth);
-                if (index !== currentSlide) {
-                    currentSlide = index;
-                    updateDots();
-                }
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const itemWidth = sliderItems[0].offsetWidth;
+                    const gap = parseInt(window.getComputedStyle(slider).gap) || 0;
+                    const index = Math.round(slider.scrollLeft / (itemWidth + gap));
+                    if (index !== currentSlide && index < totalSlides) {
+                        currentSlide = index;
+                        updateDots();
+                    }
+                }, 100);
             });
         };
 
@@ -3247,150 +3907,7 @@
         }
     </script>
     <script>
-        let addressMap;
-        let addressMarker;
 
-        function openAddressModal() {
-            const modal = document.getElementById('address-modal');
-            const container = document.getElementById('address-container');
-            const overlay = document.getElementById('overlay');
-            
-            modal.classList.remove('hidden');
-            overlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-
-            setTimeout(() => {
-                container.classList.remove('scale-95', 'opacity-0');
-                container.classList.add('scale-100', 'opacity-100');
-                initAddressMap();
-            }, 10);
-        }
-
-        function closeAddressModal() {
-            const container = document.getElementById('address-container');
-            const overlay = document.getElementById('overlay');
-            
-            container.classList.remove('scale-100', 'opacity-100');
-            container.classList.add('scale-95', 'opacity-0');
-
-            setTimeout(() => {
-                document.getElementById('address-modal').classList.add('hidden');
-                overlay.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }, 500);
-        }
-
-        function initAddressMap() {
-            if (addressMap) return; // Already initialized
-
-            // Default location (e.g., Bangalore)
-            const defaultLoc = [12.9716, 77.5946];
-            
-            addressMap = L.map('address-map').setView(defaultLoc, 13);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(addressMap);
-
-            addressMarker = L.marker(defaultLoc, { draggable: true }).addTo(addressMap);
-
-            // Update manual fields on drag end
-            addressMarker.on('dragend', function(e) {
-                const position = addressMarker.getLatLng();
-                reverseGeocode(position.lat, position.lng);
-            });
-
-            // Update on map click
-            addressMap.on('click', function(e) {
-                addressMarker.setLatLng(e.latlng);
-                reverseGeocode(e.latlng.lat, e.latlng.lng);
-            });
-        }
-
-        async function useGPS() {
-            if (!navigator.geolocation) {
-                alert("Geolocation is not supported by your browser");
-                return;
-            }
-
-            const gpsBtn = event.currentTarget;
-            const originalHTML = gpsBtn.innerHTML;
-            gpsBtn.innerHTML = '<ion-icon name="sync-outline" class="animate-spin text-lg"></ion-icon> Locating...';
-
-            const options = {
-                enableHighAccuracy: true,
-                timeout: 10000,
-                maximumAge: 0
-            };
-
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    addressMap.setView([latitude, longitude], 16);
-                    addressMarker.setLatLng([latitude, longitude]);
-                    reverseGeocode(latitude, longitude);
-                    gpsBtn.innerHTML = originalHTML;
-                },
-                (error) => {
-                    console.error("GPS Error:", error);
-                    let msg = "Unable to retrieve your location.";
-                    if (error.code === 1) msg = "Location permission denied. Please enable it in your browser settings.";
-                    else if (error.code === 2) msg = "Position unavailable. Please ensure your Wi-Fi is ON and you are in a location with signal.";
-                    else if (error.code === 3) msg = "Location request timed out. Please try again.";
-                    
-                    alert(msg);
-                    gpsBtn.innerHTML = originalHTML;
-                },
-                options
-            );
-        }
-
-        async function reverseGeocode(lat, lng) {
-            try {
-                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
-                const data = await response.json();
-                
-                if (data.address) {
-                    const street = data.address.road || data.address.suburb || data.address.neighbourhood || '';
-                    const city = data.address.city || data.address.town || data.address.village || '';
-                    
-                    document.getElementById('manual-street').value = street;
-                    document.getElementById('manual-city').value = city;
-                }
-            } catch (err) {
-                console.error("Geocoding error:", err);
-            }
-        }
-
-        function saveAddress() {
-            const street = document.getElementById('manual-street').value;
-            const city = document.getElementById('manual-city').value;
-
-            if (!street || !city) {
-                alert("Please provide a complete address.");
-                return;
-            }
-
-            const fullAddress = `${street}, ${city}`;
-            localStorage.setItem('deliveryAddress', fullAddress);
-            
-            // Update UI
-            document.getElementById('current-address').textContent = fullAddress;
-            
-            // Success animation
-            const confirmBtn = event.currentTarget;
-            confirmBtn.innerHTML = 'Address Saved!';
-            confirmBtn.classList.replace('bg-[#5D4037]', 'bg-green-600');
-            
-            setTimeout(() => {
-                closeAddressModal();
-                // Reset button
-                setTimeout(() => {
-                    confirmBtn.innerHTML = 'Confirm Delivery Location';
-                    confirmBtn.classList.replace('bg-green-600', 'bg-[#5D4037]');
-                }, 1000);
-            }, 800);
-        }
 
         // Load saved address on startup
         document.addEventListener('DOMContentLoaded', () => {

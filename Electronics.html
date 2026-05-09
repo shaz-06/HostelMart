@@ -9,6 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="address_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -100,6 +104,56 @@
     <!-- OVERLAY -->
     <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
 
+    <!-- ADDRESS MODAL -->
+    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="address-container">
+            <button onclick="closeAddressModal()"
+                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            
+            <div class="p-8 md:p-10 space-y-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
+                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
+                </div>
+
+                <!-- Map Section -->
+                <div class="relative group">
+                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
+                    <button onclick="useGPS(event)" 
+                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
+                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
+                        Use GPS
+                    </button>
+                </div>
+
+                <!-- Manual Input Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                </div>
+
+                <button onclick="saveAddress(event)"
+                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
+                    Confirm Delivery Location
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
+
     <!-- HEADER -->
     <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
         <!-- Top Row: Tabs -->
@@ -138,9 +192,9 @@
         <div class="bg-[#F5F5DC] py-2 hidden md:block">
             <div
                 class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
+                <div onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
                     <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span>Add Delivery Address</span>
+                    <span id="current-location">Add Delivery Address</span>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
                 <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
@@ -171,11 +225,62 @@
 
                 <!-- Profile & Cart -->
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
-                    <div class="hidden md:flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
-                        <ion-icon name="person-circle-outline"
-                            class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
-                        <span>Login</span>
-                        <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    <div class="hidden md:flex relative group py-2">
+                        <a href="Login.html" id="profile-link" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                            <ion-icon name="person-circle-outline"
+                                class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                            <span id="login-text">Login</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </a>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-64 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Your Account</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="Profile.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="person-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">My Profile</span>
+                                </a>
+                                <a href="Orders.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="cube-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Orders</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="ticket-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Coupons</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="flash-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Supercoin</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="star-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">HostelMart Plus Zone</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="wallet-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Cards & Wallet</span>
+                                </a>
+                                <a href="Address.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="location-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Addresses</span>
+                                </a>
+                                <a href="Wishlist.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="heart-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Wishlist</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-50 pb-3">
+                                    <ion-icon name="gift-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Gift Cards</span>
+                                </a>
+                                <button onclick="logout()" class="w-full flex items-center gap-3 px-6 py-3 hover:bg-red-50 text-red-600 transition-colors mt-2">
+                                    <ion-icon name="log-out-outline" class="text-lg"></ion-icon>
+                                    <span class="text-sm font-bold uppercase tracking-widest">Logout</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="hidden md:flex relative group py-2">
                         <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group">
@@ -208,12 +313,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                                                                                <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
                         <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
                         <span class="hidden md:inline">Cart</span>
                         <span
                             class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

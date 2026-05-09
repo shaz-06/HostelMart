@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hair care - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FAF7F2;
+            color: #3E2723;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+            opacity: 1;
+            padding-bottom: 10px;
+        }
+
+        .active-icon {
+            transform: rotate(180deg);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .sticky-brand-nav {
+            top: 80px;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- HEADER (Standardized) -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-black tracking-tighter uppercase">
+                <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
+            </a>
+            
+            <div class="flex-1 max-w-2xl mx-12 hidden md:block">
+                <div class="relative">
+                    <ion-icon name="search-outline" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></ion-icon>
+                    <input type="text" placeholder="Search for Hair care Products..." class="w-full bg-[#FAF7F2] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2 text-sm outline-none focus:ring-1 focus:ring-[#5D4037]">
+                </div>
+            </div>
+
+            <div class="flex items-center gap-8 text-[#5D4037] font-bold text-sm">
+                <a href="Login.html" class="flex items-center gap-2 hover:text-pink-500 transition-colors group">
+                    <ion-icon name="person-circle-outline" class="text-2xl text-gray-400 group-hover:text-pink-500 transition-colors"></ion-icon>
+                    <span>Login</span>
+                </a>
+                                                                            <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO BANNER -->
+        <section class="relative h-[40vh] md:h-[50vh] bg-[#C8A951] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522337660859-02fbefad4740?auto=format&fit=crop&w=2000&q=80"
+                class="w-full h-full object-cover opacity-60" alt="Hair care Department">
+            <div class="absolute inset-0 flex flex-col justify-center items-center text-[#3E2723] text-center px-4">
+                <p class="text-xs font-black uppercase tracking-[0.5em] mb-4">Crown your glory</p>
+                <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-6">Hair care</h1>
+                <p class="max-w-xl text-sm md:text-base font-medium opacity-80">Professional solutions for every hair type. Shine, strength, and style start here.</p>
+            </div>
+        </section>
+
+        <div class="container mx-auto px-4 md:px-12 flex gap-10 py-16">
+            <!-- SIDEBAR FILTERS (Standardized) -->
+            <aside class="hidden lg:block w-72 flex-shrink-0 sticky sticky-brand-nav self-start overflow-y-auto no-scrollbar pb-20" style="height: calc(100vh - 120px);">
+                <div class="bg-white/50 backdrop-blur-sm border border-[#D7CCC8] rounded-3xl p-6 space-y-8">
+                    <div class="flex items-center justify-between pb-4 border-b border-[#D7CCC8]">
+                        <h2 class="text-xl font-black uppercase tracking-tighter">Filters</h2>
+                        <button class="text-[10px] font-bold uppercase text-blue-600 hover:underline">Clear All</button>
+                    </div>
+
+                    <div id="dynamic-filters-container">
+                        <script>
+                            const filterSections = [
+                                { id: 'hair-type', name: 'Hair Type' },
+                                { id: 'concern', name: 'Hair Concern' },
+                                { id: 'category', name: 'Category' },
+                                { id: 'brand', name: 'Brand' },
+                                { id: 'price', name: 'Price' },
+                                { id: 'discount', name: 'Discount' },
+                                { id: 'ratings', name: 'Customer Ratings' }
+                            ];
+
+                            document.write(filterSections.map(section => {
+                                let customContent = ``;
+                                
+                                if (section.id === 'hair-type') {
+                                    const types = ["Straight", "Curly", "Wavy", "Thin", "Thick", "Color Treated"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${types.map(t => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${t}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'concern') {
+                                    const concerns = ["Hair Fall", "Dandruff", "Damage Repair", "Frizz Control", "Volumizing", "Color Protection"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${concerns.map(c => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${c}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'category') {
+                                    const cats = ["Shampoo", "Conditioner", "Hair Oil", "Hair Mask", "Serum & Styling", "Dry Shampoo"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${cats.map(c => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${c}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'brand') {
+                                    const brands = ["L'Oreal Paris", "Tresemme", "Dove", "Mamaearth", "WOW Skin Science"];
+                                    const extraBrands = ["Panten", "Head & Shoulders", "Biolage", "Schwarzkopf", "OGX"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            <div class="relative mb-3">
+                                                <ion-icon name="search-outline" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></ion-icon>
+                                                <input type="text" id="brand-search-input" onkeyup="filterBrands()" placeholder="Search Brand" class="w-full bg-[#FAF7F2] border border-[#D7CCC8] rounded-xl pl-9 pr-4 py-2 text-[10px] font-bold outline-none focus:ring-1 focus:ring-[#5D4037]">
+                                            </div>
+                                            <div id="brands-list" class="space-y-3">
+                                                ${brands.map(brand => `
+                                                    <label class="brand-item flex items-center gap-3 cursor-pointer group" data-brand="${brand.toLowerCase()}">
+                                                        <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                        <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${brand}</span>
+                                                    </label>
+                                                `).join('')}
+                                                <div id="extra-brands" class="space-y-3 hidden animate-fadeIn">
+                                                    ${extraBrands.map(brand => `
+                                                        <label class="brand-item flex items-center gap-3 cursor-pointer group" data-brand="${brand.toLowerCase()}">
+                                                            <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                            <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${brand}</span>
+                                                        </label>
+                                                    `).join('')}
+                                                    <button onclick="toggleExtraBrands()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">SHOW LESS</button>
+                                                </div>
+                                                <button id="show-more-brands-btn" onclick="toggleExtraBrands()" class="text-[10px] font-black text-blue-600 uppercase tracking-widest pt-2 hover:underline">5 MORE</button>
+                                            </div>
+                                        </div>
+                                    `;
+                                } else if (section.id === 'price') {
+                                    customContent = `
+                                        <div class="space-y-4 pt-2">
+                                            <div class="flex items-center gap-3">
+                                                <select class="flex-1 bg-[#FAF7F2] border border-[#D7CCC8] rounded-lg px-2 py-2 text-[10px] font-bold outline-none">
+                                                    <option>Min</option>
+                                                    <option>₹99</option>
+                                                    <option>₹299</option>
+                                                </select>
+                                                <span class="text-[10px] font-bold text-gray-400">to</span>
+                                                <select class="flex-1 bg-[#FAF7F2] border border-[#D7CCC8] rounded-lg px-2 py-2 text-[10px] font-bold outline-none">
+                                                    <option>₹499</option>
+                                                    <option>₹999</option>
+                                                    <option selected>₹1000+</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    `;
+                                } else if (section.id === 'discount') {
+                                    const discounts = ["10% and above", "20% and above", "30% and above", "50% and above"];
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            ${discounts.map(d => `
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                    <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">${d}</span>
+                                                </label>
+                                            `).join('')}
+                                        </div>
+                                    `;
+                                } else if (section.id === 'ratings') {
+                                    customContent = `
+                                        <div class="space-y-3 pt-2">
+                                            <label class="flex items-center gap-3 cursor-pointer group">
+                                                <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">4★ & above</span>
+                                            </label>
+                                            <label class="flex items-center gap-3 cursor-pointer group">
+                                                <input type="checkbox" class="w-4 h-4 rounded border-[#D7CCC8] text-[#5D4037] focus:ring-[#5D4037] accent-[#5D4037]">
+                                                <span class="text-xs font-bold text-[#5D4037] group-hover:text-[#8D6E63] transition-colors">3★ & above</span>
+                                            </label>
+                                        </div>
+                                    `;
+                                }
+
+                                return `
+                                    <div class="space-y-4 pt-4 border-t border-[#D7CCC8]/30">
+                                        <div class="flex items-center justify-between cursor-pointer group" onclick="toggleAccordion('filter-${section.id}')">
+                                            <h3 class="text-[11px] font-black uppercase tracking-widest text-[#3E2723] group-hover:text-[#C8A951] transition-colors">${section.name}</h3>
+                                            <ion-icon name="chevron-down-outline" class="text-xs transition-transform duration-300"></ion-icon>
+                                        </div>
+                                        <div id="filter-${section.id}" class="accordion-content">
+                                            ${customContent}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join(''));
+                        </script>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA -->
+            <div class="flex-1 space-y-12">
+                <!-- Shop By Category -->
+                <section>
+                    <h2 class="text-2xl font-black uppercase tracking-tight mb-8">Shop by Category</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <script>
+                            const categories = [
+                                { name: "Shampoos", img: "https://images.unsplash.com/photo-1522337660859-02fbefad4740?w=500" },
+                                { name: "Conditioners", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500" },
+                                { name: "Hair Oils", img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500" },
+                                { name: "Hair Masks", img: "https://images.unsplash.com/photo-1556229167-731300067644?w=500" }
+                            ];
+                            document.write(categories.map(cat => `
+                                <div class="group cursor-pointer">
+                                    <div class="aspect-[3/4] bg-white rounded-3xl overflow-hidden relative shadow-sm hover:shadow-xl transition-all">
+                                        <img src="${cat.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/60 to-transparent flex items-end p-6">
+                                            <h3 class="text-white font-bold text-lg leading-tight">${cat.name}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join(''));
+                        </script>
+                    </div>
+                </section>
+
+                <!-- Best Sellers -->
+                <section>
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-2xl font-black uppercase tracking-tight">Best Sellers</h2>
+                        <button class="text-xs font-bold uppercase text-[#C8A951] hover:underline">View All</button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <script>
+                            const bestSellers = [
+                                { name: "L'Oreal Total Repair 5", brand: "L'Oreal Paris", price: "₹299", img: "https://images.unsplash.com/photo-1522337660859-02fbefad4740?w=500" },
+                                { name: "Mamaearth Onion Hair Fall Control", brand: "Mamaearth", price: "₹349", img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500" },
+                                { name: "Tresemme Keratin Smooth", brand: "Tresemme", price: "₹499", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500" }
+                            ];
+                            document.write(bestSellers.map(item => `
+                                <div class="bg-white rounded-3xl p-4 shadow-sm border border-transparent hover:border-[#D7CCC8] transition-all group">
+                                    <div class="aspect-square rounded-2xl overflow-hidden mb-4 bg-[#FAF7F2]">
+                                        <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                    </div>
+                                    <p class="text-[10px] font-bold uppercase text-gray-400">${item.brand}</p>
+                                    <h3 class="text-sm font-bold text-[#3E2723] line-clamp-1 mt-1">${item.name}</h3>
+                                    <div class="flex items-center justify-between mt-4">
+                                        <span class="font-black text-lg">${item.price}</span>
+                                        <button class="bg-[#3E2723] text-white p-2 rounded-xl hover:bg-[#C8A951] transition-colors">
+                                            <ion-icon name="add-outline"></ion-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join(''));
+                        </script>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center text-center space-y-4">
+            <h2 class="text-2xl font-black tracking-tighter text-[#3E2723] uppercase"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></h2>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">&copy; 2024 HostelMart Hair care. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = content.previousElementSibling.querySelector('ion-icon');
+            content.classList.toggle('active');
+            icon.classList.toggle('active-icon');
+        }
+
+        function toggleExtraBrands() {
+            const extra = document.getElementById('extra-brands');
+            const btn = document.getElementById('show-more-brands-btn');
+            extra.classList.toggle('hidden');
+            btn.classList.toggle('hidden');
+        }
+
+        function filterBrands() {
+            const query = document.getElementById('brand-search-input').value.toLowerCase();
+            const items = document.querySelectorAll('.brand-item');
+            const extra = document.getElementById('extra-brands');
+            const moreBtn = document.getElementById('show-more-brands-btn');
+            
+            items.forEach(item => {
+                const brandName = item.getAttribute('data-brand').toLowerCase();
+                if (brandName.includes(query)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            if (query.length > 0) {
+                extra.classList.remove('hidden');
+                moreBtn.classList.add('hidden');
+            } else {
+                extra.classList.add('hidden');
+                moreBtn.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

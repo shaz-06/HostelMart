@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Store - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #5D4037;
+        }
+
+        .wedding-hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 20px;
+            margin: 20px;
+        }
+
+        .wedding-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wedding-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 60px;
+            text-align: center;
+        }
+
+        .wedding-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .wedding-hero h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-top: 10px;
+        }
+
+        .discount-badge {
+            background: #FFD700;
+            color: #5D4037;
+            font-weight: 900;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 18px;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Occasion Section */
+        .occasion-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            border-radius: 100px 100px 20px 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .occasion-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .occasion-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .occasion-card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Pink Banner */
+        .pink-banner {
+            background: linear-gradient(to right, #ff3e7f, #c2185b);
+            margin: 40px 20px;
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pink-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 60px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .pink-banner p {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 10px;
+        }
+
+        /* Category Cards */
+        .cat-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .cat-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .cat-card-img {
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .cat-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cat-card-footer {
+            padding: 20px;
+            background: linear-gradient(to bottom, #ff3e7f, #c2185b);
+            color: white;
+            text-align: center;
+        }
+
+        .cat-card-footer h3 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .cat-card-footer p {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        /* Bridal Bling */
+        .bling-arch {
+            background: linear-gradient(to bottom, #ff3e7f, #c2185b);
+            border-radius: 100px 100px 20px 20px;
+            padding: 40px 20px;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .bling-arch h2 {
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .bling-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bling-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #D7CCC8;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .bling-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bling-item h4 {
+            font-weight: 700;
+            color: #c2185b;
+            font-size: 14px;
+        }
+
+        .bling-item p {
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .lotus-icon {
+            width: 40px;
+            height: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="address_global.js" defer></script>
+    <link rel="stylesheet" href="search_styles.css">
+    <script src="search_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+</head>
+
+<body class="bg-[#FDFBF7]">
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
+
+    <!-- ADDRESS MODAL -->
+    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="address-container">
+            <button onclick="closeAddressModal()"
+                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            
+            <div class="p-8 md:p-10 space-y-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
+                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
+                </div>
+
+                <!-- Map Section -->
+                <div class="relative group">
+                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
+                    <button onclick="useGPS(event)" 
+                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
+                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
+                        Use GPS
+                    </button>
+                </div>
+
+                <!-- Manual Input Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                </div>
+
+                <button onclick="saveAddress(event)"
+                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
+                    Confirm Delivery Location
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="index.html"
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]">Hostel</span>
+                        <span class="text-[#C8A951] ml-1">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Row -->
+        <div class="bg-[#F5F5DC] py-2 border-b border-[#D7CCC8]/30 hidden md:block">
+            <div class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
+                    <ion-icon name="location" class="text-sm group-hover:scale-125 transition-transform"></ion-icon>
+                    <span id="current-address">Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] py-4">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-12">
+                <a href="index.html" class="text-3xl font-black text-[#5D4037]">HostelMart</a>
+                
+                <div class="flex-1 relative max-w-2xl" id="search-container">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon name="search-outline"></ion-icon></div>
+                    <input type="search" id="product-search" placeholder="Search for Wedding Outfits, Jewellery & More"
+                        onfocus="showSearchDropdown()"
+                        class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-3 outline-none focus:bg-white transition-all text-sm font-medium">
+                    
+                    <div id="search-suggestions" class="search-dropdown">
+                        <div class="p-4 border-b border-[#D7CCC8]">
+                            <h4 class="text-[10px] font-black uppercase tracking-widest text-gray-400">Recent Searches</h4>
+                        </div>
+                        <div id="recent-searches-list"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-8 text-[#5D4037] font-bold text-sm">
+                    <div class="hidden md:flex relative group py-2">
+                        <a href="Login.html" id="profile-link" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
+                            <ion-icon name="person-circle-outline"
+                                class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
+                            <span id="login-text">Login</span>
+                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
+                        </a>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute top-full right-0 mt-1 w-64 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
+                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Your Account</p>
+                            </div>
+                            <div class="space-y-0.5">
+                                <a href="Profile.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="person-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">My Profile</span>
+                                </a>
+                                <a href="Orders.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="cube-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Orders</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="ticket-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Coupons</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="flash-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Supercoin</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="star-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">HostelMart Plus Zone</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="wallet-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Cards & Wallet</span>
+                                </a>
+                                <a href="Address.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="location-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Saved Addresses</span>
+                                </a>
+                                <a href="Wishlist.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                                    <ion-icon name="heart-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Wishlist</span>
+                                </a>
+                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-50 pb-3">
+                                    <ion-icon name="gift-outline" class="text-lg text-gray-400"></ion-icon>
+                                    <span class="text-sm font-medium">Gift Cards</span>
+                                </a>
+                                <button onclick="logout()" class="w-full flex items-center gap-3 px-6 py-3 hover:bg-red-50 text-red-600 transition-colors mt-2">
+                                    <ion-icon name="log-out-outline" class="text-lg"></ion-icon>
+                                    <span class="text-sm font-bold uppercase tracking-widest">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                    <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span
+                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- GLOBAL SEARCH RESULTS AREA -->
+        <section id="search-results-area" class="hidden py-16">
+            <div class="container mx-auto px-4">
+                <div class="mb-10 flex items-center gap-4">
+                    <h2 id="search-results-title" class="text-3xl font-black text-[#5D4037] flex items-center gap-3">
+                        <span class="w-2 h-6 bg-[#795548] rounded-full"></span> Found 0 results
+                    </h2>
+                </div>
+                <div id="search-results-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-10">
+                    <!-- Dynamic Search Results -->
+                </div>
+            </div>
+        </section>
+
+    <!-- HERO SECTION -->
+    <section class="wedding-hero">
+        <img src="wedding_hero_banner_1778086904877.png" alt="Wedding Hero">
+        <div class="wedding-hero-overlay">
+            <h1>SHAADI KA GHAR</h1>
+            <h2>STYLE KA SHUBH AARAMBH</h2>
+            <div class="discount-badge">UP TO 80% OFF</div>
+        </div>
+    </section>
+
+    <!-- OCCASION SECTION -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+            <!-- Card 1 -->
+            <div class="occasion-card">
+                <img src="wedding_occasions_row_1778086920040.png" style="object-position: 0% 0%;" alt="Royal Shaadi">
+                <div class="occasion-card-label">ROYAL SHAADI</div>
+            </div>
+            <!-- Card 2 -->
+            <div class="occasion-card">
+                <img src="wedding_occasions_row_1778086920040.png" style="object-position: 100% 0%;" alt="Day Shaadi">
+                <div class="occasion-card-label">DAY SHAADI</div>
+            </div>
+            <!-- Card 3 -->
+            <div class="occasion-card">
+                <img src="wedding_occasions_row_1778086920040.png" style="object-position: 0% 100%;" alt="Destination Wedding">
+                <div class="occasion-card-label">DESTINATION WEDDING</div>
+            </div>
+            <!-- Card 4 -->
+            <div class="occasion-card">
+                <img src="wedding_occasions_row_1778086920040.png" style="object-position: 100% 100%;" alt="Beach Wedding">
+                <div class="occasion-card-label">BEACH WEDDING</div>
+            </div>
+            <!-- Card 5 -->
+            <div class="occasion-card">
+                <img src="wedding_occasions_row_1778086920040.png" style="object-position: 50% 100%;" alt="Temple Wedding">
+                <div class="occasion-card-label">TEMPLE WEDDING</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PINK BANNER SECTION -->
+    <section class="pink-banner">
+        <div class="z-10">
+            <h2>Dulhan <br>ki tyaari</h2>
+            <p>FROM SANGEET TO SHAADI</p>
+        </div>
+        <div class="absolute right-0 top-0 h-full w-1/2">
+            <img src="dulhan_tyaari_banner_1778086937743.png" class="h-full w-full object-cover" alt="Dulhan Prep">
+        </div>
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
+            <svg class="w-64 h-64 text-white fill-current" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- CATEGORY GRID SECTION -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Row 1 -->
+            <div class="cat-card">
+                <div class="cat-card-img">
+                    <img src="wedding_categories_collage_1778086974994.png" style="object-position: 0% 0%;" alt="Lehenga">
+                </div>
+                <div class="cat-card-footer">
+                    <h3>Lehenga cholis</h3>
+                    <p>Min. 70% Off</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img">
+                    <img src="wedding_categories_collage_1778086974994.png" style="object-position: 100% 0%;" alt="Kurta">
+                </div>
+                <div class="cat-card-footer">
+                    <h3>Silk kurta sets</h3>
+                    <p>Min. 70% Off</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img">
+                    <img src="wedding_categories_collage_1778086974994.png" style="object-position: 33% 50%;" alt="Saree">
+                </div>
+                <div class="cat-card-footer">
+                    <h3>Kanjivaram sarees</h3>
+                    <p>From ₹249</p>
+                </div>
+            </div>
+            <!-- Row 2 -->
+            <div class="cat-card">
+                <div class="cat-card-img">
+                    <img src="wedding_categories_collage_1778086974994.png" style="object-position: 100% 50%;" alt="Jewellery">
+                </div>
+                <div class="cat-card-footer">
+                    <h3>Ethnic jewellery</h3>
+                    <p>From ₹199</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img">
+                    <img src="wedding_categories_collage_1778086974994.png" style="object-position: 50% 100%;" alt="Potlis">
+                </div>
+                <div class="cat-card-footer">
+                    <h3>Potlis & clutches</h3>
+                    <p>From ₹149</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img">
+                    <img src="wedding_categories_collage_1778086974994.png" style="object-position: 100% 100%;" alt="Flats">
+                </div>
+                <div class="cat-card-footer">
+                    <h3>Glam flats & heels</h3>
+                    <p>From ₹199</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRIDAL BLING SECTION -->
+    <section class="container mx-auto px-4 py-12 bg-white rounded-[40px] shadow-sm mb-20">
+        <div class="text-center mb-12">
+            <div class="flex justify-center items-center gap-4 mb-4">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="lotus-icon" alt="lotus">
+                <h2 class="text-5xl font-black text-[#c2185b] font-['Playfair_Display']">Bridal bling</h2>
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="lotus-icon" alt="lotus">
+            </div>
+            <p class="text-2xl text-gray-500 font-bold uppercase tracking-[5px]">Glow up for the Mandap</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-stretch gap-8">
+            <div class="w-full md:w-1/4">
+                <div class="bling-arch">
+                    <h2>SHOP BY STYLES</h2>
+                    <div class="w-12 h-1 bg-white/30 my-4"></div>
+                    <p class="text-sm font-bold opacity-80">CREATE YOUR LOOK</p>
+                </div>
+            </div>
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="bling-item">
+                    <div class="bling-img">
+                        <img src="bridal_bling_collage_1778086991722.png" style="object-position: 0% 0%;" alt="Kaleeras">
+                    </div>
+                    <h4>Kaleeras</h4>
+                    <p>From ₹199</p>
+                </div>
+                <div class="bling-item">
+                    <div class="bling-img">
+                        <img src="bridal_bling_collage_1778086991722.png" style="object-position: 100% 0%;" alt="Maang tikkas">
+                    </div>
+                    <h4>Maang tikkas</h4>
+                    <p>Under ₹299</p>
+                </div>
+                <div class="bling-item">
+                    <div class="bling-img">
+                        <img src="bridal_bling_collage_1778086991722.png" style="object-position: 0% 100%;" alt="Chooras">
+                    </div>
+                    <h4>Chooras</h4>
+                    <p>From ₹129</p>
+                </div>
+                <div class="bling-item">
+                    <div class="bling-img">
+                        <img src="bridal_bling_collage_1778086991722.png" style="object-position: 100% 100%;" alt="Jewellery">
+                    </div>
+                    <h4>Jewellery</h4>
+                    <p>From ₹299</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED BRIDAL COLLECTIONS -->
+    <section class="container mx-auto px-4 py-12">
+        <h2 class="text-2xl font-bold mb-8">Featured bridal collections</h2>
+        <div class="flex flex-wrap items-center gap-8">
+            <div class="w-full md:w-1/4">
+                <div class="bling-arch !h-[400px]">
+                    <h2 class="text-4xl">SHOP BY CATEGORY</h2>
+                    <div class="w-12 h-1 bg-white/30 my-6"></div>
+                    <p class="text-lg font-bold opacity-80">CREATE YOUR LOOK</p>
+                </div>
+            </div>
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="bling-item">
+                    <div class="bling-img !w-48 !h-48">
+                        <img src="bridal_jewellery_categories_1778087839484.png" style="object-position: 0% 0%;" alt="Temple jewellery">
+                    </div>
+                    <h4 class="text-lg">Temple jewellery</h4>
+                    <p class="text-xl">Min. 60% Off</p>
+                </div>
+                <div class="bling-item">
+                    <div class="bling-img !w-48 !h-48">
+                        <img src="bridal_jewellery_categories_1778087839484.png" style="object-position: 100% 0%;" alt="Pearl jewellery">
+                    </div>
+                    <h4 class="text-lg">Pearl jewellery</h4>
+                    <p class="text-xl">Min. 70% Off</p>
+                </div>
+                <div class="bling-item">
+                    <div class="bling-img !w-48 !h-48">
+                        <img src="bridal_jewellery_categories_1778087839484.png" style="object-position: 0% 100%;" alt="Kundan jewellery">
+                    </div>
+                    <h4 class="text-lg">Kundan jewellery</h4>
+                    <p class="text-xl">Min. 70% Off</p>
+                </div>
+                <div class="bling-item">
+                    <div class="bling-img !w-48 !h-48">
+                        <img src="bridal_jewellery_categories_1778087839484.png" style="object-position: 100% 100%;" alt="Meenakari">
+                    </div>
+                    <h4 class="text-lg">Meenakari jewellery</h4>
+                    <p class="text-xl">Min. 60% Off</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEST DRESSED GUEST SECTION -->
+    <section class="py-20 text-center">
+        <div class="flex justify-center items-center gap-8 mb-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-16 h-16" alt="lotus">
+            <h2 class="text-7xl font-black text-[#c2185b] font-['Playfair_Display']">Be the best dressed guest</h2>
+            <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-16 h-16" alt="lotus">
+        </div>
+        <p class="text-4xl text-gray-500 font-bold uppercase tracking-[8px]">Shop for all functions</p>
+    </section>
+
+    <!-- FUNCTIONS ROWS -->
+    <section class="container mx-auto px-4 pb-20 space-y-12">
+        <!-- Haldi Row -->
+        <div class="flex gap-6 overflow-x-auto no-scrollbar">
+            <div class="min-w-[300px] h-[450px] relative rounded-[40px] overflow-hidden group">
+                <img src="wedding_functions_verticals_1778087858760.png" style="object-position: 0% 0%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Haldi">
+                <div class="absolute inset-0 bg-black/20 flex items-end justify-center pb-12">
+                    <h3 class="text-5xl font-black text-white font-['Playfair_Display']">Haldi</h3>
+                </div>
+            </div>
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_1_1778087879726.png" style="object-position: 0% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Pre-draped sarees</h3>
+                        <p class="text-lg">Min. 50% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_1_1778087879726.png" style="object-position: 50% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Heritage jackets</h3>
+                        <p class="text-lg">Min. 50% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_1_1778087879726.png" style="object-position: 100% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Indie print shirts</h3>
+                        <p class="text-lg">Up to 70% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_1_1778087879726.png" style="object-position: 100% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Capes</h3>
+                        <p class="text-lg">Min. 50% Off</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mehendi Row -->
+        <div class="flex gap-6 overflow-x-auto no-scrollbar">
+            <div class="min-w-[300px] h-[450px] relative rounded-[40px] overflow-hidden group">
+                <img src="wedding_functions_verticals_1778087858760.png" style="object-position: 25% 0%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Mehendi">
+                <div class="absolute inset-0 bg-black/20 flex items-end justify-center pb-12">
+                    <h3 class="text-5xl font-black text-white font-['Playfair_Display']">Mehendi</h3>
+                </div>
+            </div>
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_1_1778087879726.png" style="object-position: 0% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Silk kurtas</h3>
+                        <p class="text-lg">From ₹299</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_1_1778087879726.png" style="object-position: 50% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Buta kurtas</h3>
+                        <p class="text-lg">From ₹299</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 0% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Embroidered</h3>
+                        <p class="text-lg">Min. 50% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 50% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Noodles strap</h3>
+                        <p class="text-lg">From ₹199</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sangeet Row -->
+        <div class="flex gap-6 overflow-x-auto no-scrollbar">
+            <div class="min-w-[300px] h-[450px] relative rounded-[40px] overflow-hidden group">
+                <img src="wedding_functions_verticals_1778087858760.png" style="object-position: 50% 0%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Sangeet">
+                <div class="absolute inset-0 bg-black/20 flex items-end justify-center pb-12">
+                    <h3 class="text-5xl font-black text-white font-['Playfair_Display']">Sangeet</h3>
+                </div>
+            </div>
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 0% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Border lehengas</h3>
+                        <p class="text-lg">Min. 50% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 50% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Achkan styles</h3>
+                        <p class="text-lg">Up to 70% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 100% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Sequined kurtas</h3>
+                        <p class="text-lg">From ₹399</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 100% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Asymmetric</h3>
+                        <p class="text-lg">Min. 50% Off</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reception Row -->
+        <div class="flex gap-6 overflow-x-auto no-scrollbar">
+            <div class="min-w-[300px] h-[450px] relative rounded-[40px] overflow-hidden group">
+                <img src="wedding_functions_verticals_1778087858760.png" style="object-position: 100% 50%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Reception">
+                <div class="absolute inset-0 bg-black/20 flex items-end justify-center pb-12">
+                    <h3 class="text-5xl font-black text-white font-['Playfair_Display']">Reception</h3>
+                </div>
+            </div>
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 0% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Cocktail gowns</h3>
+                        <p class="text-lg">Up to 70% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 100% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Sequined lehengas</h3>
+                        <p class="text-lg">Up to 70% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 50% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Tissue sarees</h3>
+                        <p class="text-lg">From ₹449</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 100% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Velvet luxe</h3>
+                        <p class="text-lg">Up to 70% Off</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wedding Row -->
+        <div class="flex gap-6 overflow-x-auto no-scrollbar">
+            <div class="min-w-[300px] h-[450px] relative rounded-[40px] overflow-hidden group">
+                <img src="wedding_functions_verticals_1778087858760.png" style="object-position: 100% 100%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Wedding">
+                <div class="absolute inset-0 bg-black/20 flex items-end justify-center pb-12">
+                    <h3 class="text-5xl font-black text-white font-['Playfair_Display']">Wedding</h3>
+                </div>
+            </div>
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 50% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Silk kurtas</h3>
+                        <p class="text-lg">Min. 70% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 100% 0%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Silk kurtas</h3>
+                        <p class="text-lg">Up to 70% Off</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 0% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Maxi anarkalis</h3>
+                        <p class="text-lg">From ₹449</p>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-card-img"><img src="function_products_collage_2_1778087926565.png" style="object-position: 100% 100%;" alt=""></div>
+                    <div class="cat-card-footer !bg-white !text-[#5D4037] border-t border-gray-100">
+                        <h3 class="!text-[#c2185b]">Sherwanis</h3>
+                        <p class="text-lg">Up to 70% Off</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHAADI SEASON COLLECTIONS -->
+    <section class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <div class="flex justify-center items-center gap-6 mb-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+                <h2 class="text-6xl font-black text-[#c2185b] font-['Playfair_Display']">Shaadi season collections</h2>
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+            </div>
+            <p class="text-3xl text-gray-400 font-medium tracking-widest">Styles to steal the spotlight</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+            <div class="cat-card">
+                <div class="cat-card-img"><img src="shaadi_season_collections_1778088276529.png" style="object-position: 0% 0%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black border-t border-gray-100">
+                    <h3 class="!font-bold">Kurta sets...</h3>
+                    <p class="text-lg font-black">From ₹249</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img"><img src="shaadi_season_collections_1778088276529.png" style="object-position: 100% 0%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black border-t border-gray-100">
+                    <h3 class="!font-bold">Jhumkas & chandbalis</h3>
+                    <p class="text-lg font-black">Min. 70% Off</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img"><img src="shaadi_season_collections_1778088276529.png" style="object-position: 0% 100%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black border-t border-gray-100">
+                    <h3 class="!font-bold">Leather sandals</h3>
+                    <p class="text-lg font-black">From ₹299</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img"><img src="shaadi_season_collections_1778088276529.png" style="object-position: 100% 100%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black border-t border-gray-100">
+                    <h3 class="!font-bold">Co-ords</h3>
+                    <p class="text-lg font-black">Under ₹399</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-card-img"><img src="shaadi_season_collections_1778088276529.png" style="object-position: 50% 50%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black border-t border-gray-100">
+                    <h3 class="!font-bold">Bridal shoes</h3>
+                    <p class="text-lg font-black">From ₹349</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND BAJAA BARAAT -->
+    <section class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <div class="flex justify-center items-center gap-6 mb-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+                <h2 class="text-6xl font-black text-[#c2185b] font-['Playfair_Display']">Brand bajaa baraat</h2>
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+            </div>
+            <p class="text-3xl text-gray-400 font-medium tracking-widest uppercase">Deals to say "Yes" to</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+            <!-- Row 1 -->
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 0% 0%;" class="w-full h-full object-cover" alt="Libas">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-[#c2185b]">LIBAS</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#c2185b] to-[#ad1457] text-white py-3 text-center font-bold text-xl">Min. 70% Off</div>
+            </div>
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 50% 0%;" class="w-full h-full object-cover" alt="Peter England">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-[#0d47a1]">PETER ENGLAND</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#0d47a1] to-[#1565c0] text-white py-3 text-center font-bold text-xl">Min. 50% Off</div>
+            </div>
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 100% 0%;" class="w-full h-full object-cover" alt="Kushal's">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-[#c2185b]">Kushal's</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#c2185b] to-[#ad1457] text-white py-3 text-center font-bold text-xl">From ₹299</div>
+            </div>
+            <!-- Row 2 -->
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 0% 50%;" class="w-full h-full object-cover" alt="Sassafras">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-black">SASSAFRAS</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-500 to-red-600 text-white py-3 text-center font-bold text-xl">60-80% Off</div>
+            </div>
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 50% 50%;" class="w-full h-full object-cover" alt="Raymond">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-red-600">Raymond</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-red-600 to-red-800 text-white py-3 text-center font-bold text-xl">50-70% Off</div>
+            </div>
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 100% 50%;" class="w-full h-full object-cover" alt="House of Pataudi">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-[#5D4037]">HOUSE OF PATAUDI</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#5D4037] to-[#3E2723] text-white py-3 text-center font-bold text-xl">Min. 60% Off</div>
+            </div>
+            <!-- Row 3 -->
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 0% 100%;" class="w-full h-full object-cover" alt="Titan">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-black">TITAN</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#c2185b] to-[#ad1457] text-white py-3 text-center font-bold text-xl">Min. 30% Off</div>
+            </div>
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 50% 100%;" class="w-full h-full object-cover" alt="Shoetopia">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-orange-500">Shoetopia</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-500 to-orange-700 text-white py-3 text-center font-bold text-xl">Under ₹799</div>
+            </div>
+            <div class="cat-card !rounded-2xl overflow-hidden shadow-lg">
+                <div class="h-80 overflow-hidden relative">
+                    <img src="brand_bajaa_baraat_collage_1778088295698.png" style="object-position: 100% 100%;" class="w-full h-full object-cover" alt="Ramraj">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded shadow-md">
+                        <span class="font-black text-green-700">RAMRAJ</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-green-600 to-green-800 text-white py-3 text-center font-bold text-xl">Up to 20% Off</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DRESS TO IMPRESS -->
+    <section class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <div class="flex justify-center items-center gap-6 mb-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+                <h2 class="text-7xl font-black text-[#c2185b] font-['Playfair_Display']">Dress to impress</h2>
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+            </div>
+            <p class="text-3xl text-gray-400 font-medium tracking-widest uppercase">Get the full look</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+            <div class="cat-card !rounded-none">
+                <div class="cat-card-img !rounded-none h-72"><img src="dress_to_impress_collage_1778088311458.png" style="object-position: 0% 0%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black text-center py-6">
+                    <h3 class="!text-lg font-bold">Premium Suits & Shirts</h3>
+                    <p class="text-xl font-black">Up to 50% Off</p>
+                </div>
+            </div>
+            <div class="cat-card !rounded-none">
+                <div class="cat-card-img !rounded-none h-72"><img src="dress_to_impress_collage_1778088311458.png" style="object-position: 100% 0%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black text-center py-6">
+                    <h3 class="!text-lg font-bold">Belts & Wallets</h3>
+                    <p class="text-xl font-black">From ₹399</p>
+                </div>
+            </div>
+            <div class="cat-card !rounded-none">
+                <div class="cat-card-img !rounded-none h-72"><img src="dress_to_impress_collage_1778088311458.png" style="object-position: 50% 50%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black text-center py-6">
+                    <h3 class="!text-lg font-bold">Premium Watches</h3>
+                    <p class="text-xl font-black">Min. 40% Off</p>
+                </div>
+            </div>
+            <div class="cat-card !rounded-none">
+                <div class="cat-card-img !rounded-none h-72"><img src="dress_to_impress_collage_1778088311458.png" style="object-position: 0% 100%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black text-center py-6">
+                    <h3 class="!text-lg font-bold">Ties & Cufflinks</h3>
+                    <p class="text-xl font-black">From ₹99</p>
+                </div>
+            </div>
+            <div class="cat-card !rounded-none">
+                <div class="cat-card-img !rounded-none h-72"><img src="dress_to_impress_collage_1778088311458.png" style="object-position: 100% 100%;" alt=""></div>
+                <div class="cat-card-footer !bg-white !text-black text-center py-6">
+                    <h3 class="!text-lg font-bold">Silver Jewellery</h3>
+                    <p class="text-xl font-black">Min. 50% Off</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESSENTIALS FOR NEWLY WEDS -->
+    <section class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <div class="flex justify-center items-center gap-6 mb-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+                <h2 class="text-7xl font-black text-[#c2185b] font-['Playfair_Display']">Essentials for newly weds</h2>
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-12 h-12" alt="lotus">
+            </div>
+            <p class="text-3xl text-gray-400 font-medium tracking-widest">Shop for after the shaadi</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div class="relative h-64 rounded-3xl overflow-hidden group cursor-pointer">
+                <img src="newly_weds_essentials_collage_1778088326462.png" style="object-position: 0% 0%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#c2185b]/80 to-transparent flex flex-col justify-center px-12 text-white">
+                    <h3 class="text-4xl font-bold mb-2">Formal shoes</h3>
+                    <p class="text-2xl font-black">FROM ₹299</p>
+                </div>
+            </div>
+            <div class="relative h-64 rounded-3xl overflow-hidden group cursor-pointer">
+                <img src="newly_weds_essentials_collage_1778088326462.png" style="object-position: 100% 0%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#c2185b]/80 to-transparent flex flex-col justify-center px-12 text-white">
+                    <h3 class="text-4xl font-bold mb-2">Jewellery</h3>
+                    <p class="text-2xl font-black">MIN. 80% OFF</p>
+                </div>
+            </div>
+            <div class="relative h-64 rounded-3xl overflow-hidden group cursor-pointer">
+                <img src="newly_weds_essentials_collage_1778088326462.png" style="object-position: 0% 100%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#c2185b]/80 to-transparent flex flex-col justify-center px-12 text-white">
+                    <h3 class="text-4xl font-bold mb-2">Make-up bags</h3>
+                    <p class="text-2xl font-black">FROM ₹199</p>
+                </div>
+            </div>
+            <div class="relative h-64 rounded-3xl overflow-hidden group cursor-pointer">
+                <img src="newly_weds_essentials_collage_1778088326462.png" style="object-position: 100% 100%;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#c2185b]/80 to-transparent flex flex-col justify-center px-12 text-white">
+                    <h3 class="text-4xl font-bold mb-2">Juttis & mojaris</h3>
+                    <p class="text-2xl font-black">FROM ₹129</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#5D4037] text-white py-20">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <h3 class="text-2xl font-black italic mb-6">HostelMart</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Modern eCommerce Mart for all your needs. Quality products, lightning-fast delivery.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase tracking-widest text-xs">Categories</h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Fashion</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Mobiles</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Electronics</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Home & Living</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase tracking-widest text-xs">Quick Links</h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">My Profile</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Orders</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Wishlist</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase tracking-widest text-xs">Contact Us</h4>
+                <div class="flex items-center gap-4 text-2xl">
+                    <ion-icon name="logo-facebook" class="hover:text-blue-500 cursor-pointer transition-colors"></ion-icon>
+                    <ion-icon name="logo-instagram" class="hover:text-pink-500 cursor-pointer transition-colors"></ion-icon>
+                    <ion-icon name="logo-twitter" class="hover:text-blue-400 cursor-pointer transition-colors"></ion-icon>
+                    <ion-icon name="logo-whatsapp" class="hover:text-green-500 cursor-pointer transition-colors"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-20 pt-8 border-t border-white/10 text-center text-xs text-gray-500">
+            <p>&copy; 2026 HostelMart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            const userName = localStorage.getItem('userName');
+            const loginBtn = document.querySelector('.flex.items-center.gap-2.cursor-pointer span');
+            
+            if (userLoggedIn === 'true' && userName) {
+                const firstName = userName.split(' ')[0];
+                if (loginBtn) {
+                    loginBtn.textContent = firstName;
+                    loginBtn.parentElement.onclick = () => window.location.href = 'Account.html';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

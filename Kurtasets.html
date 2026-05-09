@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurtasets & Ethnic Wear - HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .accent-gold {
+            color: #C5A059;
+        }
+
+        .accent-gold-bg {
+            background-color: #C5A059;
+        }
+
+        .dark-brown-bg {
+            background-color: #3E2723;
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
+        }
+
+        .ethnic-hero-gradient {
+            background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);
+        }
+
+        .budget-store-gradient {
+            background: linear-gradient(135deg, #EBE9E4 0%, #D7D3CD 100%);
+        }
+
+        /* Custom card styling for ethnic wear */
+        .style-card {
+            background: white;
+            border: 1px solid #e7e5e4;
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        /* Circular budget items */
+        .budget-circle {
+            background: #F8F7F4;
+            color: #3E2723;
+            border: 1px solid #e7e5e4;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .budget-circle:hover {
+            border-color: #C5A059;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- 1. TOP UTILITY NAV -->
+    <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200">
+        <div
+            class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest overflow-x-auto no-scrollbar">
+            <a href="index.html"
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap">
+                <span class="italic text-stone-400">Hostel</span><span class="font-black text-[#3E2723]">Mart</span>
+            </a>
+            <div
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap cursor-pointer hover:bg-stone-50">
+                <div class="dark-brown-bg text-white px-1.5 py-0.5 rounded text-[9px]">6</div>
+                <span>Minutes</span>
+            </div>
+            <div
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap cursor-pointer hover:bg-stone-50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                </svg>
+                <span>Travel</span>
+            </div>
+            <div
+                class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg shadow-sm border border-stone-100 whitespace-nowrap cursor-pointer hover:bg-stone-50">
+                <span class="dark-brown-bg text-white px-1 rounded-[2px] text-[7px]">XTRASAVER</span>
+                <span>Grocery</span>
+            </div>
+            <div class="ml-auto hidden md:flex items-center gap-1 text-stone-500 font-bold text-[9px]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span>REVA UNIVERSITY, BENGALURU...</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. MAIN HEADER -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 py-3 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-4">
+            <a href="index.html" class="block min-w-fit">
+                <h1 class="text-xl font-black tracking-tighter text-[#3E2723]">
+                    HOSTEL<span class="accent-gold">MART</span>
+                </h1>
+            </a>
+            <div class="flex-1 relative max-w-2xl">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.3-4.3" />
+                    </svg>
+                </div>
+                <input type="text" placeholder="Search Kurtas, Kurtis, Dupattas, Ethnic Sets..."
+                    class="w-full bg-[#F8F7F4] border border-stone-200 rounded-xl py-2.5 pl-11 pr-4 focus:ring-2 focus:ring-[#C5A059] focus:bg-white outline-none transition-all text-sm">
+            </div>
+            <div class="flex items-center gap-4 font-bold text-sm">
+                <div class="hidden sm:flex items-center gap-2 cursor-pointer hover:text-[#C5A059]">
+                    <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </div>
+                    <span>Shashank</span>
+                </div>
+                <div
+                    class="relative dark-brown-bg text-white px-4 py-2 rounded-xl flex items-center gap-2 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="8" cy="21" r="1" />
+                        <circle cx="19" cy="21" r="1" />
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                    </svg>
+                    <span class="hidden md:inline">Cart</span>
+                    <span
+                        class="absolute -top-1.5 -right-1.5 accent-gold-bg border-2 border-white text-white text-[9px] rounded-full w-5 h-5 flex items-center justify-center font-black">2</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. CATEGORY NAV -->
+    <div class="bg-white border-b border-stone-100 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto px-4 flex items-center gap-8 py-4 min-w-max">
+            <a href="index.html"
+                class="flex flex-col items-center gap-1 opacity-50 transition-opacity hover:opacity-100">
+                <div class="p-2.5 rounded-xl bg-stone-50"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    </svg></div><span class="text-[9px] font-bold">Home</span>
+            </a>
+            <div class="flex flex-col items-center gap-1">
+                <div class="p-2.5 rounded-xl accent-gold-bg text-white shadow-lg shadow-amber-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z" />
+                    </svg>
+                </div>
+                <span class="text-[9px] font-black text-[#3E2723] border-b-2 border-[#C5A059]">KURTASETS</span>
+            </div>
+            <a href="beauty.html" class="flex flex-col items-center gap-1 opacity-50 hover:opacity-100">
+                <div class="p-2.5 rounded-xl bg-stone-50"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                    </svg></div><span class="text-[9px] font-bold">Beauty</span>
+            </a>
+            <a href="mens.html" class="flex flex-col items-center gap-1 opacity-50 hover:opacity-100">
+                <div class="p-2.5 rounded-xl bg-stone-50"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg></div><span class="text-[9px] font-bold">Men's</span>
+            </a>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
+
+        <!-- 4. HERO BANNERS (Top Picks) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-8 relative rounded-[40px] p-10 overflow-hidden ethnic-hero-gradient text-white min-h-[340px] flex flex-col justify-center">
+                <div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z" />
+                    </svg>
+                </div>
+                <div class="relative z-10 space-y-4">
+                    <div
+                        class="bg-yellow-400 text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
+                        TOP PICKS</div>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight uppercase italic">W for Woman, Aurelia
+                        <br><span class="text-2xl font-bold accent-gold">Min. 50% Off</span></h2>
+                    <p class="text-sm font-bold opacity-80 italic">The Contemporary Ethnic Collection '26</p>
+                    <button
+                        class="bg-white text-[#3E2723] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Shop
+                        Collection</button>
+                </div>
+            </div>
+            <div
+                class="lg:col-span-4 bg-[#EBE9E4] rounded-[40px] p-8 flex flex-col justify-between text-[#3E2723] relative overflow-hidden group cursor-pointer border border-stone-200">
+                <div class="relative z-10 space-y-2">
+                    <h3 class="text-3xl font-black italic">Biba</h3>
+                    <p class="text-lg font-bold">Min. 40% Off</p>
+                    <p class="text-[10px] font-black uppercase opacity-60">Elegant & Effortless</p>
+                </div>
+                <button
+                    class="bg-white/50 backdrop-blur-md text-[#3E2723] border border-stone-300 w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest mt-4 hover:bg-white/80 transition-colors">Explore
+                    Biba</button>
+                <!-- Decorative circle -->
+                <div
+                    class="absolute -right-8 -bottom-8 w-40 h-40 bg-stone-200 rounded-full group-hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SHOP BY FABRIC (Screenshot image_ed37f7.png) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Shop by
+                fabric</h3>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Cotton" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Cotton</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Silk" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Silk</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Rayon" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Rayon</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Linen" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter text-center">Linen</span>
+                </div>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-3xl bg-stone-100 flex items-center justify-center p-4 group-hover:bg-[#C5A059]/10 transition-colors border border-stone-200">
+                        <img src="https://via.placeholder.com/80" alt="Georgette" class="mix-blend-multiply opacity-80">
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-tighter">Georgette</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SAVE ON TOP BRANDS (Screenshot image_ed37f3.png) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Save on top
+                brands</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs italic">Biba</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 40% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase tracking-tighter">W for Woman</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 50% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase italic">Aurelia</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Under ₹999</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase">Fabindia</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 30% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs italic">Rangriti</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Min. 40% Off</span>
+                </div>
+                <div
+                    class="bg-white border border-stone-100 rounded-full h-32 flex flex-col items-center justify-center hover-lift cursor-pointer shadow-sm">
+                    <span class="font-black text-xs uppercase">Global Desi</span>
+                    <span class="text-[8px] font-bold text-red-600 uppercase mt-1">Flat 25% Off</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CURATED FOR YOU (Screenshot image_ed37db.png) -->
+        <section class="space-y-8">
+            <div class="flex items-end justify-between">
+                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Curated
+                    for you</h3>
+                <a href="#"
+                    class="text-[10px] font-black uppercase tracking-widest text-accent-gold hover:underline">See All
+                    Styles</a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <div
+                            class="absolute top-4 left-4 bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded">
+                            NEW</div>
+                        <img src="https://via.placeholder.com/180x240" alt="Style 1"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Everyday elegance</p>
+                        <h4 class="font-bold text-sm">Printed Cotton Kurta</h4>
+                        <p class="text-base font-black">Under ₹599</p>
+                    </div>
+                </div>
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <img src="https://via.placeholder.com/180x240" alt="Style 2"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Festive ready</p>
+                        <h4 class="font-bold text-sm">Embroidered Anarkali</h4>
+                        <p class="text-base font-black">Min. 40% Off</p>
+                    </div>
+                </div>
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <img src="https://via.placeholder.com/180x240" alt="Style 3"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Office chic</p>
+                        <h4 class="font-bold text-sm">Solid Straight Kurta</h4>
+                        <p class="text-base font-black">From ₹799</p>
+                    </div>
+                </div>
+                <div class="style-card hover-lift cursor-pointer">
+                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
+                        <img src="https://via.placeholder.com/180x240" alt="Style 4"
+                            class="mix-blend-multiply transition-transform hover:scale-105">
+                    </div>
+                    <div class="p-5 space-y-2 text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Complete look</p>
+                        <h4 class="font-bold text-sm">Printed Kurta Set with Dupatta</h4>
+                        <p class="text-base font-black">Flat 30% Off</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. BUDGET STORE (Screenshot image_ed37d8.png) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Budget store
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-sm bg-white">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹399</p>
+                    <div class="h-1 w-8 bg-stone-200 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-sm bg-white">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹599</p>
+                    <div class="h-1 w-8 bg-stone-200 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-sm bg-white">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹799</p>
+                    <div class="h-1 w-8 bg-stone-200 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-sm bg-white">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Under</p>
+                    <p class="text-3xl font-black tracking-tighter">₹999</p>
+                    <div class="h-1 w-8 bg-stone-200 rounded-full mt-2"></div>
+                </div>
+                <div class="budget-circle h-40 w-40 mx-auto cursor-pointer shadow-sm bg-white">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Steals</p>
+                    <p class="text-3xl font-black tracking-tighter">60%<span class="text-sm">Off</span></p>
+                    <div class="h-1 w-8 bg-stone-200 rounded-full mt-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. ASSOCIATE SPONSORS (Screenshot image_ed37bc.png) -->
+        <section class="space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Associate
+                Sponsors</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Libas</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Anouk</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Soch</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Vishudh</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Melange</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+                <div
+                    class="bg-stone-100 rounded-[32px] p-8 flex flex-col items-center justify-between min-h-[160px] hover-lift border border-stone-200">
+                    <div class="text-center font-black text-sm tracking-tight text-[#3E2723]">Aurelia</div>
+                    <button class="bg-[#3E2723] text-white p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. FOOTWEAR & ACCESSORIES (Screenshot image_ed37b7.png) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div
+                class="lg:col-span-12 relative budget-store-gradient rounded-[40px] p-10 overflow-hidden min-h-[300px] flex flex-col justify-center text-[#3E2723] border border-stone-200">
+                <div class="relative z-10 space-y-4">
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#C5A059]">Complete The
+                        Look</span>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight italic uppercase tracking-tighter">Footwear
+                        & Accessories</h2>
+                    <p class="text-lg font-bold opacity-60">Juttis, Mojaris, Dupattas & More</p>
+                    <button
+                        class="dark-brown-bg text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Explore
+                        Accessories</button>
+                </div>
+                <!-- Abstract visual placeholder -->
+                <div class="absolute right-12 bottom-0 w-72 h-72 bg-white/40 rounded-full blur-[60px] translate-y-24">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-100 border-t border-stone-200 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+            <div class="col-span-1 space-y-4">
+                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
+                        class="accent-gold">MART</span></h2>
+                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">Premium Ethnic Wear
+                    for Modern Women. Quality fabrics, student-only deals, 6-minute campus delivery.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Categories</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="index.html" class="hover:text-[#C5A059]">Home</a></li>
+                    <li><a href="beauty.html" class="hover:text-[#C5A059]">Beauty</a></li>
+                    <li><a href="mens.html" class="hover:text-[#C5A059]">Men's Wear</a></li>
+                    <li><a href="books.html" class="hover:text-[#C5A059]">Books</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Support</h4>
+                <ul class="text-xs font-bold space-y-2">
+                    <li><a href="#" class="hover:text-[#C5A059]">Track Order</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Returns</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Size Guide</a></li>
+                    <li><a href="#" class="hover:text-[#C5A059]">Contact</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Social</h4>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
+            <p class="text-[10px] font-bold text-stone-400">© 2026 HOSTELMART KURTASETS. ETHNIC ELEGANCE.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -152,6 +152,19 @@ function saveAddress(event) {
     const fullAddress = `${street}, ${city}`;
     localStorage.setItem('deliveryAddress', fullAddress);
     
+    // If logged in, sync with database
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        fetch('/api/auth/profile', {
+            method: 'PATCH',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ address: fullAddress })
+        }).catch(err => console.error("Sync error:", err));
+    }
+
     // Update UI
     const currentAddressElem = document.getElementById('current-address');
     const currentLocationElem = document.getElementById('current-location');
@@ -189,8 +202,8 @@ function loadSavedAddress() {
 document.addEventListener('DOMContentLoaded', () => {
     loadSavedAddress();
     
-    // Inject map styles if missing
-    if (!document.getElementById('address-map-style')) {
+    // Inject map styles if missing (skip on dedicated Address page)
+    if (!document.getElementById('address-map-style') && !window.location.pathname.includes('Address.html')) {
         const style = document.createElement('style');
         style.id = 'address-map-style';
         style.textContent = `

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Received - HostelMart Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #5D4037; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #D7CCC8; box-shadow: 0 4px 20px rgba(93, 64, 55, 0.05); transition: all 0.3s ease; }
+        .status-badge { font-size: 9px; font-weight: 900; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+        .status-confirmed { background: #E8F5E9; color: #2E7D32; }
+        .status-processed { background: #E3F2FD; color: #1565C0; }
+        .status-shipped { background: #FFF3E0; color: #E65100; }
+        .status-delivered { background: #F3E5F5; color: #7B1FA2; }
+        .status-cancelled { background: #FFEBEE; color: #C62828; }
+        
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%235D4037'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.5em 1.5em; padding-right: 2.5rem; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <header class="bg-[#F5F5DC] border-b border-[#D7CCC8] sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="font-black italic text-2xl flex items-center">
+                <span class="text-[#8D6E63]">Hostel</span>
+                <span class="text-[#C8A951] ml-1">Mart</span>
+                <span class="ml-4 bg-[#5D4037] text-white text-[10px] px-3 py-1 rounded-full not-italic tracking-[0.2em] uppercase">Orders Received</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <button onclick="logoutAdmin()" class="text-sm font-bold text-red-500 hover:underline">Logout</button>
+                <button onclick="fetchOrders()" class="p-2 hover:bg-[#D7CCC8]/20 rounded-full transition-all">
+                    <ion-icon name="refresh-outline" class="text-2xl"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 max-w-6xl">
+        <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+            <div class="flex-1 w-full">
+                <h1 class="text-4xl font-black text-[#5D4037] mb-3 tracking-tight">Incoming Orders</h1>
+                <div class="relative max-w-md">
+                    <ion-icon name="search-outline" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></ion-icon>
+                    <input type="text" id="searchInput" placeholder="Search by Phone or Order ID..." 
+                        class="w-full bg-white border border-[#D7CCC8] rounded-2xl pl-12 pr-4 py-4 outline-none focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-bold">
+                </div>
+            </div>
+            <div class="flex items-center gap-4 bg-white p-3 rounded-[1.5rem] border border-[#D7CCC8]">
+                <div class="px-6 py-2 bg-[#F5F5DC] rounded-xl text-center">
+                    <span id="order-count" class="text-2xl font-black text-[#5D4037]">0</span>
+                    <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Total Orders</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="orders-container" class="space-y-6">
+            <div class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-[#D7CCC8]">
+                <ion-icon name="sync-outline" class="animate-spin text-4xl mb-4"></ion-icon>
+                <p class="font-bold">Loading Orders...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let allOrders = [];
+
+        async function fetchOrders() {
+            const token = localStorage.getItem('adminToken');
+            if (!token) {
+                window.location.href = 'hostelmart-control-room.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/admin/orders', {
+                    headers: { 'x-admin-token': token }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    allOrders = data.orders;
+                    renderOrders(allOrders);
+                } else {
+                    logoutAdmin();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderOrders(orders) {
+            const container = document.getElementById('orders-container');
+            const orderCountEl = document.getElementById('order-count');
+            orderCountEl.textContent = orders.length;
+
+            if (orders.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-[#D7CCC8]">No orders found.</div>`;
+                return;
+            }
+
+            container.innerHTML = orders.map(order => {
+                const item = order.items && order.items[0] ? order.items[0] : {};
+                const status = (order.trackingStatus || 'confirmed').toLowerCase();
+                const date = order.createdAt ? new Date(order.createdAt).toLocaleString() : 'N/A';
+
+                return `
+                    <div class="card p-6 md:p-8 flex flex-col lg:flex-row items-center gap-8 animate-fadeIn">
+                        <div class="w-24 h-24 bg-[#F5F5DC] rounded-2xl p-3 flex-shrink-0 border border-[#D7CCC8]">
+                            <img src="${item.img || 'https://placehold.co/100x100?text=Order'}" class="w-full h-full object-contain">
+                        </div>
+                        <div class="flex-1 w-full min-w-0 space-y-4">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 class="text-lg font-black text-[#5D4037] mb-1">#${order.orderId || 'N/A'}</h3>
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63]">${date}</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="status-badge status-${status}">${status}</span>
+                                    <select class="bg-[#F5F5DC] border border-[#D7CCC8] rounded-xl px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[#5D4037] outline-none cursor-pointer"
+                                        onchange="updateStatus('${order.id}', this.value)">
+                                        <option value="confirmed" ${status === 'confirmed' ? 'selected' : ''}>Mark Confirmed</option>
+                                        <option value="processed" ${status === 'processed' ? 'selected' : ''}>Mark Processed</option>
+                                        <option value="shipped" ${status === 'shipped' ? 'selected' : ''}>Mark Shipped</option>
+                                        <option value="delivered" ${status === 'delivered' ? 'selected' : ''}>Mark Delivered</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 border-t border-gray-100">
+                                <div><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Customer</p><p class="text-sm font-bold text-[#5D4037] truncate">${order.customerName}</p></div>
+                                <div><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Phone</p><p class="text-sm font-bold text-[#5D4037]">${order.phone}</p></div>
+                                <div><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Location</p><p class="text-sm font-bold text-[#5D4037] truncate">${order.hostel} / ${order.room}</p></div>
+                                <div><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Amount</p><p class="text-sm font-black text-[#8D6E63]">₹${order.totalAmount}</p></div>
+                            </div>
+                            <div class="pt-2">
+                                <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Product</p>
+                                <p class="text-xs font-bold text-gray-600 truncate">${item.title}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function updateStatus(id, status) {
+            const token = localStorage.getItem('adminToken');
+            try {
+                const response = await fetch(`/api/admin/orders/${id}`, {
+                    method: 'PATCH',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'x-admin-token': token
+                    },
+                    body: JSON.stringify({ status })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    fetchOrders();
+                } else {
+                    alert('Update failed: ' + result.message);
+                }
+            } catch (err) {
+                alert('Update failed');
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'hostelmart-control-room.html';
+        }
+
+        // Search logic
+        document.getElementById('searchInput').oninput = (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = allOrders.filter(o => 
+                (o.orderId && o.orderId.toLowerCase().includes(term)) || 
+                (o.phone && o.phone.toLowerCase().includes(term)) ||
+                (o.customerName && o.customerName.toLowerCase().includes(term))
+            );
+            renderOrders(filtered);
+        };
+
+        // Initial fetch
+        fetchOrders();
+    </script>
+</body>
+</html>

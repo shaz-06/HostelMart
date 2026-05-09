@@ -12,129 +12,33 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: #2b2b2b;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: #2b2b2b; }
+        .stepper-line { height: 2px; background-color: #e0e0e0; flex-grow: 1; margin: 0 10px; }
+        .stepper-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; transition: all 0.5s; }
+        .stepper-dot.active { background-color: #9c27b0 !important; color: white !important; }
+        .stepper-dot.pending { background-color: #F5F5F5 !important; color: #9E9E9E !important; }
+        .stepper-dot.completed { background-color: #4CAF50 !important; color: white !important; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #D7CCC8; overflow: hidden; }
+        .btn-continue { background-color: #9c27b0; color: white; font-weight: 800; padding: 16px; border-radius: 1rem; width: 100%; text-align: center; font-size: 18px; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s; box-shadow: 0 4px 15px rgba(156, 39, 176, 0.2); }
+        .btn-continue:hover:not(:disabled) { background-color: #7b1fa2; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3); }
+        .btn-continue:disabled { background-color: #E0E0E0; cursor: not-allowed; box-shadow: none; }
 
-        .stepper-line {
-            height: 2px;
-            background-color: #e0e0e0;
-            flex-grow: 1;
-            margin: 0 10px;
-        }
-
-        .stepper-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .stepper-dot.active {
-            background-color: #3b82f6;
-            color: white;
-        }
-
-        .stepper-dot.pending {
-            border: 2px solid #e0e0e0;
-            color: #9e9e9e;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 16px;
-        }
-
-        .btn-continue {
-            background-color: #9c27b0;
-            color: white;
-            font-weight: 700;
-            padding: 14px;
-            border-radius: 4px;
-            width: 100%;
-            text-align: center;
-            font-size: 18px;
-            transition: background 0.3s;
-        }
-
-        .btn-continue:hover {
-            background-color: #7b1fa2;
-        }
-
-        .discount-banner {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            padding: 12px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .meesho-logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: #9c27b0;
-        }
-
-        #address-map {
-            height: 250px;
-            width: 100%;
-            border-radius: 16px;
-            z-index: 10;
-        }
-
-        .view-transition {
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Modern 2-Column Checkout Layout */
-        #checkout-main-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            width: 100%;
-        }
-        
-        @media (min-width: 1024px) {
-            #checkout-main-layout {
-                grid-template-columns: 7fr 3fr;
-            }
-        }
-
-        .sticky-summary {
-            position: sticky;
-            top: 100px;
-            z-index: 40;
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.3s ease-out forwards;
-        }
-
-        /* Success Modal Animations */
-        @keyframes scaleIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        @keyframes checkmark {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        .discount-banner { background-color: #e8f5e9; color: #2e7d32; padding: 12px; border-radius: 4px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+        .meesho-logo { font-size: 24px; font-weight: 900; color: #9c27b0; }
+        #address-map { height: 250px; width: 100%; border-radius: 16px; z-index: 10; }
+        .view-transition { transition: all 0.3s ease-in-out; }
+        #checkout-main-layout { display: grid; grid-template-columns: 1fr; gap: 24px; width: 100%; }
+        @media (min-width: 1024px) { #checkout-main-layout { grid-template-columns: 7fr 3fr; } }
+        .sticky-summary { position: sticky; top: 100px; z-index: 40; }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes checkmark { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
         .animate-scaleIn { animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .animate-checkmark { animation: checkmark 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; opacity: 0; }
+        .payment-card.selected { border-color: #9c27b0 !important; background-color: #f3e5f5 !important; }
     </style>
 </head>
 
@@ -152,7 +56,6 @@
             </div>
             
             <div class="flex-1 overflow-y-auto relative">
-                <!-- VIEW 1: Address List -->
                 <div id="address-list-view" class="view-transition">
                     <div class="p-6 border-b border-gray-100">
                         <button onclick="switchToManageAddress()" class="text-[#9c27b0] font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:scale-105 transition-transform">
@@ -160,14 +63,9 @@
                             Add New Address
                         </button>
                     </div>
-
-                    <!-- Address List -->
-                    <div id="address-list" class="divide-y divide-gray-100">
-                        <!-- Addresses will be dynamically injected here -->
-                    </div>
+                    <div id="address-list" class="divide-y divide-gray-100"></div>
                 </div>
 
-                <!-- VIEW 2: Manage Address (Map + Form) -->
                 <div id="address-manage-view" class="view-transition absolute inset-0 bg-white translate-x-full overflow-y-auto">
                     <div class="p-6 space-y-6">
                         <div class="flex items-center gap-4 mb-4">
@@ -176,33 +74,23 @@
                             </button>
                             <h3 class="text-base font-black uppercase tracking-tight">Manage Address</h3>
                         </div>
-
-                        <!-- Map Section -->
                         <div class="relative group">
                             <div id="address-map" class="shadow-inner border border-gray-200"></div>
-                            <button onclick="useGPS(event)" 
-                                class="absolute bottom-4 right-4 z-[20] bg-white text-[#9c27b0] p-3 rounded-xl shadow-lg hover:bg-gray-50 transition-all flex items-center gap-2 font-black text-[10px] uppercase tracking-wider">
-                                <ion-icon name="locate-outline" class="text-lg"></ion-icon>
-                                Use GPS
+                            <button onclick="useGPS(event)" class="absolute bottom-4 right-4 z-[20] bg-white text-[#9c27b0] p-3 rounded-xl shadow-lg hover:bg-gray-50 transition-all flex items-center gap-2 font-black text-[10px] uppercase tracking-wider">
+                                <ion-icon name="locate-outline" class="text-lg"></ion-icon> Use GPS
                             </button>
                         </div>
-
-                        <!-- Manual Input Section -->
                         <div class="space-y-4">
                             <div class="space-y-1">
                                 <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Street / Landmark</label>
-                                <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
-                                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                <input type="text" id="manual-street" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
                             </div>
                             <div class="space-y-1">
                                 <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">City / Town</label>
-                                <input type="text" id="manual-city" placeholder="e.g. Bangalore"
-                                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                <input type="text" id="manual-city" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
                             </div>
                         </div>
-
-                        <button onclick="saveNewAddress(event)"
-                            class="w-full bg-[#9c27b0] text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-[#7b1fa2] shadow-xl shadow-purple-100 transition-all">
+                        <button onclick="saveNewAddress(event)" class="w-full bg-[#9c27b0] text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-[#7b1fa2] shadow-xl shadow-purple-100 transition-all">
                             Save & Deliver Here
                         </button>
                     </div>
@@ -211,17 +99,14 @@
         </div>
     </div>
 
-    <!-- Edit Item Modal -->
+    <!-- Edit Modal -->
     <div id="edit-modal" class="fixed inset-0 z-[100] flex justify-end hidden">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeEditModal()"></div>
         <div class="bg-white h-full shadow-2xl w-full max-w-md relative overflow-hidden transform transition-all duration-500 translate-x-full" id="edit-modal-container">
             <div class="p-6 border-b border-gray-100 flex items-center justify-between">
                 <h3 class="text-lg font-black uppercase tracking-tight">Edit Item</h3>
-                <button onclick="closeEditModal()" class="text-2xl p-2 hover:bg-gray-100 rounded-full transition-colors">
-                    <ion-icon name="close-outline"></ion-icon>
-                </button>
+                <button onclick="closeEditModal()" class="text-2xl p-2 hover:bg-gray-100 rounded-full transition-colors"><ion-icon name="close-outline"></ion-icon></button>
             </div>
-            
             <div class="p-6 space-y-6">
                 <div class="flex gap-4">
                     <div class="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
@@ -232,755 +117,309 @@
                         <div class="flex items-center gap-2">
                             <span id="edit-product-price" class="text-sm font-black">₹0</span>
                             <span id="edit-product-original" class="text-xs text-gray-400 line-through">₹0</span>
-                            <span id="edit-product-discount" class="text-xs font-bold text-green-600">0% Off</span>
                         </div>
                     </div>
                 </div>
-
                 <div class="flex items-center justify-between border-t border-gray-50 pt-6">
                     <div class="space-y-1">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Size</label>
                         <select id="edit-size-select" class="block w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-sm font-bold outline-none focus:border-[#9c27b0]">
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                            <option value="Free Size">Free Size</option>
+                            <option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="Free Size">Free Size</option>
                         </select>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Qty</label>
                         <div class="flex items-center border border-gray-200 rounded-lg bg-gray-50">
-                            <button onclick="updateQty(-1)" class="px-3 py-2 text-gray-400 hover:text-[#9c27b0] transition-colors"><ion-icon name="remove-outline"></ion-icon></button>
+                            <button onclick="updateQty(-1)" class="px-3 py-2 text-gray-400 hover:text-[#9c27b0]"><ion-icon name="remove-outline"></ion-icon></button>
                             <span id="edit-qty-display" class="px-4 font-bold text-sm">1</span>
-                            <button onclick="updateQty(1)" class="px-3 py-2 text-gray-400 hover:text-[#9c27b0] transition-colors"><ion-icon name="add-outline"></ion-icon></button>
+                            <button onclick="updateQty(1)" class="px-3 py-2 text-gray-400 hover:text-[#9c27b0]"><ion-icon name="add-outline"></ion-icon></button>
                         </div>
                     </div>
                 </div>
-
-                <p class="text-xs font-bold text-red-500 text-center bg-red-50 py-2 rounded">You can add upto 1 units in one order</p>
-
                 <div class="border-t border-gray-100 pt-6 flex justify-between items-center">
                     <span class="text-base font-bold">Total Price</span>
                     <span id="edit-total-price" class="text-xl font-black">₹0</span>
                 </div>
-
                 <button onclick="saveEditChanges()" class="w-full bg-[#9c27b0] text-white py-4 rounded-lg font-black uppercase tracking-widest hover:bg-[#7b1fa2] transition-all shadow-lg shadow-purple-200">
-                    Continue
+                    Save Changes
                 </button>
             </div>
-        </div>
-    </div>
-
-    <!-- Order Success Modal -->
-    <div id="success-modal" class="fixed inset-0 z-[200] flex items-center justify-center hidden p-4">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
-        <div class="bg-white rounded-[2rem] p-10 max-w-sm w-full relative z-10 text-center shadow-2xl animate-scaleIn">
-            <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8 animate-checkmark">
-                <ion-icon name="checkmark-circle" class="text-6xl"></ion-icon>
-            </div>
-            <h2 class="text-3xl font-black text-[#2b2b2b] mb-4">Order Placed!</h2>
-            <p class="text-gray-500 font-medium mb-8">Thank you for shopping with HostelMart. Your package will reach you soon.</p>
-            
-            <div class="bg-gray-50 rounded-2xl p-4 mb-8 flex items-center justify-between">
-                <div class="text-left">
-                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Order ID</p>
-                    <p class="text-sm font-bold" id="success-order-id">#HM-123456</p>
-                </div>
-                <div class="text-right">
-                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Est. Delivery</p>
-                    <p class="text-sm font-bold" id="success-delivery-date">May 15, 2024</p>
-                </div>
-            </div>
-
-            <button onclick="goToHome()" class="w-full bg-[#9c27b0] text-white py-4 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-purple-200 hover:bg-[#7b1fa2] transition-all">
-                Back to Home
-            </button>
         </div>
     </div>
 
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="meesho-logo italic">
-                <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span>
-            </a>
-            
+            <a href="index.html" class="meesho-logo italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></a>
             <div class="flex items-center gap-2 w-full max-w-xs justify-center">
-                <div class="flex flex-col items-center gap-1">
-                    <div id="step-1-dot" class="stepper-dot active">1</div>
-                    <span id="step-1-text" class="text-[10px] font-bold text-gray-500 uppercase">Review</span>
-                </div>
+                <div class="flex flex-col items-center gap-1"><div id="step-1-dot" class="stepper-dot active">1</div><span id="step-1-text" class="text-[10px] font-bold text-gray-500 uppercase">Review</span></div>
                 <div id="step-line" class="stepper-line"></div>
-                <div class="flex flex-col items-center gap-1">
-                    <div id="step-2-dot" class="stepper-dot pending">2</div>
-                    <span id="step-2-text" class="text-[10px] font-bold text-gray-500 uppercase opacity-50">Payment</span>
-                </div>
+                <div class="flex flex-col items-center gap-1"><div id="step-2-dot" class="stepper-dot pending">2</div><span id="step-2-text" class="text-[10px] font-bold text-gray-500 uppercase opacity-50">Payment</span></div>
             </div>
-
-            <div class="w-24"></div> <!-- Spacer to center the stepper -->
+            <div class="w-24"></div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
         <div id="checkout-main-layout">
-            
-            <!-- Left Column: Details -->
             <div id="left-column-area" class="space-y-6">
-                
-                <!-- STEP 1: REVIEW -->
+                <!-- STEP 1 -->
                 <div id="checkout-step-1" class="space-y-6">
-                
-                <!-- Product Details Section -->
-                <div>
-                    <h2 class="text-lg font-bold mb-4">Product Details</h2>
-                    <div class="card overflow-hidden">
-                        <!-- Estimated Delivery Bar -->
-                        <div class="px-6 py-3 bg-white border-b border-gray-100 flex items-center gap-3">
-                            <ion-icon name="bus-outline" class="text-xl text-gray-400"></ion-icon>
-                            <span class="text-sm font-bold text-[#2b2b2b]">Estimated Delivery by <span id="delivery-date">Friday, 15th May</span></span>
-                        </div>
-
-                        <!-- Product Content -->
-                        <div class="p-6 flex gap-4">
-                            <div class="w-20 h-20 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
-                                <img id="product-img" src="" class="w-full h-full object-cover">
+                    <div>
+                        <h2 class="text-lg font-bold mb-4">Product Details</h2>
+                        <div class="card overflow-hidden">
+                            <div class="px-6 py-3 bg-white border-b border-gray-100 flex items-center gap-3">
+                                <ion-icon name="bus-outline" class="text-xl text-gray-400"></ion-icon>
+                                <span class="text-sm font-bold text-[#2b2b2b]">Estimated Delivery by <span id="delivery-date">...</span></span>
                             </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-start mb-1">
-                                    <h3 id="product-title" class="text-sm font-bold leading-tight line-clamp-1 pr-8">Product Title Loading...</h3>
-                                    <button onclick="openEditModal()" class="text-[#9c27b0] text-xs font-black uppercase tracking-widest">Edit</button>
+                            <div class="p-6 flex gap-4">
+                                <div class="w-20 h-20 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
+                                    <img id="product-img" src="" class="w-full h-full object-cover">
                                 </div>
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span id="product-price" class="text-sm font-black">₹0</span>
-                                    <span id="product-original-price" class="text-[10px] text-gray-400 line-through">₹0</span>
-                                    <span id="product-discount" class="text-[10px] font-black text-green-600">0% Off</span>
-                                </div>
-                                <p class="text-[10px] font-bold text-gray-400 mb-2">All issue easy returns</p>
-                                <div class="text-[11px] font-bold text-gray-500">
-                                    Size: <span id="product-size">Free Size</span> <span class="mx-2 opacity-30">•</span> Qty: <span id="product-qty">1</span>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h3 id="product-title" class="text-sm font-bold leading-tight line-clamp-1 pr-8">Loading...</h3>
+                                        <button onclick="openEditModal()" class="text-[#9c27b0] text-xs font-black uppercase tracking-widest">Edit</button>
+                                    </div>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span id="product-price" class="text-sm font-black">₹0</span>
+                                        <span id="product-original-price" class="text-[10px] text-gray-400 line-through">₹0</span>
+                                        <span id="product-discount" class="text-[10px] font-black text-green-600">0% Off</span>
+                                    </div>
+                                    <div class="text-[11px] font-bold text-gray-500">Size: <span id="product-size">...</span> <span class="mx-2 opacity-30">•</span> Qty: <span id="product-qty">1</span></div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Sold By Footer -->
-                        <div class="px-6 py-3 bg-gray-50/50 border-t border-gray-100">
-                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sold by: <span id="seller-name" class="text-gray-600">HOSTELMART TEXTIL INDUSTRIES</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Delivery Address Section -->
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <ion-icon name="location" class="text-blue-500 text-xl"></ion-icon>
-                        <h2 class="text-lg font-bold">Delivery Address</h2>
-                    </div>
-                    <div class="card p-6 relative">
-                        <button onclick="openAddressDrawer()" class="absolute top-6 right-6 text-[#9c27b0] text-xs font-black uppercase tracking-widest">Change</button>
-                        <h3 id="user-name" class="text-base font-black mb-2 pr-20">User Name</h3>
-                        <p id="user-address" class="text-sm text-gray-500 leading-relaxed max-w-lg">
-                            Loading address...
-                        </p>
-                        <p id="user-phone" class="text-sm font-bold mt-4 tracking-wide">0000000000</p>
-                    </div>
-                </div>
-            </div> <!-- Closes checkout-step-1 -->
-
-            <!-- STEP 2: PAYMENT -->
-            <div id="checkout-step-2" class="space-y-6 hidden">
-                    <h2 class="text-xl font-bold mb-6">Select Payment Method</h2>
-                    
-                    <div class="space-y-4">
-                        <!-- COD Option -->
-                        <div class="card p-6 cursor-pointer border-2 border-transparent hover:border-[#9c27b0] transition-all group relative" onclick="selectPayment('cod')">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-6">
-                                    <span class="text-2xl font-black text-[#2b2b2b] w-20" id="payment-cod-price">₹373</span>
-                                    <div class="h-10 w-[1px] bg-gray-200"></div>
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-lg font-bold text-gray-700">Cash on Delivery</span>
-                                        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331895.png" class="w-6 h-6 grayscale group-hover:grayscale-0 transition-all">
-                                    </div>
-                                </div>
-                                <div id="radio-cod" class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                                    <div class="w-3 h-3 rounded-full bg-[#9c27b0] scale-0 transition-transform"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Online Option -->
-                        <div class="card p-0 cursor-pointer border-2 border-transparent hover:border-[#9c27b0] transition-all group relative overflow-hidden" onclick="selectPayment('online')">
-                            <div class="p-6">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-6">
-                                        <div class="w-20">
-                                            <p class="text-xs text-gray-400 line-through" id="payment-online-orig">₹373</p>
-                                            <p class="text-2xl font-black text-green-600" id="payment-online-price">₹351</p>
-                                            <span class="bg-green-100 text-green-700 text-[9px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider">Save ₹22</span>
-                                        </div>
-                                        <div class="h-10 w-[1px] bg-gray-200"></div>
-                                        <div class="flex items-center gap-3">
-                                            <span class="text-lg font-bold text-gray-700">Pay Online</span>
-                                            <div class="flex gap-1">
-                                                <img src="https://cdn-icons-png.flaticon.com/512/196/196070.png" class="w-6 h-4 object-contain">
-                                                <img src="https://cdn-icons-png.flaticon.com/512/196/196091.png" class="w-6 h-4 object-contain">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="radio-online" class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                                        <div class="w-3 h-3 rounded-full bg-[#9c27b0] scale-0 transition-transform"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-gray-50 p-3 px-6 border-t border-gray-100 flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <ion-icon name="checkmark-circle" class="text-green-600 text-lg"></ion-icon>
-                                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Extra discount with bank offers</span>
-                                </div>
-                                <button class="text-[#9c27b0] text-[10px] font-black uppercase tracking-widest border-b border-dotted border-[#9c27b0]">View Offers</button>
-                            </div>
-
-                            <!-- UPI Details (Visible only when selected) -->
-                            <div id="upi-details" class="hidden border-t border-gray-100 p-6 space-y-6 animate-fadeIn">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-base font-bold text-gray-800">UPI</span>
-                                    <ion-icon name="chevron-up-outline" class="text-xl text-gray-400"></ion-icon>
-                                </div>
-                                
-                                <div class="space-y-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="p-2 bg-gray-50 rounded-lg">
-                                            <ion-icon name="qr-code-outline" class="text-2xl text-gray-700"></ion-icon>
-                                        </div>
-                                        <span class="text-base font-bold text-gray-700">Scan and Pay</span>
-                                    </div>
-                                    
-                                    <div class="flex justify-center gap-4 py-2">
-                                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/bhim-upi-icon.png" class="h-6 w-auto grayscale hover:grayscale-0 transition-all">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" class="h-6 w-auto grayscale hover:grayscale-0 transition-all">
-                                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/phonepe-logo-icon.png" class="h-6 w-auto grayscale hover:grayscale-0 transition-all">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/825/825582.png" class="h-6 w-auto grayscale hover:grayscale-0 transition-all">
-                                    </div>
-                                    
-                                    <div class="relative group max-w-[200px] mx-auto">
-                                        <div class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center p-4">
-                                            <div id="qr-overlay" class="absolute inset-0 bg-white/60 backdrop-blur-[2px] rounded-2xl flex items-center justify-center z-10">
-                                                <button onclick="showQRCode()" class="bg-[#3b82f6] text-white px-6 py-2.5 rounded-lg font-bold text-sm shadow-lg shadow-blue-100 hover:bg-blue-600 transition-all">
-                                                    View QR Code
-                                                </button>
-                                            </div>
-                                            <img id="upi-qr-img" src="assets/images/upi_qr.png" class="w-full h-full opacity-20 transition-opacity duration-300">
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="text-[11px] text-center font-bold text-gray-400">Click to view and scan QR Code with any UPI App</p>
-                                </div>
+                            <div class="px-6 py-3 bg-gray-50/50 border-t border-gray-100">
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sold by: <span id="seller-name" class="text-gray-600 uppercase">HOSTELMART</span></p>
                             </div>
                         </div>
                     </div>
-                </div>
-
-            </div>
-
-            <!-- Right Column: Sidebar -->
-            <div id="right-column-area" class="right-area">
-                <div class="sticky-summary space-y-4">
-                    <div class="card p-6">
-                        <h2 id="price-details-title" class="text-base font-bold mb-6">Price Details (1 Items)</h2>
-                        
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-500 border-b border-dotted border-gray-400 pb-0.5">Product Price</span>
-                                <span id="side-original-price" class="font-bold">+ ₹0</span>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <ion-icon name="location" class="text-blue-500 text-xl"></ion-icon>
+                                <h2 class="text-lg font-bold">Delivery Details</h2>
                             </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-green-600 border-b border-dotted border-green-600 pb-0.5">Total Discounts</span>
-                                <span id="side-discount-amt" class="text-green-600 font-bold">- ₹0</span>
-                            </div>
-                            
-                            <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
-                                <span class="text-lg font-bold">Order Total</span>
-                                <span id="side-total-price" class="text-2xl font-black">₹0</span>
-                            </div>
+                            <a href="Address.html?from=checkout" class="text-[#9c27b0] text-xs font-black uppercase tracking-widest hover:underline">Change</a>
                         </div>
-
-                        <div class="mt-6 discount-banner">
-                            <div class="w-5 h-5 bg-green-600 rounded-full flex items-center justify-center">
-                                <ion-icon name="checkmark" class="text-white text-xs"></ion-icon>
+                        <div class="card p-6 space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Full Name</label>
+                                    <input type="text" id="guest-name" placeholder="Enter your full name" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Phone Number</label>
+                                    <input type="tel" id="guest-phone" placeholder="Enter phone number" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                </div>
                             </div>
-                            <span>Yay! Your total discount is <span id="side-discount-text">₹0</span></span>
-                        </div>
-
-                        <div class="mt-6 text-center">
-                            <p class="text-[10px] font-bold text-gray-500 mb-2 uppercase tracking-wider">Clicking on 'Continue' will not deduct any money</p>
-                            <button id="main-action-btn" onclick="handleContinue()" class="btn-continue">Continue</button>
-                        </div>
-
-                        <!-- Trust Badge -->
-                        <div class="mt-6 bg-gray-50 p-4 rounded-lg flex items-start gap-4">
-                            <div class="bg-blue-600 text-white p-1 rounded-md">
-                                <ion-icon name="shield-checkmark" class="text-2xl"></ion-icon>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Hostel Name</label>
+                                    <input type="text" id="guest-hostel" placeholder="e.g. Aryabhatta Hostel" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Room Number</label>
+                                    <input type="text" id="guest-room" placeholder="e.g. 302-B" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                </div>
                             </div>
                             <div class="space-y-1">
-                                <div class="flex items-center gap-1 italic">
-                                    <span class="text-[10px] font-black text-[#8D6E63]">Hostel</span><span class="text-[10px] font-black text-[#C8A951]">Mart</span>
-                                    <span class="bg-[#9c27b0] text-white text-[8px] px-1 rounded uppercase font-bold">Safe</span>
-                                </div>
-                                <h4 class="text-xs font-bold">Your Safety, Our Priority</h4>
-                                <p class="text-[10px] text-gray-400 leading-tight">We make sure that your package is safe at every point of contact.</p>
+                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Full Delivery Address</label>
+                                <textarea id="guest-address" rows="2" placeholder="Detailed address/landmark..." class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                </div>
             </div>
 
+            <div class="right-area">
+                <div class="sticky-summary space-y-4">
+                    <div class="card p-6">
+                        <h2 id="price-details-title" class="text-base font-bold mb-6">Price Details</h2>
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">Product Price</span><span id="side-original-price" class="font-bold">+ ₹0</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-green-600">Discounts</span><span id="side-discount-amt" class="text-green-600 font-bold">- ₹0</span></div>
+                            <div class="pt-4 border-t border-gray-100 flex justify-between items-center"><span class="text-lg font-bold">Order Total</span><span id="side-total-price" class="text-2xl font-black text-[#9c27b0]">₹0</span></div>
+                        </div>
+                        <div class="mt-6 discount-banner">
+                            <div class="w-5 h-5 bg-green-600 rounded-full flex items-center justify-center"><ion-icon name="checkmark" class="text-white text-xs"></ion-icon></div>
+                            <span>Total discount: <span id="side-discount-text">₹0</span></span>
+                        </div>
+                        <div class="mt-6">
+                            <button id="main-action-btn" onclick="handleContinue()" class="btn-continue">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
     <script>
+        // Removed Firebase client-side imports - using server API instead
+
+        let selectedPaymentMethod = null;
+        const checkoutData = JSON.parse(localStorage.getItem('checkoutItem'));
+        const userData = JSON.parse(localStorage.getItem('userData'));
+
         document.addEventListener('DOMContentLoaded', () => {
-
-            const checkoutData = JSON.parse(localStorage.getItem('checkoutItem'));
-            const savedAddress = localStorage.getItem('deliveryAddress');
-            const userName = localStorage.getItem('userName') || 'User Name';
-
             if (!checkoutData) {
-                alert('No item found for checkout!');
+                alert('No item found!');
                 window.location.href = 'index.html';
                 return;
             }
 
-            // Populate Product Info
-            document.getElementById('product-img').src = checkoutData.img;
-            document.getElementById('product-title').textContent = checkoutData.title;
-            document.getElementById('product-price').textContent = checkoutData.currentPrice;
-            document.getElementById('product-original-price').textContent = checkoutData.originalPrice || '';
-            document.getElementById('product-size').textContent = checkoutData.size || 'Free Size';
-            document.getElementById('product-qty').textContent = checkoutData.qty || '1';
+            renderUI();
             
-            if (checkoutData.brand) {
-                document.getElementById('seller-name').textContent = checkoutData.brand.toUpperCase() + ' TEXTIL INDUSTRIES';
+            // Priority 1: Load from detailedAddress (saved in Address.html)
+            const detailedAddress = JSON.parse(localStorage.getItem('detailedAddress'));
+            if (detailedAddress) {
+                if (document.getElementById('guest-name')) document.getElementById('guest-name').value = detailedAddress.fullName || '';
+                if (document.getElementById('guest-phone')) document.getElementById('guest-phone').value = detailedAddress.mobile || '';
+                if (document.getElementById('guest-hostel')) document.getElementById('guest-hostel').value = detailedAddress.house || '';
+                if (document.getElementById('guest-room')) document.getElementById('guest-room').value = detailedAddress.roomNumber || '';
+                if (document.getElementById('guest-address')) document.getElementById('guest-address').value = detailedAddress.locality || '';
+            } 
+            // Priority 2: Load from deliveryAddress string (legacy/simple)
+            else if (localStorage.getItem('deliveryAddress')) {
+                const simpleAddr = localStorage.getItem('deliveryAddress');
+                if (document.getElementById('guest-address')) document.getElementById('guest-address').value = simpleAddr;
+            }
+            // Priority 3: Load from logged-in userData
+            else if (userData) {
+                if (document.getElementById('guest-name')) document.getElementById('guest-name').value = userData.name || '';
+                if (document.getElementById('guest-phone')) document.getElementById('guest-phone').value = userData.phone || '';
+                if (document.getElementById('guest-hostel')) document.getElementById('guest-hostel').value = userData.hostel || '';
+                if (document.getElementById('guest-room')) document.getElementById('guest-room').value = userData.room || '';
+                if (document.getElementById('guest-address')) document.getElementById('guest-address').value = userData.address || '';
             }
 
-            // Price Calculations
-            const qty = parseInt(checkoutData.qty || '1');
-            const currPricePerUnit = parseInt(checkoutData.currentPrice.replace(/[^\d]/g, ''));
-            const origPricePerUnit = checkoutData.originalPrice ? parseInt(checkoutData.originalPrice.replace(/[^\d]/g, '')) : currPricePerUnit;
-            
-            const totalCurrPrice = currPricePerUnit * qty;
-            const totalOrigPrice = origPricePerUnit * qty;
-            const totalDiscountAmt = totalOrigPrice - totalCurrPrice;
-            const discountPercent = origPricePerUnit > 0 ? Math.round(((origPricePerUnit - currPricePerUnit) / origPricePerUnit) * 100) : 0;
-
-            document.getElementById('price-details-title').textContent = `Price Details (${qty} Items)`;
-            document.getElementById('product-discount').textContent = discountPercent + '% Off';
-            document.getElementById('side-original-price').textContent = '+ ₹' + totalOrigPrice;
-            document.getElementById('side-discount-amt').textContent = '- ₹' + totalDiscountAmt;
-            document.getElementById('side-total-price').textContent = '₹' + totalCurrPrice;
-            document.getElementById('side-discount-text').textContent = '₹' + totalDiscountAmt;
-
-            // Payment View Prices
-            document.getElementById('payment-cod-price').textContent = '₹' + totalCurrPrice;
-            document.getElementById('payment-online-orig').textContent = '₹' + totalCurrPrice;
-            document.getElementById('payment-online-price').textContent = '₹' + Math.round(totalCurrPrice * 0.9); // 10% off online
-
-            // Address
-            document.getElementById('user-name').textContent = userName;
-            if (savedAddress) {
-                document.getElementById('user-address').textContent = savedAddress;
-            } else {
-                document.getElementById('user-address').innerHTML = '<span class="text-red-500 italic">No delivery address saved. Please click "Change" to add one.</span>';
-            }
-            
-            // Random phone or saved phone
-            document.getElementById('user-phone').textContent = localStorage.getItem('userPhone') || '6363849864';
-
-            // Set delivery date (today + 4 days)
-            const d = new Date();
-            d.setDate(d.getDate() + 4);
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const d = new Date(); d.setDate(d.getDate() + 4);
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            document.getElementById('delivery-date').textContent = `${days[d.getDay()]}, ${d.getDate()}th ${months[d.getMonth()]}`;
+            document.getElementById('delivery-date').textContent = `${d.getDate()} ${months[d.getMonth()]}`;
+
+            // Auto-fill logic for known phone numbers (for non-logged in users)
+            const phoneInput = document.getElementById('guest-phone');
+            if (phoneInput && !userData) {
+                phoneInput.addEventListener('input', (e) => {
+                    const phone = e.target.value.trim();
+                    const savedProfiles = JSON.parse(localStorage.getItem('guestProfiles') || '{}');
+                    if (savedProfiles[phone]) {
+                        const profile = savedProfiles[phone];
+                        document.getElementById('guest-name').value = profile.name || '';
+                        document.getElementById('guest-hostel').value = profile.hostel || '';
+                        document.getElementById('guest-room').value = profile.room || '';
+                        document.getElementById('guest-address').value = profile.address || '';
+                    }
+                });
+            }
         });
-        
-        let selectedPaymentMethod = null;
 
-        function handleContinue() {
-            const step1 = document.getElementById('checkout-step-1');
-            const step2 = document.getElementById('checkout-step-2');
-            const actionBtn = document.getElementById('main-action-btn');
+        function renderUI() {
+            const data = JSON.parse(localStorage.getItem('checkoutItem'));
+            if (!data) return;
 
-            if (!step1.classList.contains('hidden')) {
-                // Moving to Step 2
-                step1.classList.add('hidden');
-                step2.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                // Update Stepper
-                document.getElementById('step-1-dot').innerHTML = '<ion-icon name="checkmark"></ion-icon>';
-                document.getElementById('step-1-dot').classList.replace('active', 'completed');
-                document.getElementById('step-1-dot').style.backgroundColor = '#3b82f6';
-                document.getElementById('step-1-text').classList.remove('text-gray-500');
-                document.getElementById('step-1-text').classList.add('text-blue-500');
-
-                document.getElementById('step-2-dot').classList.replace('pending', 'active');
-                document.getElementById('step-2-dot').style.borderColor = '#3b82f6';
-                document.getElementById('step-2-dot').style.color = 'white';
-                document.getElementById('step-2-dot').style.backgroundColor = '#3b82f6';
-                document.getElementById('step-2-text').style.opacity = '1';
-                document.getElementById('step-2-text').style.color = '#2b2b2b';
-                
-                document.getElementById('step-line').style.backgroundColor = '#3b82f6';
-
-                actionBtn.textContent = 'Place Order';
-                
-                // Update instructions
-                const instructionText = document.querySelector('.sticky-summary p.text-[10px]');
-                if (instructionText) {
-                    instructionText.innerHTML = '<ion-icon name="lock-closed" class="mr-1"></ion-icon> 100% Safe & Secure Payment';
-                    instructionText.classList.replace('text-gray-500', 'text-green-600');
-                }
-            } else {
-                if (!selectedPaymentMethod) {
-                    alert('Please Select the Payment Method');
-                    return;
-                }
-                
-                // Save Order to userOrders for Orders.html
-                const checkoutData = JSON.parse(localStorage.getItem('checkoutItem'));
-                if (checkoutData) {
-                    const orders = JSON.parse(localStorage.getItem('userOrders') || '[]');
-                    const newOrder = {
-                        image: checkoutData.img,
-                        title: checkoutData.title,
-                        color: 'Standard',
-                        size: checkoutData.size,
-                        price: document.getElementById('side-total-price').textContent.replace('₹', ''),
-                        status: 'Order Placed',
-                        date: document.getElementById('delivery-date').textContent,
-                        message: 'Your item has been placed and is being processed.',
-                        address: localStorage.getItem('deliveryAddress'),
-                        userName: localStorage.getItem('userName') || 'User'
-                    };
-                    orders.unshift(newOrder); // Newest first
-                    localStorage.setItem('userOrders', JSON.stringify(orders));
-                    localStorage.setItem('latestOrder', JSON.stringify(newOrder));
-                }
-
-                // Redirect to Orders.html with success parameter
-                window.location.href = 'Orders.html?success=true';
-            }
-        }
-
-        function goToHome() {
-            window.location.href = 'index.html';
-        }
-
-        function selectPayment(method) {
-            selectedPaymentMethod = method;
-            const radioCod = document.querySelector('#radio-cod div');
-            const radioOnline = document.querySelector('#radio-online div');
-            const cardCod = document.querySelector('[onclick="selectPayment(\'cod\')"]');
-            const cardOnline = document.querySelector('[onclick="selectPayment(\'online\')"]');
-            const upiDetails = document.getElementById('upi-details');
-
-            // Data for price recalculation
-            const checkoutData = JSON.parse(localStorage.getItem('checkoutItem'));
-            const qty = parseInt(checkoutData.qty || '1');
-            const currPricePerUnit = parseInt(checkoutData.currentPrice.replace(/[^\d]/g, ''));
-            const origPricePerUnit = checkoutData.originalPrice ? parseInt(checkoutData.originalPrice.replace(/[^\d]/g, '')) : currPricePerUnit;
+            if (document.getElementById('product-img')) document.getElementById('product-img').src = data.img;
+            if (document.getElementById('product-title')) document.getElementById('product-title').textContent = data.title;
+            if (document.getElementById('product-price')) document.getElementById('product-price').textContent = data.currentPrice;
+            if (document.getElementById('product-original-price')) document.getElementById('product-original-price').textContent = data.originalPrice || '';
+            if (document.getElementById('product-size')) document.getElementById('product-size').textContent = data.size || 'Free Size';
+            if (document.getElementById('product-qty')) document.getElementById('product-qty').textContent = data.qty || '1';
             
-            const totalCurrPrice = currPricePerUnit * qty;
-            const totalOrigPrice = origPricePerUnit * qty;
+            const qty = parseInt(data.qty || 1);
+            const currPrice = parseInt(data.currentPrice.replace(/[^\d]/g, ''));
+            const origPrice = data.originalPrice ? parseInt(data.originalPrice.replace(/[^\d]/g, '')) : currPrice;
+            
+            const totalCurr = currPrice * qty;
+            const totalOrig = origPrice * qty;
+            const discount = totalOrig - totalCurr;
 
-            if (method === 'cod') {
-                radioCod.classList.replace('scale-0', 'scale-100');
-                radioOnline.classList.replace('scale-100', 'scale-0');
-                cardCod.style.borderColor = '#9c27b0';
-                cardOnline.style.borderColor = 'transparent';
-                if (upiDetails) upiDetails.classList.add('hidden');
-
-                // Restore original prices
-                document.getElementById('side-total-price').textContent = '₹' + totalCurrPrice;
-                const totalDiscountAmt = totalOrigPrice - totalCurrPrice;
-                document.getElementById('side-discount-amt').textContent = '- ₹' + totalDiscountAmt;
-                document.getElementById('side-discount-text').textContent = '₹' + totalDiscountAmt;
-            } else {
-                radioCod.classList.replace('scale-100', 'scale-0');
-                radioOnline.classList.replace('scale-0', 'scale-100');
-                cardCod.style.borderColor = 'transparent';
-                cardOnline.style.borderColor = '#9c27b0';
-                if (upiDetails) upiDetails.classList.remove('hidden');
-
-                // Apply online discount (10%)
-                const onlineDiscount = Math.round(totalCurrPrice * 0.1);
-                const onlineTotalPrice = totalCurrPrice - onlineDiscount;
-                const totalDiscountAmt = (totalOrigPrice - totalCurrPrice) + onlineDiscount;
-
-                document.getElementById('side-total-price').textContent = '₹' + onlineTotalPrice;
-                document.getElementById('side-discount-amt').textContent = '- ₹' + totalDiscountAmt;
-                document.getElementById('side-discount-text').textContent = '₹' + totalDiscountAmt;
-                
-                // Update specific savings label
-                const savingsLabel = document.querySelector('#payment-online-price + span');
-                if (savingsLabel) {
-                    savingsLabel.textContent = `Save ₹${onlineDiscount}`;
-                }
-            }
+            if (document.getElementById('side-original-price')) document.getElementById('side-original-price').textContent = '₹' + totalOrig;
+            if (document.getElementById('side-discount-amt')) document.getElementById('side-discount-amt').textContent = '- ₹' + discount;
+            if (document.getElementById('side-total-price')) document.getElementById('side-total-price').textContent = '₹' + totalCurr;
+            if (document.getElementById('side-discount-text')) document.getElementById('side-discount-text').textContent = '₹' + discount;
         }
 
-        // EDIT MODAL LOGIC
-        function openEditModal() {
+        window.handleContinue = async function() {
+            console.log("Continue clicked");
+            const name = document.getElementById('guest-name').value.trim();
+            const phone = document.getElementById('guest-phone').value.trim();
+            const hostel = document.getElementById('guest-hostel').value.trim();
+            const room = document.getElementById('guest-room').value.trim();
+            const address = document.getElementById('guest-address').value.trim();
+
+            if (!name || !phone || !address) {
+                alert('Please fill in your Name, Phone Number, and Full Address to proceed.');
+                return;
+            }
+
+            // Save delivery details for the next page
+            const deliveryDetails = { name, phone, hostel, room, address };
+            console.log("Saving delivery details:", deliveryDetails);
+            localStorage.setItem('deliveryDetails', JSON.stringify(deliveryDetails));
+
+            // Redirect to Payment Method page
+            console.log("Redirecting to PaymentMethod.html");
+            window.location.href = 'PaymentMethod.html';
+        };
+
+
+
+        window.goToHome = () => window.location.href = 'index.html';
+        window.closeEditModal = () => { 
+            const container = document.getElementById('edit-modal-container');
+            container.classList.add('translate-x-full');
+            
+            setTimeout(() => {
+                document.getElementById('edit-modal').classList.add('hidden'); 
+                document.body.style.overflow = 'auto'; 
+            }, 500);
+        };
+        window.openEditModal = () => {
             const data = JSON.parse(localStorage.getItem('checkoutItem'));
             if (!data) return;
 
             document.getElementById('edit-product-img').src = data.img;
             document.getElementById('edit-product-title').textContent = data.title;
             document.getElementById('edit-product-price').textContent = data.currentPrice;
-            document.getElementById('edit-product-original').textContent = data.originalPrice;
-            document.getElementById('edit-size-select').value = data.size || 'Free Size';
             document.getElementById('edit-qty-display').textContent = data.qty || 1;
             
-            updateEditTotal();
+            // Calculate total based on qty
+            const p = parseInt(data.currentPrice.replace(/[^\d]/g, ''));
+            const q = parseInt(data.qty || 1);
+            document.getElementById('edit-total-price').textContent = '₹' + (p * q);
+            
+            // Set size select value
+            const sizeSelect = document.getElementById('edit-size-select');
+            if (data.size) sizeSelect.value = data.size;
 
             const modal = document.getElementById('edit-modal');
             const container = document.getElementById('edit-modal-container');
+            
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            
             setTimeout(() => {
                 container.classList.remove('translate-x-full');
             }, 10);
-        }
-
-        function closeEditModal() {
-            const container = document.getElementById('edit-modal-container');
-            container.classList.add('translate-x-full');
-            setTimeout(() => {
-                document.getElementById('edit-modal').classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }, 500);
-        }
-
-        function updateQty(delta) {
-            const qtyEl = document.getElementById('edit-qty-display');
-            let qty = parseInt(qtyEl.textContent);
-            qty = Math.max(1, qty + delta);
-            qtyEl.textContent = qty;
-            updateEditTotal();
-        }
-
-        function updateEditTotal() {
-            const priceStr = document.getElementById('edit-product-price').textContent;
-            const price = parseInt(priceStr.replace(/[^\d]/g, ''));
-            const qty = parseInt(document.getElementById('edit-qty-display').textContent);
-            document.getElementById('edit-total-price').textContent = '₹' + (price * qty);
-        }
-
-        function saveEditChanges() {
+        };
+        window.saveEditChanges = () => {
             const data = JSON.parse(localStorage.getItem('checkoutItem'));
             data.size = document.getElementById('edit-size-select').value;
             data.qty = parseInt(document.getElementById('edit-qty-display').textContent);
-            
             localStorage.setItem('checkoutItem', JSON.stringify(data));
-            location.reload(); // Refresh to update main UI
-        }
-
-        function showQRCode() {
-            const overlay = document.getElementById('qr-overlay');
-            const qrImg = document.getElementById('upi-qr-img');
-            if (overlay && qrImg) {
-                overlay.classList.add('hidden');
-                qrImg.classList.remove('opacity-20');
-                qrImg.classList.add('opacity-100');
-            }
-        }
-
-        // ADDRESS DRAWER LOGIC
-        function openAddressDrawer() {
-            renderAddressList();
-
-            const drawer = document.getElementById('address-drawer');
-            const container = document.getElementById('address-drawer-container');
-            drawer.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-                container.classList.remove('translate-x-full');
-            }, 10);
-        }
-
-        function renderAddressList() {
-            const userName = localStorage.getItem('userName') || 'Shashank Shetty';
-            const userPhone = localStorage.getItem('userPhone') || '6363849864';
-            const currentAddress = localStorage.getItem('deliveryAddress');
-            
-            // Get all addresses or initialize with current if empty
-            let allAddresses = JSON.parse(localStorage.getItem('allUserAddresses') || '[]');
-            if (allAddresses.length === 0 && currentAddress) {
-                allAddresses = [currentAddress];
-                localStorage.setItem('allUserAddresses', JSON.stringify(allAddresses));
-            }
-
-            const listContainer = document.getElementById('address-list');
-            listContainer.innerHTML = '';
-
-            allAddresses.forEach((addr, index) => {
-                const isActive = addr === currentAddress;
-                const item = document.createElement('div');
-                item.className = `p-6 ${isActive ? 'bg-blue-50/30' : ''} space-y-4 transition-all`;
-                item.innerHTML = `
-                    <div class="flex justify-between items-start cursor-pointer" onclick="selectAddress(${index})">
-                        <div class="flex-1">
-                            <h4 class="font-black text-lg text-[#2b2b2b]">${userName}</h4>
-                            <p class="text-sm text-gray-500 leading-relaxed mt-1">${addr}</p>
-                            <p class="text-sm font-bold mt-2">${userPhone}</p>
-                        </div>
-                        <div class="w-5 h-5 rounded-full border ${isActive ? 'border-4 border-[#9c27b0] bg-white' : 'border-gray-300'}"></div>
-                    </div>
-                    ${isActive ? `
-                        <div class="pt-2 flex flex-col gap-4">
-                            <button onclick="switchToManageAddress(true, ${index})" class="text-[#9c27b0] text-xs font-black uppercase tracking-widest text-left">Edit</button>
-                            <button onclick="confirmAddressSelection()" class="w-full bg-[#9c27b0] text-white py-4 rounded-lg font-black uppercase tracking-widest hover:bg-[#7b1fa2] transition-all shadow-lg shadow-purple-100">
-                                Deliver to this Address
-                            </button>
-                        </div>
-                    ` : ''}
-                `;
-                listContainer.appendChild(item);
-            });
-        }
-
-        function selectAddress(index) {
-            const allAddresses = JSON.parse(localStorage.getItem('allUserAddresses') || '[]');
-            const selected = allAddresses[index];
-            localStorage.setItem('deliveryAddress', selected);
-            renderAddressList();
-        }
-
-        function closeAddressDrawer() {
-            const container = document.getElementById('address-drawer-container');
-            container.classList.add('translate-x-full');
-            setTimeout(() => {
-                document.getElementById('address-drawer').classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }, 500);
-        }
-
-        function confirmAddressSelection() {
-            // In a multi-address system, we'd save the selected one
-            // For now, we just close and show success since we only have one persistent slot
-            closeAddressDrawer();
-            alert('Address confirmed!');
-        }
-
-        // VIEW SWITCHING LOGIC
-        let map;
-        let marker;
-        let editIndex = -1;
-
-        function switchToManageAddress(isEdit = false, index = -1) {
-            document.getElementById('address-list-view').classList.add('-translate-x-full');
-            document.getElementById('address-manage-view').classList.remove('translate-x-full');
-            
-            // Initialize Map if not done
-            initAddressMap();
-
-            editIndex = index;
-            if (isEdit && index !== -1) {
-                const allAddresses = JSON.parse(localStorage.getItem('allUserAddresses') || '[]');
-                const addr = allAddresses[index];
-                document.getElementById('manual-street').value = addr.split(',')[0];
-                document.getElementById('manual-city').value = addr.split(',')[1]?.trim() || '';
-            } else {
-                document.getElementById('manual-street').value = '';
-                document.getElementById('manual-city').value = '';
-            }
-        }
-
-        function switchToListAddress() {
-            document.getElementById('address-list-view').classList.remove('-translate-x-full');
-            document.getElementById('address-manage-view').classList.add('translate-x-full');
-        }
-
-        function initAddressMap() {
-            if (map) return;
-            
-            map = L.map('address-map').setView([12.9716, 77.5946], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-            marker = L.marker([12.9716, 77.5946], { draggable: true }).addTo(map);
-            
-            marker.on('dragend', function() {
-                const pos = marker.getLatLng();
-                updateAddressFromLatLng(pos.lat, pos.lng);
-            });
-
-            map.on('click', function(e) {
-                marker.setLatLng(e.latlng);
-                updateAddressFromLatLng(e.latlng.lat, e.latlng.lng);
-            });
-        }
-
-        async function updateAddressFromLatLng(lat, lng) {
-            try {
-                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-                const data = await response.json();
-                if (data.display_name) {
-                    const parts = data.display_name.split(',');
-                    document.getElementById('manual-street').value = parts[0] + (parts[1] ? ', ' + parts[1] : '');
-                    document.getElementById('manual-city').value = data.address.city || data.address.town || data.address.village || '';
-                }
-            } catch (error) {
-                console.error('Error fetching address:', error);
-            }
-        }
-
-        function useGPS(e) {
-            if (e) { e.preventDefault(); e.stopPropagation(); }
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const { latitude, longitude } = position.coords;
-                    map.setView([latitude, longitude], 16);
-                    marker.setLatLng([latitude, longitude]);
-                    updateAddressFromLatLng(latitude, longitude);
-                });
-            }
-        }
-
-        function saveNewAddress(e) {
-            if (e) e.preventDefault();
-            const street = document.getElementById('manual-street').value;
-            const city = document.getElementById('manual-city').value;
-            
-            if (!street || !city) {
-                alert('Please fill in both street and city.');
-                return;
-            }
-
-            const fullAddress = `${street}, ${city}`;
-            let allAddresses = JSON.parse(localStorage.getItem('allUserAddresses') || '[]');
-            
-            if (editIndex !== -1) {
-                allAddresses[editIndex] = fullAddress;
-            } else {
-                allAddresses.push(fullAddress);
-            }
-            
-            localStorage.setItem('allUserAddresses', JSON.stringify(allAddresses));
-            localStorage.setItem('deliveryAddress', fullAddress); // Set as current
-            
-            // Refresh main UI
-            if (document.getElementById('user-address')) {
-                document.getElementById('user-address').textContent = fullAddress;
-            }
-            
-            // Success feedback
-            alert('Address saved successfully!');
-            switchToListAddress();
-            renderAddressList();
-        }
+            location.reload();
+        };
+        window.updateQty = (d) => {
+            const el = document.getElementById('edit-qty-display');
+            let q = Math.max(1, parseInt(el.textContent) + d);
+            el.textContent = q;
+            const p = parseInt(document.getElementById('edit-product-price').textContent.replace(/[^\d]/g, ''));
+            document.getElementById('edit-total-price').textContent = '₹' + (p * q);
+        };
+        window.openAddressDrawer = () => window.location.href = 'Address.html';
+        window.closeAddressDrawer = () => {};
     </script>
 </body>
-
 </html>

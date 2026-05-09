@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -655,7 +656,6 @@
         function confirmVariantSelection() {
             const selectedSize = document.querySelector('.size-btn-modal.active').innerText;
             
-            // If we are in the product page context, we might want to redirect directly
             const data = {
                 img: document.getElementById('main-img-1').src,
                 brand: 'Ridsiya',
@@ -665,8 +665,13 @@
                 size: selectedSize,
                 qty: 1
             };
-            localStorage.setItem('checkoutItem', JSON.stringify(data));
-            window.location.href = 'Checkout.html';
+
+            if (window.addToCart) {
+                window.addToCart(data);
+            }
+
+            closeVariantModal();
+            showToast();
         }
 
         function handleAddToCart() {
@@ -674,6 +679,18 @@
             if (!activeSize) {
                 openVariantModal();
             } else {
+                const data = {
+                    img: document.getElementById('main-img-1').src,
+                    brand: 'Ridsiya',
+                    title: document.querySelector('h1').textContent.trim(),
+                    currentPrice: '₹373',
+                    originalPrice: '₹999',
+                    size: activeSize.innerText,
+                    qty: 1
+                };
+                if (window.addToCart) {
+                    window.addToCart(data);
+                }
                 showToast();
             }
         }

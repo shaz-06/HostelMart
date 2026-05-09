@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="auth_global.js" defer></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f3f3; color: #0F1111; }
+        .amazon-link { color: #007185; font-size: 14px; text-decoration: none; }
+        .amazon-link:hover { color: #C7511F; text-decoration: underline; }
+        .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 20px; }
+        .btn-amazon { background: #FFD814; border: 1px solid #FCD200; border-radius: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 35px; font-size: 13px; font-weight: 500; }
+        .btn-amazon:hover { background: #F7CA00; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <header class="bg-[#F5F5DC] py-4 border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-1 no-underline">
+                <span class="font-black italic text-2xl flex items-center">
+                    <span class="text-[#8D6E63]">Hostel</span>
+                    <span class="text-[#C8A951] ml-1">Mart</span>
+                </span>
+            </a>
+            <div id="nav-actions"></div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Breadcrumbs -->
+        <nav class="mb-8 text-sm">
+            <a href="index.html" class="amazon-link">Your Account</a>
+            <span class="mx-1 text-gray-400">›</span>
+            <a href="Orders.html" class="amazon-link">Your Orders</a>
+            <span class="mx-1 text-gray-400">›</span>
+            <span id="breadcrumb-title" class="text-gray-600 truncate max-w-[200px] inline-block align-bottom">...</span>
+        </nav>
+
+        <div id="loading" class="text-center py-20">
+            <ion-icon name="sync-outline" class="animate-spin text-5xl text-gray-300"></ion-icon>
+        </div>
+
+        <div id="content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Column -->
+            <div class="lg:col-span-8 space-y-6">
+                <!-- Main Product Card -->
+                <div class="card flex flex-col md:flex-row gap-8 items-center md:items-start min-h-[300px]">
+                    <div class="w-full md:w-1/3 aspect-square bg-white flex items-center justify-center">
+                        <img id="product-img" src="" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <h1 id="product-title" class="text-3xl font-bold leading-tight">...</h1>
+                        <a href="#" class="amazon-link text-base">View product details</a>
+                    </div>
+                </div>
+
+                <!-- Review Section -->
+                <div class="card space-y-4">
+                    <h2 class="text-xl font-bold">How's your item?</h2>
+                    <div class="flex flex-col gap-2">
+                        <a href="#" class="amazon-link">Write a product review</a>
+                        <a href="#" class="amazon-link">Leave seller feedback</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="lg:col-span-4 space-y-4">
+                <!-- Buy Again Card -->
+                <div class="card !p-4">
+                    <button class="btn-amazon">
+                        <div class="w-6 h-6 bg-black/10 rounded-full flex items-center justify-center">
+                            <ion-icon name="refresh-outline" class="text-black"></ion-icon>
+                        </div>
+                        Buy it again
+                    </button>
+                </div>
+
+                <!-- Order Info Card -->
+                <div class="card space-y-6">
+                    <div>
+                        <h3 class="text-lg font-bold mb-3">Order info</h3>
+                        <a href="#" class="amazon-link">View order details</a>
+                    </div>
+                    
+                    <div class="space-y-4 border-t border-gray-100 pt-6 text-sm text-gray-600">
+                        <div>
+                            <p id="return-info">Return window closed on ...</p>
+                        </div>
+                        <div>
+                            <p id="delivery-info" class="font-medium text-gray-800">Delivered ...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            const phone = urlParams.get('phone');
+
+            if (!orderId || !phone) {
+                window.location.href = 'Orders.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/orders/track?phone=${phone}`);
+                const data = await response.json();
+
+                if (data.success && data.orders.length > 0) {
+                    const order = data.orders.find(o => o.orderId === orderId);
+                    if (order) {
+                        renderDetail(order);
+                    } else {
+                        throw new Error("Order not found");
+                    }
+                } else {
+                    throw new Error("Failed to fetch");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Could not load product details.");
+                window.location.href = 'Orders.html';
+            }
+        });
+
+        function renderDetail(order) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('content').classList.remove('hidden');
+
+            const item = order.items && order.items[0] ? order.items[0] : {};
+            const date = new Date(order.createdAt || order.timestamp);
+            const deliveryDate = new Date(date); deliveryDate.setDate(deliveryDate.getDate() + 4);
+            const returnDate = new Date(deliveryDate); returnDate.setDate(returnDate.getDate() + 7);
+
+            document.getElementById('breadcrumb-title').textContent = item.title;
+            document.getElementById('product-title').textContent = item.title;
+            document.getElementById('product-img').src = item.img;
+
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            document.getElementById('return-info').textContent = `Return window closed on ${returnDate.getDate()} ${months[returnDate.getMonth()]} ${returnDate.getFullYear()}`;
+            document.getElementById('delivery-info').textContent = `Delivered ${deliveryDate.getDate()} ${months[deliveryDate.getMonth()]}`;
+        }
+    </script>
+</body>
+</html>

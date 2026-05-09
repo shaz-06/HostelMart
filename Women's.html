@@ -149,6 +149,7 @@
     <link rel="stylesheet" href="search_styles.css">
     <script src="search_global.js" defer></script>
     <script src="auth_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
 </head>
 
 <body class="bg-[#F5F5DC] text-[#5D4037] antialiased">
@@ -243,20 +244,20 @@
                 </button>
 
                 <div class="hidden md:flex relative group py-2">
-                    <a href="Login.html" id="profile-link" class="flex items-center gap-2 cursor-pointer hover:text-pink-500 group">
+                    <a href="Orders.html" id="profile-link" class="flex items-center gap-2 cursor-pointer hover:text-pink-500 group">
                         <ion-icon name="person-circle-outline"
                             class="text-2xl text-gray-400 group-hover:text-pink-500 transition-colors"></ion-icon>
-                        <span id="login-text">Login</span>
+                        <span id="login-text">Track Order</span>
                         <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
                     </a>
                     
                     <!-- Dropdown Menu -->
                     <div class="absolute top-full right-0 mt-1 w-64 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
                         <div class="px-6 py-2 border-b border-gray-50 mb-2">
-                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Your Account</p>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Track Order</p>
                         </div>
                         <div class="space-y-0.5">
-                            <a href="Profile.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
+                            <a href="Orders.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
                                 <ion-icon name="person-outline" class="text-lg text-gray-400"></ion-icon>
                                 <span class="text-sm font-medium">My Profile</span>
                             </a>
@@ -1667,6 +1668,24 @@
         }
 
         function completeAddToCart(targetBtn) {
+            const card = targetBtn.closest('.product-card');
+            const selectedSize = document.querySelector('.size-btn-modal.active').innerText;
+            
+            const product = {
+                img: card.querySelector('img').src,
+                brand: card.querySelector('.brand-name')?.textContent.trim() || 'HostelMart',
+                title: card.querySelector('.product-title')?.textContent.trim() || 'Premium Product',
+                currentPrice: card.querySelector('.current-price')?.textContent.trim() || '₹0',
+                originalPrice: card.querySelector('.original-price')?.textContent.trim() || '',
+                size: selectedSize,
+                qty: 1
+            };
+
+            // Save to global cart
+            if (window.addToCart) {
+                window.addToCart(product);
+            }
+
             targetBtn.innerHTML = `
                 <div class="flex items-center justify-center gap-1">
                     <ion-icon name="checkmark-circle-outline" class="text-sm"></ion-icon>
@@ -1675,11 +1694,6 @@
             `;
             targetBtn.classList.add('in-cart');
             
-            const cartCounts = document.querySelectorAll('.absolute.-top-1.-right-1, .absolute.-top-2.left-3');
-            cartCounts.forEach(count => {
-                count.textContent = parseInt(count.textContent || 0) + 1;
-            });
-
             showToast('Item successfully added to cart');
         }
 

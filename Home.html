@@ -219,99 +219,15 @@
 
                 <!-- Profile & Cart -->
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
-                    <div class="hidden md:flex relative group py-2">
-                        <a href="Login.html" id="profile-link" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] group">
-                            <ion-icon name="person-circle-outline"
-                                class="text-2xl text-gray-400 group-hover:text-[#5D4037] transition-colors"></ion-icon>
-                            <span id="login-text">Login</span>
-                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
-                        </a>
-                        
-                        <!-- Dropdown Menu -->
-                        <div class="absolute top-full right-0 mt-1 w-64 bg-white rounded-2xl shadow-[0_10px_40_px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
-                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
-                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Your Account</p>
-                            </div>
-                            <div class="space-y-0.5">
-                                <a href="Profile.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="person-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">My Profile</span>
-                                </a>
-                                <a href="Orders.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="cube-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Orders</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="ticket-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Coupons</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="flash-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Supercoin</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="star-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">HostelMart Plus Zone</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="wallet-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Saved Cards & Wallet</span>
-                                </a>
-                                <a href="Address.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="location-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Saved Addresses</span>
-                                </a>
-                                <a href="Wishlist.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="heart-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Wishlist</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-50 pb-3">
-                                    <ion-icon name="gift-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Gift Cards</span>
-                                </a>
-                                <button onclick="logout()" class="w-full flex items-center gap-3 px-6 py-3 hover:bg-red-50 text-red-600 transition-colors mt-2">
-                                    <ion-icon name="log-out-outline" class="text-lg"></ion-icon>
-                                    <span class="text-sm font-bold uppercase tracking-widest">Logout</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden md:flex relative group py-2">
-                        <div class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group">
-                            <span>More</span>
-                            <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
-                        </div>
-                        
-                        <!-- More Dropdown Menu -->
-                        <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
-                            <div class="px-6 py-2 border-b border-gray-50 mb-2">
-                                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
-                            </div>
-                            <div class="space-y-0.5">
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Become a Seller</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Notification Settings</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">24x7 Customer Care</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
-                                    <span class="text-sm font-medium">Advertise on HostelMart</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                                                                                <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
+                    <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
+                    <a href="index.html#categories-section" class="hover:text-[#8D6E63] transition-colors">Categories</a>
+                    <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
                         <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
                         <span class="hidden md:inline">Cart</span>
-                        <span
-                            class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </a>
+                    <a href="Orders.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037]">
+                        <ion-icon name="location-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Track Order</span>
                     </a>
                 </div>
             </div>

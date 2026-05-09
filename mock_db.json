@@ -1,0 +1,123 @@
+{
+  "users": {
+    "6363849863": {
+      "name": "Shashank",
+      "phone": "6363849863",
+      "address": "",
+      "hostel": "",
+      "room": "",
+      "createdAt": "2026-05-09T16:02:17.956Z",
+      "lastLogin": "2026-05-09T19:05:32.131Z",
+      "role": "user"
+    },
+    "6363849864": {
+      "name": "Admin",
+      "phone": "6363849864",
+      "address": "",
+      "hostel": "",
+      "room": "",
+      "createdAt": "2026-05-09T17:40:29.513Z",
+      "lastLogin": "2026-05-09T19:04:58.167Z",
+      "role": "admin"
+    }
+  },
+  "orders": {
+    "HM47284": {
+      "orderId": "HM47284",
+      "customerName": "Shashank",
+      "phone": "6363849863",
+      "hostel": "7tgvtg",
+      "room": "yfv",
+      "address": "7tf76tf76",
+      "items": [
+        {
+          "img": "file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/maroon_floral_gown_1778000920508.png",
+          "brand": "Ridsiya",
+          "title": "Women Gown Maroon Midi/Calf Length Dress",
+          "currentPrice": "₹373",
+          "originalPrice": "₹999",
+          "size": "M",
+          "qty": 1
+        }
+      ],
+      "totalAmount": "373",
+      "trackingStatus": "shipped",
+      "timestamp": 1778343381086,
+      "createdAt": "2026-05-09T16:16:21.148Z",
+      "updatedAt": "2026-05-09T17:48:47.511Z"
+    },
+    "HM43053": {
+      "orderId": "HM43053",
+      "customerName": "Shashank",
+      "phone": "6363849863",
+      "hostel": "5rg45",
+      "room": "5rg4r",
+      "address": "4r45egdg4",
+      "items": [
+        {
+          "img": "file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/maroon_floral_gown_1778000920508.png",
+          "brand": "Ridsiya",
+          "title": "Women Gown Maroon Midi/Calf Length Dress",
+          "currentPrice": "₹373",
+          "originalPrice": "₹999",
+          "size": "M",
+          "qty": 1
+        }
+      ],
+      "totalAmount": "373",
+      "trackingStatus": "confirmed",
+      "timestamp": 1778344356711,
+      "createdAt": "2026-05-09T16:32:36.742Z",
+      "updatedAt": "2026-05-09T16:32:36.742Z"
+    },
+    "HM48057": {
+      "orderId": "HM48057",
+      "customerName": "Shashank",
+      "phone": "6363849863",
+      "hostel": "rf5",
+      "room": "fr5r",
+      "address": "yvt7v",
+      "items": [
+        {
+          "img": "file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/maroon_floral_gown_1778000920508.png",
+          "brand": "Ridsiya",
+          "title": "Women Gown Maroon Midi/Calf Length Dress",
+          "currentPrice": "₹373",
+          "originalPrice": "₹999",
+          "size": "M",
+          "qty": 1
+        }
+      ],
+      "totalAmount": "373",
+      "trackingStatus": "confirmed",
+      "timestamp": 1778344937608,
+      "createdAt": "2026-05-09T16:42:17.635Z",
+      "updatedAt": "2026-05-09T16:42:17.635Z"
+    },
+    "HM55092": {
+      "orderId": "HM55092",
+      "customerName": "Shashank shetty",
+      "phone": "6363849863",
+      "hostel": "cmr university",
+      "room": "",
+      "address": "1st Main Road, Chagalatti, Yelahanka taluku, Bengaluru Urban, Karnataka, 562149, India",
+      "items": [
+        {
+          "img": "file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/maroon_floral_gown_1778000920508.png",
+          "brand": "Ridsiya",
+          "title": "Women Gown Maroon Midi/Calf Length Dress",
+          "currentPrice": "₹373",
+          "originalPrice": "₹999",
+          "size": "M",
+          "qty": 2
+        }
+      ],
+      "totalAmount": "746",
+      "trackingStatus": "confirmed",
+      "timestamp": 1778355751688,
+      "paymentMethod": "cod",
+      "createdAt": "2026-05-09T19:42:31.700Z",
+      "updatedAt": "2026-05-09T19:42:31.700Z"
+    }
+  }
+}

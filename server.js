@@ -4,6 +4,11 @@ const path = require('path');
 const cheerio = require('cheerio');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const admin = require('firebase-admin');
+require('dotenv').config();
+const { verifyToken, verifyAdmin } = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +17,168 @@ const PORT = process.env.PORT || 3000;
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+const { db } = require('./firebase-admin-config');
+
+// Middleware is now imported from ./middleware/auth.js
+
+// --- AUTH APIs ---
+
+app.post('/api/auth/login', async (req, res) => {
+    console.log("Login Request Received:", req.body);
+    const { name, phone } = req.body;
+    if (!phone) {
+        console.error("Login Error: Phone missing");
+        return res.status(400).json({ success: false, message: 'Phone number is required' });
+    }
+
+    try {
+        const userRef = db.collection('users').doc(phone);
+        const doc = await userRef.get();
+
+        let userData;
+        const isAdmin = (phone === '6363849864' && (name === 'Admin' || !doc.exists));
+
+        if (!doc.exists) {
+            // Signup
+            userData = {
+                name: isAdmin ? 'Admin' : (name || 'Guest'),
+                phone: phone,
+                address: '',
+                hostel: '',
+                room: '',
+                createdAt: new Date(),
+                lastLogin: new Date(),
+                role: isAdmin ? 'admin' : 'user'
+            };
+            await userRef.set(userData);
+        } else {
+            // Login
+            userData = doc.data();
+            // If it's our special admin phone, ensure they have the admin role
+            if (isAdmin && userData.role !== 'admin') {
+                userData.role = 'admin';
+                await userRef.update({ role: 'admin' });
+            }
+            await userRef.update({ lastLogin: new Date() });
+        }
+
+        let token;
+        try {
+            token = jwt.sign({ phone: userData.phone, name: userData.name, role: userData.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        } catch (jwtErr) {
+            console.error("JWT Signing Error:", jwtErr);
+            return res.status(500).json({ success: false, message: 'Token generation failed' });
+        }
+
+        res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+        res.json({ success: true, token, user: userData, redirect: isAdmin ? 'hostelmart-control-room.html' : null });
+    } catch (error) {
+        console.error("Login Server Error:", error);
+        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    }
+});
+
+app.get('/api/auth/me', verifyToken, async (req, res) => {
+    try {
+        const doc = await db.collection('users').doc(req.userPhone).get();
+        if (!doc.exists) return res.status(404).json({ success: false, message: 'User not found' });
+        res.json({ success: true, user: doc.data() });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+app.patch('/api/auth/profile', verifyToken, async (req, res) => {
+    const { name, address, hostel, room } = req.body;
+    try {
+        const updateData = {};
+        if (name) updateData.name = name;
+        if (address) updateData.address = address;
+        if (hostel) updateData.hostel = hostel;
+        if (room) updateData.room = room;
+        
+        await db.collection('users').doc(req.userPhone).update(updateData);
+        res.json({ success: true, message: 'Profile updated' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+app.post('/api/auth/logout', (req, res) => {
+    res.clearCookie('token');
+    res.json({ success: true, message: 'Logged out' });
+});
+
+// --- ADMIN APIs ---
+
+app.post('/api/admin/login', (req, res) => {
+    const { userId, password } = req.body;
+    if (userId === process.env.ADMIN_USER_ID && password === process.env.ADMIN_PASSWORD) {
+        const token = jwt.sign({ phone: 'admin', name: 'Admin', role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        res.cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.json({ success: true, token, user: { name: 'Admin', role: 'admin' } });
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+});
+
+app.get('/api/admin/orders', verifyAdmin, async (req, res) => {
+    try {
+        const snapshot = await db.collection('orders').orderBy('createdAt', 'desc').get();
+        const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.json({ success: true, orders });
+    } catch (error) {
+        console.error("Admin Orders Fetch Error:", error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+app.patch('/api/admin/orders/:id', verifyAdmin, async (req, res) => {
+    const { status, deliveryStage } = req.body;
+    try {
+        await db.collection('orders').doc(req.params.id).update({
+            trackingStatus: status,
+            updatedAt: new Date()
+        });
+        res.json({ success: true, message: 'Order updated' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// --- USER ORDER APIs ---
+
+app.get('/api/orders/track', async (req, res) => {
+    const { phone } = req.query;
+    if (!phone) return res.status(400).json({ success: false, message: 'Phone number required' });
+    try {
+        const snapshot = await db.collection('orders').where('phone', '==', phone).get();
+        const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.json({ success: true, orders });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+app.post('/api/orders', async (req, res) => {
+    const orderData = req.body;
+    if (!orderData.phone || !orderData.items) {
+        return res.status(400).json({ success: false, message: 'Invalid order data' });
+    }
+
+    try {
+        orderData.createdAt = new Date();
+        orderData.updatedAt = new Date();
+        // Use orderId as the document ID for consistency
+        await db.collection('orders').doc(orderData.orderId).set(orderData);
+        res.json({ success: true, message: 'Order placed successfully' });
+    } catch (error) {
+        console.error("Order Creation Error:", error);
+        res.status(500).json({ success: false, message: 'Failed to place order' });
+    }
+});
 
 // Data helper functions
 const getProducts = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'products.json'), 'utf8'));
@@ -205,8 +372,19 @@ app.get('/Fashion.html', (req, res) => {
   res.send($.html());
 });
 
+// Serve hidden admin panel
+app.get('/hostelmart-control-room', (req, res) => {
+  res.sendFile(path.join(__dirname, 'hostelmart-control-room.html'));
+});
+
 // Serve other static files
 app.use(express.static(__dirname));
+
+// 404 Logger to find broken links
+app.use((req, res, next) => {
+    console.warn(`404 Not Found: ${req.url} - Referer: ${req.headers.referer || 'Direct'}`);
+    res.status(404).send(`Cannot GET ${req.url}`);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragrances & Perfumes | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .fragrance-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-card:hover .hover-overlay {
+            opacity: 1;
+        }
+
+        .product-card .hover-overlay {
+            opacity: 0;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        /* Variant Modal Styles */
+        #variant-modal {
+            transition: visibility 0s, opacity 0.3s ease;
+            visibility: hidden;
+            opacity: 0;
+        }
+        #variant-modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        #variant-modal-container {
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(100%);
+        }
+        #variant-modal.active #variant-modal-container {
+            transform: translateY(0);
+        }
+        .size-btn-modal.active {
+            background-color: #4c1d95;
+            color: white;
+            border-color: #4c1d95;
+        }
+
+        .bg-luxury-dark {
+            background: radial-gradient(circle at top, #2e1065 0%, #0f172a 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-[#FDFBF7] text-[#1e1b4b] antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC]/80 backdrop-blur-xl border-b border-purple-100 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start leading-none">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
+                </a>
+                <span class="text-[9px] mt-1 font-bold tracking-[0.5em] text-purple-600 uppercase">THE SCENT EDIT</span>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex gap-10 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                <a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Daily Scent</a>
+                <a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Premium</a>
+                <a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Body Mists</a>
+                <a href="javascript:void(0)" class="text-purple-700 underline underline-offset-8">Gifting</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-6 text-2xl text-slate-400">
+                <button class="hover:text-purple-600 transition-colors"><ion-icon name="search-outline"></ion-icon></button>
+                <button class="hover:text-purple-600 relative transition-colors">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span class="absolute -top-1 -right-1 bg-purple-600 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Variant Selection Modal -->
+    <div id="variant-modal" class="fixed inset-0 z-[200] flex items-end justify-center">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeVariantModal()"></div>
+        <div id="variant-modal-container" class="bg-white w-full max-w-md rounded-t-[3.5rem] relative z-10 overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="p-10 space-y-10">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300">Choose Volume</h3>
+                    <button onclick="closeVariantModal()" class="text-2xl text-slate-400 hover:rotate-90 transition-transform">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+
+                <div class="flex gap-8 items-start">
+                    <div class="w-28 aspect-square bg-purple-50 rounded-[2rem] overflow-hidden shadow-inner flex-shrink-0">
+                        <img id="modal-product-img" src="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-3 flex-1">
+                        <h4 class="text-[10px] font-bold text-purple-600 uppercase tracking-widest">LUXURY FRAGRANCE</h4>
+                        <p id="modal-product-title" class="text-lg font-bold text-slate-800 leading-tight fragrance-font">Product Title</p>
+                        <div class="flex items-center gap-2">
+                            <span id="modal-current-price" class="text-xl font-black text-purple-700">₹0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Select Size</p>
+                    <div class="flex gap-4">
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal flex-1 py-4 rounded-2xl border-2 border-slate-50 flex items-center justify-center text-xs font-black hover:border-purple-200 transition-all">50ml</button>
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal flex-1 py-4 rounded-2xl border-2 border-slate-50 flex items-center justify-center text-xs font-black hover:border-purple-200 transition-all">100ml</button>
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal flex-1 py-4 rounded-2xl border-2 border-slate-50 flex items-center justify-center text-xs font-black hover:border-purple-200 transition-all">200ml</button>
+                    </div>
+                </div>
+
+                <button id="modal-continue-btn" disabled onclick="confirmVariantSelection()"
+                    class="w-full bg-purple-600 text-white py-5 rounded-3xl font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-purple-200 transition-all duration-300">
+                    Add to Collection
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="relative rounded-[3.5rem] overflow-hidden aspect-[16/9] md:aspect-[21/9] bg-luxury-dark group">
+                <img src="./fragrances_hero_banner_1778506061572.png"
+                    class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-[3s]" alt="Fragrance Masterpiece">
+                <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-12">
+                    <div class="max-w-3xl space-y-8 animate-fadeIn">
+                        <span class="inline-block bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.4em] text-white border border-white/20">The Autumn Selection</span>
+                        <h1 class="fragrance-font text-4xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter">Define Your <br>Aura.</h1>
+                        <p class="text-sm md:text-xl text-white/70 font-medium max-w-lg mx-auto">Discover scent profiles that linger. From bold woody notes to fresh aquatic bursts.</p>
+                        <div class="flex gap-6 justify-center pt-6">
+                            <a href="#collection" class="bg-white text-purple-900 px-12 py-5 rounded-full font-black uppercase text-[10px] tracking-widest shadow-2xl hover:bg-purple-50 transition-all">Explore Scent</a>
+                            <a href="javascript:void(0)" class="bg-transparent border border-white/30 text-white px-12 py-5 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-white/10 transition-all">Fragrance Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTES SCROLL -->
+        <section class="py-12 border-b border-slate-100">
+            <div class="container mx-auto px-4 flex justify-around items-center gap-12 overflow-x-auto no-scrollbar grayscale opacity-40">
+                <div class="flex flex-col items-center gap-2">
+                    <span class="text-xs font-black uppercase tracking-[0.3em]">Woody</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <span class="text-xs font-black uppercase tracking-[0.3em]">Citrus</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <span class="text-xs font-black uppercase tracking-[0.3em]">Aquatic</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <span class="text-xs font-black uppercase tracking-[0.3em]">Floral</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <span class="text-xs font-black uppercase tracking-[0.3em]">Spicy</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT GRID -->
+        <section id="collection" class="container mx-auto px-4 py-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                <div class="space-y-4">
+                    <h2 class="fragrance-font text-3xl md:text-5xl font-black text-slate-800 tracking-tight">The Library</h2>
+                    <p class="text-slate-400 font-bold uppercase text-[10px] tracking-[0.3em]">Curated for the modern gentleman & lady</p>
+                </div>
+                <div class="flex gap-4 bg-slate-50 p-2 rounded-2xl border border-slate-100">
+                    <button class="bg-white shadow-sm text-purple-700 px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest">All</button>
+                    <button class="text-slate-400 px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:text-purple-600 transition-colors">Daily</button>
+                    <button class="text-slate-400 px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:text-purple-600 transition-colors">Luxury</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-12 gap-y-24">
+                <script>
+                    const fragranceProducts = [
+                        { name: "Hamilton Blue", brand: "Denver", price: 499, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600" },
+                        { name: "Impressio EDP", brand: "Fogg", price: 549, img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600" },
+                        { name: "Signature Gold", brand: "Axe", price: 399, img: "https://images.unsplash.com/photo-1588405748353-057019999474?w=600" },
+                        { name: "Good Morning", brand: "Park Avenue", price: 299, img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600" },
+                        { name: "Gentlemen Classic", brand: "Yardley London", price: 1299, img: "https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=600" },
+                        { name: "Edge Series", brand: "Wild Stone", price: 349, img: "https://images.unsplash.com/photo-1592914610354-fd354ea45e48?w=600" },
+                        { name: "Dark Desire", brand: "Envy", price: 449, img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600" },
+                        { name: "Fresh Active", brand: "Nivea", price: 249, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600" }
+                    ];
+
+                    document.write(fragranceProducts.map(p => `
+                        <div class="product-card group cursor-pointer relative">
+                            <div class="aspect-[4/5] bg-slate-50 rounded-[3rem] overflow-hidden mb-10 relative border border-slate-100/50 shadow-sm">
+                                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] product-img" alt="${p.name}">
+                                <div class="hover-overlay absolute inset-0 bg-purple-900/10 backdrop-blur-[2px] flex flex-col justify-end p-8">
+                                    <div class="flex flex-col gap-4 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                        <button onclick="handleAddToCart(this, event)" class="bg-white text-purple-700 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-2xl hover:bg-purple-50 transition-all">Add to Bag</button>
+                                        <button onclick="handleBuyNow(this, event)" class="bg-purple-700 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-2xl hover:bg-purple-800 transition-all">Quick Buy</button>
+                                    </div>
+                                </div>
+                                <div class="absolute top-6 right-6">
+                                    <button class="w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-slate-300 hover:text-red-400 transition-colors z-10 shadow-sm">
+                                        <ion-icon name="heart-outline"></ion-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="px-2 space-y-2">
+                                <p class="text-[9px] text-purple-600 font-black uppercase tracking-[0.4em]">${p.brand}</p>
+                                <h3 class="product-title text-base font-bold text-slate-800 tracking-tight fragrance-font">${p.name}</h3>
+                                <div class="flex justify-between items-center pt-2">
+                                    <span class="current-price text-lg font-black text-purple-700">₹${p.price}</span>
+                                    <div class="flex items-center gap-1 text-[10px] text-yellow-400 font-black">
+                                        <ion-icon name="star"></ion-icon>
+                                        <span>4.9</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- BANNER -->
+        <section class="container mx-auto px-4 pb-24">
+            <div class="relative h-[60vh] rounded-[4rem] overflow-hidden bg-slate-900">
+                <img src="https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=1600" class="w-full h-full object-cover opacity-50" alt="Fragrance Story">
+                <div class="absolute inset-0 flex items-center p-16 md:p-32">
+                    <div class="max-w-2xl space-y-8">
+                        <h3 class="fragrance-font text-3xl md:text-5xl text-white leading-tight">Gifting<br>Reimagined.</h3>
+                        <p class="text-slate-300 text-sm md:text-lg font-medium leading-relaxed">Elegant hampers curated for the ones who value a lasting impression. Handpicked scents with premium packaging.</p>
+                        <button class="bg-white text-slate-900 px-12 py-5 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-slate-100 transition-all shadow-2xl">Create Hamper</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-50 border-t border-slate-100 pt-24 pb-12">
+        <div class="container mx-auto px-12 grid grid-cols-1 md:grid-cols-4 gap-16">
+            <div class="space-y-10">
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tighter uppercase">HostelMart</span>
+                    <span class="text-[10px] font-bold tracking-[0.5em] text-purple-600">THE SCENT EDIT</span>
+                </div>
+                <p class="text-[11px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-loose">Premium fragrances delivered instantly to your door. Elevate your presence.</p>
+                <div class="flex gap-8 text-2xl text-slate-200">
+                    <a href="javascript:void(0)" class="hover:text-purple-600 transition-colors"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-purple-600 transition-colors"><ion-icon name="logo-youtube"></ion-icon></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-800 mb-10">Collections</h4>
+                <ul class="text-[11px] space-y-6 text-slate-400 font-bold uppercase tracking-widest">
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Men's Edit</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Women's Edit</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Deodorants</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Luxury Perfumes</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-800 mb-10">Concierge</h4>
+                <ul class="text-[11px] space-y-6 text-slate-400 font-bold uppercase tracking-widest">
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">My Profile</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Order Tracker</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Gift Guide</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-800 mb-10">Mart</h4>
+                <ul class="text-[11px] space-y-6 text-slate-400 font-bold uppercase tracking-widest">
+                    <li><a href="index.html" class="hover:text-purple-600 transition-colors">HostelMart Home</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Terms of Sale</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-purple-600 transition-colors">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-12 mt-24 pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8">
+            <p class="text-[9px] font-bold text-slate-300 uppercase tracking-[0.4em]">&copy; 2024 HostelMart x The Scent Edit. All rights reserved.</p>
+            <div class="flex gap-8 grayscale opacity-20">
+                <img src="https://vignette.wikia.nocookie.net/logopedia/images/e/e0/PayPal_Logo_2014.svg/revision/latest?cb=20140523171305" alt="Payment" class="h-3">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentTargetButton = null;
+
+        function openVariantModal(data) {
+            const modal = document.getElementById('variant-modal');
+            document.getElementById('modal-product-img').src = data.img;
+            document.getElementById('modal-product-title').textContent = data.title;
+            document.getElementById('modal-current-price').textContent = data.currentPrice;
+
+            document.querySelectorAll('.size-btn-modal').forEach(b => b.classList.remove('active'));
+            document.getElementById('modal-continue-btn').disabled = true;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeVariantModal() {
+            const modal = document.getElementById('variant-modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function selectSizeModal(btn) {
+            document.querySelectorAll('.size-btn-modal').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('modal-continue-btn').disabled = false;
+        }
+
+        function handleAddToCart(btn, e) {
+            if (e) e.stopPropagation();
+            currentTargetButton = btn;
+            const card = btn.closest('.product-card');
+            const data = {
+                img: card.querySelector('.product-img').src,
+                title: card.querySelector('.product-title').textContent,
+                currentPrice: card.querySelector('.current-price').textContent
+            };
+            openVariantModal(data);
+        }
+
+        function handleBuyNow(btn, e) {
+            if (e) e.stopPropagation();
+            currentTargetButton = btn;
+            btn.classList.add('buy-now-btn');
+            const card = btn.closest('.product-card');
+            const data = {
+                img: card.querySelector('.product-img').src,
+                title: card.querySelector('.product-title').textContent,
+                currentPrice: card.querySelector('.current-price').textContent
+            };
+            openVariantModal(data);
+        }
+
+        function confirmVariantSelection() {
+            if (currentTargetButton) {
+                const selectedSize = document.querySelector('.size-btn-modal.active').innerText;
+                const card = currentTargetButton.closest('.product-card');
+                
+                const data = {
+                    img: card.querySelector('.product-img').src,
+                    brand: 'HostelMart Fragrance',
+                    title: card.querySelector('.product-title').textContent,
+                    currentPrice: card.querySelector('.current-price').textContent,
+                    size: selectedSize,
+                    qty: 1
+                };
+
+                if (currentTargetButton.classList.contains('buy-now-btn')) {
+                    localStorage.setItem('checkoutItem', JSON.stringify(data));
+                    window.location.href = 'Checkout.html';
+                } else {
+                    // Logic for add to cart
+                    if (window.addToCart) {
+                        window.addToCart(data);
+                    }
+                    closeVariantModal();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

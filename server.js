@@ -98,7 +98,7 @@ app.patch('/api/auth/profile', verifyToken, async (req, res) => {
         if (address) updateData.address = address;
         if (hostel) updateData.hostel = hostel;
         if (room) updateData.room = room;
-        
+
         await db.collection('users').doc(req.userPhone).update(updateData);
         res.json({ success: true, message: 'Profile updated' });
     } catch (error) {
@@ -191,54 +191,54 @@ const getProducts = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data'
 const getCategories = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'categories.json'), 'utf8'));
 const getBanners = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'banners.json'), 'utf8'));
 const saveSubscription = (email) => {
-  const subsPath = path.join(__dirname, 'data', 'subscriptions.json');
-  const subs = JSON.parse(fs.readFileSync(subsPath, 'utf8'));
-  if (!subs.includes(email)) {
-    subs.push(email);
-    fs.writeFileSync(subsPath, JSON.stringify(subs, null, 2));
-    return true;
-  }
-  return false;
+    const subsPath = path.join(__dirname, 'data', 'subscriptions.json');
+    const subs = JSON.parse(fs.readFileSync(subsPath, 'utf8'));
+    if (!subs.includes(email)) {
+        subs.push(email);
+        fs.writeFileSync(subsPath, JSON.stringify(subs, null, 2));
+        return true;
+    }
+    return false;
 };
 
 // API Routes
 app.get('/api/products', (req, res) => {
-  res.json(getProducts());
+    res.json(getProducts());
 });
 
 app.post('/api/subscribe', (req, res) => {
-  const { email } = req.body;
-  if (email) {
-    saveSubscription(email);
-    res.json({ success: true, message: 'Subscribed successfully!' });
-  } else {
-    res.status(400).json({ success: false, message: 'Email is required.' });
-  }
+    const { email } = req.body;
+    if (email) {
+        saveSubscription(email);
+        res.json({ success: true, message: 'Subscribed successfully!' });
+    } else {
+        res.status(400).json({ success: false, message: 'Email is required.' });
+    }
 });
 
 // Server-Side Injection for index.html
 app.get(['/', '/index.html'], (req, res) => {
-  const indexPath = path.join(__dirname, 'index.html');
-  let html = fs.readFileSync(indexPath, 'utf8');
-  const $ = cheerio.load(html);
+    const indexPath = path.join(__dirname, 'index.html');
+    let html = fs.readFileSync(indexPath, 'utf8');
+    const $ = cheerio.load(html);
 
-  // 1. Inject Products
-  const products = getProducts();
-  const $productGrid = $('.product-grid');
-  $productGrid.empty();
+    // 1. Inject Products
+    const products = getProducts();
+    const $productGrid = $('.product-grid');
+    $productGrid.empty();
 
-  products.forEach(product => {
-    const ratingHtml = Array(5).fill(0).map((_, i) => 
-      `<ion-icon name="${i < product.rating ? 'star' : 'star-outline'}"></ion-icon>`
-    ).join('');
+    products.forEach(product => {
+        const ratingHtml = Array(5).fill(0).map((_, i) =>
+            `<ion-icon name="${i < product.rating ? 'star' : 'star-outline'}"></ion-icon>`
+        ).join('');
 
-    const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-[#F5F5DC] text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
-    const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">$${product.delPrice.toFixed(2)}</del>` : '';
+        const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-[#F5F5DC] text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
+        const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">$${product.delPrice.toFixed(2)}</del>` : '';
 
-    const productImage = product.images ? product.images.default : (product.image || '');
-    const hoverImage = product.images ? product.images.hover : (product.image || '');
+        const productImage = product.images ? product.images.default : (product.image || '');
+        const hoverImage = product.images ? product.images.hover : (product.image || '');
 
-    const productHtml = `
+        const productHtml = `
       <div class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
           <div class="relative aspect-[4/5] overflow-hidden">
               <img src="${productImage}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
@@ -259,16 +259,16 @@ app.get(['/', '/index.html'], (req, res) => {
           </div>
       </div>
     `;
-    $productGrid.append(productHtml);
-  });
+        $productGrid.append(productHtml);
+    });
 
-  // 2. Inject Categories
-  const categories = getCategories();
-  const $categoryContainer = $('.category-item-container');
-  $categoryContainer.empty();
+    // 2. Inject Categories
+    const categories = getCategories();
+    const $categoryContainer = $('.category-item-container');
+    $categoryContainer.empty();
 
-  categories.forEach(cat => {
-    const catHtml = `
+    categories.forEach(cat => {
+        const catHtml = `
       <div class="min-w-[160px] md:min-w-[220px] snap-start bg-[#F5F5DC] border border-[#D7CCC8] p-4 rounded-2xl flex items-center gap-4 hover:shadow-xl hover:border-[#5D4037] transition-all cursor-pointer group">
           <div class="bg-[#D7CCC8] p-2.5 rounded-xl text-[#5D4037] text-xl group-hover:bg-[#5D4037] group-hover:text-[#F5F5DC] transition-colors duration-300 flex items-center justify-center">
               <img src="${cat.icon}" alt="${cat.name}" width="24" class="group-hover:brightness-0 group-hover:invert transition-all">
@@ -279,16 +279,16 @@ app.get(['/', '/index.html'], (req, res) => {
           </div>
       </div>
     `;
-    $categoryContainer.append(catHtml);
-  });
-  // 3. Inject Fashion Banners
-  const banners = getBanners();
-  const fashionBanners = banners.filter(b => b.section === 'fashion');
-  const $fashionSection = $('#fashion-section');
-  if ($fashionSection.length > 0) {
-    $fashionSection.empty();
-    fashionBanners.forEach(banner => {
-      const bannerHtml = `
+        $categoryContainer.append(catHtml);
+    });
+    // 3. Inject Fashion Banners
+    const banners = getBanners();
+    const fashionBanners = banners.filter(b => b.section === 'fashion');
+    const $fashionSection = $('#fashion-section');
+    if ($fashionSection.length > 0) {
+        $fashionSection.empty();
+        fashionBanners.forEach(banner => {
+            const bannerHtml = `
           <div class="${banner.classes}" style="background-color: ${banner.bg_color}">
               <div class="w-1/2 p-6 md:p-10 flex flex-col justify-center relative">
                   <img src="${banner.icon}" class="absolute bottom-4 left-4 w-12 opacity-80" alt="">
@@ -307,28 +307,28 @@ app.get(['/', '/index.html'], (req, res) => {
               </div>
           </div>
       `;
-      $fashionSection.append(bannerHtml);
-    });
-  }
+            $fashionSection.append(bannerHtml);
+        });
+    }
 
-  res.send($.html());
+    res.send($.html());
 });
 
 // Server-Side Injection for Fashion.html
 app.get('/Fashion.html', (req, res) => {
-  const fashionPath = path.join(__dirname, 'Fashion.html');
-  let html = fs.readFileSync(fashionPath, 'utf8');
-  const $ = cheerio.load(html);
+    const fashionPath = path.join(__dirname, 'Fashion.html');
+    let html = fs.readFileSync(fashionPath, 'utf8');
+    const $ = cheerio.load(html);
 
-  // Inject Banners
-  const banners = getBanners();
-  const $heroSlider = $('#hero-slider');
-  $heroSlider.empty();
+    // Inject Banners
+    const banners = getBanners();
+    const $heroSlider = $('#hero-slider');
+    $heroSlider.empty();
 
-  banners.forEach(banner => {
-    let bannerHtml = '';
-    if (banner.type === 'standard') {
-      bannerHtml = `
+    banners.forEach(banner => {
+        let bannerHtml = '';
+        if (banner.type === 'standard') {
+            bannerHtml = `
         <div class="${banner.classes}">
             <img src="${banner.image}" alt="${banner.title}" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-6 md:p-8 text-white">
@@ -337,8 +337,8 @@ app.get('/Fashion.html', (req, res) => {
             </div>
         </div>
       `;
-    } else if (banner.type === 'featured') {
-      bannerHtml = `
+        } else if (banner.type === 'featured') {
+            bannerHtml = `
         <div class="${banner.classes}" style="background-color: ${banner.bg_color}">
             <div class="w-1/2 p-6 md:p-10 flex flex-col justify-center relative">
                 <img src="${banner.icon}" class="absolute bottom-4 left-4 w-12 opacity-80" alt="">
@@ -359,8 +359,8 @@ app.get('/Fashion.html', (req, res) => {
             </div>
         </div>
       `;
-    } else if (banner.type === 'featured_small') {
-      bannerHtml = `
+        } else if (banner.type === 'featured_small') {
+            bannerHtml = `
         <div class="${banner.classes}" style="background-color: ${banner.bg_color}">
             <div class="p-6 md:p-10 flex flex-col justify-center h-full relative">
                 <img src="${banner.icon}" class="absolute bottom-4 left-4 w-12 opacity-80" alt="">
@@ -371,16 +371,16 @@ app.get('/Fashion.html', (req, res) => {
             </div>
         </div>
       `;
-    }
-    $heroSlider.append(bannerHtml);
-  });
+        }
+        $heroSlider.append(bannerHtml);
+    });
 
-  res.send($.html());
+    res.send($.html());
 });
 
 // Serve hidden admin panel
 app.get('/hostelmart-control-room', (req, res) => {
-  res.sendFile(path.join(__dirname, 'hostelmart-control-room.html'));
+    res.sendFile(path.join(__dirname, 'hostelmart-control-room.html'));
 });
 
 // Serve other static files
@@ -393,5 +393,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phitku | Natural Personal Care | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600;900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-card:hover .quick-add {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .quick-add {
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Variant Modal Styles */
+        #variant-modal {
+            transition: visibility 0s, opacity 0.3s ease;
+            visibility: hidden;
+            opacity: 0;
+        }
+        #variant-modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        #variant-modal-container {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(100%);
+        }
+        #variant-modal.active #variant-modal-container {
+            transform: translateY(0);
+        }
+        .size-btn-modal.active {
+            background-color: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FDFBF7] text-[#0f172a] antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-sky-100 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex flex-col items-start leading-none">
+                <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
+                </a>
+                <span class="text-[10px] mt-1 font-extrabold tracking-[0.2em] text-sky-500 uppercase">PHITKU</span>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-slate-500">
+                <a href="javascript:void(0)" class="hover:text-sky-500 transition-colors">Our Story</a>
+                <a href="javascript:void(0)" class="hover:text-sky-500 transition-colors">Roll-Ons</a>
+                <a href="javascript:void(0)" class="hover:text-sky-500 transition-colors">Bundles</a>
+                <a href="javascript:void(0)" class="text-sky-600 font-black underline underline-offset-4 decoration-2">Subscribe</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-5 text-2xl text-slate-400">
+                <button class="hover:text-sky-500 transition-colors"><ion-icon name="search-outline"></ion-icon></button>
+                <button class="hover:text-sky-500 relative transition-colors">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span class="absolute -top-1 -right-1 bg-sky-500 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Variant Selection Modal -->
+    <div id="variant-modal" class="fixed inset-0 z-[200] flex items-end justify-center">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeVariantModal()"></div>
+        <div id="variant-modal-container" class="bg-white w-full max-w-md rounded-t-[2.5rem] relative z-10 overflow-hidden shadow-2xl flex flex-col max-h-[80vh]">
+            <div class="p-8 space-y-8">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-black uppercase tracking-[0.2em] text-slate-300">Select Variant</h3>
+                    <button onclick="closeVariantModal()" class="text-2xl text-slate-400">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="w-24 aspect-square bg-sky-50 rounded-2xl overflow-hidden shadow-inner flex-shrink-0">
+                        <img id="modal-product-img" src="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-2 flex-1">
+                        <h4 class="text-[10px] font-bold text-sky-500 uppercase tracking-widest">PHITKU</h4>
+                        <p id="modal-product-title" class="text-sm font-bold text-slate-800 leading-tight">Product Title</p>
+                        <div class="flex items-center gap-2">
+                            <span id="modal-current-price" class="text-lg font-black text-sky-600">₹0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Pack Size</p>
+                    <div class="flex gap-3">
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal px-6 py-3 rounded-xl border border-slate-100 flex items-center justify-center text-xs font-bold hover:border-sky-200 transition-all">50ml</button>
+                        <button onclick="selectSizeModal(this)" class="size-btn-modal px-6 py-3 rounded-xl border border-slate-100 flex items-center justify-center text-xs font-bold hover:border-sky-200 transition-all">100ml</button>
+                    </div>
+                </div>
+
+                <button id="modal-continue-btn" disabled onclick="confirmVariantSelection()"
+                    class="w-full bg-sky-500 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-lg shadow-sky-200 transition-all duration-300">
+                    Confirm Selection
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="relative rounded-[2.5rem] overflow-hidden aspect-[16/9] md:aspect-[21/9] bg-sky-50">
+                <img src="./pitku_hero_banner_1778505744593.png"
+                    class="w-full h-full object-cover opacity-90" alt="Phitku Freshness">
+                <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 bg-gradient-to-t from-white/20 to-transparent">
+                    <h1 class="text-3xl md:text-6xl font-extrabold text-slate-800 leading-tight mb-4 tracking-tighter">Pure Freshness,<br>Naturally Derived.</h1>
+                    <p class="text-sm md:text-lg text-slate-600 mb-8 font-medium max-w-lg">Advanced alum-based protection that works with your body, not against it.</p>
+                    <a href="#shop" class="bg-sky-500 text-white px-10 py-3.5 rounded-full font-bold uppercase text-[11px] tracking-widest shadow-xl shadow-sky-200 hover:bg-sky-600 transition-all">Explore the Range</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUE PROPS -->
+        <section class="py-12 border-b border-slate-50">
+            <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center space-y-2">
+                    <div class="text-3xl text-sky-400"><ion-icon name="leaf-outline"></ion-icon></div>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">100% Vegan</p>
+                </div>
+                <div class="text-center space-y-2">
+                    <div class="text-3xl text-sky-400"><ion-icon name="flask-outline"></ion-icon></div>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Toxin Free</p>
+                </div>
+                <div class="text-center space-y-2">
+                    <div class="text-3xl text-sky-400"><ion-icon name="hourglass-outline"></ion-icon></div>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">24h Protection</p>
+                </div>
+                <div class="text-center space-y-2">
+                    <div class="text-3xl text-sky-400"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Derm Tested</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT GRID -->
+        <section id="shop" class="container mx-auto px-4 py-20">
+            <div class="text-center mb-16 space-y-2">
+                <h2 class="text-3xl font-black text-slate-800 tracking-tight">The Essentials</h2>
+                <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest italic">Shark Tank India Season 5 Featured</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-6 gap-y-12">
+                <script>
+                    const pitkuProducts = [
+                        { name: "Natural Alum Roll-On", type: "Signature Series", price: 299, img: "https://images.unsplash.com/photo-1594489896593-72aa4a3b0502?w=500" },
+                        { name: "Fresh Dew Mist", type: "Fragrance Free", price: 349, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500" },
+                        { name: "Ocean Breeze Roll-On", type: "Scented", price: 329, img: "https://images.unsplash.com/photo-1556227702-d1e4e7b5c232?w=500" },
+                        { name: "Sensitive Skin Balm", type: "Soothing", price: 399, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500" },
+                        { name: "Alum Crystal Soap", type: "Body Care", price: 199, img: "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=500" },
+                        { name: "Foot Refresh Powder", type: "Intensive", price: 249, img: "https://images.unsplash.com/photo-1556229167-da31d4d15014?w=500" },
+                        { name: "Grooming Essentials Kit", type: "Bundle", price: 1299, img: "https://images.unsplash.com/photo-1619451334792-150fd785ee74?w=500" },
+                        { name: "Travel Pack (Set of 3)", type: "Pocket Size", price: 449, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500" }
+                    ];
+
+                    document.write(pitkuProducts.map(p => `
+                        <div class="product-card group cursor-pointer relative">
+                            <div class="aspect-square bg-sky-50 rounded-[2rem] overflow-hidden mb-6 relative border border-sky-100/50">
+                                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="${p.name}">
+                                <div class="absolute inset-x-4 bottom-4 quick-add bg-white/80 backdrop-blur-md rounded-2xl p-2 shadow-xl border border-sky-50">
+                                    <div class="flex gap-2">
+                                        <button onclick="handleAddToCart(this, event)" class="flex-1 bg-white text-sky-500 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-sky-50 transition-all border border-sky-100">Add</button>
+                                        <button onclick="handleBuyNow(this, event)" class="flex-1 bg-sky-500 text-white py-3 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-sky-600 transition-all">Buy Now</button>
+                                    </div>
+                                </div>
+                                <button class="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-slate-300 hover:text-sky-500 transition-colors z-10">
+                                    <ion-icon name="heart-outline"></ion-icon>
+                                </button>
+                            </div>
+                            <div class="px-2 space-y-1">
+                                <h3 class="product-title text-sm font-bold text-slate-800">${p.name}</h3>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${p.type}</p>
+                                <p class="current-price text-base font-black text-sky-500 pt-1">₹${p.price}</p>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- SUBSCRIBE BANNER -->
+        <section class="container mx-auto px-4 pb-20">
+            <div class="bg-[#1e293b] rounded-[3rem] p-12 text-center space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-64 h-64 bg-sky-500/10 blur-[100px]"></div>
+                <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+                    <h3 class="text-2xl md:text-4xl font-black text-white tracking-tight">Never run out of fresh.</h3>
+                    <p class="text-slate-400 text-sm md:text-base font-medium">Join 50,000+ Phitku members and get your refills delivered automatically. Save 15% on every order.</p>
+                    <div class="flex flex-col md:flex-row gap-4 justify-center pt-4">
+                        <input type="email" placeholder="Your email address" class="bg-slate-800 border border-slate-700 text-white px-8 py-4 rounded-full outline-none focus:border-sky-500 transition-all text-sm min-w-[300px]">
+                        <button class="bg-sky-500 text-white px-10 py-4 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-sky-600 transition-all shadow-xl shadow-sky-500/20">Subscribe Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-50 border-t border-slate-100 pt-20 pb-12">
+        <div class="container mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tighter uppercase">HostelMart</span>
+                    <span class="text-[10px] font-extrabold tracking-[0.2em] text-sky-500">PHITKU</span>
+                </div>
+                <p class="text-xs text-slate-400 font-medium leading-relaxed">Sustainable personal care for the modern resident. Shark Tank India Featured Brand.</p>
+                <div class="flex gap-4 text-xl text-slate-300">
+                    <a href="javascript:void(0)" class="hover:text-sky-500"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="javascript:void(0)" class="hover:text-sky-500"><ion-icon name="logo-facebook"></ion-icon></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-800 mb-6">Shop</h4>
+                <ul class="text-[11px] space-y-4 text-slate-500 font-bold uppercase tracking-wider">
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">All Products</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">Subscriptions</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">Gift Cards</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-800 mb-6">Learn</h4>
+                <ul class="text-[11px] space-y-4 text-slate-500 font-bold uppercase tracking-wider">
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">How it works</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">Science of Alum</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-800 mb-6">Support</h4>
+                <ul class="text-[11px] space-y-4 text-slate-500 font-bold uppercase tracking-wider">
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">Help Center</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">Returns</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-sky-500">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 md:px-12 mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">&copy; 2024 HostelMart x Phitku. All rights reserved.</p>
+            <div class="flex gap-6 grayscale opacity-30">
+                <img src="https://vignette.wikia.nocookie.net/logopedia/images/e/e0/PayPal_Logo_2014.svg/revision/latest?cb=20140523171305" alt="Payment" class="h-3">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentTargetButton = null;
+
+        function openVariantModal(data) {
+            const modal = document.getElementById('variant-modal');
+            document.getElementById('modal-product-img').src = data.img;
+            document.getElementById('modal-product-title').textContent = data.title;
+            document.getElementById('modal-current-price').textContent = data.currentPrice;
+
+            document.querySelectorAll('.size-btn-modal').forEach(b => b.classList.remove('active'));
+            document.getElementById('modal-continue-btn').disabled = true;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeVariantModal() {
+            const modal = document.getElementById('variant-modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function selectSizeModal(btn) {
+            document.querySelectorAll('.size-btn-modal').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('modal-continue-btn').disabled = false;
+        }
+
+        function handleAddToCart(btn, e) {
+            if (e) e.stopPropagation();
+            currentTargetButton = btn;
+            const card = btn.closest('.product-card');
+            const data = {
+                img: card.querySelector('.product-img').src,
+                title: card.querySelector('.product-title').textContent,
+                currentPrice: card.querySelector('.current-price').textContent
+            };
+            openVariantModal(data);
+        }
+
+        function handleBuyNow(btn, e) {
+            if (e) e.stopPropagation();
+            currentTargetButton = btn;
+            btn.classList.add('buy-now-btn');
+            const card = btn.closest('.product-card');
+            const data = {
+                img: card.querySelector('.product-img').src,
+                title: card.querySelector('.product-title').textContent,
+                currentPrice: card.querySelector('.current-price').textContent
+            };
+            openVariantModal(data);
+        }
+
+        function confirmVariantSelection() {
+            if (currentTargetButton) {
+                const selectedSize = document.querySelector('.size-btn-modal.active').innerText;
+                const card = currentTargetButton.closest('.product-card');
+                
+                const data = {
+                    img: card.querySelector('.product-img').src,
+                    brand: 'PHITKU',
+                    title: card.querySelector('.product-title').textContent,
+                    currentPrice: card.querySelector('.current-price').textContent,
+                    size: selectedSize,
+                    qty: 1
+                };
+
+                if (currentTargetButton.classList.contains('buy-now-btn')) {
+                    localStorage.setItem('checkoutItem', JSON.stringify(data));
+                    window.location.href = 'Checkout.html';
+                } else {
+                    // Logic for add to cart
+                    if (window.addToCart) {
+                        window.addToCart(data);
+                    }
+                    closeVariantModal();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

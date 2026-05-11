@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Orders | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="auth_global.js" defer></script>
     <style>
@@ -19,36 +21,36 @@
             --gold-light: #FDF5E6;
         }
 
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background-color: var(--cream); 
-            color: var(--brown); 
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream);
+            color: var(--brown);
         }
 
-        .hostelmart-link { 
-            color: var(--brown-medium); 
-            font-size: 13px; 
-            text-decoration: none; 
+        .hostelmart-link {
+            color: var(--brown-medium);
+            font-size: 13px;
+            text-decoration: none;
             font-weight: 700;
             transition: all 0.2s ease;
         }
 
-        .hostelmart-link:hover { 
-            color: var(--gold); 
+        .hostelmart-link:hover {
+            color: var(--gold);
         }
 
-        .tab-active { 
-            border-bottom: 3px solid var(--brown-medium); 
-            font-weight: 800; 
-            color: var(--brown) !important; 
+        .tab-active {
+            border-bottom: 3px solid var(--brown-medium);
+            font-weight: 800;
+            color: var(--brown) !important;
         }
 
-        .order-card { 
+        .order-card {
             background: var(--cream);
-            border: 1px solid rgba(215, 204, 200, 0.5); 
-            border-radius: 24px; 
-            margin-bottom: 32px; 
-            overflow: hidden; 
+            border: 1px solid rgba(215, 204, 200, 0.5);
+            border-radius: 24px;
+            margin-bottom: 32px;
+            overflow: hidden;
             box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -58,28 +60,28 @@
             box-shadow: 0 15px 40px rgba(93, 64, 55, 0.1);
         }
 
-        .order-header { 
-            background-color: var(--cream-dark); 
-            padding: 24px 32px; 
-            border-bottom: 1px solid rgba(215, 204, 200, 0.5); 
-            display: flex; 
-            justify-content: space-between; 
-            font-size: 11px; 
-            color: var(--brown-light); 
+        .order-header {
+            background-color: var(--cream-dark);
+            padding: 24px 32px;
+            border-bottom: 1px solid rgba(215, 204, 200, 0.5);
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--brown-light);
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
 
-        .btn-hostelmart { 
-            background: var(--brown-medium); 
+        .btn-hostelmart {
+            background: var(--brown-medium);
             color: var(--cream);
-            border-radius: 12px; 
-            cursor: pointer; 
-            display: inline-block; 
-            padding: 12px 24px; 
-            text-align: center; 
-            font-size: 12px; 
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-block;
+            padding: 12px 24px;
+            text-align: center;
+            font-size: 12px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -87,30 +89,30 @@
             box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
         }
 
-        .btn-hostelmart:hover { 
-            background: var(--brown); 
+        .btn-hostelmart:hover {
+            background: var(--brown);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(93, 64, 55, 0.2);
         }
 
-        .btn-outline { 
-            background: transparent; 
-            border: 2px solid var(--brown-medium); 
-            border-radius: 12px; 
-            cursor: pointer; 
-            display: inline-block; 
-            padding: 10px 22px; 
-            text-align: center; 
-            font-size: 12px; 
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--brown-medium);
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px 22px;
+            text-align: center;
+            font-size: 12px;
             font-weight: 800;
-            color: var(--brown-medium); 
+            color: var(--brown-medium);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             transition: all 0.3s ease;
         }
 
-        .btn-outline:hover { 
-            background-color: var(--brown-medium); 
+        .btn-outline:hover {
+            background-color: var(--brown-medium);
             color: var(--cream);
         }
 
@@ -129,15 +131,24 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .animate-fadeIn {
             animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
     </style>
 
 </head>
+
 <body class="min-h-screen flex flex-col">
 
     <!-- Header (Standard HostelMart Header) -->
@@ -163,25 +174,34 @@
 
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
             <h1 class="text-4xl font-black text-brown italic tracking-tight">Your Orders</h1>
-            
+
             <div class="flex items-center w-full md:w-auto">
                 <div class="relative flex-1 md:w-96">
                     <div class="search-bar-themed flex items-center">
                         <ion-icon name="search-outline" class="text-brown-light text-xl mr-3"></ion-icon>
-                        <input type="text" id="search-input" placeholder="Search all orders" class="w-full bg-transparent outline-none text-sm font-semibold text-brown">
+                        <input type="text" id="search-input" placeholder="Search all orders"
+                            class="w-full bg-transparent outline-none text-sm font-semibold text-brown">
                     </div>
                 </div>
-                <button id="search-btn" class="bg-brown text-cream px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brown-medium transition-all ml-3 shadow-lg">Search</button>
+                <button id="search-btn"
+                    class="bg-brown text-cream px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brown-medium transition-all ml-3 shadow-lg">Search</button>
             </div>
         </div>
 
         <!-- Tabs -->
         <div class="flex gap-10 border-b border-brown/10 mb-8 overflow-x-auto no-scrollbar">
-            <a href="Orders.html" id="tab-my-orders" class="pb-4 hostelmart-link uppercase tracking-widest text-[11px]">My Orders</a>
-            <a href="Orders.html?phone=all" id="tab-all-orders" class="pb-4 hostelmart-link uppercase tracking-widest text-[11px]">All Orders</a>
-            <a href="#" class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Buy Again</a>
-            <a href="#" class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Not Yet Shipped</a>
-            <a href="#" class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Cancelled</a>
+            <a href="Orders.html" id="tab-my-orders"
+                class="pb-4 hostelmart-link uppercase tracking-widest text-[11px]">My Orders</a>
+            <a href="Orders.html?phone=all" id="tab-all-orders"
+                class="pb-4 hostelmart-link uppercase tracking-widest text-[11px]">All Orders</a>
+            <a href="#"
+                class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Buy
+                Again</a>
+            <a href="#"
+                class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Not Yet
+                Shipped</a>
+            <a href="#"
+                class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Cancelled</a>
         </div>
 
         <div class="flex items-center gap-4 mb-10">
@@ -190,7 +210,8 @@
                     <span class="text-brown">0 orders</span> placed in
                 </span>
             </div>
-            <select class="bg-cream-dark border border-brown/10 rounded-xl px-4 py-2 text-xs font-black text-brown-medium outline-none cursor-pointer hover:border-brown-medium transition-colors">
+            <select
+                class="bg-cream-dark border border-brown/10 rounded-xl px-4 py-2 text-xs font-black text-brown-medium outline-none cursor-pointer hover:border-brown-medium transition-colors">
                 <option>past 3 months</option>
                 <option>2026</option>
                 <option>2025</option>
@@ -212,7 +233,8 @@
                 <ion-icon name="bag-handle-outline" class="text-4xl text-brown/20"></ion-icon>
             </div>
             <h3 class="text-2xl font-black text-brown mb-2 uppercase tracking-tighter">No orders found</h3>
-            <p class="text-brown-light font-medium mb-10 max-w-xs mx-auto">Looks like you haven't placed any orders yet. Start shopping to fill this space!</p>
+            <p class="text-brown-light font-medium mb-10 max-w-xs mx-auto">Looks like you haven't placed any orders yet.
+                Start shopping to fill this space!</p>
             <a href="index.html" class="btn-hostelmart px-10">Start Shopping</a>
         </div>
 
@@ -241,7 +263,7 @@
             // Check URL parameters first
             const urlParams = new URLSearchParams(window.location.search);
             const urlPhone = urlParams.get('phone');
-            
+
             if (urlPhone) {
                 console.log("Using phone from URL:", urlPhone);
                 if (urlPhone === 'all') {
@@ -281,7 +303,7 @@
             document.getElementById('orders-list').classList.add('hidden');
             const noOrdersDiv = document.getElementById('no-orders');
             noOrdersDiv.classList.remove('hidden');
-            
+
             // Add tracking input if not already present
             if (!document.getElementById('track-phone-input')) {
                 noOrdersDiv.innerHTML += `
@@ -306,14 +328,14 @@
 
         async function fetchOrders(phone) {
             const ordersList = document.getElementById('orders-list');
-            
+
             // Fast fallback: Load from localStorage first (only for specific phone)
             let localOrders = [];
             if (phone !== 'all') {
                 localOrders = JSON.parse(localStorage.getItem('userOrders') || '[]');
                 // Filter local orders by phone number
                 localOrders = localOrders.filter(o => o.phone === phone);
-                
+
                 if (localOrders.length > 0) {
                     console.log("Found local orders, displaying immediately...");
                     renderOrders(localOrders);
@@ -328,14 +350,14 @@
 
                 const response = await fetch(`/api/orders/track?phone=${phone}`, { signal: controller.signal });
                 clearTimeout(timeoutId);
-                
+
                 const data = await response.json();
 
                 if (data.success) {
                     // Combine server orders with local orders, removing duplicates by orderId
                     const serverOrders = data.orders || [];
                     const allOrders = [...serverOrders];
-                    
+
                     localOrders.forEach(lo => {
                         if (!allOrders.some(so => so.orderId === lo.orderId)) {
                             allOrders.push(lo);
@@ -378,7 +400,7 @@
                 const title = (item.title || '').toLowerCase();
                 const orderId = (order.orderId || '').toLowerCase();
                 const customer = (order.customerName || '').toLowerCase();
-                
+
                 return title.includes(q) || orderId.includes(q) || customer.includes(q);
             });
 
@@ -391,7 +413,7 @@
                 document.getElementById('orders-list').classList.add('hidden');
                 document.getElementById('no-orders').classList.remove('hidden');
                 document.getElementById('order-count-text').innerHTML = `<span class="font-bold">0 results</span> found`;
-                
+
                 // Update no-orders text for search
                 const noOrdersDiv = document.getElementById('no-orders');
                 noOrdersDiv.querySelector('h3').textContent = 'No matching orders';
@@ -476,7 +498,7 @@
             document.getElementById('modal-img').src = img;
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-price').textContent = `₹${price}`;
-            
+
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -490,40 +512,51 @@
     <!-- Product Detail Modal -->
     <div id="product-detail-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-brown/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
-        <div class="bg-cream w-full max-w-2xl rounded-[2.5rem] overflow-hidden relative z-10 shadow-[0_30px_100px_rgba(93,64,55,0.3)] border border-brown/10 animate-fadeIn">
-            <button onclick="closeProductModal()" class="absolute top-8 right-8 text-2xl text-brown-light hover:text-brown z-20 p-2 hover:bg-cream-dark rounded-full transition-all"><ion-icon name="close"></ion-icon></button>
+        <div
+            class="bg-cream w-full max-w-2xl rounded-[2.5rem] overflow-hidden relative z-10 shadow-[0_30px_100px_rgba(93,64,55,0.3)] border border-brown/10 animate-fadeIn">
+            <button onclick="closeProductModal()"
+                class="absolute top-8 right-8 text-2xl text-brown-light hover:text-brown z-20 p-2 hover:bg-cream-dark rounded-full transition-all"><ion-icon
+                    name="close"></ion-icon></button>
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-5/12 bg-white aspect-square p-12">
                     <img id="modal-img" src="" class="w-full h-full object-contain">
                 </div>
                 <div class="p-10 md:p-12 flex-1 flex flex-col justify-center">
                     <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brown-light mb-4">Order Insight</p>
-                    <h3 id="modal-title" class="text-2xl font-black text-brown mb-6 leading-tight italic">Product Title</h3>
+                    <h3 id="modal-title" class="text-2xl font-black text-brown mb-6 leading-tight italic">Product Title
+                    </h3>
                     <div class="mb-8">
                         <div class="flex items-baseline gap-2">
                             <p class="text-4xl font-black text-brown tracking-tighter" id="modal-price">₹0</p>
-                            <span class="text-[10px] font-bold text-green-600 uppercase bg-green-50 px-2 py-1 rounded">Paid</span>
+                            <span
+                                class="text-[10px] font-bold text-green-600 uppercase bg-green-50 px-2 py-1 rounded">Paid</span>
                         </div>
                     </div>
                     <div class="space-y-5 mb-10">
-                        <div class="flex items-center gap-4 text-xs font-bold text-brown-light uppercase tracking-widest">
+                        <div
+                            class="flex items-center gap-4 text-xs font-bold text-brown-light uppercase tracking-widest">
                             <div class="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center text-gold">
                                 <ion-icon name="shield-checkmark" class="text-lg"></ion-icon>
                             </div>
                             HostelMart Verified
                         </div>
-                        <div class="flex items-center gap-4 text-xs font-bold text-brown-light uppercase tracking-widest">
-                            <div class="w-8 h-8 rounded-full bg-brown/5 flex items-center justify-center text-brown-medium">
+                        <div
+                            class="flex items-center gap-4 text-xs font-bold text-brown-light uppercase tracking-widest">
+                            <div
+                                class="w-8 h-8 rounded-full bg-brown/5 flex items-center justify-center text-brown-medium">
                                 <ion-icon name="refresh" class="text-lg"></ion-icon>
                             </div>
                             Standard Returns Apply
                         </div>
                     </div>
-                    <button onclick="closeProductModal()" class="w-full bg-brown text-cream py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-brown-medium transition-all shadow-xl shadow-brown/20">Close Preview</button>
+                    <button onclick="closeProductModal()"
+                        class="w-full bg-brown text-cream py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-brown-medium transition-all shadow-xl shadow-brown/20">Close
+                        Preview</button>
                 </div>
             </div>
         </div>
     </div>
 
 </body>
+
 </html>

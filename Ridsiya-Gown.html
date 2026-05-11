@@ -634,9 +634,12 @@
             }, 800);
         }
 
+        let currentAction = null;
+
         function handleBuyNow() {
             const activeSize = document.querySelector('.size-btn.active');
             if (!activeSize) {
+                currentAction = 'buy';
                 openVariantModal();
             } else {
                 const data = {
@@ -666,17 +669,21 @@
                 qty: 1
             };
 
-            if (window.addToCart) {
-                window.addToCart(data);
+            if (currentAction === 'buy') {
+                localStorage.setItem('checkoutItem', JSON.stringify(data));
+                window.location.href = 'Checkout.html';
+            } else {
+                if (window.addToCart) {
+                    window.addToCart(data);
+                }
+                closeVariantModal();
             }
-
-            closeVariantModal();
-            showToast();
         }
 
         function handleAddToCart() {
             const activeSize = document.querySelector('.size-btn.active');
             if (!activeSize) {
+                currentAction = 'cart';
                 openVariantModal();
             } else {
                 const data = {
@@ -691,29 +698,18 @@
                 if (window.addToCart) {
                     window.addToCart(data);
                 }
-                showToast();
+                updateCartButtonState();
             }
         }
 
-        function showToast() {
-            const toast = document.getElementById('cart-toast');
-            toast.classList.add('active');
-            
+        function updateCartButtonState() {
             // Update main button to "Go To Cart"
             const mainBtn = document.getElementById('add-to-cart-btn');
-            mainBtn.innerHTML = '<ion-icon name="bag-handle-outline" class="text-lg"></ion-icon> Go To Cart';
-            mainBtn.onclick = () => window.location.href = 'Cart.html';
-            mainBtn.classList.replace('bg-white', 'bg-[#FDFBF7]'); // Subtle shift to indicate state change
-            
-            // Update cart count visually
-            const cartCounts = document.querySelectorAll('.absolute.-top-1.-right-1');
-            cartCounts.forEach(count => {
-                count.textContent = parseInt(count.textContent) + 1;
-            });
-
-            setTimeout(() => {
-                toast.classList.remove('active');
-            }, 4000);
+            if (mainBtn) {
+                mainBtn.innerHTML = '<ion-icon name="bag-handle-outline" class="text-lg"></ion-icon> Go To Cart';
+                mainBtn.onclick = () => window.location.href = 'Cart.html';
+                mainBtn.classList.replace('bg-white', 'bg-[#FDFBF7]'); // Subtle shift to indicate state change
+            }
         }
 
         function openVariantModal() {

@@ -36,7 +36,64 @@ function addToCart(product) {
     }
     
     saveCart(cart);
+    showCartToast(product.title + " added to cart!");
     return true;
+}
+
+function showCartToast(message) {
+    // Create toast styles if they don't exist
+    if (!document.getElementById('cart-toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'cart-toast-styles';
+        style.textContent = `
+            .cart-toast {
+                position: fixed;
+                bottom: 24px;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                background: #3E2723;
+                color: #FDFBF7;
+                padding: 12px 24px;
+                border-radius: 12px;
+                font-size: 13px;
+                font-weight: 700;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 9999;
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border: 1px solid rgba(255,255,255,0.1);
+            }
+            .cart-toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Create toast element
+    let toast = document.querySelector('.cart-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'cart-toast';
+        document.body.appendChild(toast);
+    }
+
+    toast.innerHTML = `
+        <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+            <ion-icon name="checkmark" style="color: white; font-size: 12px;"></ion-icon>
+        </div>
+        ${message}
+    `;
+
+    // Trigger animation
+    setTimeout(() => toast.classList.add('show'), 100);
+    
+    // Auto hide
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
 }
 
 function removeFromCart(index) {

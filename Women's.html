@@ -1693,8 +1693,6 @@
                 </div>
             `;
             targetBtn.classList.add('in-cart');
-            
-            showToast('Item successfully added to cart');
         }
 
         // Add to Cart & Buy Now Logic
@@ -1764,28 +1762,7 @@
             });
         });
 
-        function showToast(message) {
-            let toast = document.querySelector('.toast-notification');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.className = 'toast-notification';
-                document.body.appendChild(toast);
-            }
-            
-            toast.innerHTML = `
-                <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                    <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
-                </div>
-                ${message}
-            `;
-            
-            toast.offsetHeight;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
+
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

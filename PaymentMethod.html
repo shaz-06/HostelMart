@@ -11,22 +11,151 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="auth_global.js" defer></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: #2b2b2b; }
-        .stepper-line { height: 2px; background-color: #4CAF50; flex-grow: 1; margin: 0 10px; }
-        .stepper-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; transition: all 0.5s; }
-        .stepper-dot.active { background-color: #9c27b0 !important; color: white !important; }
-        .stepper-dot.completed { background-color: #4CAF50 !important; color: white !important; }
-        .card { background: white; border-radius: 1.5rem; border: 1px solid #D7CCC8; overflow: hidden; }
-        .btn-continue { background-color: #9c27b0; color: white; font-weight: 800; padding: 16px; border-radius: 1rem; width: 100%; text-align: center; font-size: 18px; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s; box-shadow: 0 4px 15px rgba(156, 39, 176, 0.2); }
-        .btn-continue:hover:not(:disabled) { background-color: #7b1fa2; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3); }
-        .btn-continue:disabled { background-color: #E0E0E0; cursor: not-allowed; box-shadow: none; }
-        .discount-banner { background-color: #e8f5e9; color: #2e7d32; padding: 12px; border-radius: 4px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
-        .meesho-logo { font-size: 24px; font-weight: 900; color: #9c27b0; }
-        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .payment-card.selected { border-color: #9c27b0 !important; background-color: #f3e5f5 !important; }
-        @keyframes checkmark { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
-        .animate-checkmark { animation: checkmark 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; opacity: 0; }
+        :root {
+            --cream: #FDFBF7;
+            --cream-dark: #F5F5DC;
+            --brown: #3E2723;
+            --brown-medium: #5D4037;
+            --brown-light: #8D6E63;
+            --gold: #C5A059;
+            --gold-light: #FDF5E6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--brown);
+        }
+
+        .stepper-line {
+            height: 2px;
+            background-color: var(--gold-light);
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+
+        .stepper-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            transition: all 0.5s;
+            background-color: white;
+            border: 2px solid var(--cream-dark);
+            color: var(--brown-light);
+        }
+
+        .stepper-dot.active {
+            background-color: var(--brown-medium) !important;
+            color: var(--cream) !important;
+            border-color: var(--brown-medium) !important;
+        }
+
+        .stepper-dot.completed {
+            background-color: var(--gold) !important;
+            color: white !important;
+            border-color: var(--gold) !important;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(215, 204, 200, 0.5);
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
+            overflow: hidden;
+        }
+
+        .btn-continue {
+            background-color: var(--brown-medium);
+            color: var(--cream);
+            font-weight: 800;
+            padding: 16px;
+            border-radius: 1rem;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.15);
+        }
+
+        .btn-continue:hover:not(:disabled) {
+            background-color: var(--brown);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(93, 64, 55, 0.25);
+        }
+
+        .btn-continue:disabled {
+            background-color: #E0E0E0;
+            color: #9E9E9E;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .discount-banner {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .meesho-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--brown);
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-card.selected {
+            border-color: var(--brown-medium) !important;
+            background-color: var(--gold-light) !important;
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-checkmark {
+            animation: checkmark 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -35,11 +164,18 @@
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="meesho-logo italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></a>
+            <a href="index.html" class="meesho-logo italic"><span class="text-[#8D6E63]">Hostel</span><span
+                    class="text-[#C8A951]">Mart</span></a>
             <div class="flex items-center gap-2 w-full max-w-xs justify-center">
-                <div class="flex flex-col items-center gap-1"><div class="stepper-dot completed"><ion-icon name="checkmark"></ion-icon></div><span class="text-[10px] font-bold text-green-600 uppercase">Review</span></div>
+                <div class="flex flex-col items-center gap-1">
+                    <div class="stepper-dot completed"><ion-icon name="checkmark"></ion-icon></div><span
+                        class="text-[10px] font-bold text-green-600 uppercase">Review</span>
+                </div>
                 <div class="stepper-line"></div>
-                <div class="flex flex-col items-center gap-1"><div class="stepper-dot active">2</div><span class="text-[10px] font-bold text-[#9c27b0] uppercase">Payment</span></div>
+                <div class="flex flex-col items-center gap-1">
+                    <div class="stepper-dot active">2</div><span
+                        class="text-[10px] font-bold text-brown uppercase">Payment</span>
+                </div>
             </div>
             <div class="w-24"></div>
         </div>
@@ -50,19 +186,23 @@
             <div class="lg:col-span-8 space-y-8 animate-fadeIn">
                 <!-- ORDER SUMMARY -->
                 <section>
-                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-                        <ion-icon name="receipt-outline" class="text-[#9c27b0]"></ion-icon>
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-brown">
+                        <ion-icon name="receipt-outline" class="text-gold"></ion-icon>
                         Order Summary
                     </h2>
                     <div class="card p-6 flex gap-6">
-                        <div class="w-24 h-24 bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 flex-shrink-0">
+                        <div
+                            class="w-24 h-24 bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 flex-shrink-0">
                             <img id="summary-img" src="" class="w-full h-full object-cover">
                         </div>
                         <div class="flex-1 space-y-1">
-                            <h3 id="summary-title" class="text-base font-bold text-gray-800 line-clamp-1">Loading...</h3>
-                            <p class="text-sm text-gray-500 font-medium">Size: <span id="summary-size" class="font-bold text-gray-700">...</span> • Qty: <span id="summary-qty" class="font-bold text-gray-700">1</span></p>
+                            <h3 id="summary-title" class="text-base font-bold text-gray-800 line-clamp-1">Loading...
+                            </h3>
+                            <p class="text-sm text-gray-500 font-medium">Size: <span id="summary-size"
+                                    class="font-bold text-gray-700">...</span> • Qty: <span id="summary-qty"
+                                    class="font-bold text-gray-700">1</span></p>
                             <div class="flex items-center gap-2 pt-2">
-                                <span id="summary-price" class="text-lg font-black text-[#9c27b0]">₹0</span>
+                                <span id="summary-price" class="text-lg font-black text-brown">₹0</span>
                                 <span id="summary-original" class="text-sm text-gray-400 line-through">₹0</span>
                             </div>
                         </div>
@@ -71,58 +211,83 @@
 
                 <!-- PAYMENT METHODS -->
                 <section>
-                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-                        <ion-icon name="wallet-outline" class="text-[#9c27b0]"></ion-icon>
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-brown">
+                        <ion-icon name="wallet-outline" class="text-gold"></ion-icon>
                         Select Payment Method
                     </h2>
                     <div class="space-y-4">
-                        <div id="pay-cod" class="payment-card card p-6 cursor-pointer border-2 border-transparent transition-all" onclick="selectPayment('cod')">
+                        <div id="pay-cod"
+                            class="payment-card card p-6 cursor-pointer border-2 border-transparent transition-all"
+                            onclick="selectPayment('cod')">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-6">
-                                    <span class="text-2xl font-black text-[#2b2b2b] w-24" id="payment-cod-price">₹0</span>
+                                    <span class="text-2xl font-black text-[#2b2b2b] w-24"
+                                        id="payment-cod-price">₹0</span>
                                     <div class="h-10 w-[1px] bg-gray-200"></div>
                                     <div class="space-y-0.5">
                                         <span class="text-lg font-bold text-gray-700">Cash on Delivery</span>
-                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Pay when you receive</p>
+                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Pay
+                                            when you receive</p>
                                     </div>
                                 </div>
-                                <div id="cod-radio" class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center transition-all"></div>
+                                <div id="cod-radio"
+                                    class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center transition-all">
+                                </div>
                             </div>
                         </div>
 
-                        <div id="pay-online" class="payment-card card p-0 cursor-pointer border-2 border-transparent transition-all overflow-hidden" onclick="selectPayment('online')">
+                        <div id="pay-online"
+                            class="payment-card card p-0 cursor-pointer border-2 border-transparent transition-all overflow-hidden"
+                            onclick="selectPayment('online')">
                             <div class="p-6">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-6">
                                         <div class="w-24">
-                                            <p class="text-[10px] text-gray-400 line-through" id="payment-online-orig">₹0</p>
-                                            <p class="text-2xl font-black text-green-600" id="payment-online-price">₹0</p>
-                                            <span class="bg-green-100 text-green-700 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider">Save 10%</span>
+                                            <p class="text-[10px] text-gray-400 line-through" id="payment-online-orig">
+                                                ₹0</p>
+                                            <p class="text-2xl font-black text-green-600" id="payment-online-price">₹0
+                                            </p>
+                                            <span
+                                                class="bg-green-100 text-green-700 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider">Save
+                                                10%</span>
                                         </div>
                                         <div class="h-10 w-[1px] bg-gray-200"></div>
                                         <div class="space-y-0.5">
                                             <span class="text-lg font-bold text-gray-700">Pay Online</span>
-                                            <p class="text-[10px] font-black text-green-600 uppercase tracking-widest">Extra 10% OFF with UPI</p>
+                                            <p class="text-[10px] font-black text-green-600 uppercase tracking-widest">
+                                                Extra 10% OFF with UPI</p>
                                         </div>
                                     </div>
-                                    <div id="online-radio" class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center transition-all"></div>
+                                    <div id="online-radio"
+                                        class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center transition-all">
+                                    </div>
                                 </div>
                             </div>
-                            <div id="upi-details" class="hidden border-t border-gray-100 p-8 space-y-6 bg-gray-50/50 text-center">
+                            <div id="upi-details"
+                                class="hidden border-t border-gray-100 p-8 space-y-6 bg-gray-50/50 text-center">
                                 <div class="relative group max-w-[200px] mx-auto">
-                                    <div class="aspect-square bg-white border border-gray-200 rounded-3xl flex items-center justify-center p-6 shadow-sm">
-                                        <div id="qr-overlay" class="absolute inset-0 bg-white/80 backdrop-blur-[2px] rounded-3xl flex items-center justify-center z-10 transition-all group-hover:bg-white/40">
-                                            <button onclick="showQRCode(event)" class="bg-[#9c27b0] text-white px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest shadow-xl">Show QR Code</button>
+                                    <div
+                                        class="aspect-square bg-white border border-gray-200 rounded-3xl flex items-center justify-center p-6 shadow-sm">
+                                        <div id="qr-overlay"
+                                            class="absolute inset-0 bg-white/80 backdrop-blur-[2px] rounded-3xl flex items-center justify-center z-10 transition-all group-hover:bg-white/40">
+                                            <button onclick="showQRCode(event)"
+                                                class="bg-brown-medium text-white px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest shadow-xl">Show
+                                                QR Code</button>
                                         </div>
-                                        <img id="upi-qr-img" src="assets/images/upi_qr.png" class="w-full h-full opacity-10 transition-all duration-500 scale-90">
+                                        <img id="upi-qr-img" src="assets/images/upi_qr.png"
+                                            class="w-full h-full opacity-10 transition-all duration-500 scale-90">
                                     </div>
                                 </div>
                                 <div class="space-y-2">
-                                    <p class="text-xs font-black text-gray-500 uppercase tracking-[0.2em]">Scan with any UPI App</p>
+                                    <p class="text-xs font-black text-gray-500 uppercase tracking-[0.2em]">Scan with any
+                                        UPI App</p>
                                     <div class="flex justify-center gap-4 opacity-40 grayscale pt-2">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" class="h-4">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" class="h-4">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/PhonePe_Logo.svg" class="h-4">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png"
+                                            class="h-4">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg"
+                                            class="h-4">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/PhonePe_Logo.svg"
+                                            class="h-4">
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +300,9 @@
             <div class="lg:col-span-4">
                 <div class="sticky top-24 space-y-4">
                     <div class="card p-8">
-                        <h2 class="text-base font-black uppercase tracking-widest text-gray-400 mb-8 pb-4 border-b border-gray-50">Price Details</h2>
+                        <h2
+                            class="text-base font-black uppercase tracking-widest text-gray-400 mb-8 pb-4 border-b border-gray-50">
+                            Price Details</h2>
                         <div class="space-y-5">
                             <div class="flex justify-between text-sm font-medium">
                                 <span class="text-gray-500">Product Price</span>
@@ -145,30 +312,34 @@
                                 <span class="text-green-600">Discounts</span>
                                 <span id="side-discount-amt" class="text-green-600 font-bold">- ₹0</span>
                             </div>
-                            <div class="flex justify-between text-sm font-medium border-b border-dashed border-gray-200 pb-5">
+                            <div
+                                class="flex justify-between text-sm font-medium border-b border-dashed border-gray-200 pb-5">
                                 <span class="text-gray-500">Delivery Charges</span>
                                 <span class="text-green-600 font-bold">FREE</span>
                             </div>
                             <div class="pt-2 flex justify-between items-center">
-                                <span class="text-lg font-black text-gray-800">Order Total</span>
-                                <span id="side-total-price" class="text-3xl font-black text-[#9c27b0]">₹0</span>
+                                <span class="text-lg font-black text-gray-800 uppercase tracking-tighter">Order Total</span>
+                                <span id="side-total-price" class="text-3xl font-black text-brown italic">₹0</span>
                             </div>
                         </div>
                         <div class="mt-8 discount-banner">
                             <div class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center shadow-md">
                                 <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
                             </div>
-                            <span class="text-sm">You save <span id="side-discount-text" class="font-black">₹0</span> on this order</span>
+                            <span class="text-sm">You save <span id="side-discount-text" class="font-black">₹0</span> on
+                                this order</span>
                         </div>
                         <div class="mt-8">
-                            <button id="place-order-btn" onclick="handlePlaceOrder()" class="btn-continue shadow-purple-200">
+                            <button id="place-order-btn" onclick="handlePlaceOrder()"
+                                class="btn-continue">
                                 Place Order
                             </button>
                         </div>
                     </div>
                     <div class="p-6 flex items-center gap-4 text-gray-400">
                         <ion-icon name="shield-checkmark" class="text-3xl"></ion-icon>
-                        <p class="text-[10px] font-bold uppercase leading-tight tracking-widest">Safe and Secure Payments. 100% Authentic products.</p>
+                        <p class="text-[10px] font-bold uppercase leading-tight tracking-widest">Safe and Secure
+                            Payments. 100% Authentic products.</p>
                     </div>
                 </div>
             </div>
@@ -196,11 +367,11 @@
             document.getElementById('summary-original').textContent = checkoutData.originalPrice || '';
             document.getElementById('summary-size').textContent = checkoutData.size || 'Free Size';
             document.getElementById('summary-qty').textContent = checkoutData.qty || '1';
-            
+
             const qty = parseInt(checkoutData.qty || 1);
             const currPrice = parseInt(checkoutData.currentPrice.replace(/[^\d]/g, ''));
             const origPrice = checkoutData.originalPrice ? parseInt(checkoutData.originalPrice.replace(/[^\d]/g, '')) : currPrice;
-            
+
             const totalCurr = currPrice * qty;
             const totalOrig = origPrice * qty;
             const discount = totalOrig - totalCurr;
@@ -215,19 +386,16 @@
             document.getElementById('payment-online-price').textContent = '₹' + Math.round(totalCurr * 0.9);
         }
 
-        window.selectPayment = function(method) {
+        window.selectPayment = function (method) {
             selectedPaymentMethod = method;
             document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('selected'));
             document.getElementById(`pay-${method}`).classList.add('selected');
-            
+
             // Radio styling
             document.getElementById('cod-radio').innerHTML = '';
             document.getElementById('online-radio').innerHTML = '';
-            document.getElementById('cod-radio').classList.remove('bg-[#9c27b0]', 'border-[#9c27b0]');
-            document.getElementById('online-radio').classList.remove('bg-[#9c27b0]', 'border-[#9c27b0]');
-            
             const radio = document.getElementById(`${method}-radio`);
-            radio.classList.add('bg-[#9c27b0]', 'border-[#9c27b0]');
+            radio.classList.add('bg-brown-medium', 'border-brown-medium');
             radio.innerHTML = '<div class="w-2 h-2 bg-white rounded-full"></div>';
 
             const upiDetails = document.getElementById('upi-details');
@@ -242,14 +410,14 @@
             }
         };
 
-        window.showQRCode = function(e) {
+        window.showQRCode = function (e) {
             e.stopPropagation();
             document.getElementById('qr-overlay').classList.add('hidden');
             document.getElementById('upi-qr-img').classList.remove('opacity-10', 'scale-90');
             document.getElementById('upi-qr-img').classList.add('opacity-100', 'scale-100');
         };
 
-        window.handlePlaceOrder = async function() {
+        window.handlePlaceOrder = async function () {
             if (!selectedPaymentMethod) {
                 alert('Please select a payment method');
                 return;
@@ -342,8 +510,9 @@
                     </div>
                 </div>
             `;
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
+
 </html>

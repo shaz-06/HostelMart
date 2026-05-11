@@ -90,35 +90,49 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out forwards;
         }
+
         /* Compact Category Navigation on Scroll */
         #categories-section {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         #categories-section.scrolled {
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
         #categories-section .icon-box {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             max-height: 50px;
         }
+
         #categories-section.scrolled .icon-box {
             max-height: 0;
             opacity: 0;
             pointer-events: none;
             transform: translateY(-10px);
         }
+
         #categories-section.scrolled .category-item {
             gap: 0;
         }
+
         #categories-section.scrolled span {
             font-size: 11px;
             color: #5D4037;
@@ -174,9 +188,11 @@
         .mega-menu-right::-webkit-scrollbar {
             width: 6px;
         }
+
         .mega-menu-right::-webkit-scrollbar-track {
             background: #FDFBF7;
         }
+
         .mega-menu-right::-webkit-scrollbar-thumb {
             background-color: #D7CCC8;
             border-radius: 20px;
@@ -220,8 +236,15 @@
         }
 
         @keyframes fadeInSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .subcategory-item {
@@ -272,9 +295,17 @@
             display: block !important;
             animation: slideDown 0.3s ease-out;
         }
+
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -292,7 +323,7 @@
                 class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
                 <ion-icon name="close-outline"></ion-icon>
             </button>
-            
+
             <div class="p-8 md:p-10 space-y-6">
                 <div class="text-center md:text-left">
                     <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
@@ -302,7 +333,7 @@
                 <!-- Map Section -->
                 <div class="relative group">
                     <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
-                    <button onclick="useGPS(event)" 
+                    <button onclick="useGPS(event)"
                         class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
                         <ion-icon name="locate-outline" class="text-lg"></ion-icon>
                         Use GPS
@@ -312,12 +343,14 @@
                 <!-- Manual Input Section -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street /
+                            Landmark</label>
                         <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
                             class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City /
+                            Town</label>
                         <input type="text" id="manual-city" placeholder="e.g. Bangalore"
                             class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
                     </div>
@@ -407,10 +440,12 @@
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
                     <div class="nav-item-wrapper">
-                        <a href="javascript:void(0)" onclick="toggleMegaMenu(event)" class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
+                        <a href="javascript:void(0)" onclick="toggleMegaMenu(event)"
+                            class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
                         <div id="mega-menu" class="mega-menu shadow-2xl text-left">
                             <div class="mega-menu-left">
-                                <div class="mega-category-link active" onmouseover="showMegaCategory('mega-electronics', this)">
+                                <div class="mega-category-link active"
+                                    onmouseover="showMegaCategory('mega-electronics', this)">
                                     <span>Electronics</span>
                                     <ion-icon name="chevron-forward-outline"></ion-icon>
                                 </div>
@@ -459,15 +494,18 @@
                                         <span class="subcategory-name">Earphones & Headphones</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Chargers & Cables</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="battery-charging-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="battery-charging-outline"></ion-icon></div>
                                         <span class="subcategory-name">Power Banks</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Bluetooth Speakers</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
@@ -475,7 +513,8 @@
                                         <span class="subcategory-name">Smart Watches</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Keyboards & Mouse</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
@@ -486,7 +525,8 @@
                                 <!-- Grocery -->
                                 <div id="mega-grocery" class="subcategory-grid">
                                     <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Instant Noodles</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
@@ -494,7 +534,8 @@
                                         <span class="subcategory-name">Chips & Snacks</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Chocolates</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
@@ -502,7 +543,8 @@
                                         <span class="subcategory-name">Cold Drinks</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Biscuits</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
@@ -529,15 +571,18 @@
                                         <span class="subcategory-name">Bedsheets</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Pillows</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Laundry Bags</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Locks</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
@@ -556,30 +601,36 @@
                                         <span class="subcategory-name">Pens & Markers</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Calculators</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Sticky Notes</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Files & Folders</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Exam Pads</span>
                                     </a>
                                 </div>
                                 <!-- Beauty -->
                                 <div id="mega-beauty" class="subcategory-grid">
                                     <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Face Wash</span>
                                     </a>
                                     <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Shampoo</span>
                                     </a>
                                     <a href="Beauty.html" class="subcategory-item">
@@ -614,7 +665,8 @@
                                         <span class="subcategory-name">Shorts</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Slippers</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
@@ -622,18 +674,21 @@
                                         <span class="subcategory-name">Watches</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Bags</span>
                                     </a>
                                 </div>
                                 <!-- Mobiles -->
                                 <div id="mega-mobiles" class="subcategory-grid">
                                     <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="phone-portrait-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="phone-portrait-outline"></ion-icon></div>
                                         <span class="subcategory-name">Smartphones</span>
                                     </a>
                                     <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="refresh-circle-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="refresh-circle-outline"></ion-icon></div>
                                         <span class="subcategory-name">Refurbished Phones</span>
                                     </a>
                                     <a href="Mobile.html" class="subcategory-item">
@@ -645,7 +700,8 @@
                                         <span class="subcategory-name">Tempered Glass</span>
                                     </a>
                                     <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="phone-landscape-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="phone-landscape-outline"></ion-icon></div>
                                         <span class="subcategory-name">Mobile Stands</span>
                                     </a>
                                 </div>
@@ -683,11 +739,13 @@
                                         <span class="subcategory-name">Yoga Mats</span>
                                     </a>
                                     <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Cricket</span>
                                     </a>
                                     <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Football</span>
                                     </a>
                                     <a href="Sports.html" class="subcategory-item">
@@ -714,7 +772,8 @@
                                         <span class="subcategory-name">Chargers</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Umbrellas</span>
                                     </a>
                                 </div>
@@ -768,7 +827,8 @@
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
                 </a>
 
-                <a href="Electronics.html" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
+                <a href="Electronics.html"
+                    class="category-item active flex flex-col items-center gap-1 group relative pb-1">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
                         <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
@@ -1021,11 +1081,13 @@
             <div class="flex items-end justify-between">
                 <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#C5A059] pl-4">Exclusive For
                     You</h3>
-                <a href="javascript:void(0)" class="text-[10px] font-black uppercase tracking-widest text-[#C5A059] hover:underline">See
+                <a href="javascript:void(0)"
+                    class="text-[10px] font-black uppercase tracking-widest text-[#C5A059] hover:underline">See
                     All Deals</a>
             </div>
             <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div
+                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-blue-100 flex items-center justify-center relative p-6">
                         <img src="https://via.placeholder.com/160x100" alt="OnePlus Pad"
                             class="mix-blend-multiply drop-shadow-lg">
@@ -1034,22 +1096,26 @@
                             Limited Offer</div>
                     </div>
                     <div class="p-4 space-y-1">
-                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
+                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                            From
                             ₹13,999*</div>
                         <h4 class="font-black text-sm text-center">OnePlus Pad Lite</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div
+                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-[#FDF5E6] flex items-center justify-center relative p-6">
                         <img src="https://via.placeholder.com/160x100" alt="Latest tablets" class="mix-blend-multiply">
                     </div>
                     <div class="p-4 space-y-1">
-                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">From
+                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
+                            From
                             ₹23,999*</div>
                         <h4 class="font-black text-sm text-center">Latest tablets</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div
+                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-blue-100 flex items-center justify-center p-6">
                         <img src="https://via.placeholder.com/160x100" alt="Gaming combo" class="mix-blend-multiply">
                     </div>
@@ -1059,7 +1125,8 @@
                         <h4 class="font-black text-sm text-center">Gaming combo</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div
+                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-stone-50 flex items-center justify-center p-6">
                         <img src="https://via.placeholder.com/100x120" alt="Grooming" class="mix-blend-multiply">
                     </div>
@@ -1069,7 +1136,8 @@
                         <h4 class="font-black text-sm text-center">Grooming & styling</h4>
                     </div>
                 </div>
-                <div class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
+                <div
+                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
                     <div class="h-48 bg-[#FDF5E6] flex items-center justify-center p-6">
                         <img src="https://via.placeholder.com/160x100" alt="Gaming" class="mix-blend-multiply">
                     </div>
@@ -1384,7 +1452,8 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
-            <p class="text-[10px] font-bold text-stone-400">© 2026 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> ELECTRONICS. ALL RIGHTS RESERVED.</p>
+            <p class="text-[10px] font-bold text-stone-400">© 2026 <span class="text-[#8D6E63]">Hostel</span><span
+                    class="text-[#C8A951] ml-1">Mart</span> ELECTRONICS. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
 

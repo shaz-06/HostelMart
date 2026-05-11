@@ -145,30 +145,49 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out forwards;
         }
+
         .search-dropdown {
             display: none;
             position: absolute;
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: #FDFBF7; /* Light Cream */
+            background: #FDFBF7;
+            /* Light Cream */
             border-radius: 12px;
-            box-shadow: 0 15px 50px rgba(93, 64, 55, 0.15); /* Soft brown shadow */
+            box-shadow: 0 15px 50px rgba(93, 64, 55, 0.15);
+            /* Soft brown shadow */
             z-index: 1000;
             overflow: hidden;
-            border: 1px solid #D7CCC8; /* Soft brown border */
+            border: 1px solid #D7CCC8;
+            /* Soft brown border */
             animation: slideDown 0.2s ease-out;
         }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .search-item {
@@ -186,18 +205,21 @@
         }
 
         .search-item:hover {
-            background-color: #F5F5DC; /* Classic Cream */
+            background-color: #F5F5DC;
+            /* Classic Cream */
         }
 
         .search-item ion-icon {
             font-size: 20px;
-            color: #8D6E63; /* Medium Brown */
+            color: #8D6E63;
+            /* Medium Brown */
         }
 
         .search-item .item-text {
             font-size: 14px;
             font-weight: 700;
-            color: #5D4037; /* Dark Brown */
+            color: #5D4037;
+            /* Dark Brown */
         }
 
         .search-item .item-sub {
@@ -224,10 +246,12 @@
         .promo-card {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .promo-card:hover {
             transform: translateY(-5px) scale(1.01);
             box-shadow: 0 20px 40px rgba(93, 64, 55, 0.15);
         }
+
         .sasa-lele-badge {
             background: #FFD700;
             color: black;
@@ -239,8 +263,9 @@
             text-align: center;
             box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
             text-transform: uppercase;
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
+
         .sbi-offer-badge {
             background: white;
             border-radius: 8px;
@@ -289,7 +314,8 @@
             border-color: #5D4037;
         }
 
-        .student-card::before, .student-card::after {
+        .student-card::before,
+        .student-card::after {
             content: '';
             position: absolute;
             top: -10%;
@@ -297,7 +323,7 @@
             width: 50px;
             background: #5D4037;
             z-index: 2;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
         }
 
         .student-card::before {
@@ -394,25 +420,30 @@
         #categories-section {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         #categories-section.scrolled {
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
         #categories-section .icon-box {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             max-height: 50px;
         }
+
         #categories-section.scrolled .icon-box {
             max-height: 0;
             opacity: 0;
             pointer-events: none;
             transform: translateY(-10px);
         }
+
         #categories-section.scrolled .category-item {
             gap: 0;
         }
+
         /* Redesigned Mega Menu Styles */
         .mega-menu {
             position: absolute;
@@ -463,9 +494,11 @@
         .mega-menu-right::-webkit-scrollbar {
             width: 6px;
         }
+
         .mega-menu-right::-webkit-scrollbar-track {
             background: #FDFBF7;
         }
+
         .mega-menu-right::-webkit-scrollbar-thumb {
             background-color: #D7CCC8;
             border-radius: 20px;
@@ -509,8 +542,15 @@
         }
 
         @keyframes fadeInSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .subcategory-item {
@@ -561,9 +601,17 @@
             display: block !important;
             animation: slideDown 0.3s ease-out;
         }
+
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
     <link rel="stylesheet" href="search_styles.css">
@@ -622,7 +670,7 @@
                 class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
                 <ion-icon name="close-outline"></ion-icon>
             </button>
-            
+
             <div class="p-8 md:p-10 space-y-6">
                 <div class="text-center md:text-left">
                     <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
@@ -632,7 +680,7 @@
                 <!-- Map Section -->
                 <div class="relative group">
                     <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
-                    <button onclick="useGPS()" 
+                    <button onclick="useGPS()"
                         class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
                         <ion-icon name="locate-outline" class="text-lg"></ion-icon>
                         Use GPS
@@ -642,12 +690,14 @@
                 <!-- Manual Input Section -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street /
+                            Landmark</label>
                         <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
                             class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City /
+                            Town</label>
                         <input type="text" id="manual-city" placeholder="e.g. Bangalore"
                             class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
                     </div>
@@ -701,7 +751,8 @@
         <div class="bg-[#F5F5DC] py-2 hidden md:block">
             <div
                 class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                <a href="Address.html" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
+                <a href="Address.html"
+                    class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
                     <ion-icon name="location" class="text-sm group-hover:scale-125 transition-transform"></ion-icon>
                     <span id="current-address">Add Delivery Address</span>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -731,7 +782,7 @@
                     <input type="search" id="product-search" placeholder="Search for Products, Brands and More"
                         class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium relative z-10"
                         onfocus="showSearchDropdown()" autocomplete="off">
-                    
+
                     <!-- Search Dropdown -->
                     <div id="search-suggestions" class="search-dropdown">
                         <!-- Recent Searches Container -->
@@ -768,10 +819,12 @@
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
                     <div class="nav-item-wrapper">
-                        <a href="javascript:void(0)" onclick="toggleMegaMenu(event)" class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
+                        <a href="javascript:void(0)" onclick="toggleMegaMenu(event)"
+                            class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
                         <div id="mega-menu" class="mega-menu shadow-2xl">
                             <div class="mega-menu-left">
-                                <div class="mega-category-link active" onmouseover="showMegaCategory('mega-electronics', this)">
+                                <div class="mega-category-link active"
+                                    onmouseover="showMegaCategory('mega-electronics', this)">
                                     <span>Electronics</span>
                                     <ion-icon name="chevron-forward-outline"></ion-icon>
                                 </div>
@@ -820,15 +873,18 @@
                                         <span class="subcategory-name">Earphones & Headphones</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Chargers & Cables</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="battery-charging-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="battery-charging-outline"></ion-icon></div>
                                         <span class="subcategory-name">Power Banks</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Bluetooth Speakers</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
@@ -836,7 +892,8 @@
                                         <span class="subcategory-name">Smart Watches</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Keyboards & Mouse</span>
                                     </a>
                                     <a href="Electronics.html" class="subcategory-item">
@@ -847,7 +904,8 @@
                                 <!-- Grocery -->
                                 <div id="mega-grocery" class="subcategory-grid">
                                     <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Instant Noodles</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
@@ -855,7 +913,8 @@
                                         <span class="subcategory-name">Chips & Snacks</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Chocolates</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
@@ -863,7 +922,8 @@
                                         <span class="subcategory-name">Cold Drinks</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Biscuits</span>
                                     </a>
                                     <a href="Food.html" class="subcategory-item">
@@ -890,15 +950,18 @@
                                         <span class="subcategory-name">Bedsheets</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Pillows</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Laundry Bags</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Locks</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
@@ -917,30 +980,36 @@
                                         <span class="subcategory-name">Pens & Markers</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Calculators</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Sticky Notes</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Files & Folders</span>
                                     </a>
                                     <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Exam Pads</span>
                                     </a>
                                 </div>
                                 <!-- Beauty -->
                                 <div id="mega-beauty" class="subcategory-grid">
                                     <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Face Wash</span>
                                     </a>
                                     <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Shampoo</span>
                                     </a>
                                     <a href="Beauty.html" class="subcategory-item">
@@ -975,7 +1044,8 @@
                                         <span class="subcategory-name">Shorts</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Slippers</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
@@ -983,18 +1053,21 @@
                                         <span class="subcategory-name">Watches</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Bags</span>
                                     </a>
                                 </div>
                                 <!-- Mobiles -->
                                 <div id="mega-mobiles" class="subcategory-grid">
                                     <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="phone-portrait-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="phone-portrait-outline"></ion-icon></div>
                                         <span class="subcategory-name">Smartphones</span>
                                     </a>
                                     <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="refresh-circle-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="refresh-circle-outline"></ion-icon></div>
                                         <span class="subcategory-name">Refurbished Phones</span>
                                     </a>
                                     <a href="Mobile.html" class="subcategory-item">
@@ -1006,7 +1079,8 @@
                                         <span class="subcategory-name">Tempered Glass</span>
                                     </a>
                                     <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="phone-landscape-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon
+                                                name="phone-landscape-outline"></ion-icon></div>
                                         <span class="subcategory-name">Mobile Stands</span>
                                     </a>
                                 </div>
@@ -1044,11 +1118,13 @@
                                         <span class="subcategory-name">Yoga Mats</span>
                                     </a>
                                     <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Cricket</span>
                                     </a>
                                     <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Football</span>
                                     </a>
                                     <a href="Sports.html" class="subcategory-item">
@@ -1075,7 +1151,8 @@
                                         <span class="subcategory-name">Chargers</span>
                                     </a>
                                     <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon></div>
+                                        <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon>
+                                        </div>
                                         <span class="subcategory-name">Umbrellas</span>
                                     </a>
                                 </div>
@@ -1097,7 +1174,8 @@
         <!-- CATEGORY NAVIGATION (Icons) -->
         <div id="categories-section" class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
             <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
-                <a href="javascript:void(0)" class="category-item active flex flex-col items-center gap-1 group relative pb-1">
+                <a href="javascript:void(0)"
+                    class="category-item active flex flex-col items-center gap-1 group relative pb-1">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
                         <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
@@ -1232,7 +1310,8 @@
         </div>
         <div class="p-6">
             <ul class="space-y-6">
-                <li><a href="javascript:void(0)" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
+                <li><a href="javascript:void(0)" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a>
+                </li>
 
                 <!-- CATEGORIES ACCORDION -->
                 <li>
@@ -1246,7 +1325,8 @@
                         class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2 hidden">
                         <!-- Electronics -->
                         <div>
-                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer" onclick="toggleAccordion('mob-elec')">
+                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer"
+                                onclick="toggleAccordion('mob-elec')">
                                 <span class="font-bold text-[#5D4037]">Electronics</span>
                                 <ion-icon name="chevron-down-outline"></ion-icon>
                             </div>
@@ -1260,7 +1340,8 @@
                         </div>
                         <!-- Grocery -->
                         <div>
-                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer" onclick="toggleAccordion('mob-grocery')">
+                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer"
+                                onclick="toggleAccordion('mob-grocery')">
                                 <span class="font-bold text-[#5D4037]">Grocery & Snacks</span>
                                 <ion-icon name="chevron-down-outline"></ion-icon>
                             </div>
@@ -1273,7 +1354,8 @@
                         </div>
                         <!-- Hostel -->
                         <div>
-                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer" onclick="toggleAccordion('mob-hostel')">
+                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer"
+                                onclick="toggleAccordion('mob-hostel')">
                                 <span class="font-bold text-[#5D4037]">Hostel Essentials</span>
                                 <ion-icon name="chevron-down-outline"></ion-icon>
                             </div>
@@ -1286,7 +1368,8 @@
                         </div>
                         <!-- Beauty -->
                         <div>
-                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer" onclick="toggleAccordion('mob-beauty')">
+                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer"
+                                onclick="toggleAccordion('mob-beauty')">
                                 <span class="font-bold text-[#5D4037]">Beauty & Personal Care</span>
                                 <ion-icon name="chevron-down-outline"></ion-icon>
                             </div>
@@ -1297,7 +1380,8 @@
                                 <a href="Beauty.html" class="block text-sm">Skin Care</a>
                             </div>
                         </div>
-                        <a href="index.html#categories-section" class="block py-2 font-bold text-[#8D6E63]">View All Categories</a>
+                        <a href="index.html#categories-section" class="block py-2 font-bold text-[#8D6E63]">View All
+                            Categories</a>
                     </div>
                 </li>
 
@@ -1378,12 +1462,15 @@
         <section id="promo-carousel" class="relative group">
             <div id="hero-banner" class="slider-container no-scrollbar gap-4 md:gap-6 px-1">
                 <!-- Card 1: Samsung -->
-                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-gradient-to-br from-[#5D4037] to-[#2D1B15]">
-                    <img src="assets/images/samsung_banner.png" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="Samsung">
+                <div
+                    class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-gradient-to-br from-[#5D4037] to-[#2D1B15]">
+                    <img src="assets/images/samsung_banner.png"
+                        class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="Samsung">
                     <div class="absolute inset-0 bg-gradient-to-r from-[#1A0F0B] via-[#1A0F0B]/40 to-transparent"></div>
                     <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
-                            <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">SAMSUNG</span>
+                            <span
+                                class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">SAMSUNG</span>
                             <div class="sasa-lele-badge">
                                 SASA<br>LELE
                             </div>
@@ -1391,16 +1478,23 @@
                         <div class="space-y-1 md:space-y-2">
                             <p class="text-[#F5F5DC] font-black text-2xl md:text-3xl leading-tight">Galaxy S25 FE</p>
                             <p class="text-[#C8A951] font-black text-xl md:text-2xl">Just ₹59,999</p>
-                            <p class="text-[#D7CCC8] text-xs md:text-sm font-medium opacity-80">Capture bright, clean photos</p>
+                            <p class="text-[#D7CCC8] text-xs md:text-sm font-medium opacity-80">Capture bright, clean
+                                photos</p>
                         </div>
                         <div class="flex justify-between items-end">
                             <div class="sbi-offer-badge">
-                                <div class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
-                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                <div
+                                    class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white">
+                                        <path
+                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                        <circle cx="12" cy="12" r="5" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <p class="text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
-                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant
+                                        Discount*</p>
                                 </div>
                             </div>
                             <span class="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
@@ -1409,29 +1503,39 @@
                 </div>
 
                 <!-- Card 2: Luminous -->
-                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#FDFBF7]">
-                    <img src="assets/images/luminous_banner.png" class="absolute inset-0 w-full h-full object-cover" alt="Luminous">
+                <div
+                    class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#FDFBF7]">
+                    <img src="assets/images/luminous_banner.png" class="absolute inset-0 w-full h-full object-cover"
+                        alt="Luminous">
                     <div class="absolute inset-0 bg-gradient-to-r from-white/60 via-white/20 to-transparent"></div>
                     <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
-                            <span class="text-[#5D4037] font-black text-xl tracking-tighter uppercase italic">LUMINOUS</span>
+                            <span
+                                class="text-[#5D4037] font-black text-xl tracking-tighter uppercase italic">LUMINOUS</span>
                             <div class="sasa-lele-badge">
                                 SASA<br>LELE
                             </div>
                         </div>
                         <div class="space-y-1 md:space-y-2">
-                            <p class="text-[#5D4037] font-black text-2xl md:text-3xl leading-tight">Complete power solutions</p>
+                            <p class="text-[#5D4037] font-black text-2xl md:text-3xl leading-tight">Complete power
+                                solutions</p>
                             <p class="text-[#8D6E63] font-black text-xl md:text-2xl">Up to 40% Off</p>
                             <p class="text-[#A1887F] text-xs md:text-sm font-medium">Be summer ready</p>
                         </div>
                         <div class="flex justify-between items-end">
                             <div class="sbi-offer-badge">
-                                <div class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
-                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                <div
+                                    class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white">
+                                        <path
+                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                        <circle cx="12" cy="12" r="5" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <p class="text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
-                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant
+                                        Discount*</p>
                                 </div>
                             </div>
                             <span class="text-[#5D4037]/10 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
@@ -1440,17 +1544,23 @@
                 </div>
 
                 <!-- Card 3: POCO (Carousel 1) -->
-                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-black">
-                    <img src="assets/images/poco_banner.png" class="absolute inset-0 w-full h-full object-cover opacity-70" alt="POCO">
+                <div
+                    class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-black">
+                    <img src="assets/images/poco_banner.png"
+                        class="absolute inset-0 w-full h-full object-cover opacity-70" alt="POCO">
                     <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
                     <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center gap-3">
-                                <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">POCO</span>
+                                <span
+                                    class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">POCO</span>
                                 <div class="w-px h-5 bg-white/20"></div>
                                 <div class="flex items-center gap-1 bg-[#ffe11b] px-1.5 py-0.5 rounded-sm">
                                     <span class="text-[#2874f0] font-black text-[9px] italic">Flipkart</span>
-                                    <svg viewBox="0 0 24 24" class="w-2.5 h-2.5 fill-[#2874f0]"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" class="w-2.5 h-2.5 fill-[#2874f0]">
+                                        <path
+                                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                    </svg>
                                 </div>
                             </div>
                             <div class="sasa-lele-badge">
@@ -1460,16 +1570,23 @@
                         <div class="space-y-1 md:space-y-2">
                             <p class="text-white font-black text-2xl md:text-3xl leading-tight">POCO X8 Pro Max 5G</p>
                             <p class="text-[#C8A951] font-black text-xl md:text-2xl">From ₹4,445/M*</p>
-                            <p class="text-gray-400 text-xs md:text-sm font-medium">Flagship Dimensity 9500s processor</p>
+                            <p class="text-gray-400 text-xs md:text-sm font-medium">Flagship Dimensity 9500s processor
+                            </p>
                         </div>
                         <div class="flex justify-between items-end">
                             <div class="sbi-offer-badge">
-                                <div class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
-                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                <div
+                                    class="w-7 h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white">
+                                        <path
+                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                        <circle cx="12" cy="12" r="5" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <p class="text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
-                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                    <p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant
+                                        Discount*</p>
                                 </div>
                             </div>
                             <span class="text-white/10 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
@@ -1478,13 +1595,16 @@
                 </div>
 
                 <!-- Card 4: Minutes (Combined) -->
-                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#E0F7FA]">
-                    <img src="assets/images/minutes_grocery_banner.png" class="absolute inset-0 w-full h-full object-cover" alt="Minutes">
+                <div
+                    class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#E0F7FA]">
+                    <img src="assets/images/minutes_grocery_banner.png"
+                        class="absolute inset-0 w-full h-full object-cover" alt="Minutes">
                     <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
                             <div class="flex flex-col">
                                 <span class="text-gray-600 font-bold text-[10px] md:text-xs">Get everything in</span>
-                                <span class="text-[#D81B60] font-black text-xl md:text-2xl tracking-tighter uppercase italic">MINUTES</span>
+                                <span
+                                    class="text-[#D81B60] font-black text-xl md:text-2xl tracking-tighter uppercase italic">MINUTES</span>
                             </div>
                             <div class="sasa-lele-badge">
                                 SASA<br>LELE
@@ -1495,7 +1615,8 @@
                             <p class="text-gray-700 font-bold text-[10px] md:text-xs">Platform fee | Delivery at ₹99</p>
                         </div>
                         <div class="flex justify-between items-end">
-                            <div class="bg-[#D81B60] text-white px-3 py-1 rounded-full border border-white/20 shadow-sm">
+                            <div
+                                class="bg-[#D81B60] text-white px-3 py-1 rounded-full border border-white/20 shadow-sm">
                                 <p class="font-black text-[10px] md:text-xs">From ₹8</p>
                             </div>
                             <span class="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
@@ -1504,13 +1625,16 @@
                 </div>
 
                 <!-- Card 5: Vivo (Combined) -->
-                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#1A237E]">
-                    <img src="assets/images/vivo_t5x_banner.png" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="Vivo">
+                <div
+                    class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-[#1A237E]">
+                    <img src="assets/images/vivo_t5x_banner.png"
+                        class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="Vivo">
                     <div class="absolute inset-0 bg-gradient-to-r from-[#0D47A1] via-transparent to-transparent"></div>
                     <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center gap-3">
-                                <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">VIVO</span>
+                                <span
+                                    class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">VIVO</span>
                                 <div class="w-px h-5 bg-white/20"></div>
                                 <span class="text-white font-bold text-[10px]">Flipkart Unique</span>
                             </div>
@@ -1525,12 +1649,20 @@
                         </div>
                         <div class="flex justify-between items-end">
                             <div class="sbi-offer-badge">
-                                <div class="w-6 h-6 md:w-7 md:h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
-                                    <svg viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                <div
+                                    class="w-6 h-6 md:w-7 md:h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 fill-white">
+                                        <path
+                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                        <circle cx="12" cy="12" r="5" />
+                                    </svg>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] md:text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
-                                    <p class="text-[7px] md:text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                    <p class="text-[9px] md:text-[10px] font-black text-[#5D4037] leading-none mb-0.5">
+                                        SBI Card</p>
+                                    <p
+                                        class="text-[7px] md:text-[8px] text-gray-500 font-bold uppercase tracking-tighter">
+                                        10% Instant Discount*</p>
                                 </div>
                             </div>
                             <span class="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
@@ -1539,12 +1671,15 @@
                 </div>
 
                 <!-- Card 6: Samsung (Combined) -->
-                <div class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-black">
-                    <img src="assets/images/samsung_banner.png" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Samsung">
+                <div
+                    class="slider-item min-w-[90%] md:min-w-[48%] lg:min-w-[32%] aspect-[16/9] md:aspect-[21/10] rounded-[2rem] overflow-hidden relative promo-card border border-[#D7CCC8]/30 bg-black">
+                    <img src="assets/images/samsung_banner.png"
+                        class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Samsung">
                     <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
                     <div class="relative z-10 p-6 md:p-8 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
-                            <span class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">SAMSUNG</span>
+                            <span
+                                class="text-white font-black text-xl tracking-tighter uppercase italic opacity-90">SAMSUNG</span>
                             <div class="sasa-lele-badge">
                                 SASA<br>LELE
                             </div>
@@ -1556,12 +1691,20 @@
                         </div>
                         <div class="flex justify-between items-end">
                             <div class="sbi-offer-badge">
-                                <div class="w-6 h-6 md:w-7 md:h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
-                                    <svg viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>
+                                <div
+                                    class="w-6 h-6 md:w-7 md:h-7 bg-[#2874f0] rounded-md flex items-center justify-center shadow-inner">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 fill-white">
+                                        <path
+                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                        <circle cx="12" cy="12" r="5" />
+                                    </svg>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] md:text-[10px] font-black text-[#5D4037] leading-none mb-0.5">SBI Card</p>
-                                    <p class="text-[7px] md:text-[8px] text-gray-500 font-bold uppercase tracking-tighter">10% Instant Discount*</p>
+                                    <p class="text-[9px] md:text-[10px] font-black text-[#5D4037] leading-none mb-0.5">
+                                        SBI Card</p>
+                                    <p
+                                        class="text-[7px] md:text-[8px] text-gray-500 font-bold uppercase tracking-tighter">
+                                        10% Instant Discount*</p>
                                 </div>
                             </div>
                             <span class="text-white/10 text-[10px] font-black uppercase tracking-[0.2em]">AD</span>
@@ -1569,7 +1712,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slider Dots -->
             <div class="flex justify-center gap-2 mt-8">
                 <div class="slider-dot active-dot" onclick="slideTo(0)"></div>
@@ -1650,8 +1793,10 @@
         <div class="container mx-auto px-4 my-12">
             <div class="trust-banner-pill">
                 <!-- Sparkle background effect -->
-                <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, #5D4037 1px, transparent 1.5px); background-size: 30px 30px;"></div>
-                
+                <div class="absolute inset-0 opacity-10 pointer-events-none"
+                    style="background-image: radial-gradient(circle, #5D4037 1px, transparent 1.5px); background-size: 30px 30px;">
+                </div>
+
                 <div class="trust-item">
                     <div class="trust-icon-box">
                         <ion-icon name="reload-outline"></ion-icon>
@@ -1770,11 +1915,14 @@
         <!-- STUDENT'S CATEGORY SECTION -->
         <section id="students-category" class="container mx-auto px-4 py-12 space-y-8">
             <div class="flex items-center justify-between">
-                <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter flex items-center gap-3 text-[#5D4037]">
+                <h2
+                    class="text-2xl md:text-3xl font-black uppercase tracking-tighter flex items-center gap-3 text-[#5D4037]">
                     <span class="w-2 h-8 bg-[#5D4037] rounded-full"></span>
                     Student's Category
                 </h2>
-                <a href="javascript:void(0)" class="text-sm font-bold text-[#8D6E63] hover:underline uppercase tracking-widest">View All Offers</a>
+                <a href="javascript:void(0)"
+                    class="text-sm font-bold text-[#8D6E63] hover:underline uppercase tracking-widest">View All
+                    Offers</a>
             </div>
 
             <div class="student-category-grid">
@@ -1784,12 +1932,15 @@
                     <div class="card-top-fringe"></div>
                     <div class="relative z-10 h-full p-6 flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Graphic Tees & more</p>
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Graphic Tees &
+                                more</p>
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Top Styles</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹79</p>
                         </div>
                         <div class="w-32 h-32 relative">
-                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain drop-shadow-2xl transform group-hover:scale-110 transition-transform duration-500" alt="Graphic Tees">
+                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-contain drop-shadow-2xl transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Graphic Tees">
                         </div>
                     </div>
                 </div>
@@ -1800,12 +1951,15 @@
                     <div class="card-top-fringe"></div>
                     <div class="relative z-10 h-full p-6 flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Kitchen Bestsellers</p>
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Kitchen
+                                Bestsellers</p>
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Mega Offers</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹80</p>
                         </div>
                         <div class="w-32 h-32 relative">
-                            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Kitchen">
+                            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Kitchen">
                         </div>
                     </div>
                 </div>
@@ -1820,8 +1974,11 @@
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Cool Picks</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹145</p>
                         </div>
-                        <div class="w-32 h-32 bg-[#FDF5E6] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Shoes">
+                        <div
+                            class="w-32 h-32 bg-[#FDF5E6] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Shoes">
                         </div>
                     </div>
                 </div>
@@ -1836,8 +1993,11 @@
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Groovy Steals</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹60</p>
                         </div>
-                        <div class="w-32 h-32 bg-[#E0F7FA] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Audio">
+                        <div
+                            class="w-32 h-32 bg-[#E0F7FA] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Audio">
                         </div>
                     </div>
                 </div>
@@ -1848,12 +2008,15 @@
                     <div class="card-top-fringe"></div>
                     <div class="relative z-10 h-full p-6 flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Silk Sarees & more</p>
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Silk Sarees & more
+                            </p>
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Elegant Picks</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹99</p>
                         </div>
                         <div class="w-32 h-32 relative">
-                            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Sarees">
+                            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Sarees">
                         </div>
                     </div>
                 </div>
@@ -1868,8 +2031,11 @@
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Must Haves</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹129</p>
                         </div>
-                        <div class="w-32 h-32 bg-[#FCE4EC] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Beauty">
+                        <div
+                            class="w-32 h-32 bg-[#FCE4EC] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Beauty">
                         </div>
                     </div>
                 </div>
@@ -1884,8 +2050,11 @@
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Big Savings</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹60</p>
                         </div>
-                        <div class="w-32 h-32 bg-[#F5F5F5] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Watches">
+                        <div
+                            class="w-32 h-32 bg-[#F5F5F5] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Watches">
                         </div>
                     </div>
                 </div>
@@ -1896,12 +2065,15 @@
                     <div class="card-top-fringe"></div>
                     <div class="relative z-10 h-full p-6 flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Double Bedsheets</p>
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Double Bedsheets
+                            </p>
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Maha Offers</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹139</p>
                         </div>
                         <div class="w-32 h-32 relative">
-                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Bedsheets">
+                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Bedsheets">
                         </div>
                     </div>
                 </div>
@@ -1912,12 +2084,16 @@
                     <div class="card-top-fringe"></div>
                     <div class="relative z-10 h-full p-6 flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Face Wash & more</p>
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Face Wash & more
+                            </p>
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Top Steals</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹49</p>
                         </div>
-                        <div class="w-32 h-32 bg-[#E8F5E9] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Face Wash">
+                        <div
+                            class="w-32 h-32 bg-[#E8F5E9] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Face Wash">
                         </div>
                     </div>
                 </div>
@@ -1928,12 +2104,16 @@
                     <div class="card-top-fringe"></div>
                     <div class="relative z-10 h-full p-6 flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Perfumes & more</p>
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Perfumes & more
+                            </p>
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Maha Bachat</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹49</p>
                         </div>
-                        <div class="w-32 h-32 bg-[#F3E5F5] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Perfumes">
+                        <div
+                            class="w-32 h-32 bg-[#F3E5F5] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Perfumes">
                         </div>
                     </div>
                 </div>
@@ -1944,12 +2124,15 @@
                     <div class="card-top-fringe"></div>
                     <div class="relative z-10 h-full p-6 flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Crepe Kurtis & more</p>
+                            <p class="text-[#8D6E63] text-[10px] font-bold uppercase tracking-widest">Crepe Kurtis &
+                                more</p>
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Trendy Finds</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹99</p>
                         </div>
                         <div class="w-32 h-32 relative">
-                            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500" alt="Kurtis">
+                            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover rounded-2xl border-2 border-white/20 transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Kurtis">
                         </div>
                     </div>
                 </div>
@@ -1964,8 +2147,11 @@
                             <h3 class="text-[#5D4037] font-black text-2xl leading-tight">Huge Deals</h3>
                             <p class="text-[#8D6E63] font-black text-xl">From ₹149</p>
                         </div>
-                        <div class="w-32 h-32 bg-[#E3F2FD] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Casual Shirts">
+                        <div
+                            class="w-32 h-32 bg-[#E3F2FD] rounded-2xl overflow-hidden border-2 border-white/30 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Casual Shirts">
                         </div>
                     </div>
                 </div>
@@ -3234,9 +3420,11 @@
                             </div>
                             <div id="side-clothes"
                                 class="accordion-content pl-8 pt-3 space-y-2 text-[11px] text-gray-500 font-medium">
-                                <a href="javascript:void(0)" class="flex justify-between hover:text-[#795548]"><span>Shirt</span>
+                                <a href="javascript:void(0)"
+                                    class="flex justify-between hover:text-[#795548]"><span>Shirt</span>
                                     <span>300</span></a>
-                                <a href="javascript:void(0)" class="flex justify-between hover:text-[#795548]"><span>Jacket</span>
+                                <a href="javascript:void(0)"
+                                    class="flex justify-between hover:text-[#795548]"><span>Jacket</span>
                                     <span>50</span></a>
                             </div>
                         </li>
@@ -3701,8 +3889,10 @@
             <div>
                 <h3 class="text-[#5D4037] font-black uppercase text-xs tracking-[0.2em] mb-6">Quick Links</h3>
                 <ul class="space-y-4 text-[13px] font-medium">
-                    <li><a href="javascript:void(0)" class="hover:text-[#795548] transition-colors">Fashion Collection</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#795548] transition-colors">Latest Gadgets</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-[#795548] transition-colors">Fashion
+                            Collection</a></li>
+                    <li><a href="javascript:void(0)" class="hover:text-[#795548] transition-colors">Latest Gadgets</a>
+                    </li>
                 </ul>
             </div>
             <div>
@@ -3843,7 +4033,7 @@
                 currentSlide = index;
                 const itemWidth = sliderItems[0].offsetWidth;
                 const gap = parseInt(window.getComputedStyle(slider).gap) || 0;
-                
+
                 slider.scrollTo({
                     left: (itemWidth + gap) * index,
                     behavior: 'smooth'
@@ -3938,15 +4128,15 @@
                 if (!email) {
                     email = window.prompt('Please provide your email for confirmation');
                 }
-                
+
                 try {
                     const result = await signInWithEmailLink(auth, email, window.location.href);
                     window.localStorage.removeItem('emailForSignIn');
-                    
+
                     // Extract name from email
                     const firstName = email.split('@')[0].split('.')[0];
                     const formattedName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-                    
+
                     localStorage.setItem('userLoggedIn', 'true');
                     localStorage.setItem('userName', formattedName);
 
@@ -3954,7 +4144,7 @@
                     if (email === 'shashankshetty3219@gmail.com') {
                         localStorage.setItem('isAdmin', 'true');
                     }
-                    
+
                     // Redirect to remove query params
                     window.location.href = 'index.html';
                 } catch (error) {
@@ -3968,14 +4158,14 @@
         function updateLoginUI() {
             const userLoggedIn = localStorage.getItem('userLoggedIn');
             const userName = localStorage.getItem('userName');
-            
+
             if (userLoggedIn === 'true' && userName) {
                 const loginText = document.getElementById('login-text');
                 if (loginText) loginText.textContent = userName;
-                
+
                 const profileLink = document.getElementById('profile-link');
                 if (profileLink) profileLink.href = 'Profile.html';
-                
+
                 const loginIcon = document.querySelector('ion-icon[name="person-circle-outline"]');
                 if (loginIcon) {
                     loginIcon.style.color = '#5D4037';
@@ -3991,7 +4181,7 @@
             }
         }
 
-        window.logout = function() {
+        window.logout = function () {
             localStorage.removeItem('userLoggedIn');
             localStorage.removeItem('userName');
             localStorage.removeItem('isAdmin');
@@ -4396,7 +4586,7 @@
             if (!list) return;
 
             const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            
+
             if (history.length === 0) {
                 list.innerHTML = '';
                 return;
@@ -4417,7 +4607,7 @@
             searchInput.value = term;
             saveSearchToHistory(term);
             document.getElementById('search-suggestions').style.display = 'none';
-            
+
             // Trigger actual search logic
             const event = new Event('input', { bubbles: true });
             searchInput.dispatchEvent(event);
@@ -4425,18 +4615,18 @@
 
         function saveSearchToHistory(term) {
             if (!term || term.trim() === '') return;
-            
+
             let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            
+
             // Remove if already exists to move to top
             history = history.filter(h => h.toLowerCase() !== term.toLowerCase());
-            
+
             // Add to top
             history.unshift(term);
-            
+
             // Limit to 5
             history = history.slice(0, 5);
-            
+
             localStorage.setItem('searchHistory', JSON.stringify(history));
             renderSearchHistory();
         }
@@ -4462,24 +4652,24 @@
         // Compact Category Navigation on Scroll (Optimized to prevent shaking)
         let lastScrollY = window.scrollY;
         let scrollDelta = 10; // Minimum scroll distance to trigger change
-        
+
         window.addEventListener('scroll', () => {
             const categoriesSection = document.getElementById('categories-section');
             if (categoriesSection) {
                 const currentScrollY = window.scrollY;
-                
+
                 // Ignore small movements to prevent jitter
                 if (Math.abs(currentScrollY - lastScrollY) < scrollDelta) return;
 
                 // Hide on scroll down (if past initial hero threshold)
                 if (currentScrollY > lastScrollY && currentScrollY > 150) {
                     categoriesSection.classList.add('scrolled');
-                } 
+                }
                 // Show on scroll up
                 else if (currentScrollY < lastScrollY) {
                     categoriesSection.classList.remove('scrolled');
                 }
-                
+
                 lastScrollY = Math.max(0, currentScrollY);
             }
         }, { passive: true });

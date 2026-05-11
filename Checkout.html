@@ -6,30 +6,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
     <script src="auth_global.js" defer></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: #2b2b2b; }
-        .stepper-line { height: 2px; background-color: #e0e0e0; flex-grow: 1; margin: 0 10px; }
-        .stepper-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; transition: all 0.5s; }
-        .stepper-dot.active { background-color: #9c27b0 !important; color: white !important; }
-        .stepper-dot.pending { background-color: #F5F5F5 !important; color: #9E9E9E !important; }
-        .stepper-dot.completed { background-color: #4CAF50 !important; color: white !important; }
-        .card { background: white; border-radius: 1.5rem; border: 1px solid #D7CCC8; overflow: hidden; }
-        .btn-continue { background-color: #9c27b0; color: white; font-weight: 800; padding: 16px; border-radius: 1rem; width: 100%; text-align: center; font-size: 18px; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s; box-shadow: 0 4px 15px rgba(156, 39, 176, 0.2); }
-        .btn-continue:hover:not(:disabled) { background-color: #7b1fa2; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3); }
-        .btn-continue:disabled { background-color: #E0E0E0; cursor: not-allowed; box-shadow: none; }
+        :root {
+            --cream: #FDFBF7;
+            --cream-dark: #F5F5DC;
+            --brown: #3E2723;
+            --brown-medium: #5D4037;
+            --brown-light: #8D6E63;
+            --gold: #C5A059;
+            --gold-light: #FDF5E6;
+        }
 
-        .discount-banner { background-color: #e8f5e9; color: #2e7d32; padding: 12px; border-radius: 4px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
-        .meesho-logo { font-size: 24px; font-weight: 900; color: #9c27b0; }
-        #address-map { height: 250px; width: 100%; border-radius: 16px; z-index: 10; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--cream); 
+            color: var(--brown); 
+        }
+
+        .stepper-line { 
+            height: 2px; 
+            background-color: rgba(93, 64, 55, 0.1); 
+            flex-grow: 1; 
+            margin: 0 10px; 
+        }
+
+        .stepper-dot { 
+            width: 36px; 
+            height: 36px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 14px; 
+            font-weight: 900; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 2px solid transparent;
+        }
+
+        .stepper-dot.active { 
+            background-color: var(--brown-medium) !important; 
+            color: var(--cream) !important; 
+            box-shadow: 0 0 0 4px var(--gold-light);
+        }
+
+        .stepper-dot.pending { 
+            background-color: white !important; 
+            color: var(--brown-light) !important; 
+            border-color: rgba(93, 64, 55, 0.1) !important;
+        }
+
+        .stepper-dot.completed { 
+            background-color: var(--gold) !important; 
+            color: white !important; 
+        }
+
+        .card { 
+            background: white; 
+            border-radius: 24px; 
+            border: 1px solid rgba(215, 204, 200, 0.5); 
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
+            overflow: hidden; 
+        }
+
+        .btn-continue { 
+            background-color: var(--brown-medium); 
+            color: var(--cream); 
+            font-weight: 800; 
+            padding: 18px; 
+            border-radius: 16px; 
+            width: 100%; 
+            text-align: center; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.2em; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 8px 20px rgba(93, 64, 55, 0.15); 
+        }
+
+        .btn-continue:hover:not(:disabled) { 
+            background-color: var(--brown); 
+            transform: translateY(-3px); 
+            box-shadow: 0 12px 25px rgba(93, 64, 55, 0.25); 
+        }
+
+        .btn-continue:disabled { 
+            background-color: var(--brown-light); 
+            opacity: 0.5;
+            cursor: not-allowed; 
+            box-shadow: none; 
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: var(--cream-dark);
+            border: 1px solid rgba(93, 64, 55, 0.1);
+            border-radius: 14px;
+            padding: 14px 18px;
+            outline: none;
+            text-sm font-semibold;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--brown-medium);
+            background-color: white;
+            box-shadow: 0 0 0 4px var(--gold-light);
+        }
+
+        .label-style {
+            text-[10px] font-black uppercase tracking-[0.2em] text-brown-light ml-1 mb-1 block;
+        }
+
+        .discount-banner { 
+            background-color: #f0fdf4; 
+            color: #166534; 
+            padding: 16px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-weight: 700; 
+            font-size: 13px; 
+            border: 1px solid #dcfce7;
+        }
+
+        #address-map { 
+            height: 250px; 
+            width: 100%; 
+            border-radius: 20px; 
+            z-index: 10; 
+        }
+
         .view-transition { transition: all 0.3s ease-in-out; }
-        #checkout-main-layout { display: grid; grid-template-columns: 1fr; gap: 24px; width: 100%; }
+        #checkout-main-layout { display: grid; grid-template-columns: 1fr; gap: 32px; width: 100%; }
         @media (min-width: 1024px) { #checkout-main-layout { grid-template-columns: 7fr 3fr; } }
         .sticky-summary { position: sticky; top: 100px; z-index: 40; }
         .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
@@ -38,7 +153,7 @@
         @keyframes checkmark { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
         .animate-scaleIn { animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .animate-checkmark { animation: checkmark 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; opacity: 0; }
-        .payment-card.selected { border-color: #9c27b0 !important; background-color: #f3e5f5 !important; }
+        .payment-card.selected { border-color: var(--brown-medium) !important; background-color: var(--gold-light) !important; }
     </style>
 </head>
 
@@ -57,8 +172,8 @@
             
             <div class="flex-1 overflow-y-auto relative">
                 <div id="address-list-view" class="view-transition">
-                    <div class="p-6 border-b border-gray-100">
-                        <button onclick="switchToManageAddress()" class="text-[#9c27b0] font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:scale-105 transition-transform">
+                    <div class="p-6 border-b border-brown/5">
+                        <button onclick="switchToManageAddress()" class="text-brown-medium font-black uppercase tracking-widest text-[10px] flex items-center gap-2 hover:scale-105 transition-transform">
                             <ion-icon name="add-outline" class="text-lg"></ion-icon>
                             Add New Address
                         </button>
@@ -82,15 +197,15 @@
                         </div>
                         <div class="space-y-4">
                             <div class="space-y-1">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Street / Landmark</label>
-                                <input type="text" id="manual-street" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                <label class="label-style">Street / Landmark</label>
+                                <input type="text" id="manual-street" class="form-input">
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">City / Town</label>
-                                <input type="text" id="manual-city" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                <label class="label-style">City / Town</label>
+                                <input type="text" id="manual-city" class="form-input">
                             </div>
                         </div>
-                        <button onclick="saveNewAddress(event)" class="w-full bg-[#9c27b0] text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-[#7b1fa2] shadow-xl shadow-purple-100 transition-all">
+                        <button onclick="saveNewAddress(event)" class="btn-continue">
                             Save & Deliver Here
                         </button>
                     </div>
@@ -136,11 +251,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="border-t border-gray-100 pt-6 flex justify-between items-center">
-                    <span class="text-base font-bold">Total Price</span>
-                    <span id="edit-total-price" class="text-xl font-black">₹0</span>
+                <div class="border-t border-brown/5 pt-6 flex justify-between items-center">
+                    <span class="text-base font-bold text-brown-medium uppercase tracking-tight">Total Price</span>
+                    <span id="edit-total-price" class="text-xl font-black text-brown italic">₹0</span>
                 </div>
-                <button onclick="saveEditChanges()" class="w-full bg-[#9c27b0] text-white py-4 rounded-lg font-black uppercase tracking-widest hover:bg-[#7b1fa2] transition-all shadow-lg shadow-purple-200">
+                <button onclick="saveEditChanges()" class="btn-continue">
                     Save Changes
                 </button>
             </div>
@@ -195,37 +310,39 @@
                         </div>
                     </div>
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-2">
-                                <ion-icon name="location" class="text-blue-500 text-xl"></ion-icon>
-                                <h2 class="text-lg font-bold">Delivery Details</h2>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center text-gold">
+                                    <ion-icon name="location" class="text-xl"></ion-icon>
+                                </div>
+                                <h2 class="text-lg font-black text-brown uppercase tracking-tight">Delivery Details</h2>
                             </div>
-                            <a href="Address.html?from=checkout" class="text-[#9c27b0] text-xs font-black uppercase tracking-widest hover:underline">Change</a>
+                            <a href="Address.html?from=checkout" class="text-brown-medium text-[10px] font-black uppercase tracking-[0.2em] hover:text-gold transition-colors">Change Address</a>
                         </div>
-                        <div class="card p-6 space-y-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="card p-8 space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-1">
-                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Full Name</label>
-                                    <input type="text" id="guest-name" placeholder="Enter your full name" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                    <label class="label-style">Full Name</label>
+                                    <input type="text" id="guest-name" placeholder="Enter your full name" class="form-input">
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Phone Number</label>
-                                    <input type="tel" id="guest-phone" placeholder="Enter phone number" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                    <label class="label-style">Phone Number</label>
+                                    <input type="tel" id="guest-phone" placeholder="Enter phone number" class="form-input">
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-1">
-                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Hostel Name</label>
-                                    <input type="text" id="guest-hostel" placeholder="e.g. Aryabhatta Hostel" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                    <label class="label-style">Hostel Name</label>
+                                    <input type="text" id="guest-hostel" placeholder="e.g. Aryabhatta Hostel" class="form-input">
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Room Number</label>
-                                    <input type="text" id="guest-room" placeholder="e.g. 302-B" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]">
+                                    <label class="label-style">Room Number</label>
+                                    <input type="text" id="guest-room" placeholder="e.g. 302-B" class="form-input">
                                 </div>
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Full Delivery Address</label>
-                                <textarea id="guest-address" rows="2" placeholder="Detailed address/landmark..." class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-[#9c27b0]"></textarea>
+                                <label class="label-style">Full Delivery Address</label>
+                                <textarea id="guest-address" rows="2" placeholder="Detailed address/landmark..." class="form-input"></textarea>
                             </div>
                         </div>
                     </div>
@@ -236,19 +353,20 @@
 
             <div class="right-area">
                 <div class="sticky-summary space-y-4">
-                    <div class="card p-6">
-                        <h2 id="price-details-title" class="text-base font-bold mb-6">Price Details</h2>
-                        <div class="space-y-4">
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Product Price</span><span id="side-original-price" class="font-bold">+ ₹0</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-green-600">Discounts</span><span id="side-discount-amt" class="text-green-600 font-bold">- ₹0</span></div>
-                            <div class="pt-4 border-t border-gray-100 flex justify-between items-center"><span class="text-lg font-bold">Order Total</span><span id="side-total-price" class="text-2xl font-black text-[#9c27b0]">₹0</span></div>
+                    <div class="card p-8">
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brown-light mb-4">Pricing Summary</p>
+                        <h2 id="price-details-title" class="text-xl font-black text-brown mb-8 uppercase tracking-tight italic">Order Value</h2>
+                        <div class="space-y-5">
+                            <div class="flex justify-between text-xs font-bold uppercase tracking-widest"><span class="text-brown-light">Total Price</span><span id="side-original-price" class="text-brown">+ ₹0</span></div>
+                            <div class="flex justify-between text-xs font-bold uppercase tracking-widest"><span class="text-green-600">Discounts</span><span id="side-discount-amt" class="text-green-600">- ₹0</span></div>
+                            <div class="pt-6 border-t border-brown/5 flex justify-between items-center"><span class="text-sm font-black uppercase tracking-widest">To Pay</span><span id="side-total-price" class="text-2xl font-black text-brown italic">₹0</span></div>
                         </div>
-                        <div class="mt-6 discount-banner">
-                            <div class="w-5 h-5 bg-green-600 rounded-full flex items-center justify-center"><ion-icon name="checkmark" class="text-white text-xs"></ion-icon></div>
-                            <span>Total discount: <span id="side-discount-text">₹0</span></span>
+                        <div class="mt-8 discount-banner">
+                            <ion-icon name="sparkles" class="text-green-600 text-lg"></ion-icon>
+                            <span>Total savings: <span id="side-discount-text">₹0</span></span>
                         </div>
-                        <div class="mt-6">
-                            <button id="main-action-btn" onclick="handleContinue()" class="btn-continue">Continue</button>
+                        <div class="mt-8">
+                            <button id="main-action-btn" onclick="handleContinue()" class="btn-continue">Proceed to Payment</button>
                         </div>
                     </div>
                 </div>

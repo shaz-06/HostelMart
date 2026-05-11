@@ -125,9 +125,17 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .animate-fadeIn {
             animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
@@ -144,7 +152,6 @@
             border-color: var(--brown-medium);
             box-shadow: 0 0 0 4px rgba(93, 64, 55, 0.1);
         }
-
     </style>
 </head>
 
@@ -170,17 +177,20 @@
             </div>
             <div class="flex items-center gap-8 ml-12 font-bold text-sm text-[#5D4037]">
                 <div class="flex items-center gap-2 cursor-pointer hover:text-brown-light transition-colors">
-                    <div class="w-8 h-8 rounded-full bg-gold-light flex items-center justify-center border border-brown/10">
+                    <div
+                        class="w-8 h-8 rounded-full bg-gold-light flex items-center justify-center border border-brown/10">
                         <ion-icon name="person-outline" class="text-lg"></ion-icon>
                     </div>
                     <span id="header-user-name">Shashank</span>
                     <ion-icon name="chevron-down-outline" class="text-[10px]"></ion-icon>
                 </div>
 
-                <a href="Cart.html" class="flex items-center gap-2 relative text-[#5D4037] hover:text-[#8D6E63] transition-colors">
+                <a href="Cart.html"
+                    class="flex items-center gap-2 relative text-[#5D4037] hover:text-[#8D6E63] transition-colors">
                     <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
                     <span class="hidden md:inline">Cart</span>
-                    <span class="absolute -top-1 -right-2 bg-brown text-cream text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border-2 border-cream-dark cart-badge">0</span>
+                    <span
+                        class="absolute -top-1 -right-2 bg-brown text-cream text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border-2 border-cream-dark cart-badge">0</span>
                 </a>
 
             </div>
@@ -207,7 +217,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             renderCart();
-            
+
             // Sync user name
             const userName = localStorage.getItem('userName');
             if (userName) {
@@ -218,7 +228,7 @@
         function renderCart() {
             const container = document.getElementById('cart-content');
             const cart = window.getCart ? window.getCart() : [];
-            
+
             if (cart.length === 0) {
                 container.innerHTML = `
                     <div class="w-full bg-cream border border-brown/5 rounded-[40px] p-16 flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn shadow-xl shadow-brown/5">

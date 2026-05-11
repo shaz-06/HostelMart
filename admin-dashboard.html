@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelMart Admin | Dashboard</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <ion-icon name="rocket-outline"></ion-icon>
+            HostelMart
+        </div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-view="dashboard">
+                    <ion-icon name="grid-outline"></ion-icon>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-view="products">
+                    <ion-icon name="cube-outline"></ion-icon>
+                    Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-view="orders">
+                    <ion-icon name="receipt-outline"></ion-icon>
+                    Orders
+                </a>
+            </li>
+            <li class="nav-item" style="margin-top: 3rem;">
+                <a href="/" class="nav-link">
+                    <ion-icon name="log-out-outline"></ion-icon>
+                    Storefront
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1 id="page-title">Admin Dashboard</h1>
+            <div class="search-bar">
+                <ion-icon name="search-outline" style="color: var(--text-muted)"></ion-icon>
+                <input type="text" id="global-search" placeholder="Quick search anything...">
+            </div>
+        </header>
+
+        <!-- View: Dashboard -->
+        <div id="view-dashboard">
+            <div class="stats-grid">
+                <div class="stat-card animate-fade">
+                    <span class="label">Total Revenue</span>
+                    <span class="value" id="stat-revenue">₹0.00</span>
+                    <span class="badge badge-success" style="width: fit-content;">+12% vs last month</span>
+                </div>
+                <div class="stat-card animate-fade" style="animation-delay: 0.1s">
+                    <span class="label">Orders</span>
+                    <span class="value" id="stat-orders">0</span>
+                    <span class="badge badge-success" style="width: fit-content;">Real-time</span>
+                </div>
+                <div class="stat-card animate-fade" style="animation-delay: 0.2s">
+                    <span class="label">Active Products</span>
+                    <span class="value" id="stat-products">0</span>
+                    <span class="badge badge-warning" style="width: fit-content;">Synced with Atlas</span>
+                </div>
+            </div>
+
+            <div class="section-card animate-fade" style="animation-delay: 0.3s">
+                <h3 style="margin-bottom: 1.5rem;">Recent Performance</h3>
+                <div style="height: 200px; background: rgba(255,255,255,0.02); border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                    [ Analytics Chart Placeholder ]
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Products -->
+        <div id="view-products" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <div style="display: flex; gap: 1rem;">
+                    <div class="search-bar" style="width: 300px;">
+                        <input type="text" id="product-search" placeholder="Search products...">
+                    </div>
+                    <select id="category-filter" class="btn btn-ghost" style="background: var(--bg-card); border: 1px solid var(--border);">
+                        <option value="">All Categories</option>
+                        <option value="Footwear">Footwear</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Drinks">Drinks</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="openAddModal()">
+                    <ion-icon name="add-outline"></ion-icon>
+                    Add Product
+                </button>
+            </div>
+
+            <div class="section-card table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table-body">
+                        <!-- Products injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- View: Orders -->
+        <div id="view-orders" style="display: none;">
+            <div class="section-card table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <!-- Orders injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: Add/Edit Product -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 id="modal-title">Add New Product</h2>
+                <button class="btn btn-ghost" onclick="closeModal()" style="padding: 0.5rem;"><ion-icon name="close-outline" style="font-size: 1.5rem;"></ion-icon></button>
+            </div>
+            <form id="product-form">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="p-name" placeholder="e.g. Sprite 500ml" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="p-desc" rows="3" placeholder="Describe the product..." required></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="p-category" required>
+                            <option value="Drinks">Drinks</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Apparel">Apparel</option>
+                            <option value="Footwear">Footwear</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price ($)</label>
+                        <input type="number" id="p-price" step="0.01" required>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Initial Stock</label>
+                        <input type="number" id="p-stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" id="p-image" placeholder="https://...">
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                    <button type="button" class="btn btn-ghost" style="flex: 1" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 2">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

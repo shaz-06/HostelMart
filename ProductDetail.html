@@ -1,788 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail | HostelMart</title>
+    <title>Product Details | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script src="auth_global.js" defer></script>
     <style>
-        :root {
-            --cream: #FDFBF7;
-            --cream-dark: #F5F5DC;
-            --brown: #3E2723;
-            --brown-medium: #5D4037;
-            --brown-light: #8D6E63;
-            --gold: #C5A059;
-            --gold-light: #FDF5E6;
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--cream);
-            color: var(--brown);
+            background-color: #FDFBF7;
+            color: #3E2723;
         }
-
-        .hostelmart-link {
-            color: var(--brown-medium);
-            font-size: 13px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
-
-        .hostelmart-link:hover {
-            color: var(--gold);
-        }
-
-        .card {
-            background: white;
-            border: 1px solid rgba(215, 204, 200, 0.5);
-            border-radius: 24px;
-            padding: 32px;
-            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(93, 64, 55, 0.1);
-        }
-
-        .btn-hostelmart {
-            background: var(--brown-medium);
-            color: var(--cream);
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            height: 48px;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
-        }
-
-        .btn-hostelmart:hover {
-            background: var(--brown);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(93, 64, 55, 0.2);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--brown-medium);
-            border-radius: 12px;
-            cursor: pointer;
-            display: inline-block;
-            padding: 10px 22px;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--brown-medium);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline:hover {
-            background-color: var(--brown-medium);
-            color: var(--cream);
-        }
-
-        /* Redesigned Mega Menu Styles */
-        .mega-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            width: 1000px;
-            max-width: 95vw;
-            max-height: 80vh;
-            background: #FDFBF7;
-            border: 1px solid rgba(215, 204, 200, 0.5);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.15);
-            display: flex;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 50;
-            overflow: hidden;
-            pointer-events: none;
-            text-align: left;
-        }
-
-        .nav-item-wrapper:hover .mega-menu,
-        .mega-menu.is-open {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(10px);
-            pointer-events: auto;
-        }
-
-        .mega-menu-left {
-            width: 280px;
-            background: #F5F5DC;
-            border-right: 1px solid rgba(215, 204, 200, 0.5);
-            padding: 20px 0;
-            overflow-y: auto;
-        }
-
-        .mega-menu-right {
-            flex: 1;
-            padding: 40px;
-            background: #FDFBF7;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #D7CCC8 #FDFBF7;
-        }
-
-        .mega-menu-right::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .mega-menu-right::-webkit-scrollbar-track {
-            background: #FDFBF7;
-        }
-
-        .mega-menu-right::-webkit-scrollbar-thumb {
-            background-color: #D7CCC8;
-            border-radius: 20px;
-        }
-
-        .mega-category-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 28px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #5D4037;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-transform: capitalize;
-            letter-spacing: 0.02em;
-        }
-
-        .mega-category-link:hover {
-            background: rgba(253, 245, 230, 0.8);
-            padding-left: 36px;
-        }
-
-        .mega-category-link.active {
-            background: #FDF5E6;
-            color: #8D6E63;
-            padding-left: 36px;
-            border-right: 4px solid #8D6E63;
-        }
-
-        .subcategory-grid {
-            display: none;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            animation: fadeInSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .subcategory-grid.active {
-            display: grid;
-        }
-
-        @keyframes fadeInSlide {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .subcategory-item {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 16px;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-            text-decoration: none !important;
-        }
-
-        .subcategory-item:hover {
-            background: #F5F5DC;
-            border-color: #D7CCC8;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(93, 64, 55, 0.05);
-        }
-
-        .subcategory-icon {
-            width: 48px;
-            height: 48px;
-            background: #FDF5E6;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #8D6E63;
-            transition: all 0.3s ease;
-        }
-
-        .subcategory-item:hover .subcategory-icon {
-            background: #5D4037;
-            color: #FDFBF7;
-        }
-
-        .subcategory-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: #5D4037;
-            line-height: 1.4;
+        .main-image-container:hover img {
+            transform: scale(1.05);
         }
     </style>
 </head>
+<body class="antialiased">
 
-<body class="min-h-screen">
-
-    <header class="bg-[#F5F5DC] py-4 border-b border-[#D7CCC8] sticky top-0 z-50">
-        <div class="container mx-auto px-6 flex justify-between items-center relative">
-            <a href="index.html" class="flex items-center gap-1 no-underline">
-                <span class="font-black italic text-2xl flex items-center">
-                    <span class="text-[#8D6E63]">Hostel</span>
-                    <span class="text-[#C8A951] ml-1">Mart</span>
-                </span>
+    <!-- Header Section -->
+    <header class="bg-[#F5F5DC] border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-black italic">
+                <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span>
             </a>
-
-            <div class="hidden md:flex items-center gap-8 font-bold text-sm text-[#5D4037]">
-                <a href="index.html" class="hover:text-[#8D6E63] transition-colors no-underline">Home</a>
-                <div class="nav-item-wrapper relative">
-                    <a href="javascript:void(0)" onclick="toggleMegaMenu(event)"
-                        class="hover:text-[#8D6E63] transition-colors py-2 inline-block no-underline">Categories</a>
-                    <div id="mega-menu" class="mega-menu shadow-2xl">
-                        <div class="mega-menu-left">
-                            <div class="mega-category-link active"
-                                onmouseover="showMegaCategory('mega-electronics', this)">
-                                <span>Electronics</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-grocery', this)">
-                                <span>Grocery & Snacks</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-hostel', this)">
-                                <span>Hostel Essentials</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-study', this)">
-                                <span>Study Essentials</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-beauty', this)">
-                                <span>Beauty & Personal Care</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-fashion', this)">
-                                <span>Fashion</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-mobiles', this)">
-                                <span>Mobiles</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-appliances', this)">
-                                <span>Home & Appliances</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-sports', this)">
-                                <span>Sports & Fitness</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                            <div class="mega-category-link" onmouseover="showMegaCategory('mega-emergency', this)">
-                                <span>Emergency / Fast Delivery</span>
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-                            </div>
-                        </div>
-                        <div class="mega-menu-right">
-                            <!-- Electronics -->
-                            <div id="mega-electronics" class="subcategory-grid active">
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="headset-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Earphones & Headphones</span>
-                                </a>
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Chargers & Cables</span>
-                                </a>
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="battery-charging-outline"></ion-icon>
-                                    </div>
-                                    <span class="subcategory-name">Power Banks</span>
-                                </a>
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Bluetooth Speakers</span>
-                                </a>
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="watch-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Smart Watches</span>
-                                </a>
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon>
-                                    </div>
-                                    <span class="subcategory-name">Keyboards & Mouse</span>
-                                </a>
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="laptop-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Laptop Accessories</span>
-                                </a>
-                            </div>
-                            <!-- Grocery -->
-                            <div id="mega-grocery" class="subcategory-grid">
-                                <a href="Food.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Instant Noodles</span>
-                                </a>
-                                <a href="Food.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="pizza-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Chips & Snacks</span>
-                                </a>
-                                <a href="Food.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Chocolates</span>
-                                </a>
-                                <a href="Food.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="wine-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Cold Drinks</span>
-                                </a>
-                                <a href="Food.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Biscuits</span>
-                                </a>
-                                <a href="Food.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Ice Cream</span>
-                                </a>
-                                <a href="Food.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Breakfast Items</span>
-                                </a>
-                            </div>
-                            <!-- Hostel -->
-                            <div id="mega-hostel" class="subcategory-grid">
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="bucket-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Buckets & Mugs</span>
-                                </a>
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Hangers</span>
-                                </a>
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="bed-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Bedsheets</span>
-                                </a>
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon>
-                                    </div>
-                                    <span class="subcategory-name">Pillows</span>
-                                </a>
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Laundry Bags</span>
-                                </a>
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Locks</span>
-                                </a>
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="water-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Water Bottles</span>
-                                </a>
-                            </div>
-                            <!-- Study -->
-                            <div id="mega-study" class="subcategory-grid">
-                                <a href="Books.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="book-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Notebooks</span>
-                                </a>
-                                <a href="Books.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="pencil-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Pens & Markers</span>
-                                </a>
-                                <a href="Books.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Calculators</span>
-                                </a>
-                                <a href="Books.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Sticky Notes</span>
-                                </a>
-                                <a href="Books.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Files & Folders</span>
-                                </a>
-                                <a href="Books.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Exam Pads</span>
-                                </a>
-                            </div>
-                            <!-- Beauty -->
-                            <div id="mega-beauty" class="subcategory-grid">
-                                <a href="Beauty.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Face Wash</span>
-                                </a>
-                                <a href="Beauty.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon>
-                                    </div>
-                                    <span class="subcategory-name">Shampoo</span>
-                                </a>
-                                <a href="Beauty.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="rose-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Perfume</span>
-                                </a>
-                                <a href="Beauty.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="cut-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Trimmers</span>
-                                </a>
-                                <a href="Beauty.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="leaf-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Skin Care</span>
-                                </a>
-                                <a href="Beauty.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="flask-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Hair Oil</span>
-                                </a>
-                            </div>
-                            <!-- Fashion -->
-                            <div id="mega-fashion" class="subcategory-grid">
-                                <a href="Fashion.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
-                                    <span class="subcategory-name">T-Shirts</span>
-                                </a>
-                                <a href="Fashion.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Hoodies</span>
-                                </a>
-                                <a href="Fashion.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Shorts</span>
-                                </a>
-                                <a href="Fashion.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Slippers</span>
-                                </a>
-                                <a href="Fashion.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Watches</span>
-                                </a>
-                                <a href="Fashion.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Bags</span>
-                                </a>
-                            </div>
-                            <!-- Mobiles -->
-                            <div id="mega-mobiles" class="subcategory-grid">
-                                <a href="Mobile.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="phone-portrait-outline"></ion-icon>
-                                    </div>
-                                    <span class="subcategory-name">Smartphones</span>
-                                </a>
-                                <a href="Mobile.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="refresh-circle-outline"></ion-icon>
-                                    </div>
-                                    <span class="subcategory-name">Refurbished Phones</span>
-                                </a>
-                                <a href="Mobile.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="shield-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Phone Covers</span>
-                                </a>
-                                <a href="Mobile.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="qr-code-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Tempered Glass</span>
-                                </a>
-                                <a href="Mobile.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="phone-landscape-outline"></ion-icon>
-                                    </div>
-                                    <span class="subcategory-name">Mobile Stands</span>
-                                </a>
-                            </div>
-                            <!-- Appliances -->
-                            <div id="mega-appliances" class="subcategory-grid">
-                                <a href="Appliances.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="bulb-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Table Lamps</span>
-                                </a>
-                                <a href="Appliances.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="power-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Extension Boards</span>
-                                </a>
-                                <a href="Appliances.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="sync-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Mini Fans</span>
-                                </a>
-                                <a href="Appliances.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Electric Kettle</span>
-                                </a>
-                                <a href="Appliances.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="flame-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Induction Stove</span>
-                                </a>
-                            </div>
-                            <!-- Sports -->
-                            <div id="mega-sports" class="subcategory-grid">
-                                <a href="Sports.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="barbell-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Dumbbells</span>
-                                </a>
-                                <a href="Sports.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="body-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Yoga Mats</span>
-                                </a>
-                                <a href="Sports.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Cricket</span>
-                                </a>
-                                <a href="Sports.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Football</span>
-                                </a>
-                                <a href="Sports.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="bicycle-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Cycling</span>
-                                </a>
-                            </div>
-                            <!-- Emergency -->
-                            <div id="mega-emergency" class="subcategory-grid">
-                                <a href="Minutes.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="medkit-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Medicines</span>
-                                </a>
-                                <a href="Minutes.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="moon-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Late Night Snacks</span>
-                                </a>
-                                <a href="Books.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="create-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Stationery</span>
-                                </a>
-                                <a href="Electronics.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="flash-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Chargers</span>
-                                </a>
-                                <a href="Home.html" class="subcategory-item">
-                                    <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon></div>
-                                    <span class="subcategory-name">Umbrellas</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="Orders.html" class="hover:text-[#8D6E63] transition-colors no-underline">Track Order</a>
-                <a href="Cart.html" class="hover:text-[#8D6E63] transition-colors no-underline">Cart</a>
-            </div>
-
-            <div id="nav-actions"></div>
+            <a href="Cart.html" class="relative group">
+                <ion-icon name="cart-outline" class="text-2xl text-[#5D4037]"></ion-icon>
+            </a>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 max-w-6xl">
-        <!-- Breadcrumbs -->
-        <nav class="mb-10 flex items-center gap-2">
-            <a href="index.html" class="hostelmart-link opacity-60">Home</a>
-            <ion-icon name="chevron-forward-outline" class="text-[10px] text-brown-light"></ion-icon>
-            <a href="Orders.html" class="hostelmart-link opacity-60">Your Orders</a>
-            <ion-icon name="chevron-forward-outline" class="text-[10px] text-brown-light"></ion-icon>
-            <span id="breadcrumb-title"
-                class="text-brown font-black text-[13px] uppercase tracking-widest truncate max-w-[300px]">...</span>
-        </nav>
-
-        <div id="loading" class="text-center py-20">
-            <ion-icon name="sync-outline" class="animate-spin text-5xl text-gray-300"></ion-icon>
+    <main id="product-content" class="container mx-auto px-4 py-12">
+        <!-- Loading State -->
+        <div id="loading" class="py-20 text-center">
+            <div class="inline-block w-12 h-12 border-4 border-[#5D4037] border-t-transparent rounded-full animate-spin"></div>
         </div>
 
-        <div id="content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <!-- Left Column -->
-            <div class="lg:col-span-8 space-y-6">
-                <!-- Main Product Card -->
-                <div class="card flex flex-col md:flex-row gap-10 items-center md:items-start min-h-[350px]">
-                    <div
-                        class="w-full md:w-5/12 aspect-square bg-white flex items-center justify-center rounded-3xl border border-brown/5 shadow-inner p-8">
-                        <img id="product-img" src=""
-                            class="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="flex-1 space-y-6">
-                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brown-light">Order Insights</p>
-                        <h1 id="product-title" class="text-3xl font-black text-brown leading-tight italic">...</h1>
-                        <div class="flex items-center gap-3">
-                            <span
-                                class="bg-green-50 text-green-600 text-[10px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest">HostelMart
-                                Verified</span>
-                            <span class="text-brown-light/40 font-bold">|</span>
-                            <a href="#" class="hostelmart-link text-xs">View full product details</a>
-                        </div>
-                    </div>
+        <!-- Product View (Hidden until loaded) -->
+        <div id="product-view" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Left: Images -->
+            <div class="space-y-6">
+                <div class="main-image-container aspect-square bg-white rounded-[3rem] overflow-hidden border border-[#D7CCC8]/50 shadow-xl group">
+                    <img id="main-image" src="" class="w-full h-full object-cover transition-transform duration-700" alt="">
                 </div>
-
-                <!-- Review Section -->
-                <div class="card space-y-6">
-                    <div class="flex items-center gap-4">
-                        <div
-                            class="w-12 h-12 rounded-2xl bg-gold/10 flex items-center justify-center text-gold text-2xl">
-                            <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-                        </div>
-                        <h2 class="text-xl font-black text-brown uppercase tracking-tight">How's your item?</h2>
-                    </div>
-                    <div class="flex flex-wrap gap-4">
-                        <button class="btn-outline">Write a product review</button>
-                        <button class="btn-outline">Leave seller feedback</button>
-                    </div>
+                <div id="image-gallery" class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                    <!-- Gallery thumbs -->
                 </div>
             </div>
 
-            <!-- Right Column -->
-            <div class="lg:col-span-4 space-y-4">
-                <!-- Buy Again Card -->
-                <div class="card !p-6">
-                    <button class="btn-hostelmart">
-                        <ion-icon name="refresh-outline" class="text-xl"></ion-icon>
-                        Buy it again
-                    </button>
+            <!-- Right: Info -->
+            <div class="flex flex-col">
+                <nav class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-widest flex items-center gap-2">
+                    <a href="index.html">Home</a>
+                    <ion-icon name="chevron-forward"></ion-icon>
+                    <span id="breadcrumb-category" class="text-[#5D4037]">Category</span>
+                </nav>
+
+                <h1 id="product-name" class="text-4xl font-black text-[#5D4037] mb-2 leading-tight">Product Name</h1>
+                <div class="flex items-center gap-4 mb-6">
+                    <span id="product-brand" class="bg-[#F5F5DC] text-[#8D6E63] text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Brand</span>
+                    <div class="flex items-center gap-1 text-yellow-500 font-black">
+                        <ion-icon name="star"></ion-icon>
+                        <span id="product-rating">4.5</span>
+                    </div>
                 </div>
 
-                <!-- Order Info Card -->
-                <div class="card space-y-8">
-                    <div>
-                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brown-light mb-2">Management
-                        </p>
-                        <h3 class="text-lg font-black text-brown mb-4">Order info</h3>
-                        <a href="#" class="hostelmart-link block text-sm border-b border-brown/5 pb-4">View order
-                            details</a>
+                <div class="flex items-baseline gap-4 mb-8">
+                    <span id="product-price" class="text-4xl font-black text-[#5D4037]">₹0</span>
+                    <span id="product-original" class="text-xl text-gray-400 line-through">₹0</span>
+                    <span id="product-discount" class="text-green-600 font-bold">0% OFF</span>
+                </div>
+
+                <div class="space-y-6 mb-10">
+                    <div class="bg-[#F5F5DC]/30 p-6 rounded-3xl border border-[#D7CCC8]/50">
+                        <h3 class="font-black text-[#5D4037] mb-3 uppercase tracking-widest text-xs">Product Details</h3>
+                        <p id="product-desc" class="text-gray-600 leading-relaxed text-sm">Description goes here.</p>
                     </div>
 
-                    <div class="space-y-6 pt-2">
-                        <div class="flex items-start gap-4">
-                            <ion-icon name="arrow-undo-outline" class="text-xl text-brown-light mt-1"></ion-icon>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#8D6E63] border border-[#D7CCC8]/50">
+                                <ion-icon name="layers-outline"></ion-icon>
+                            </div>
                             <div>
-                                <p class="text-[9px] font-black uppercase tracking-widest text-brown-light/60">Returns
-                                </p>
-                                <p id="return-info" class="text-sm font-bold text-brown">Return window closed on ...</p>
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-tighter">Material</p>
+                                <p id="product-material" class="font-bold text-[#5D4037]">Plastic</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <ion-icon name="checkmark-circle-outline" class="text-xl text-green-600 mt-1"></ion-icon>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#8D6E63] border border-[#D7CCC8]/50">
+                                <ion-icon name="flask-outline"></ion-icon>
+                            </div>
                             <div>
-                                <p class="text-[9px] font-black uppercase tracking-widest text-brown-light/60">Status
-                                </p>
-                                <p id="delivery-info" class="text-sm font-black text-brown italic">Delivered ...</p>
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-tighter">Capacity</p>
+                                <p id="product-capacity" class="font-bold text-[#5D4037]">20L</p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <button class="w-full btn-outline mt-4">Download Invoice</button>
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                    <button onclick="addToCart()" class="flex-1 bg-[#F5F5DC] text-[#5D4037] py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-[#D7CCC8] transition-all flex items-center justify-center gap-2">
+                        <ion-icon name="cart-outline" class="text-xl"></ion-icon>
+                        Add to Cart
+                    </button>
+                    <button onclick="buyNow()" class="flex-1 bg-[#5D4037] text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-[#3E2723] shadow-xl shadow-[#D7CCC8]/50 transition-all">
+                        Buy Now
+                    </button>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const orderId = urlParams.get('orderId');
-            const phone = urlParams.get('phone');
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('slug');
+        let currentProduct = null;
 
-            if (!orderId || !phone) {
-                window.location.href = 'Orders.html';
+        async function fetchProductDetails() {
+            if (!slug) {
+                window.location.href = 'index.html';
                 return;
             }
 
             try {
-                const response = await fetch(`/api/orders/track?phone=${phone}`);
-                const data = await response.json();
-
-                if (data.success && data.orders.length > 0) {
-                    const order = data.orders.find(o => o.orderId === orderId);
-                    if (order) {
-                        renderDetail(order);
-                    } else {
-                        throw new Error("Order not found");
-                    }
-                } else {
-                    throw new Error("Failed to fetch");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Could not load product details.");
-                window.location.href = 'Orders.html';
+                const response = await fetch(`/api/products/slug/${slug}`);
+                const product = await response.json();
+                if (!product) throw new Error("Product not found");
+                
+                currentProduct = product;
+                renderProduct(product);
+            } catch (error) {
+                document.getElementById('product-content').innerHTML = `
+                    <div class="py-20 text-center">
+                        <h2 class="text-2xl font-black text-[#5D4037]">Oops! Product not found.</h2>
+                        <a href="Buckets.html" class="mt-6 inline-block bg-[#5D4037] text-white px-8 py-3 rounded-xl font-bold">Back to Buckets</a>
+                    </div>
+                `;
             }
-        });
-
-        function renderDetail(order) {
             document.getElementById('loading').classList.add('hidden');
-            document.getElementById('content').classList.remove('hidden');
-
-            const item = order.items && order.items[0] ? order.items[0] : {};
-            const date = new Date(order.createdAt || order.timestamp);
-            const deliveryDate = new Date(date); deliveryDate.setDate(deliveryDate.getDate() + 4);
-            const returnDate = new Date(deliveryDate); returnDate.setDate(returnDate.getDate() + 7);
-
-            document.getElementById('breadcrumb-title').textContent = item.title;
-            document.getElementById('product-title').textContent = item.title;
-            document.getElementById('product-img').src = item.img;
-
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-            document.getElementById('return-info').textContent = `Return window closed on ${returnDate.getDate()} ${months[returnDate.getMonth()]} ${returnDate.getFullYear()}`;
-            document.getElementById('delivery-info').textContent = `Delivered ${deliveryDate.getDate()} ${months[deliveryDate.getMonth()]}`;
         }
 
-        // Mega Menu Interaction Logic
-        function showMegaCategory(gridId, element) {
-            document.querySelectorAll('.subcategory-grid').forEach(grid => {
-                grid.classList.remove('active');
-            });
-            document.getElementById(gridId).classList.add('active');
-            document.querySelectorAll('.mega-category-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            element.classList.add('active');
-        }
+        function renderProduct(p) {
+            document.title = `${p.name} | HostelMart`;
+            document.getElementById('main-image').src = p.image;
+            document.getElementById('breadcrumb-category').textContent = p.subcategory || p.category;
+            document.getElementById('product-name').textContent = p.name;
+            document.getElementById('product-brand').textContent = p.brand;
+            document.getElementById('product-rating').textContent = p.rating || '4.0';
+            document.getElementById('product-price').textContent = `₹${p.price.toLocaleString('en-IN')}`;
+            document.getElementById('product-original').textContent = p.originalPrice ? `₹${p.originalPrice.toLocaleString('en-IN')}` : '';
+            document.getElementById('product-discount').textContent = p.discount || '';
+            document.getElementById('product-desc').textContent = p.description;
+            document.getElementById('product-material').textContent = p.material || 'N/A';
+            document.getElementById('product-capacity').textContent = p.capacity || 'N/A';
 
-        function toggleMegaMenu(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            const menu = document.getElementById('mega-menu');
-            if (menu) {
-                menu.classList.toggle('is-open');
+            // Gallery
+            if (p.images && p.images.length > 0) {
+                const gallery = document.getElementById('image-gallery');
+                gallery.innerHTML = [p.image, ...p.images].map(img => `
+                    <div class="w-20 h-20 rounded-2xl overflow-hidden border border-[#D7CCC8]/50 flex-shrink-0 cursor-pointer hover:border-[#5D4037] transition-all" onclick="updateMainImage('${img}')">
+                        <img src="${img}" class="w-full h-full object-cover">
+                    </div>
+                `).join('');
             }
+
+            document.getElementById('product-view').classList.remove('hidden');
         }
 
-        // Close Mega Menu when clicking outside
-        document.addEventListener('click', (e) => {
-            const menu = document.getElementById('mega-menu');
-            if (menu && menu.classList.contains('is-open')) {
-                const wrapper = document.querySelector('.nav-item-wrapper');
-                if (wrapper && !wrapper.contains(e.target)) {
-                    menu.classList.remove('is-open');
-                }
-            }
-        });
+        function updateMainImage(src) {
+            document.getElementById('main-image').src = src;
+        }
+
+        function addToCart() {
+            alert("Added to cart: " + currentProduct.name);
+        }
+
+        function buyNow() {
+            window.location.href = `Checkout.html?slug=${currentProduct.slug}`;
+        }
+
+        fetchProductDetails();
     </script>
 </body>
-
 </html>

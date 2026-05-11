@@ -7,11 +7,20 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const admin = require('firebase-admin');
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 const { verifyToken, verifyAdmin } = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// MongoDB Connection
+const connectDB = require('./lib/mongodb');
+const Product = require('./models/Product');
+const Order = require('./models/Order');
+const User = require('./models/User');
+
+// Connect to Database
+connectDB();
 
 // Middleware
 app.use(morgan('dev'));
@@ -154,17 +163,17 @@ app.get('/api/orders/track', async (req, res) => {
     const { phone } = req.query;
     if (!phone) return res.status(400).json({ success: false, message: 'Phone number required' });
     try {
-        let snapshot;
+        await connectDB();
+        let orders;
         if (phone === 'all') {
-            snapshot = await db.collection('orders').orderBy('createdAt', 'desc').get();
+            orders = await Order.find({}).sort({ createdAt: -1 });
         } else {
-            snapshot = await db.collection('orders').where('phone', '==', phone).get();
+            orders = await Order.find({ userId: phone }).sort({ createdAt: -1 });
         }
-        const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         res.json({ success: true, orders });
     } catch (error) {
         console.error("Order Track Error:", error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
     }
 });
 
@@ -175,23 +184,35 @@ app.post('/api/orders', async (req, res) => {
     }
 
     try {
-        orderData.createdAt = new Date();
-        orderData.updatedAt = new Date();
-        // Use orderId as the document ID for consistency
-        await db.collection('orders').doc(orderData.orderId).set(orderData);
-        res.json({ success: true, message: 'Order placed successfully' });
+        await connectDB();
+        const newOrder = new Order({
+            userId: orderData.phone,
+            products: orderData.items.map(item => ({
+                productId: item.id || null,
+                quantity: item.quantity,
+                price: item.price,
+                name: item.name
+            })),
+            totalAmount: orderData.totalPrice || orderData.totalAmount,
+            paymentMethod: orderData.paymentMethod || 'COD',
+            paymentStatus: orderData.paymentStatus || 'Pending',
+            orderStatus: 'Processing'
+        });
+
+        await newOrder.save();
+        res.json({ success: true, message: 'Order placed successfully', orderId: newOrder._id });
     } catch (error) {
         console.error("Order Creation Error:", error);
-        res.status(500).json({ success: false, message: 'Failed to place order' });
+        res.status(500).json({ success: false, message: 'Failed to place order: ' + error.message });
     }
 });
 
 // Data helper functions
-const getProducts = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'products.json'), 'utf8'));
-const getCategories = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'categories.json'), 'utf8'));
-const getBanners = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'banners.json'), 'utf8'));
+const getProducts = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'products.json'), 'utf8'));
+const getCategories = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'categories.json'), 'utf8'));
+const getBanners = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'banners.json'), 'utf8'));
 const saveSubscription = (email) => {
-    const subsPath = path.join(process.cwd(), 'data', 'subscriptions.json');
+    const subsPath = path.join(__dirname, 'data', 'subscriptions.json');
     const subs = JSON.parse(fs.readFileSync(subsPath, 'utf8'));
     if (!subs.includes(email)) {
         subs.push(email);
@@ -202,8 +223,139 @@ const saveSubscription = (email) => {
 };
 
 // API Routes
-app.get('/api/products', (req, res) => {
-    res.json(getProducts());
+app.get('/api/products', async (req, res) => {
+    try {
+        await connectDB();
+        const { category, subcategory, brand, sort } = req.query;
+        let query = {};
+        if (category) query.category = category;
+        if (subcategory) query.subcategory = subcategory;
+        if (brand) query.brand = brand;
+
+        let productQuery = Product.find(query);
+
+        if (sort) {
+            if (sort === 'price-low') productQuery = productQuery.sort({ price: 1 });
+            else if (sort === 'price-high') productQuery = productQuery.sort({ price: -1 });
+            else if (sort === 'newest') productQuery = productQuery.sort({ createdAt: -1 });
+            else if (sort === 'popularity') productQuery = productQuery.sort({ rating: -1 });
+        }
+
+        const products = await productQuery;
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching products' });
+    }
+});
+
+app.get('/api/products/search', async (req, res) => {
+    try {
+        await connectDB();
+        const { q } = req.query;
+        if (!q) return res.json([]);
+
+        // Search across multiple fields with case-insensitivity
+        const searchRegex = new RegExp(q, 'i');
+        const products = await Product.find({
+            $or: [
+                { name: searchRegex },
+                { brand: searchRegex },
+                { category: searchRegex },
+                { subcategory: searchRegex },
+                { section: searchRegex },
+                { description: searchRegex },
+                { keywords: searchRegex }
+            ]
+        }).limit(10); // Limit results for suggestions
+
+        res.json(products);
+    } catch (error) {
+        console.error("Search API Error:", error);
+        res.status(500).json({ success: false, message: 'Search failed' });
+    }
+});
+
+app.get('/api/products/slug/:slug', async (req, res) => {
+    try {
+        await connectDB();
+        const product = await Product.findOne({ slug: req.params.slug });
+        if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching product' });
+    }
+});
+
+app.post('/api/products', async (req, res) => {
+    try {
+        await connectDB();
+        const product = new Product(req.body);
+        await product.save();
+        res.status(201).json({ success: true, product });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+});
+
+app.delete('/api/products/:id', async (req, res) => {
+    try {
+        await connectDB();
+        const product = await Product.findByIdAndDelete(req.params.id);
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+        res.json({ success: true, message: 'Product deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+app.put('/api/products/:id', async (req, res) => {
+    try {
+        await connectDB();
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+        res.json({ success: true, product });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+});
+
+app.patch('/api/orders/:id/status', async (req, res) => {
+    try {
+        await connectDB();
+        const { status } = req.body;
+        const order = await Order.findByIdAndUpdate(req.params.id, { orderStatus: status }, { new: true });
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+        res.json({ success: true, order });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+});
+
+app.get('/api/admin/stats', async (req, res) => {
+    try {
+        await connectDB();
+        const productCount = await Product.countDocuments();
+        const orderCount = await Order.countDocuments();
+        const orders = await Order.find({});
+        const totalRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0);
+        
+        res.json({
+            success: true,
+            stats: {
+                products: productCount,
+                orders: orderCount,
+                revenue: totalRevenue.toFixed(2)
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
 });
 
 app.post('/api/subscribe', (req, res) => {
@@ -218,7 +370,7 @@ app.post('/api/subscribe', (req, res) => {
 
 // Server-Side Injection for index.html
 app.get(['/', '/index.html'], (req, res) => {
-    const indexPath = path.join(process.cwd(), 'index.html');
+    const indexPath = path.join(__dirname, 'index.html');
     let html = fs.readFileSync(indexPath, 'utf8');
     const $ = cheerio.load(html);
 
@@ -233,7 +385,7 @@ app.get(['/', '/index.html'], (req, res) => {
         ).join('');
 
         const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-[#F5F5DC] text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
-        const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">$${product.delPrice.toFixed(2)}</del>` : '';
+        const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">₹${product.delPrice.toLocaleString('en-IN')}</del>` : '';
 
         const productImage = product.images ? product.images.default : (product.image || '');
         const hoverImage = product.images ? product.images.hover : (product.image || '');
@@ -254,7 +406,7 @@ app.get(['/', '/index.html'], (req, res) => {
               <h3 class="font-bold text-gray-800 truncate text-sm sm:text-base">${product.name}</h3>
               <div class="flex items-center gap-1 text-yellow-400 text-[10px]">${ratingHtml}</div>
               <div class="flex items-center gap-2 font-black text-lg text-gray-900 mt-1">
-                  <span>$${product.price.toFixed(2)}</span> ${delHtml}
+                  <span>₹${product.price.toLocaleString('en-IN')}</span> ${delHtml}
               </div>
           </div>
       </div>
@@ -316,7 +468,7 @@ app.get(['/', '/index.html'], (req, res) => {
 
 // Server-Side Injection for Fashion.html
 app.get('/Fashion.html', (req, res) => {
-    const fashionPath = path.join(process.cwd(), 'Fashion.html');
+    const fashionPath = path.join(__dirname, 'Fashion.html');
     let html = fs.readFileSync(fashionPath, 'utf8');
     const $ = cheerio.load(html);
 
@@ -378,22 +530,25 @@ app.get('/Fashion.html', (req, res) => {
     res.send($.html());
 });
 
+// Serve Admin Dashboard
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin-dashboard.html'));
+});
+
 // Serve hidden admin panel
 app.get('/hostelmart-control-room', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'hostelmart-control-room.html'));
+    res.sendFile(path.join(__dirname, 'hostelmart-control-room.html'));
 });
 
 // Serve static files from root
-const rootDir = process.cwd();
-app.use(express.static(rootDir, {
+app.use(express.static(__dirname, {
     extensions: ['html'],
     index: false // We handle index.html manually
 }));
 
 // Fallback for HTML files not explicitly handled
 app.get('/:page.html', (req, res, next) => {
-    const filePath = path.join(rootDir, req.params.page + '.html');
-    console.log(`Checking for HTML file: ${filePath}`);
+    const filePath = path.join(__dirname, req.params.page + '.html');
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
     } else {

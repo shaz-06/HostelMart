@@ -6,7 +6,7 @@ const path = require('path');
 let db;
 
 // Persistent mock storage for development
-const MOCK_DB_PATH = path.join(process.cwd(), 'mock_db.json');
+const MOCK_DB_PATH = path.join(__dirname, 'mock_db.json');
 
 function loadMockDB() {
     if (fs.existsSync(MOCK_DB_PATH)) {

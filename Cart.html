@@ -175,16 +175,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-8 ml-12 font-bold text-sm text-[#5D4037]">
-                <div class="flex items-center gap-2 cursor-pointer hover:text-brown-light transition-colors">
-                    <div
-                        class="w-8 h-8 rounded-full bg-gold-light flex items-center justify-center border border-brown/10">
-                        <ion-icon name="person-outline" class="text-lg"></ion-icon>
-                    </div>
-                    <span id="header-user-name">Shashank</span>
-                    <ion-icon name="chevron-down-outline" class="text-[10px]"></ion-icon>
-                </div>
-
+            <div class="flex items-center gap-4 md:gap-8 ml-12 font-bold text-sm text-[#5D4037] auth-nav-slot">
                 <a href="Cart.html"
                     class="flex items-center gap-2 relative text-[#5D4037] hover:text-[#8D6E63] transition-colors">
                     <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
@@ -192,7 +183,6 @@
                     <span
                         class="absolute -top-1 -right-2 bg-brown text-cream text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border-2 border-cream-dark cart-badge">0</span>
                 </a>
-
             </div>
         </div>
     </header>
@@ -217,12 +207,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             renderCart();
-
-            // Sync user name
-            const userName = localStorage.getItem('userName');
-            if (userName) {
-                document.getElementById('header-user-name').textContent = userName;
-            }
         });
 
         function renderCart() {

@@ -38,9 +38,13 @@ function updateNavbar() {
     const profileIcon = document.querySelector('ion-icon[name="person-circle-outline"]');
 
     // Find the profile container (we might need to add an ID in the HTML)
-    const navActions = document.querySelector('.flex.items-center.gap-4.md\\:gap-8');
-
-    if (!navActions) return;
+    const navActions = document.querySelector('.auth-nav-slot') || 
+                       document.querySelector('#nav-actions') || 
+                       document.querySelector('.flex.items-center.gap-4.md\\:gap-8');
+    if (!navActions) {
+        console.warn('Auth UI container not found');
+        return;
+    }
 
     if (userData) {
         // User IS logged in

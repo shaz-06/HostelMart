@@ -177,7 +177,9 @@
                         class="text-[10px] font-bold text-brown uppercase">Payment</span>
                 </div>
             </div>
-            <div class="w-24"></div>
+            <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm auth-nav-slot">
+                <!-- Auth UI will be injected here -->
+            </div>
         </div>
     </header>
 
@@ -441,6 +443,14 @@
                 timestamp: new Date().getTime(),
                 paymentMethod: selectedPaymentMethod
             };
+
+            if (selectedPaymentMethod === 'online') {
+                localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+                setTimeout(() => {
+                    window.location.href = 'UPIPayment.html';
+                }, 800);
+                return;
+            }
 
             try {
                 const response = await fetch('/api/orders', {

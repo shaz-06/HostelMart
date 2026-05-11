@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Payment | HostelMart</title>
+    <title>Secure UPI Checkout | HostelMart</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -11,112 +11,140 @@
 </head>
 <body>
 
-    <div class="payment-container">
-        <!-- Header -->
-        <div class="flex flex-col items-center mb-10 text-center" style="display: flex; flex-direction: column; align-items: center;">
-            <div class="timer-pill mb-6">
+    <div class="payment-container" id="main-content">
+        <!-- Top Status Bar -->
+        <div class="status-bar">
+            <div class="secure-tag">
+                <ion-icon name="shield-checkmark"></ion-icon>
+                <span>Secure UPI Checkout</span>
+            </div>
+            <div class="timer-display" id="timer-wrapper">
                 <ion-icon name="time-outline"></ion-icon>
-                <span>Expires in <span id="timer">10:00</span></span>
-            </div>
-            <h1 style="font-size: 24px; font-weight: 900; margin: 0; font-style: italic; color: var(--brown);">Secure UPI Payment</h1>
-            <p style="font-size: 12px; color: var(--brown-light); font-weight: 500; margin-top: 4px;">HOSTELMART • ORDER <span id="order-id-label">...</span></p>
-        </div>
-
-        <!-- Summary Card -->
-        <div class="payment-card">
-            <div class="summary-row">
-                <span class="summary-label">Order Total</span>
-                <span class="summary-value" id="summary-total">₹0</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label" style="color: #166534;">Discount Applied</span>
-                <span class="summary-value" style="color: #166534;" id="summary-discount">-₹0</span>
-            </div>
-            <div style="margin: 20px 0; border-top: 1px dashed rgba(93, 64, 55, 0.1);"></div>
-            <div class="flex justify-between items-baseline" style="display: flex; justify-content: space-between; align-items: baseline;">
-                <span class="summary-label" style="font-size: 12px; color: var(--brown);">Payable Amount</span>
-                <span class="payable-amt" id="summary-payable">₹0</span>
+                <span id="timer">03:00</span>
             </div>
         </div>
 
-        <!-- Desktop QR Section -->
-        <div id="desktop-view" style="display: none; text-align: center;">
-            <div class="payment-card">
-                <p style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brown-light); margin-bottom: 0;">Scan with any UPI App</p>
-                <div id="qr-container">
-                    <div id="qr-code"></div>
+        <!-- Header Section -->
+        <div class="payment-header">
+            <p class="order-id">ORDER ID: <span id="order-id-label">...</span></p>
+            <h1 class="payable-label">Amount Payable</h1>
+            <div class="price-display">
+                <span class="currency">₹</span>
+                <span class="amount" id="summary-payable">0</span>
+            </div>
+        </div>
+
+        <!-- Payment Card -->
+        <div class="payment-card main-card">
+            <!-- Desktop View: QR Code -->
+            <div id="desktop-view" class="view-section">
+                <div class="qr-wrapper">
+                    <div id="qr-container" class="qr-pulse">
+                        <div id="qr-code"></div>
+                    </div>
                 </div>
-                <div style="display: flex; justify-content: center; gap: 16px; opacity: 0.5;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" style="height: 14px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" style="height: 14px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/PhonePe_Logo.svg" style="height: 14px;">
+                <p class="qr-instruction">Scan & Pay using any UPI app</p>
+                <div class="app-icons">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="GPay">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/PhonePe_Logo.svg" alt="PhonePe">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" alt="Paytm">
                 </div>
             </div>
-        </div>
 
-        <!-- Mobile Buttons Section -->
-        <div id="mobile-view" style="display: none;">
-            <p style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brown-light); margin-bottom: 20px; text-align: center;">Choose UPI App to Pay</p>
-            
-            <a href="#" id="pay-phonepe" class="app-button btn-phonepe">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/PhonePe_Logo.svg" style="height: 24px; filter: brightness(0) invert(1);">
-                <span>Pay with PhonePe</span>
-            </a>
-
-            <a href="#" id="pay-gpay" class="app-button btn-gpay">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" style="height: 20px;">
-                <span>Pay with Google Pay</span>
-            </a>
-
-            <a href="#" id="pay-paytm" class="app-button btn-paytm">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" style="height: 18px; filter: brightness(0) invert(1);">
-                <span>Pay with Paytm</span>
-            </a>
-            
-            <a href="#" id="pay-generic" class="app-button" style="background: white;">
-                <ion-icon name="wallet-outline" style="font-size: 20px;"></ion-icon>
-                <span>Other UPI Apps</span>
-            </a>
-        </div>
-
-        <!-- Trust Badges -->
-        <div style="display: flex; justify-content: center; gap: 24px; margin-top: 24px;">
-            <div class="trust-badge">
-                <ion-icon name="shield-checkmark-outline" style="font-size: 14px; color: #166534;"></ion-icon>
-                <span>100% Secure</span>
+            <!-- Mobile View: App Buttons -->
+            <div id="mobile-view" class="view-section" style="display: none;">
+                <div class="mobile-apps-grid">
+                    <a href="#" id="pay-phonepe" class="app-btn phonepe">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/PhonePe_Logo.svg" alt="">
+                        <span>PhonePe</span>
+                    </a>
+                    <a href="#" id="pay-gpay" class="app-btn gpay">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="">
+                        <span>Google Pay</span>
+                    </a>
+                    <a href="#" id="pay-paytm" class="app-btn paytm">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" alt="">
+                        <span>Paytm / UPI</span>
+                    </a>
+                </div>
             </div>
-            <div class="trust-badge">
-                <ion-icon name="lock-closed-outline" style="font-size: 14px; color: var(--gold);"></ion-icon>
-                <span>Encrypted</span>
+
+            <!-- Billing Summary Mini -->
+            <div class="billing-summary-mini">
+                <div class="billing-row">
+                    <span>Total Amount</span>
+                    <span id="summary-total">₹0</span>
+                </div>
+                <div class="billing-row discount">
+                    <span>UPI Instant Discount</span>
+                    <span id="summary-discount">-₹0</span>
+                </div>
             </div>
         </div>
 
-        <!-- Back Link -->
-        <a href="PaymentMethod.html" class="btn-back">Change Payment Method</a>
+        <!-- Action Buttons -->
+        <div class="action-section" id="normal-actions">
+            <button class="confirm-btn" id="btn-confirm-payment" onclick="startVerification()">
+                I HAVE COMPLETED PAYMENT
+            </button>
+            <button class="cancel-btn" onclick="cancelPayment()">Cancel Payment</button>
+        </div>
+
+        <!-- Mobile Return State -->
+        <div class="action-section hidden" id="mobile-return-actions">
+            <div class="return-prompt">
+                <p>Did you complete the payment?</p>
+                <button class="confirm-btn" onclick="startVerification()">YES, I PAID</button>
+                <button class="cancel-btn" onclick="resetMobileView()">NO, GO BACK</button>
+            </div>
+        </div>
+
+        <!-- Expiry State -->
+        <div class="action-section hidden" id="expiry-actions">
+            <div class="expiry-prompt">
+                <div class="expiry-icon"><ion-icon name="alert-circle-outline"></ion-icon></div>
+                <h3>Payment Session Expired</h3>
+                <p>Please try again to complete your order.</p>
+                <button class="confirm-btn" onclick="retryPayment()">RETRY PAYMENT</button>
+            </div>
+        </div>
+
+        <!-- Footer Trust -->
+        <div class="payment-footer">
+            <div class="trust-item">
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                <span>Payments secured via UPI</span>
+            </div>
+            <div class="trust-item">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <span>256-bit encrypted checkout</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Simulation Overlay -->
-    <div id="simulation-overlay">
-        <div id="loading-state">
-            <div class="pulse-circle">
-                <ion-icon name="sync-outline" style="animation: spin 2s linear infinite;"></ion-icon>
+    <!-- Verifying Overlay -->
+    <div id="verifying-overlay" class="state-overlay">
+        <div class="overlay-content">
+            <div class="loader-wrapper">
+                <div class="premium-loader"></div>
             </div>
-            <h2 style="font-size: 22px; font-weight: 900; color: var(--brown); margin-bottom: 8px;">Waiting for payment...</h2>
-            <p style="font-size: 13px; color: var(--brown-light); font-weight: 500;">Please do not refresh or close this page.</p>
-        </div>
-
-        <div id="success-state" style="display: none;">
-            <div class="checkmark-circle" id="checkmark">
-                <ion-icon name="checkmark-outline"></ion-icon>
-            </div>
-            <h2 style="font-size: 26px; font-weight: 900; color: #166534; margin-bottom: 8px;">Payment Successful!</h2>
-            <p style="font-size: 14px; color: var(--brown-light); font-weight: 500;">Redirecting to order confirmation...</p>
+            <h2>Verifying Payment...</h2>
+            <p>Please do not refresh or press back button</p>
         </div>
     </div>
 
-    <style>
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    </style>
+    <!-- Success Overlay -->
+    <div id="success-overlay" class="state-overlay">
+        <div class="overlay-content">
+            <div class="success-tick-wrapper">
+                <div class="success-tick">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                </div>
+            </div>
+            <h2 class="text-success">Payment Successful</h2>
+            <p>Your order has been confirmed</p>
+        </div>
+    </div>
 
     <script src="payment.js"></script>
 </body>

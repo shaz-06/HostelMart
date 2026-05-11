@@ -12,16 +12,19 @@
       "dest": "server.js"
     },
     {
-      "src": "/(.*)\\.html",
+      "src": "/Fashion.html",
       "dest": "server.js"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
+      "src": "/index.html",
+      "dest": "server.js"
     },
     {
-      "src": "/(.*)\\.(js|css|png|jpg|jpeg|gif|svg|ico)",
+      "src": "/",
       "dest": "server.js"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",

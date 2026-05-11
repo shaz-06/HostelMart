@@ -187,11 +187,11 @@ app.post('/api/orders', async (req, res) => {
 });
 
 // Data helper functions
-const getProducts = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'products.json'), 'utf8'));
-const getCategories = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'categories.json'), 'utf8'));
-const getBanners = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'banners.json'), 'utf8'));
+const getProducts = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'products.json'), 'utf8'));
+const getCategories = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'categories.json'), 'utf8'));
+const getBanners = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'banners.json'), 'utf8'));
 const saveSubscription = (email) => {
-    const subsPath = path.join(__dirname, 'data', 'subscriptions.json');
+    const subsPath = path.join(process.cwd(), 'data', 'subscriptions.json');
     const subs = JSON.parse(fs.readFileSync(subsPath, 'utf8'));
     if (!subs.includes(email)) {
         subs.push(email);
@@ -218,7 +218,7 @@ app.post('/api/subscribe', (req, res) => {
 
 // Server-Side Injection for index.html
 app.get(['/', '/index.html'], (req, res) => {
-    const indexPath = path.join(__dirname, 'index.html');
+    const indexPath = path.join(process.cwd(), 'index.html');
     let html = fs.readFileSync(indexPath, 'utf8');
     const $ = cheerio.load(html);
 
@@ -316,7 +316,7 @@ app.get(['/', '/index.html'], (req, res) => {
 
 // Server-Side Injection for Fashion.html
 app.get('/Fashion.html', (req, res) => {
-    const fashionPath = path.join(__dirname, 'Fashion.html');
+    const fashionPath = path.join(process.cwd(), 'Fashion.html');
     let html = fs.readFileSync(fashionPath, 'utf8');
     const $ = cheerio.load(html);
 
@@ -380,18 +380,20 @@ app.get('/Fashion.html', (req, res) => {
 
 // Serve hidden admin panel
 app.get('/hostelmart-control-room', (req, res) => {
-    res.sendFile(path.join(__dirname, 'hostelmart-control-room.html'));
+    res.sendFile(path.join(process.cwd(), 'hostelmart-control-room.html'));
 });
 
 // Serve static files from root
-app.use(express.static(__dirname, {
+const rootDir = process.cwd();
+app.use(express.static(rootDir, {
     extensions: ['html'],
     index: false // We handle index.html manually
 }));
 
 // Fallback for HTML files not explicitly handled
 app.get('/:page.html', (req, res, next) => {
-    const filePath = path.join(__dirname, req.params.page + '.html');
+    const filePath = path.join(rootDir, req.params.page + '.html');
+    console.log(`Checking for HTML file: ${filePath}`);
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
     } else {

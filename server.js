@@ -383,8 +383,21 @@ app.get('/hostelmart-control-room', (req, res) => {
     res.sendFile(path.join(__dirname, 'hostelmart-control-room.html'));
 });
 
-// Serve other static files
-app.use(express.static(__dirname));
+// Serve static files from root
+app.use(express.static(__dirname, {
+    extensions: ['html'],
+    index: false // We handle index.html manually
+}));
+
+// Fallback for HTML files not explicitly handled
+app.get('/:page.html', (req, res, next) => {
+    const filePath = path.join(__dirname, req.params.page + '.html');
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        next();
+    }
+});
 
 // 404 Logger to find broken links
 app.use((req, res, next) => {
@@ -395,3 +408,4 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+module.exports = app;

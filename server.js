@@ -154,10 +154,16 @@ app.get('/api/orders/track', async (req, res) => {
     const { phone } = req.query;
     if (!phone) return res.status(400).json({ success: false, message: 'Phone number required' });
     try {
-        const snapshot = await db.collection('orders').where('phone', '==', phone).get();
+        let snapshot;
+        if (phone === 'all') {
+            snapshot = await db.collection('orders').orderBy('createdAt', 'desc').get();
+        } else {
+            snapshot = await db.collection('orders').where('phone', '==', phone).get();
+        }
         const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         res.json({ success: true, orders });
     } catch (error) {
+        console.error("Order Track Error:", error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });

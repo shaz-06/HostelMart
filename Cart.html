@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -15,74 +15,136 @@
     <script src="auth_global.js" defer></script>
     <script src="cart_global.js" defer></script>
     <style>
+        :root {
+            --cream: #FDFBF7;
+            --cream-dark: #F5F5DC;
+            --brown: #3E2723;
+            --brown-medium: #5D4037;
+            --brown-light: #8D6E63;
+            --gold: #C5A059;
+            --gold-light: #FDF5E6;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F1F3F6;
-            color: #212121;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream);
+            color: var(--brown);
+            touch-action: manipulation;
         }
 
         .hostelmart-header {
-            background-color: #F5F5DC;
-            border-bottom: 1px solid #D7CCC8;
+            background-color: var(--cream-dark);
+            border-bottom: 1px solid rgba(215, 204, 200, 0.5);
+            box-shadow: 0 4px 20px rgba(93, 64, 55, 0.05);
+        }
+
+        .cart-card {
+            background: var(--cream);
+            border: 1px solid rgba(215, 204, 200, 0.5);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
+            overflow: hidden;
         }
 
         .cart-item-card {
-            background: white;
-            padding: 24px;
-            border-bottom: 1px solid #F0F0F0;
+            background: var(--cream);
+            padding: 32px;
+            border-bottom: 1px solid rgba(215, 204, 200, 0.3);
             display: flex;
-            gap: 24px;
+            gap: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item-card:hover {
+            background: var(--gold-light);
         }
 
         .price-details {
-            background: white;
-            padding: 24px;
-            border-radius: 4px;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+            background: var(--cream-dark);
+            padding: 32px;
+            border-radius: 24px;
+            border: 1px solid rgba(215, 204, 200, 0.5);
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
             position: sticky;
-            top: 80px;
+            top: 100px;
         }
 
         .place-order-btn {
-            background: #FB641B;
-            color: white;
+            background-color: #3E2723 !important;
+            color: #FDFBF7 !important;
             width: 100%;
-            padding: 16px;
-            font-weight: 700;
-            font-size: 16px;
+            padding: 20px;
+            font-weight: 800;
+            font-size: 14px;
             text-transform: uppercase;
-            border-radius: 2px;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-            transition: background 0.2s;
+            letter-spacing: 0.1em;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(93, 64, 55, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .place-order-btn:hover {
-            background: #f4510b;
+            background-color: #5D4037 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(93, 64, 55, 0.3);
         }
 
+
         .qty-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 1px solid #E0E0E0;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: var(--gold-light);
+            border: 1px solid rgba(215, 204, 200, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            color: var(--brown-medium);
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .qty-btn:hover {
-            border-color: #5D4037;
+            background: var(--brown-medium);
+            color: var(--cream);
+            border-color: var(--brown-medium);
+        }
+
+        .remove-btn {
+            color: var(--brown-light);
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+        }
+
+        .remove-btn:hover {
+            color: #d32f2f;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-fadeIn {
-            animation: fadeIn 0.3s ease-out forwards;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
+
+        .search-bar {
+            background: rgba(253, 245, 230, 0.5);
+            border: 1px solid rgba(215, 204, 200, 0.8);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus-within {
+            background: white;
+            border-color: var(--brown-medium);
+            box-shadow: 0 0 0 4px rgba(93, 64, 55, 0.1);
+        }
+
     </style>
 </head>
 
@@ -98,23 +160,29 @@
                         <span class="text-[#C8A951] ml-1">Mart</span>
                     </span>
                 </a>
-                <div class="flex-1 max-w-2xl relative">
-                    <input type="text" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-white border border-[#D7CCC8] rounded px-4 py-2 text-sm outline-none shadow-sm focus:shadow-md transition-shadow">
-                    <ion-icon name="search" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8D6E63] text-lg"></ion-icon>
+                <div class="flex-1 max-w-2xl relative group">
+                    <div class="search-bar flex items-center px-4 py-2.5">
+                        <ion-icon name="search-outline" class="text-[#8D6E63] text-xl mr-3"></ion-icon>
+                        <input type="text" placeholder="Search for Products, Brands and More"
+                            class="w-full bg-transparent border-none outline-none text-sm font-medium text-brown">
+                    </div>
                 </div>
             </div>
             <div class="flex items-center gap-8 ml-12 font-bold text-sm text-[#5D4037]">
-                <div class="flex items-center gap-1 cursor-pointer">
-                    <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
+                <div class="flex items-center gap-2 cursor-pointer hover:text-brown-light transition-colors">
+                    <div class="w-8 h-8 rounded-full bg-gold-light flex items-center justify-center border border-brown/10">
+                        <ion-icon name="person-outline" class="text-lg"></ion-icon>
+                    </div>
                     <span id="header-user-name">Shashank</span>
-                    <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+                    <ion-icon name="chevron-down-outline" class="text-[10px]"></ion-icon>
                 </div>
-                <a href="Cart.html" class="flex items-center gap-2 relative text-blue-600">
+
+                <a href="Cart.html" class="flex items-center gap-2 relative text-[#5D4037] hover:text-[#8D6E63] transition-colors">
                     <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
-                    <span>Cart</span>
-                    <span class="absolute -top-2 -right-2 bg-[#5D4037] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white cart-badge">0</span>
+                    <span class="hidden md:inline">Cart</span>
+                    <span class="absolute -top-1 -right-2 bg-brown text-cream text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border-2 border-cream-dark cart-badge">0</span>
                 </a>
+
             </div>
         </div>
     </header>
@@ -153,19 +221,25 @@
             
             if (cart.length === 0) {
                 container.innerHTML = `
-                    <div class="w-full bg-white p-12 flex flex-col items-center justify-center text-center space-y-6 animate-fadeIn">
-                        <img src="https://cdn-icons-png.flaticon.com/512/11329/11329073.png" class="w-64 h-64 opacity-80" alt="Empty Cart">
-                        <div>
-                            <h2 class="text-xl font-black uppercase tracking-tight">Your cart is empty!</h2>
-                            <p class="text-xs text-gray-400 font-medium mt-2">Add items to it now to see them here.</p>
+                    <div class="w-full bg-cream border border-brown/5 rounded-[40px] p-16 flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn shadow-xl shadow-brown/5">
+                        <div class="w-48 h-48 bg-gold-light rounded-full flex items-center justify-center relative">
+                            <ion-icon name="cart-outline" class="text-8xl text-brown/20"></ion-icon>
+                            <div class="absolute -top-2 -right-2 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-white text-2xl shadow-lg animate-bounce">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </div>
                         </div>
-                        <a href="index.html" class="bg-[#FB641B] text-white font-black px-12 py-4 rounded-sm text-sm uppercase shadow-lg hover:bg-[#f4510b] transition-all transform hover:scale-105">
-                            Shop Now
+                        <div class="space-y-2">
+                            <h2 class="text-3xl font-black text-brown uppercase tracking-tight italic">Your cart is empty</h2>
+                            <p class="text-sm text-brown-light font-bold">Discover our premium collection and start shopping</p>
+                        </div>
+                        <a href="index.html" class="bg-brown-medium text-cream font-black px-12 py-5 rounded-2xl text-xs uppercase tracking-[0.2em] shadow-xl hover:bg-brown transition-all transform hover:scale-105">
+                            Return to Store
                         </a>
                     </div>
                 `;
                 return;
             }
+
 
             // Cart has items
             let itemsHTML = '';
@@ -180,86 +254,138 @@
 
                 itemsHTML += `
                     <div class="cart-item-card animate-fadeIn" style="animation-delay: ${index * 0.1}s">
-                        <div class="w-28 h-28 flex-shrink-0">
-                            <img src="${item.img}" class="w-full h-full object-contain" alt="${item.title}">
-                            <div class="flex items-center justify-center gap-3 mt-4">
+                        <div class="w-32 flex flex-col items-center gap-4">
+                            <div class="w-32 h-32 bg-white rounded-2xl p-4 border border-brown/5 shadow-inner">
+                                <img src="${item.img}" class="w-full h-full object-contain" alt="${item.title}">
+                            </div>
+                            <div class="flex items-center justify-center gap-4 bg-cream-dark/50 p-2 rounded-xl border border-brown/10">
                                 <button onclick="handleQtyChange(${index}, -1)" class="qty-btn">-</button>
-                                <span class="text-sm font-bold w-8 text-center">${item.qty}</span>
+                                <span class="text-sm font-black w-6 text-center text-brown">${item.qty}</span>
                                 <button onclick="handleQtyChange(${index}, 1)" class="qty-btn">+</button>
                             </div>
                         </div>
-                        <div class="flex-1 space-y-2">
-                            <h3 class="text-lg font-medium">${item.title}</h3>
-                            <p class="text-sm text-gray-400 font-bold">${item.brand}</p>
-                            <p class="text-xs text-gray-500">Size: <span class="font-bold text-gray-700">${item.size}</span></p>
-                            <div class="flex items-center gap-2 pt-2">
-                                <span class="text-lg font-black">${item.currentPrice}</span>
-                                ${item.originalPrice ? `<span class="text-sm text-gray-400 line-through">${item.originalPrice}</span>` : ''}
-                                <span class="text-xs font-bold text-green-600">Offers Applied</span>
+                        <div class="flex-1 space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-black text-brown tracking-tight">${item.title}</h3>
+                                    <p class="text-sm text-brown-light font-extrabold uppercase tracking-widest mt-1">${item.brand}</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="flex flex-col items-end">
+                                        <span class="text-2xl font-black text-brown">${item.currentPrice}</span>
+                                        ${item.originalPrice ? `<span class="text-sm text-brown-light/50 line-through font-bold">${item.originalPrice}</span>` : ''}
+                                    </div>
+                                    <span class="inline-block bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-md mt-2 uppercase tracking-tighter">Best Deal Applied</span>
+                                </div>
                             </div>
-                            <div class="pt-4 flex gap-6">
-                                <button onclick="handleRemove(${index})" class="text-sm font-black uppercase hover:text-red-600 transition-colors">Remove</button>
-                                <button class="text-sm font-black uppercase hover:text-blue-600 transition-colors">Save for later</button>
+                            
+                            <div class="flex items-center gap-6 py-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] font-black uppercase text-brown-light/60 tracking-widest">Variant</span>
+                                    <span class="bg-gold-light border border-brown/10 px-3 py-1 rounded-lg text-xs font-black text-brown-medium">${item.size}</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-brown-light">
+                                    <ion-icon name="time-outline"></ion-icon>
+                                    <span class="text-[10px] font-bold uppercase tracking-widest">Delivery by Tomorrow</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-sm text-gray-500 font-medium">
-                            Delivery by Tomorrow, Fri | <span class="text-green-600">Free</span>
+
+                            <div class="pt-6 flex gap-8 border-t border-brown/5">
+                                <button onclick="handleRemove(${index})" class="remove-btn flex items-center gap-2 group">
+                                    <ion-icon name="trash-outline" class="text-lg group-hover:scale-110 transition-transform"></ion-icon>
+                                    Remove
+                                </button>
+                                <button class="text-[10px] font-black uppercase text-brown-medium hover:text-gold transition-colors flex items-center gap-2">
+                                    <ion-icon name="bookmark-outline" class="text-lg"></ion-icon>
+                                    Save for later
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
+
             });
 
             const finalPrice = totalPrice - totalDiscount;
 
             container.innerHTML = `
                 <!-- ITEMS LIST -->
-                <div class="flex-1 space-y-4">
-                    <div class="bg-white px-6 py-4 flex justify-between items-center shadow-sm">
-                        <h2 class="text-lg font-bold">HostelMart Cart (${cart.length})</h2>
-                        <div class="flex items-center gap-2 text-sm">
-                            <ion-icon name="location-outline"></ion-icon>
-                            <span>Deliver to: <span class="font-bold">Bengaluru - 560001</span></span>
+                <div class="flex-1 space-y-6">
+                    <div class="bg-cream-dark px-8 py-5 flex justify-between items-center rounded-3xl border border-brown/5 shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-brown-medium rounded-full flex items-center justify-center text-cream">
+                                <ion-icon name="cart" class="text-xl"></ion-icon>
+                            </div>
+                            <h2 class="text-lg font-black text-brown uppercase tracking-tight">Shopping Bag <span class="text-brown-light/60 italic ml-1">(${cart.length})</span></h2>
+                        </div>
+                        <div class="flex items-center gap-3 bg-cream/80 px-4 py-2 rounded-2xl border border-brown/10 shadow-inner">
+                            <ion-icon name="location" class="text-brown-light"></ion-icon>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-brown-medium">Ship to: <span class="text-brown">Bangalore</span></span>
                         </div>
                     </div>
-                    <div class="bg-white shadow-sm">
+                    <div class="cart-card">
                         ${itemsHTML}
                     </div>
-                    <div class="bg-white p-4 flex justify-end sticky bottom-0 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
-                        <a href="Checkout.html" class="place-order-btn text-center max-w-xs">Place Order</a>
+                    <div class="bg-cream-dark/80 backdrop-blur-md p-6 flex justify-end sticky bottom-4 rounded-[2rem] border border-brown/10 shadow-2xl z-20">
+                        <div class="flex items-center gap-8 w-full md:w-auto">
+                            <div class="hidden md:block text-right">
+                                <p class="text-[10px] font-black uppercase text-brown-light tracking-widest">Total Payable</p>
+                                <p class="text-2xl font-black text-brown">₹${finalPrice.toLocaleString()}</p>
+                            </div>
+                            <a href="Checkout.html" class="place-order-btn text-center md:min-w-[280px]">Proceed to Checkout</a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- PRICE DETAILS -->
-                <div class="lg:w-[400px]">
-                    <div class="price-details space-y-6">
-                        <h3 class="text-gray-500 font-bold uppercase tracking-wider text-xs border-b border-gray-100 pb-4">Price Details</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between text-sm">
-                                <span>Price (${cart.length} items)</span>
-                                <span>₹${totalPrice.toLocaleString()}</span>
+                <div class="lg:w-[420px]">
+                    <div class="price-details space-y-8 animate-fadeIn">
+                        <div class="flex items-center gap-3 border-b border-brown/10 pb-6">
+                            <ion-icon name="receipt-outline" class="text-2xl text-brown-light"></ion-icon>
+                            <h3 class="text-brown font-black uppercase tracking-widest text-xs">Order Summary</h3>
+                        </div>
+                        
+                        <div class="space-y-5">
+                            <div class="flex justify-between items-center text-xs font-bold text-brown-light uppercase tracking-widest">
+                                <span>Cart Subtotal (${cart.length})</span>
+                                <span class="text-brown text-sm font-black">₹${totalPrice.toLocaleString()}</span>
                             </div>
-                            <div class="flex justify-between text-sm">
-                                <span>Discount</span>
-                                <span class="text-green-600">-₹${totalDiscount.toLocaleString()}</span>
+                            <div class="flex justify-between items-center text-xs font-bold text-brown-light uppercase tracking-widest">
+                                <span>Bag Discount</span>
+                                <span class="text-green-600 text-sm font-black">-₹${totalDiscount.toLocaleString()}</span>
                             </div>
-                            <div class="flex justify-between text-sm border-b border-dashed border-gray-200 pb-4">
-                                <span>Delivery Charges</span>
-                                <span class="text-green-600">FREE</span>
+                            <div class="flex justify-between items-center text-xs font-bold text-brown-light uppercase tracking-widest border-b border-dashed border-brown/20 pb-6">
+                                <span>Convenience Fee</span>
+                                <span class="text-green-600 text-[10px] font-black bg-green-50 px-2 py-1 rounded">FREE</span>
                             </div>
-                            <div class="flex justify-between text-lg font-black pt-2">
-                                <span>Total Amount</span>
-                                <span>₹${finalPrice.toLocaleString()}</span>
+                            <div class="flex justify-between items-center pt-2">
+                                <span class="text-sm font-black text-brown uppercase tracking-widest">Grand Total</span>
+                                <span class="text-3xl font-black text-brown">₹${finalPrice.toLocaleString()}</span>
                             </div>
                         </div>
-                        <div class="bg-green-50 p-3 rounded-sm border border-green-100">
-                            <p class="text-green-700 text-sm font-bold">You will save ₹${totalDiscount.toLocaleString()} on this order</p>
+
+                        <div class="bg-gold-light/80 p-5 rounded-2xl border border-gold/20 flex items-start gap-4">
+                            <div class="w-8 h-8 bg-gold rounded-full flex items-center justify-center flex-shrink-0 text-white shadow-lg">
+                                <ion-icon name="sparkles"></ion-icon>
+                            </div>
+                            <div>
+                                <p class="text-gold text-[10px] font-black uppercase tracking-widest">HostelMart Savings</p>
+                                <p class="text-brown font-black text-sm mt-1">You save ₹${totalDiscount.toLocaleString()} on this bag</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="mt-6 flex items-center gap-4 text-gray-400 p-4">
-                        <ion-icon name="shield-checkmark" class="text-2xl"></ion-icon>
-                        <p class="text-[10px] font-bold uppercase leading-tight">Safe and Secure Payments. 100% Authentic products.</p>
+                    
+                    <div class="mt-8 bg-brown-medium/5 rounded-3xl p-6 border border-brown/10 flex items-center gap-5 animate-fadeIn" style="animation-delay: 0.3s">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg text-brown-light">
+                            <ion-icon name="shield-checkmark" class="text-2xl"></ion-icon>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black uppercase text-brown tracking-widest leading-tight">Secured Payments</p>
+                            <p class="text-[9px] font-bold text-brown-light mt-1 uppercase tracking-tighter">100% Buyer Protection Guarantee</p>
+                        </div>
                     </div>
                 </div>
+
             `;
         }
 
@@ -272,11 +398,10 @@
         }
 
         function handleRemove(index) {
-            if (confirm('Are you sure you want to remove this item?')) {
-                window.removeFromCart(index);
-                renderCart();
-            }
+            window.removeFromCart(index);
+            renderCart();
         }
+
     </script>
 </body>
 

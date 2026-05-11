@@ -98,6 +98,186 @@
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out forwards;
         }
+        /* Compact Category Navigation on Scroll */
+        #categories-section {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #categories-section.scrolled {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        #categories-section .icon-box {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            max-height: 50px;
+        }
+        #categories-section.scrolled .icon-box {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+        }
+        #categories-section.scrolled .category-item {
+            gap: 0;
+        }
+        #categories-section.scrolled span {
+            font-size: 11px;
+            color: #5D4037;
+        }
+
+        /* Redesigned Mega Menu Styles */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            width: 1000px;
+            max-width: 95vw;
+            max-height: 80vh;
+            background: #FDFBF7;
+            border: 1px solid rgba(215, 204, 200, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.15);
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 50;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .nav-item-wrapper:hover .mega-menu,
+        .mega-menu.is-open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+            pointer-events: auto;
+        }
+
+        .mega-menu-left {
+            width: 280px;
+            background: #F5F5DC;
+            border-right: 1px solid rgba(215, 204, 200, 0.5);
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .mega-menu-right {
+            flex: 1;
+            padding: 40px;
+            background: #FDFBF7;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #D7CCC8 #FDFBF7;
+        }
+
+        .mega-menu-right::-webkit-scrollbar {
+            width: 6px;
+        }
+        .mega-menu-right::-webkit-scrollbar-track {
+            background: #FDFBF7;
+        }
+        .mega-menu-right::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+
+        .mega-category-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 28px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #5D4037;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-transform: capitalize;
+            letter-spacing: 0.02em;
+        }
+
+        .mega-category-link:hover {
+            background: rgba(253, 245, 230, 0.8);
+            padding-left: 36px;
+        }
+
+        .mega-category-link.active {
+            background: #FDF5E6;
+            color: #8D6E63;
+            padding-left: 36px;
+            border-right: 4px solid #8D6E63;
+        }
+
+        .subcategory-grid {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            animation: fadeInSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .subcategory-grid.active {
+            display: grid;
+        }
+
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subcategory-item {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .subcategory-item:hover {
+            background: #F5F5DC;
+            border-color: #D7CCC8;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(93, 64, 55, 0.05);
+        }
+
+        .subcategory-icon {
+            width: 48px;
+            height: 48px;
+            background: #FDF5E6;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #8D6E63;
+            transition: all 0.3s ease;
+        }
+
+        .subcategory-item:hover .subcategory-icon {
+            background: #5D4037;
+            color: #FDFBF7;
+        }
+
+        .subcategory-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #5D4037;
+            line-height: 1.4;
+        }
+
+        /* Mobile Accordion Content Customization */
+        .accordion-content.active {
+            display: block !important;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 
@@ -217,7 +397,321 @@
                 </div>
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                 <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
-                <a href="index.html#categories-section" class="hover:text-[#8D6E63] transition-colors">Categories</a>
+                    <div class="nav-item-wrapper">
+                        <a href="javascript:void(0)" onclick="toggleMegaMenu(event)" class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
+                        <div id="mega-menu" class="mega-menu shadow-2xl text-left">
+                            <div class="mega-menu-left">
+                                <div class="mega-category-link active" onmouseover="showMegaCategory('mega-electronics', this)">
+                                    <span>Electronics</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-grocery', this)">
+                                    <span>Grocery & Snacks</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-hostel', this)">
+                                    <span>Hostel Essentials</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-study', this)">
+                                    <span>Study Essentials</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-beauty', this)">
+                                    <span>Beauty & Personal Care</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-fashion', this)">
+                                    <span>Fashion</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-mobiles', this)">
+                                    <span>Mobiles</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-appliances', this)">
+                                    <span>Home & Appliances</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-sports', this)">
+                                    <span>Sports & Fitness</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-emergency', this)">
+                                    <span>Emergency / Fast Delivery</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                            </div>
+                            <div class="mega-menu-right">
+                                <!-- Electronics -->
+                                <div id="mega-electronics" class="subcategory-grid active">
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="headset-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Earphones & Headphones</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Chargers & Cables</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="battery-charging-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Power Banks</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Bluetooth Speakers</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="watch-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Smart Watches</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Keyboards & Mouse</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="laptop-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Laptop Accessories</span>
+                                    </a>
+                                </div>
+                                <!-- Grocery -->
+                                <div id="mega-grocery" class="subcategory-grid">
+                                    <a href="Food.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Instant Noodles</span>
+                                    </a>
+                                    <a href="Food.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="pizza-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Chips & Snacks</span>
+                                    </a>
+                                    <a href="Food.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Chocolates</span>
+                                    </a>
+                                    <a href="Food.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="wine-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Cold Drinks</span>
+                                    </a>
+                                    <a href="Food.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Biscuits</span>
+                                    </a>
+                                    <a href="Food.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Ice Cream</span>
+                                    </a>
+                                    <a href="Food.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Breakfast Items</span>
+                                    </a>
+                                </div>
+                                <!-- Hostel -->
+                                <div id="mega-hostel" class="subcategory-grid">
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="bucket-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Buckets & Mugs</span>
+                                    </a>
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Hangers</span>
+                                    </a>
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="bed-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Bedsheets</span>
+                                    </a>
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Pillows</span>
+                                    </a>
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Laundry Bags</span>
+                                    </a>
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Locks</span>
+                                    </a>
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="water-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Water Bottles</span>
+                                    </a>
+                                </div>
+                                <!-- Study -->
+                                <div id="mega-study" class="subcategory-grid">
+                                    <a href="Books.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="book-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Notebooks</span>
+                                    </a>
+                                    <a href="Books.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="pencil-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Pens & Markers</span>
+                                    </a>
+                                    <a href="Books.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Calculators</span>
+                                    </a>
+                                    <a href="Books.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Sticky Notes</span>
+                                    </a>
+                                    <a href="Books.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Files & Folders</span>
+                                    </a>
+                                    <a href="Books.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Exam Pads</span>
+                                    </a>
+                                </div>
+                                <!-- Beauty -->
+                                <div id="mega-beauty" class="subcategory-grid">
+                                    <a href="Beauty.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Face Wash</span>
+                                    </a>
+                                    <a href="Beauty.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Shampoo</span>
+                                    </a>
+                                    <a href="Beauty.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="rose-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Perfume</span>
+                                    </a>
+                                    <a href="Beauty.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="cut-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Trimmers</span>
+                                    </a>
+                                    <a href="Beauty.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="leaf-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Skin Care</span>
+                                    </a>
+                                    <a href="Beauty.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="flask-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Hair Oil</span>
+                                    </a>
+                                </div>
+                                <!-- Fashion -->
+                                <div id="mega-fashion" class="subcategory-grid">
+                                    <a href="Fashion.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
+                                        <span class="subcategory-name">T-Shirts</span>
+                                    </a>
+                                    <a href="Fashion.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Hoodies</span>
+                                    </a>
+                                    <a href="Fashion.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Shorts</span>
+                                    </a>
+                                    <a href="Fashion.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Slippers</span>
+                                    </a>
+                                    <a href="Fashion.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Watches</span>
+                                    </a>
+                                    <a href="Fashion.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Bags</span>
+                                    </a>
+                                </div>
+                                <!-- Mobiles -->
+                                <div id="mega-mobiles" class="subcategory-grid">
+                                    <a href="Mobile.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="phone-portrait-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Smartphones</span>
+                                    </a>
+                                    <a href="Mobile.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="refresh-circle-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Refurbished Phones</span>
+                                    </a>
+                                    <a href="Mobile.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="shield-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Phone Covers</span>
+                                    </a>
+                                    <a href="Mobile.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="qr-code-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Tempered Glass</span>
+                                    </a>
+                                    <a href="Mobile.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="phone-landscape-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Mobile Stands</span>
+                                    </a>
+                                </div>
+                                <!-- Appliances -->
+                                <div id="mega-appliances" class="subcategory-grid">
+                                    <a href="Appliances.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="bulb-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Table Lamps</span>
+                                    </a>
+                                    <a href="Appliances.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="power-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Extension Boards</span>
+                                    </a>
+                                    <a href="Appliances.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="sync-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Mini Fans</span>
+                                    </a>
+                                    <a href="Appliances.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Electric Kettle</span>
+                                    </a>
+                                    <a href="Appliances.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="flame-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Induction Stove</span>
+                                    </a>
+                                </div>
+                                <!-- Sports -->
+                                <div id="mega-sports" class="subcategory-grid">
+                                    <a href="Sports.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="barbell-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Dumbbells</span>
+                                    </a>
+                                    <a href="Sports.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="body-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Yoga Mats</span>
+                                    </a>
+                                    <a href="Sports.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Cricket</span>
+                                    </a>
+                                    <a href="Sports.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Football</span>
+                                    </a>
+                                    <a href="Sports.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="bicycle-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Cycling</span>
+                                    </a>
+                                </div>
+                                <!-- Emergency -->
+                                <div id="mega-emergency" class="subcategory-grid">
+                                    <a href="Minutes.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="medkit-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Medicines</span>
+                                    </a>
+                                    <a href="Minutes.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="moon-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Late Night Snacks</span>
+                                    </a>
+                                    <a href="Books.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="create-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Stationery</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="flash-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Chargers</span>
+                                    </a>
+                                    <a href="Home.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Umbrellas</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
                     <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
                     <span class="hidden md:inline">Cart</span>
@@ -240,7 +734,7 @@
         </div>
 
         <!-- CATEGORY NAVIGATION (Icons) -->
-        <div class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
+        <div id="categories-section" class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
             <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
                 <a href="index.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
@@ -803,6 +1297,38 @@
     </div>
 
     <script>
+        // Mega Menu Interaction Logic
+        function showMegaCategory(gridId, element) {
+            document.querySelectorAll('.subcategory-grid').forEach(grid => {
+                grid.classList.remove('active');
+            });
+            document.getElementById(gridId).classList.add('active');
+            document.querySelectorAll('.mega-category-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        function toggleMegaMenu(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const menu = document.getElementById('mega-menu');
+            if (menu) {
+                menu.classList.toggle('is-open');
+            }
+        }
+
+        // Close Mega Menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mega-menu');
+            if (menu && menu.classList.contains('is-open')) {
+                const wrapper = document.querySelector('.nav-item-wrapper');
+                if (wrapper && !wrapper.contains(e.target)) {
+                    menu.classList.remove('is-open');
+                }
+            }
+        });
+
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const overlay = document.getElementById('overlay');
@@ -826,7 +1352,22 @@
                 content.classList.add('hidden');
             }
         }
+
+        // Compact Category Navigation on Scroll (with Hysteresis)
+        let isScrolled = false;
+        window.addEventListener('scroll', () => {
+            const categoriesSection = document.getElementById('categories-section');
+            if (categoriesSection) {
+                const scrollY = window.scrollY;
+                if (!isScrolled && scrollY > 100) {
+                    categoriesSection.classList.add('scrolled');
+                    isScrolled = true;
+                } else if (isScrolled && scrollY < 40) {
+                    categoriesSection.classList.remove('scrolled');
+                    isScrolled = false;
+                }
+            }
+        }, { passive: true });
     </script>
 </body>
-
 </html>

@@ -5,21 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Orders | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="auth_global.js" defer></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #fff; color: #111; }
-        .amazon-link { color: #007185; font-size: 13px; text-decoration: none; }
-        .amazon-link:hover { color: #C7511F; text-decoration: underline; }
-        .tab-active { border-bottom: 2px solid #e47911; font-weight: 700; color: #111 !important; }
-        .order-card { border: 1px solid #D5D9D9; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
-        .order-header { background-color: #F0F2F2; padding: 14px 18px; border-bottom: 1px solid #D5D9D9; display: flex; justify-content: space-between; font-size: 12px; color: #565959; }
-        .btn-amazon { background: #FFD814; border: 1px solid #FCD200; border-radius: 8px; box-shadow: 0 2px 5px 0 rgba(213,217,217,.5); cursor: pointer; display: inline-block; padding: 0 10px; text-align: center; height: 31px; line-height: 29px; font-size: 13px; color: #0F1111; }
-        .btn-amazon:hover { background: #F7CA00; border-color: #F2C200; }
-        .btn-white { background: #FFF; border: 1px solid #D5D9D9; border-radius: 8px; box-shadow: 0 2px 5px 0 rgba(213,217,217,.5); cursor: pointer; display: inline-block; padding: 0 10px; text-align: center; height: 31px; line-height: 29px; font-size: 13px; color: #0F1111; }
-        .btn-white:hover { background-color: #F7FAFA; }
+        :root {
+            --cream: #FDFBF7;
+            --cream-dark: #F5F5DC;
+            --brown: #3E2723;
+            --brown-medium: #5D4037;
+            --brown-light: #8D6E63;
+            --gold: #C5A059;
+            --gold-light: #FDF5E6;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--cream); 
+            color: var(--brown); 
+        }
+
+        .hostelmart-link { 
+            color: var(--brown-medium); 
+            font-size: 13px; 
+            text-decoration: none; 
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .hostelmart-link:hover { 
+            color: var(--gold); 
+        }
+
+        .tab-active { 
+            border-bottom: 3px solid var(--brown-medium); 
+            font-weight: 800; 
+            color: var(--brown) !important; 
+        }
+
+        .order-card { 
+            background: var(--cream);
+            border: 1px solid rgba(215, 204, 200, 0.5); 
+            border-radius: 24px; 
+            margin-bottom: 32px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(93, 64, 55, 0.1);
+        }
+
+        .order-header { 
+            background-color: var(--cream-dark); 
+            padding: 24px 32px; 
+            border-bottom: 1px solid rgba(215, 204, 200, 0.5); 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 11px; 
+            color: var(--brown-light); 
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .btn-hostelmart { 
+            background: var(--brown-medium); 
+            color: var(--cream);
+            border-radius: 12px; 
+            cursor: pointer; 
+            display: inline-block; 
+            padding: 12px 24px; 
+            text-align: center; 
+            font-size: 12px; 
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
+        }
+
+        .btn-hostelmart:hover { 
+            background: var(--brown); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(93, 64, 55, 0.2);
+        }
+
+        .btn-outline { 
+            background: transparent; 
+            border: 2px solid var(--brown-medium); 
+            border-radius: 12px; 
+            cursor: pointer; 
+            display: inline-block; 
+            padding: 10px 22px; 
+            text-align: center; 
+            font-size: 12px; 
+            font-weight: 800;
+            color: var(--brown-medium); 
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover { 
+            background-color: var(--brown-medium); 
+            color: var(--cream);
+        }
+
+        .search-bar-themed {
+            background: var(--gold-light);
+            border: 1px solid rgba(215, 204, 200, 0.8);
+            border-radius: 16px;
+            padding: 10px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar-themed:focus-within {
+            background: white;
+            border-color: var(--brown-medium);
+            box-shadow: 0 0 0 4px rgba(93, 64, 55, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
     </style>
+
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -36,103 +153,197 @@
         </div>
     </header>
 
-    <main class="flex-1 container mx-auto px-4 py-6 max-w-5xl">
+    <main class="flex-1 container mx-auto px-4 py-8 max-w-6xl">
         <!-- Breadcrumbs -->
-        <nav class="mb-4">
-            <a href="index.html" class="amazon-link">Your Account</a>
-            <span class="mx-1 text-gray-400">›</span>
-            <span class="text-[#C7511F] text-[13px] font-bold">Your Orders</span>
+        <nav class="mb-8 flex items-center gap-2">
+            <a href="index.html" class="hostelmart-link opacity-60">Home</a>
+            <ion-icon name="chevron-forward-outline" class="text-[10px] text-brown-light"></ion-icon>
+            <span class="text-brown font-black text-[13px] uppercase tracking-widest">Your Orders</span>
         </nav>
 
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <h1 class="text-3xl font-normal">Your Orders</h1>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+            <h1 class="text-4xl font-black text-brown italic tracking-tight">Your Orders</h1>
             
             <div class="flex items-center w-full md:w-auto">
-                <div class="relative flex-1 md:w-80">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search"></ion-icon></span>
-                    <input type="text" placeholder="Search all orders" class="w-full pl-9 pr-4 py-1.5 border border-[#D5D9D9] rounded-l-lg outline-none focus:border-[#007185] shadow-inner text-sm">
+                <div class="relative flex-1 md:w-96">
+                    <div class="search-bar-themed flex items-center">
+                        <ion-icon name="search-outline" class="text-brown-light text-xl mr-3"></ion-icon>
+                        <input type="text" placeholder="Search all orders" class="w-full bg-transparent outline-none text-sm font-semibold text-brown">
+                    </div>
                 </div>
-                <button class="bg-[#333] text-white px-4 py-1.5 rounded-r-lg font-bold text-sm hover:bg-black transition-colors whitespace-nowrap">Search Orders</button>
+                <button class="bg-brown text-cream px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brown-medium transition-all ml-3 shadow-lg">Search</button>
             </div>
         </div>
 
         <!-- Tabs -->
-        <div class="flex gap-8 border-b border-[#D5D9D9] mb-6 overflow-x-auto no-scrollbar">
-            <a href="#" class="pb-2 amazon-link tab-active">Orders</a>
-            <a href="#" class="pb-2 amazon-link text-gray-600">Buy Again</a>
-            <a href="#" class="pb-2 amazon-link text-gray-600">Not Yet Shipped</a>
-            <a href="#" class="pb-2 amazon-link text-gray-600">Cancelled</a>
+        <div class="flex gap-10 border-b border-brown/10 mb-8 overflow-x-auto no-scrollbar">
+            <a href="Orders.html" id="tab-my-orders" class="pb-4 hostelmart-link uppercase tracking-widest text-[11px]">My Orders</a>
+            <a href="Orders.html?phone=all" id="tab-all-orders" class="pb-4 hostelmart-link uppercase tracking-widest text-[11px]">All Orders</a>
+            <a href="#" class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Buy Again</a>
+            <a href="#" class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Not Yet Shipped</a>
+            <a href="#" class="pb-4 hostelmart-link text-brown-light uppercase tracking-widest text-[11px] opacity-60">Cancelled</a>
         </div>
 
-        <div class="flex items-center gap-2 mb-8 text-sm">
-            <span id="order-count-text"><span class="font-bold">0 orders</span> placed in</span>
-            <select class="bg-[#F0F2F2] border border-[#D5D9D9] rounded-lg px-2 py-1 text-xs font-bold outline-none cursor-pointer">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="bg-gold-light px-4 py-2 rounded-xl border border-gold/20">
+                <span id="order-count-text" class="text-xs font-black text-brown-medium uppercase tracking-tight">
+                    <span class="text-brown">0 orders</span> placed in
+                </span>
+            </div>
+            <select class="bg-cream-dark border border-brown/10 rounded-xl px-4 py-2 text-xs font-black text-brown-medium outline-none cursor-pointer hover:border-brown-medium transition-colors">
                 <option>past 3 months</option>
                 <option>2026</option>
                 <option>2025</option>
             </select>
         </div>
 
+
         <!-- Orders List -->
         <div id="orders-list">
-            <div class="text-center py-20">
-                <ion-icon name="sync-outline" class="animate-spin text-4xl text-gray-300 mb-4"></ion-icon>
-                <p class="text-gray-500 font-medium">Loading your orders...</p>
+            <div class="text-center py-32">
+                <ion-icon name="sync-outline" class="animate-spin text-5xl text-brown/20 mb-6"></ion-icon>
+                <p class="text-brown-light font-black uppercase tracking-[0.2em] text-xs">Fetching your orders...</p>
             </div>
         </div>
 
-        <div id="no-orders" class="hidden text-center py-20 border border-dashed border-gray-300 rounded-xl">
-            <ion-icon name="bag-outline" class="text-5xl text-gray-200 mb-4"></ion-icon>
-            <h3 class="text-xl font-bold text-gray-600">No orders found</h3>
-            <p class="text-gray-400 mb-6">Looks like you haven't placed any orders yet.</p>
-            <a href="index.html" class="btn-amazon py-1.5 px-6">Start Shopping</a>
+        <!-- No Orders State -->
+        <div id="no-orders" class="hidden text-center py-24">
+            <div class="w-24 h-24 bg-brown/5 rounded-full flex items-center justify-center mx-auto mb-8">
+                <ion-icon name="bag-handle-outline" class="text-4xl text-brown/20"></ion-icon>
+            </div>
+            <h3 class="text-2xl font-black text-brown mb-2 uppercase tracking-tighter">No orders found</h3>
+            <p class="text-brown-light font-medium mb-10 max-w-xs mx-auto">Looks like you haven't placed any orders yet. Start shopping to fill this space!</p>
+            <a href="index.html" class="btn-hostelmart px-10">Start Shopping</a>
         </div>
+
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            // Wait for auth_global.js to potentially update the session
-            setTimeout(async () => {
-                const userData = JSON.parse(localStorage.getItem('userData'));
-                if (!userData) {
-                    // Try one more time after a short delay
-                    console.warn("No userData found on first pass, waiting...");
-                    setTimeout(async () => {
-                        const finalUserData = JSON.parse(localStorage.getItem('userData'));
-                        if (!finalUserData) {
-                            window.location.href = 'index.html';
-                        } else {
-                            fetchOrders(finalUserData.phone);
-                        }
-                    }, 1000);
-                    return;
+            // Check URL parameters first
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlPhone = urlParams.get('phone');
+            
+            if (urlPhone) {
+                console.log("Using phone from URL:", urlPhone);
+                if (urlPhone === 'all') {
+                    document.getElementById('tab-all-orders').classList.add('tab-active');
+                    document.querySelector('h1').textContent = 'All Platform Orders';
+                } else {
+                    document.getElementById('tab-my-orders').classList.add('tab-active');
                 }
+                fetchOrders(urlPhone);
+                return;
+            }
+
+            // Check deliveryDetails (from guest checkout)
+            const deliveryDetails = JSON.parse(localStorage.getItem('deliveryDetails'));
+            if (deliveryDetails && deliveryDetails.phone) {
+                console.log("Using phone from deliveryDetails:", deliveryDetails.phone);
+                document.getElementById('tab-my-orders').classList.add('tab-active');
+                fetchOrders(deliveryDetails.phone);
+                return;
+            }
+
+            // Fallback to userData
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData && userData.phone) {
+                document.getElementById('tab-my-orders').classList.add('tab-active');
                 fetchOrders(userData.phone);
-            }, 500);
+            } else {
+                // If nothing found, default to All Orders to fulfill user requirement
+                console.log("No user found, defaulting to All Orders");
+                document.getElementById('tab-all-orders').classList.add('tab-active');
+                document.querySelector('h1').textContent = 'All Platform Orders';
+                fetchOrders('all');
+            }
         });
+
+        function showNoOrdersState() {
+            document.getElementById('orders-list').classList.add('hidden');
+            const noOrdersDiv = document.getElementById('no-orders');
+            noOrdersDiv.classList.remove('hidden');
+            
+            // Add tracking input if not already present
+            if (!document.getElementById('track-phone-input')) {
+                noOrdersDiv.innerHTML += `
+                    <div class="mt-10 pt-10 border-t border-brown/10 max-w-sm mx-auto">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-brown-light mb-4">Or Track with Phone Number</p>
+                        <div class="flex gap-2">
+                            <input type="tel" id="track-phone-input" placeholder="Enter phone number" 
+                                class="flex-1 bg-cream-dark border border-brown/10 rounded-xl px-4 py-3 outline-none text-sm font-semibold focus:border-brown">
+                            <button onclick="trackByInputPhone()" class="bg-brown text-cream px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-brown-medium transition-all">Track</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function trackByInputPhone() {
+            const phone = document.getElementById('track-phone-input').value.trim();
+            if (phone) {
+                window.location.href = `Orders.html?phone=${phone}`;
+            }
+        }
 
         async function fetchOrders(phone) {
             const ordersList = document.getElementById('orders-list');
+            
+            // Fast fallback: Load from localStorage first (only for specific phone)
+            let localOrders = [];
+            if (phone !== 'all') {
+                localOrders = JSON.parse(localStorage.getItem('userOrders') || '[]');
+                // Filter local orders by phone number
+                localOrders = localOrders.filter(o => o.phone === phone);
+                
+                if (localOrders.length > 0) {
+                    console.log("Found local orders, displaying immediately...");
+                    renderOrders(localOrders);
+                    document.getElementById('order-count-text').innerHTML = `<span class="font-bold">${localOrders.length} orders</span> tracked`;
+                }
+            }
+
             try {
-                const response = await fetch(`/api/orders/track?phone=${phone}`);
+                // Fetch with a 5-second timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                const response = await fetch(`/api/orders/track?phone=${phone}`, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
                 const data = await response.json();
 
-                if (data.success && data.orders.length > 0) {
-                    renderOrders(data.orders);
-                    document.getElementById('order-count-text').innerHTML = `<span class="font-bold">${data.orders.length} orders</span> placed in`;
-                } else {
-                    ordersList.classList.add('hidden');
-                    document.getElementById('no-orders').classList.remove('hidden');
+                if (data.success) {
+                    // Combine server orders with local orders, removing duplicates by orderId
+                    const serverOrders = data.orders || [];
+                    const allOrders = [...serverOrders];
+                    
+                    localOrders.forEach(lo => {
+                        if (!allOrders.some(so => so.orderId === lo.orderId)) {
+                            allOrders.push(lo);
+                        }
+                    });
+
+                    if (allOrders.length > 0) {
+                        allOrders.sort((a, b) => (b.createdAt || b.timestamp) - (a.createdAt || a.timestamp));
+                        renderOrders(allOrders);
+                        document.getElementById('order-count-text').innerHTML = `<span class="font-bold">${allOrders.length} orders</span> tracked`;
+                    } else {
+                        showNoOrdersState();
+                    }
+                } else if (localOrders.length === 0) {
+                    showNoOrdersState();
                 }
             } catch (err) {
-                console.error("Fetch Orders Error:", err);
-                ordersList.innerHTML = `<div class="text-center py-20">
-                    <ion-icon name="alert-circle-outline" class="text-4xl text-red-500 mb-4"></ion-icon>
-                    <p class="text-red-500 font-bold">Error loading orders: ${err.message}</p>
-                    <button onclick="location.reload()" class="btn-amazon mt-4 px-6">Retry</button>
-                </div>`;
+                console.warn("Fetch Orders Error or Timeout:", err);
+                if (localOrders.length === 0) {
+                    showNoOrdersState();
+                    // If it was a timeout/network error specifically, maybe show a small toast or note
+                }
             }
         }
+
+
 
         function renderOrders(orders) {
             const ordersList = document.getElementById('orders-list');
@@ -140,59 +351,64 @@
                 const date = new Date(order.createdAt || order.timestamp).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
                 const item = order.items && order.items[0] ? order.items[0] : {};
                 const status = order.trackingStatus || 'confirmed';
-                const statusColor = status === 'Cancelled' ? 'text-red-700' : 'text-green-700';
+                const statusColor = status === 'Cancelled' ? 'text-red-600' : 'text-green-600';
+                const statusBg = status === 'Cancelled' ? 'bg-red-50' : 'bg-green-50';
 
                 return `
-                    <div class="order-card">
+                    <div class="order-card animate-fadeIn">
                         <div class="order-header">
-                            <div class="flex gap-10">
+                            <div class="flex flex-wrap gap-12">
                                 <div>
-                                    <p class="uppercase">Order Placed</p>
-                                    <p class="font-medium text-black">${date}</p>
+                                    <p class="mb-1">Order Placed</p>
+                                    <p class="text-sm font-black text-brown tracking-tight">${date}</p>
                                 </div>
                                 <div>
-                                    <p class="uppercase">Total</p>
-                                    <p class="font-medium text-black">₹${order.totalAmount}</p>
+                                    <p class="mb-1">Total</p>
+                                    <p class="text-sm font-black text-brown tracking-tight">₹${order.totalAmount}</p>
                                 </div>
                                 <div>
-                                    <p class="uppercase">Ship To</p>
-                                    <a href="#" class="amazon-link font-medium">${order.customerName} <ion-icon name="chevron-down-outline"></ion-icon></a>
+                                    <p class="mb-1">Ship To</p>
+                                    <a href="#" class="hostelmart-link text-sm font-black flex items-center gap-1">${order.customerName} <ion-icon name="chevron-down-outline" class="text-[10px]"></ion-icon></a>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <p class="uppercase">Order # ${order.orderId}</p>
-                                <div class="flex gap-2 justify-end mt-1">
-                                    <a href="#" class="amazon-link">View order details</a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="#" class="amazon-link">Invoice <ion-icon name="chevron-down-outline"></ion-icon></a>
+                            <div class="text-right hidden md:block">
+                                <p class="mb-1">Order # ${order.orderId}</p>
+                                <div class="flex gap-4 justify-end mt-1 text-[10px] font-black uppercase tracking-widest">
+                                    <a href="#" class="hostelmart-link hover:text-gold">Details</a>
+                                    <span class="text-brown/20">|</span>
+                                    <a href="#" class="hostelmart-link hover:text-gold flex items-center gap-1">Invoice <ion-icon name="chevron-down-outline"></ion-icon></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-4 md:p-6 flex flex-col md:flex-row gap-6">
+                        <div class="p-8 flex flex-col md:flex-row gap-10">
                             <div class="flex-1">
-                                <h3 class="text-lg font-bold mb-1 ${statusColor} capitalise">${status}</h3>
-                                ${status === 'Cancelled' ? '<p class="text-sm mb-4">If you were charged, a refund will be processed and credited to the original payment method within next 3-5 business days</p>' : ''}
+                                <div class="inline-block ${statusBg} ${statusColor} text-[10px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest mb-6">
+                                    ${status}
+                                </div>
                                 
-                                <div class="flex gap-4 mt-4">
-                                    <div class="w-24 h-24 bg-gray-50 p-2 border border-gray-100 rounded">
-                                        <img src="${item.img || ''}" class="w-full h-full object-contain">
+                                ${status === 'Cancelled' ? '<p class="text-xs font-medium text-brown-light mb-6 leading-relaxed">If you were charged, a refund will be processed and credited to the original payment method within next 3-5 business days.</p>' : ''}
+                                
+                                <div class="flex gap-8">
+                                    <div class="w-32 h-32 bg-white p-4 border border-brown/5 rounded-2xl shadow-inner flex-shrink-0">
+                                        <img src="${item.img || ''}" class="w-full h-full object-contain" alt="${item.title}">
                                     </div>
-                                    <div class="flex-1">
-                                        <a href="ProductDetail.html?orderId=${order.orderId}&phone=${order.phone}" class="amazon-link text-base font-medium leading-tight line-clamp-2 mb-2">${item.title}</a>
-                                        <p class="text-xs text-gray-500 mb-4">Return window closed on ${date}</p>
-                                         <div class="flex gap-3">
-                                            <button class="btn-amazon px-4">Buy it again</button>
-                                            <button onclick="window.location.href='ProductDetail.html?orderId=${order.orderId}&phone=${order.phone}'" class="btn-white px-4">View your item</button>
+                                    <div class="flex-1 space-y-4">
+                                        <div>
+                                            <a href="ProductDetail.html?orderId=${order.orderId}&phone=${order.phone}" class="text-xl font-black text-brown leading-tight hover:text-brown-medium transition-colors line-clamp-2">${item.title}</a>
+                                            <p class="text-[11px] font-bold text-brown-light/60 uppercase tracking-widest mt-2">Return window closed on ${date}</p>
+                                        </div>
+                                         <div class="flex gap-4 pt-4">
+                                            <button class="btn-hostelmart">Buy it again</button>
+                                            <button onclick="window.location.href='ProductDetail.html?orderId=${order.orderId}&phone=${order.phone}'" class="btn-outline">View Details</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                             <div class="w-full md:w-64 flex flex-col gap-2">
-                                <button onclick="window.location.href='TrackOrder.html?orderId=${order.orderId}&phone=${order.phone}'" class="btn-white w-full font-bold">Track package</button>
-                                <button class="btn-white w-full">Return or replace items</button>
-                                <button class="btn-white w-full">Share gift receipt</button>
-                                <button class="btn-white w-full">Leave delivery feedback</button>
-                                <button class="btn-white w-full">Write a product review</button>
+                             <div class="w-full md:w-72 flex flex-col gap-3 pt-4 md:pt-0">
+                                <button onclick="window.location.href='TrackOrder.html?orderId=${order.orderId}&phone=${order.phone}'" class="btn-outline w-full !py-3">Track package</button>
+                                <button class="btn-outline w-full !py-3 !text-brown-light !border-brown/10 hover:!bg-cream-dark">Return or replace</button>
+                                <button class="btn-outline w-full !py-3 !text-brown-light !border-brown/10 hover:!bg-cream-dark">Share gift receipt</button>
+                                <button class="btn-outline w-full !py-3 !text-brown-light !border-brown/10 hover:!bg-cream-dark">Write a review</button>
                             </div>
                         </div>
                     </div>
@@ -217,34 +433,41 @@
 
     <!-- Product Detail Modal -->
     <div id="product-detail-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
-        <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden relative z-10 shadow-2xl animate-fadeIn">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-black z-20"><ion-icon name="close"></ion-icon></button>
+        <div class="absolute inset-0 bg-brown/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
+        <div class="bg-cream w-full max-w-2xl rounded-[2.5rem] overflow-hidden relative z-10 shadow-[0_30px_100px_rgba(93,64,55,0.3)] border border-brown/10 animate-fadeIn">
+            <button onclick="closeProductModal()" class="absolute top-8 right-8 text-2xl text-brown-light hover:text-brown z-20 p-2 hover:bg-cream-dark rounded-full transition-all"><ion-icon name="close"></ion-icon></button>
             <div class="flex flex-col md:flex-row">
-                <div class="w-full md:w-1/2 bg-gray-50 aspect-square">
+                <div class="w-full md:w-5/12 bg-white aspect-square p-12">
                     <img id="modal-img" src="" class="w-full h-full object-contain">
                 </div>
-                <div class="p-8 flex-1 flex flex-col">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Item Details</p>
-                    <h3 id="modal-title" class="text-xl font-black text-[#5D4037] mb-4 leading-tight">Product Title</h3>
-                    <div class="mb-6">
-                        <p class="text-3xl font-black text-[#C8A951]" id="modal-price">₹0</p>
-                        <p class="text-[10px] font-bold text-green-600 uppercase mt-1">Free Delivery Included</p>
-                    </div>
-                    <div class="space-y-4 mb-8">
-                        <div class="flex items-center gap-3 text-sm font-medium text-gray-600">
-                            <ion-icon name="shield-checkmark-outline" class="text-lg text-green-500"></ion-icon>
-                            Verified Quality
-                        </div>
-                        <div class="flex items-center gap-3 text-sm font-medium text-gray-600">
-                            <ion-icon name="return-up-back-outline" class="text-lg text-blue-500"></ion-icon>
-                            7 Days Replacement
+                <div class="p-10 md:p-12 flex-1 flex flex-col justify-center">
+                    <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brown-light mb-4">Order Insight</p>
+                    <h3 id="modal-title" class="text-2xl font-black text-brown mb-6 leading-tight italic">Product Title</h3>
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-2">
+                            <p class="text-4xl font-black text-brown tracking-tighter" id="modal-price">₹0</p>
+                            <span class="text-[10px] font-bold text-green-600 uppercase bg-green-50 px-2 py-1 rounded">Paid</span>
                         </div>
                     </div>
-                    <button onclick="closeProductModal()" class="w-full bg-[#5D4037] text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] transition-all">Back to Orders</button>
+                    <div class="space-y-5 mb-10">
+                        <div class="flex items-center gap-4 text-xs font-bold text-brown-light uppercase tracking-widest">
+                            <div class="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center text-gold">
+                                <ion-icon name="shield-checkmark" class="text-lg"></ion-icon>
+                            </div>
+                            HostelMart Verified
+                        </div>
+                        <div class="flex items-center gap-4 text-xs font-bold text-brown-light uppercase tracking-widest">
+                            <div class="w-8 h-8 rounded-full bg-brown/5 flex items-center justify-center text-brown-medium">
+                                <ion-icon name="refresh" class="text-lg"></ion-icon>
+                            </div>
+                            Standard Returns Apply
+                        </div>
+                    </div>
+                    <button onclick="closeProductModal()" class="w-full bg-brown text-cream py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-brown-medium transition-all shadow-xl shadow-brown/20">Close Preview</button>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>

@@ -5,16 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Detail | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="auth_global.js" defer></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f3f3; color: #0F1111; }
-        .amazon-link { color: #007185; font-size: 14px; text-decoration: none; }
-        .amazon-link:hover { color: #C7511F; text-decoration: underline; }
-        .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 20px; }
-        .btn-amazon { background: #FFD814; border: 1px solid #FCD200; border-radius: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 35px; font-size: 13px; font-weight: 500; }
-        .btn-amazon:hover { background: #F7CA00; }
+        :root {
+            --cream: #FDFBF7;
+            --cream-dark: #F5F5DC;
+            --brown: #3E2723;
+            --brown-medium: #5D4037;
+            --brown-light: #8D6E63;
+            --gold: #C5A059;
+            --gold-light: #FDF5E6;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--cream); 
+            color: var(--brown); 
+        }
+
+        .hostelmart-link { 
+            color: var(--brown-medium); 
+            font-size: 13px; 
+            text-decoration: none; 
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .hostelmart-link:hover { 
+            color: var(--gold); 
+        }
+
+        .card { 
+            background: white; 
+            border: 1px solid rgba(215, 204, 200, 0.5); 
+            border-radius: 24px; 
+            padding: 32px; 
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(93, 64, 55, 0.1);
+        }
+
+        .btn-hostelmart { 
+            background: var(--brown-medium); 
+            color: var(--cream);
+            border-radius: 12px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            width: 100%; 
+            height: 48px; 
+            font-size: 12px; 
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
+        }
+
+        .btn-hostelmart:hover { 
+            background: var(--brown); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(93, 64, 55, 0.2);
+        }
+
+        .btn-outline { 
+            background: transparent; 
+            border: 2px solid var(--brown-medium); 
+            border-radius: 12px; 
+            cursor: pointer; 
+            display: inline-block; 
+            padding: 10px 22px; 
+            text-align: center; 
+            font-size: 11px; 
+            font-weight: 800;
+            color: var(--brown-medium); 
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover { 
+            background-color: var(--brown-medium); 
+            color: var(--cream);
+        }
 
         /* Redesigned Mega Menu Styles */
         .mega-menu {
@@ -500,12 +581,12 @@
 
     <main class="container mx-auto px-4 py-8 max-w-6xl">
         <!-- Breadcrumbs -->
-        <nav class="mb-8 text-sm">
-            <a href="index.html" class="amazon-link">Your Account</a>
-            <span class="mx-1 text-gray-400">›</span>
-            <a href="Orders.html" class="amazon-link">Your Orders</a>
-            <span class="mx-1 text-gray-400">›</span>
-            <span id="breadcrumb-title" class="text-gray-600 truncate max-w-[200px] inline-block align-bottom">...</span>
+        <nav class="mb-10 flex items-center gap-2">
+            <a href="index.html" class="hostelmart-link opacity-60">Home</a>
+            <ion-icon name="chevron-forward-outline" class="text-[10px] text-brown-light"></ion-icon>
+            <a href="Orders.html" class="hostelmart-link opacity-60">Your Orders</a>
+            <ion-icon name="chevron-forward-outline" class="text-[10px] text-brown-light"></ion-icon>
+            <span id="breadcrumb-title" class="text-brown font-black text-[13px] uppercase tracking-widest truncate max-w-[300px]">...</span>
         </nav>
 
         <div id="loading" class="text-center py-20">
@@ -516,22 +597,32 @@
             <!-- Left Column -->
             <div class="lg:col-span-8 space-y-6">
                 <!-- Main Product Card -->
-                <div class="card flex flex-col md:flex-row gap-8 items-center md:items-start min-h-[300px]">
-                    <div class="w-full md:w-1/3 aspect-square bg-white flex items-center justify-center">
-                        <img id="product-img" src="" class="max-w-full max-h-full object-contain">
+                <div class="card flex flex-col md:flex-row gap-10 items-center md:items-start min-h-[350px]">
+                    <div class="w-full md:w-5/12 aspect-square bg-white flex items-center justify-center rounded-3xl border border-brown/5 shadow-inner p-8">
+                        <img id="product-img" src="" class="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-500">
                     </div>
-                    <div class="flex-1 space-y-4">
-                        <h1 id="product-title" class="text-3xl font-bold leading-tight">...</h1>
-                        <a href="#" class="amazon-link text-base">View product details</a>
+                    <div class="flex-1 space-y-6">
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brown-light">Order Insights</p>
+                        <h1 id="product-title" class="text-3xl font-black text-brown leading-tight italic">...</h1>
+                        <div class="flex items-center gap-3">
+                            <span class="bg-green-50 text-green-600 text-[10px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest">HostelMart Verified</span>
+                            <span class="text-brown-light/40 font-bold">|</span>
+                            <a href="#" class="hostelmart-link text-xs">View full product details</a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Review Section -->
-                <div class="card space-y-4">
-                    <h2 class="text-xl font-bold">How's your item?</h2>
-                    <div class="flex flex-col gap-2">
-                        <a href="#" class="amazon-link">Write a product review</a>
-                        <a href="#" class="amazon-link">Leave seller feedback</a>
+                <div class="card space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-gold/10 flex items-center justify-center text-gold text-2xl">
+                            <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                        </div>
+                        <h2 class="text-xl font-black text-brown uppercase tracking-tight">How's your item?</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="btn-outline">Write a product review</button>
+                        <button class="btn-outline">Leave seller feedback</button>
                     </div>
                 </div>
             </div>
@@ -539,30 +630,39 @@
             <!-- Right Column -->
             <div class="lg:col-span-4 space-y-4">
                 <!-- Buy Again Card -->
-                <div class="card !p-4">
-                    <button class="btn-amazon">
-                        <div class="w-6 h-6 bg-black/10 rounded-full flex items-center justify-center">
-                            <ion-icon name="refresh-outline" class="text-black"></ion-icon>
-                        </div>
+                <div class="card !p-6">
+                    <button class="btn-hostelmart">
+                        <ion-icon name="refresh-outline" class="text-xl"></ion-icon>
                         Buy it again
                     </button>
                 </div>
 
                 <!-- Order Info Card -->
-                <div class="card space-y-6">
+                <div class="card space-y-8">
                     <div>
-                        <h3 class="text-lg font-bold mb-3">Order info</h3>
-                        <a href="#" class="amazon-link">View order details</a>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-brown-light mb-2">Management</p>
+                        <h3 class="text-lg font-black text-brown mb-4">Order info</h3>
+                        <a href="#" class="hostelmart-link block text-sm border-b border-brown/5 pb-4">View order details</a>
                     </div>
                     
-                    <div class="space-y-4 border-t border-gray-100 pt-6 text-sm text-gray-600">
-                        <div>
-                            <p id="return-info">Return window closed on ...</p>
+                    <div class="space-y-6 pt-2">
+                        <div class="flex items-start gap-4">
+                            <ion-icon name="arrow-undo-outline" class="text-xl text-brown-light mt-1"></ion-icon>
+                            <div>
+                                <p class="text-[9px] font-black uppercase tracking-widest text-brown-light/60">Returns</p>
+                                <p id="return-info" class="text-sm font-bold text-brown">Return window closed on ...</p>
+                            </div>
                         </div>
-                        <div>
-                            <p id="delivery-info" class="font-medium text-gray-800">Delivered ...</p>
+                        <div class="flex items-start gap-4">
+                            <ion-icon name="checkmark-circle-outline" class="text-xl text-green-600 mt-1"></ion-icon>
+                            <div>
+                                <p class="text-[9px] font-black uppercase tracking-widest text-brown-light/60">Status</p>
+                                <p id="delivery-info" class="text-sm font-black text-brown italic">Delivered ...</p>
+                            </div>
                         </div>
                     </div>
+                    
+                    <button class="w-full btn-outline mt-4">Download Invoice</button>
                 </div>
             </div>
         </div>

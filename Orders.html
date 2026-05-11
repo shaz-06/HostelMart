@@ -168,10 +168,10 @@
                 <div class="relative flex-1 md:w-96">
                     <div class="search-bar-themed flex items-center">
                         <ion-icon name="search-outline" class="text-brown-light text-xl mr-3"></ion-icon>
-                        <input type="text" placeholder="Search all orders" class="w-full bg-transparent outline-none text-sm font-semibold text-brown">
+                        <input type="text" id="search-input" placeholder="Search all orders" class="w-full bg-transparent outline-none text-sm font-semibold text-brown">
                     </div>
                 </div>
-                <button class="bg-brown text-cream px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brown-medium transition-all ml-3 shadow-lg">Search</button>
+                <button id="search-btn" class="bg-brown text-cream px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brown-medium transition-all ml-3 shadow-lg">Search</button>
             </div>
         </div>
 
@@ -219,7 +219,25 @@
     </main>
 
     <script>
+        let cachedOrders = [];
+
         document.addEventListener('DOMContentLoaded', async () => {
+            // Setup Search Listeners
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+
+            if (searchInput) {
+                searchInput.addEventListener('keyup', (e) => {
+                    performSearch(e.target.value);
+                });
+            }
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', () => {
+                    performSearch(searchInput.value);
+                });
+            }
+
             // Check URL parameters first
             const urlParams = new URLSearchParams(window.location.search);
             const urlPhone = urlParams.get('phone');
@@ -326,20 +344,58 @@
 
                     if (allOrders.length > 0) {
                         allOrders.sort((a, b) => (b.createdAt || b.timestamp) - (a.createdAt || a.timestamp));
+                        cachedOrders = allOrders; // Cache for searching
                         renderOrders(allOrders);
                         document.getElementById('order-count-text').innerHTML = `<span class="font-bold">${allOrders.length} orders</span> tracked`;
                     } else {
+                        cachedOrders = [];
                         showNoOrdersState();
                     }
                 } else if (localOrders.length === 0) {
+                    cachedOrders = [];
                     showNoOrdersState();
                 }
             } catch (err) {
                 console.warn("Fetch Orders Error or Timeout:", err);
                 if (localOrders.length === 0) {
+                    cachedOrders = [];
                     showNoOrdersState();
                     // If it was a timeout/network error specifically, maybe show a small toast or note
                 }
+            }
+        }
+
+        function performSearch(query) {
+            if (!query || query.trim() === '') {
+                renderOrders(cachedOrders);
+                document.getElementById('order-count-text').innerHTML = `<span class="font-bold">${cachedOrders.length} orders</span> tracked`;
+                return;
+            }
+
+            const q = query.toLowerCase().trim();
+            const filtered = cachedOrders.filter(order => {
+                const item = order.items && order.items[0] ? order.items[0] : {};
+                const title = (item.title || '').toLowerCase();
+                const orderId = (order.orderId || '').toLowerCase();
+                const customer = (order.customerName || '').toLowerCase();
+                
+                return title.includes(q) || orderId.includes(q) || customer.includes(q);
+            });
+
+            if (filtered.length > 0) {
+                document.getElementById('no-orders').classList.add('hidden');
+                document.getElementById('orders-list').classList.remove('hidden');
+                renderOrders(filtered);
+                document.getElementById('order-count-text').innerHTML = `<span class="font-bold">${filtered.length} results</span> found`;
+            } else {
+                document.getElementById('orders-list').classList.add('hidden');
+                document.getElementById('no-orders').classList.remove('hidden');
+                document.getElementById('order-count-text').innerHTML = `<span class="font-bold">0 results</span> found`;
+                
+                // Update no-orders text for search
+                const noOrdersDiv = document.getElementById('no-orders');
+                noOrdersDiv.querySelector('h3').textContent = 'No matching orders';
+                noOrdersDiv.querySelector('p').textContent = `We couldn't find any orders matching "${query}". Try a different search term.`;
             }
         }
 

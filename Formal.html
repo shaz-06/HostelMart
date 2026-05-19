@@ -1,518 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HostelMart | Premium Formal Wear & Essentials</title>
+    <title>Formal Wear | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="/cart_global.js"></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        h1,
-        h2,
-        h3,
-        .serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-
-        .transition-all {
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #5D4037;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-            animation: fadeIn 0.3s ease-out forwards;
-        }
+        body { font-family: 'Outfit', sans-serif; background-color: #f8f9fa; color: #1a1a1a; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
     </style>
 </head>
-
-<body class="bg-stone-50 text-stone-900">
-
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-[#F5F5DC]/80 backdrop-blur-md border-b border-stone-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex-shrink-0">
-                    <a href="index.html" class="text-2xl font-bold tracking-widest uppercase serif hover:opacity-80 transition-opacity">
-                        <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
-                    </a>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center text-sm uppercase tracking-widest font-medium">
-                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Suits</a>
-                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Dresses</a>
-                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Accessories</a>
-                    <a href="javascript:void(0)" class="hover:text-stone-500 transition-colors">Student Deals</a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <!-- Search Input and Button -->
-                    <div class="flex items-center relative group">
-                        <input type="text" id="search-input" placeholder="Search products..."
-                            class="w-0 opacity-0 px-4 py-2 bg-[#FDF5E6] rounded-full text-xs outline-none transition-all duration-500 focus:w-48 focus:opacity-100"
-                            oninput="handleSearch()">
-                        <button onclick="toggleSearch()" class="p-2 hover:bg-[#FDF5E6] rounded-full transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8" />
-                                <path d="m21 21-4.3-4.3" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="flex items-center gap-8 text-[#5D4037] font-bold text-sm">
-                        <a href="Login.html" class="flex items-center gap-2 cursor-pointer hover:text-black group">
-                            <ion-icon name="person-circle-outline"
-                                class="text-2xl text-gray-400 group-hover:text-black transition-colors"></ion-icon>
-                            <span>Login</span>
-                        </a>
-
-                        <!-- More Dropdown -->
-                        <div class="hidden md:flex relative group py-2">
-                            <div class="flex items-center gap-1 cursor-pointer hover:text-black group">
-                                <span>More</span>
-                                <ion-icon name="chevron-down-outline" class="text-xs group-hover:rotate-180 transition-transform"></ion-icon>
-                            </div>
-                            
-                            <!-- More Dropdown Menu -->
-                            <div class="absolute top-full right-0 mt-1 w-60 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 py-3 hidden group-hover:block z-50 animate-fadeIn">
-                                <div class="px-6 py-2 border-b border-gray-50 mb-2">
-                                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">More Options</p>
-                                </div>
-                                <div class="space-y-0.5">
-                                    <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                        <ion-icon name="storefront-outline" class="text-lg text-gray-400"></ion-icon>
-                                        <span class="text-sm font-medium">Become a Seller</span>
-                                    </a>
-                                    <a href="Notification.html" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                    <ion-icon name="notifications-outline" class="text-lg text-gray-400"></ion-icon>
-                                        <span class="text-sm font-medium">Notification Settings</span>
-                                    </a>
-                                    <a href="https://wa.me/916363849864" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                        <ion-icon name="headset-outline" class="text-lg text-gray-400"></ion-icon>
-                                        <span class="text-sm font-medium">24x7 Customer Care</span>
-                                    </a>
-                                    <a href="javascript:void(0)" class="flex items-center gap-3 px-6 py-2.5 hover:bg-gray-50 transition-colors">
-                                        <ion-icon name="trending-up-outline" class="text-lg text-gray-400"></ion-icon>
-                                        <span class="text-sm font-medium">Advertise on HostelMart</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-2 cursor-pointer hover:text-black relative" onclick="toggleCart()">
-                            <ion-icon name="bag-handle-outline" class="text-2xl"></ion-icon>
-                            <span id="cart-count"
-                                class="absolute -top-1 -right-1 bg-[#5D4037] text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="relative h-[80vh] flex items-center justify-center overflow-hidden pt-20">
-        <div class="absolute inset-0 z-0">
-            <div class="w-full h-full bg-stone-200 flex items-center justify-center">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#d6d3d1;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#78716c;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grad1)" />
-                    <text x="50%" y="50%" font-family="Playfair Display" font-size="40" fill="white" opacity="0.1"
-                        text-anchor="middle"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> EXCLUSIVES</text>
-                </svg>
-            </div>
-            <div class="absolute inset-0 bg-[#5D4037]/20"></div>
-        </div>
-
-        <div class="relative z-10 text-center px-4">
-            <h1 class="text-5xl md:text-8xl text-white mb-6 tracking-tight">The Interview Ready Collection</h1>
-            <p class="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light tracking-wide">
-                Professional formal wear delivered straight to your hostel. Dress for the career you want.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#products"
-                    class="bg-[#F5F5DC] text-stone-900 px-10 py-4 text-sm uppercase tracking-widest hover:bg-[#FDF5E6] transition-all font-semibold">Shop
-                    Men</a>
-                <a href="#products"
-                    class="bg-transparent border border-white text-white px-10 py-4 text-sm uppercase tracking-widest hover:bg-[#F5F5DC] hover:text-stone-900 transition-all font-semibold">Shop
-                    Women</a>
+<body class="antialiased">
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-gray-700"></ion-icon>
+                    <span class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold cart-badge">0</span>
+                </a>
             </div>
         </div>
     </header>
 
-    <!-- Product Filter Section -->
-    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-stone-200 pb-8">
-            <div>
-                <h2 class="text-3xl md:text-4xl mb-2"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> Curated</h2>
-                <p class="text-stone-500 font-light">Affordable luxury for students and young professionals.</p>
-            </div>
-            <div class="flex gap-4 mt-6 md:mt-0 overflow-x-auto pb-2 w-full md:w-auto">
-                <button onclick="filterCategory('all')"
-                    class="category-btn active px-4 py-2 border-b-2 border-stone-900 text-sm font-medium">All</button>
-                <button onclick="filterCategory('suits')"
-                    class="category-btn px-4 py-2 border-b-2 border-transparent text-stone-500 text-sm font-medium hover:text-stone-900">Suits</button>
-                <button onclick="filterCategory('dresses')"
-                    class="category-btn px-4 py-2 border-b-2 border-transparent text-stone-500 text-sm font-medium hover:text-stone-900">Dresses</button>
-                <button onclick="filterCategory('accessories')"
-                    class="category-btn px-4 py-2 border-b-2 border-transparent text-stone-500 text-sm font-medium hover:text-stone-900">Accessories</button>
-            </div>
-        </div>
-
-        <!-- Product Grid -->
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 min-h-[400px]">
-            <!-- Products will be injected here via JavaScript -->
-        </div>
-    </section>
-
-    <!-- Featured Banner -->
-    <section class="bg-stone-900 text-white py-24 my-20">
-        <div class="max-w-5xl mx-auto px-4 text-center">
-            <span class="text-xs uppercase tracking-[0.3em] text-stone-400 mb-6 block">Student Advantage</span>
-            <h2 class="text-4xl md:text-6xl mb-8 leading-tight">Elevate your campus <br> presentation style.</h2>
-            <p class="text-stone-400 text-lg mb-12 max-w-2xl mx-auto font-light">
-                From college formals to internship interviews, <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> provides the perfect fit for your academic
-                and professional journey.
-            </p>
-            <button
-                class="border border-white/30 px-12 py-5 text-sm uppercase tracking-widest hover:bg-[#F5F5DC] hover:text-stone-900 transition-all">View
-                Student Discount Guide</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[#FDF5E6] pt-20 pb-10 border-t border-stone-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-            <div class="col-span-1 md:col-span-1">
-                <a href="index.html" class="text-2xl font-bold tracking-widest uppercase serif block mb-6 hover:opacity-80 transition-opacity">
-                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>
-                </a>
-                <p class="text-stone-500 text-sm leading-relaxed">
-                    Premium formal wear tailored for the modern student. Quality, affordability, and convenience.
-                </p>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-widest font-bold mb-6">Store</h4>
-                <ul class="space-y-4 text-sm text-stone-500">
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Interview Suits</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Graduation Gowns</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Daily Formals</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Footwear</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-widest font-bold mb-6">Assistance</h4>
-                <ul class="space-y-4 text-sm text-stone-500">
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Hostel Delivery Info</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Size Exchange</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Student Verification</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-stone-900">Help Center</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-widest font-bold mb-6">Social</h4>
-                <div class="flex space-x-4">
-                    <a href="javascript:void(0)" class="text-stone-400 hover:text-stone-900">Instagram</a>
-                    <a href="javascript:void(0)" class="text-stone-400 hover:text-stone-900">LinkedIn</a>
-                    <a href="javascript:void(0)" class="text-stone-400 hover:text-stone-900">Campus Hub</a>
-                </div>
-            </div>
-        </div>
-        <div
-            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-stone-400 border-t border-stone-200 pt-10">
-            &copy; 2026 <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span>. All rights reserved. Professionalism simplified for students.
-        </div>
-    </footer>
-
-    <!-- Cart Sidebar -->
-    <div id="cart-sidebar"
-        class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#F5F5DC] z-[100] shadow-2xl translate-x-full transition-transform duration-500 flex flex-col">
-        <div class="p-6 border-b border-stone-200 flex justify-between items-center">
-            <h2 class="text-xl serif uppercase tracking-widest"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span> Bag</h2>
-            <button onclick="toggleCart()" class="p-2 hover:bg-[#FDF5E6] rounded-full">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 6 6 18M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-6">
-            <div id="empty-cart-msg" class="text-center text-stone-400 mt-20 italic">Your bag is currently empty.</div>
-        </div>
-        <div class="p-6 border-t border-stone-200 bg-stone-50">
-            <div class="flex justify-between mb-4 text-lg">
-                <span>Subtotal</span>
-                <span id="cart-total" class="font-bold">₹0.00</span>
-            </div>
-            <button
-                class="w-full bg-stone-900 text-white py-4 text-sm uppercase tracking-widest hover:bg-stone-800 transition-all font-bold">Checkout
-                to Hostel</button>
-        </div>
-    </div>
-    <div id="cart-overlay" class="fixed inset-0 bg-[#5D4037]/40 z-[99] hidden opacity-0 transition-opacity"
-        onclick="toggleCart()"></div>
-
-    <!-- Toast Notification -->
-    <div id="toast"
-        class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-6 py-3 rounded-full text-sm font-medium z-[200] opacity-0 translate-y-10 transition-all pointer-events-none shadow-xl">
-        Added to bag
-    </div>
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-black text-gray-900 mb-8">Formal Wear Collection</h1>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="product-grid"></div>
+    </main>
 
     <script>
-        const products = [
-            { id: 1, name: "Midnight Velvet Tuxedo", price: 45999, category: "suits", color: "Midnight Blue", img: "https://images.unsplash.com/photo-1594932224030-940955d2c0bb?auto=format&fit=crop&q=80&w=500" },
-            { id: 2, name: "Silk Crepe Evening Gown", price: 62500, category: "dresses", color: "Emerald", img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=500" },
-            { id: 3, name: "Italian Wool Three-Piece", price: 55000, category: "suits", color: "Charcoal", img: "https://images.unsplash.com/photo-1593032465175-481ac7f401a0?auto=format&fit=crop&q=80&w=500" },
-            { id: 4, name: "Lace Overlay Cocktail Dress", price: 36999, category: "dresses", color: "Onyx", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=500" },
-            { id: 5, name: "Nappa Leather Dress Shoes", price: 12499, category: "accessories", color: "Espresso", img: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&q=80&w=500" },
-            { id: 6, name: "Mother of Pearl Cufflinks", price: 4999, category: "accessories", color: "Silver", img: "https://images.unsplash.com/photo-1533228100845-08145b01de14?auto=format&fit=crop&q=80&w=500" },
-            { id: 7, name: "Satin Lapel Dinner Jacket", price: 32500, category: "suits", color: "Ivory", img: "https://images.unsplash.com/photo-1555069519-03efed89c5ce?auto=format&fit=crop&q=80&w=500" },
-            { id: 8, name: "Sequined Floor Length Gown", price: 78999, category: "dresses", color: "Champagne", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500" }
-        ];
-
-        let cart = [];
-        let currentCategory = 'all';
-        let currentSearch = '';
-
-        function renderProducts(category = 'all', searchTerm = '') {
+        async function fetchProducts() {
+            const res = await fetch('/api/products?category=Fashion&subcategory=Formal');
+            const products = await res.json();
             const grid = document.getElementById('product-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-
-            let filtered = products;
-
-            // Apply category filter
-            if (category !== 'all') {
-                filtered = filtered.filter(p => p.category === category);
-            }
-
-            // Apply search filter
-            if (searchTerm.trim() !== '') {
-                const term = searchTerm.toLowerCase();
-                filtered = filtered.filter(p =>
-                    p.name.toLowerCase().includes(term) ||
-                    p.color.toLowerCase().includes(term)
-                );
-            }
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full flex flex-col items-center justify-center py-20 text-stone-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" class="mb-4 opacity-50"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                        <p class="italic text-lg">No products match "${searchTerm}"</p>
-                        <button onclick="resetSearch()" class="mt-4 text-xs uppercase tracking-widest underline underline-offset-4 hover:text-stone-900 transition-all">Show All Products</button>
+            grid.innerHTML = products.map(p => `
+                <div class="product-card bg-white rounded-3xl border border-gray-100 overflow-hidden transition-all duration-300 flex flex-col group shadow-sm">
+                    <div class="relative aspect-[3/4] overflow-hidden bg-gray-50 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                     </div>
-                `;
-                return;
-            }
-
-            filtered.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'product-card group cursor-pointer';
-                card.innerHTML = `
-                    <div class="relative overflow-hidden bg-stone-200 aspect-[3/4] mb-4">
-                        <img src="${p.img}" alt="${p.name}" class="product-image object-cover w-full h-full transition-all duration-700" 
-                             onerror="this.src='https://placehold.co/400x600?text=${p.name.split(' ').join('+')}'">
-                        <button onclick="addToCart(${p.id}, event)" class="absolute bottom-4 left-4 right-4 bg-[#F5F5DC]/90 backdrop-blur text-stone-900 py-3 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                            Add to Bag
-                        </button>
-                    </div>
-                    <div class="flex justify-between items-start mb-1">
-                        <h3 class="text-sm font-medium tracking-wide">${p.name}</h3>
-                        <span class="text-sm text-stone-500 italic">₹${p.price.toLocaleString('en-IN')}</span>
-                    </div>
-                    <p class="text-[10px] uppercase tracking-widest text-stone-400">${p.color}</p>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Toggle search bar visibility
-        function toggleSearch() {
-            const input = document.getElementById('search-input');
-            const isHidden = input.classList.contains('w-0');
-
-            if (isHidden) {
-                input.classList.remove('w-0', 'opacity-0');
-                input.classList.add('w-48', 'opacity-100');
-                input.focus();
-            } else if (input.value === '') {
-                input.classList.add('w-0', 'opacity-0');
-                input.classList.remove('w-48', 'opacity-100');
-            }
-        }
-
-        // Handle typing in search input
-        function handleSearch() {
-            currentSearch = document.getElementById('search-input').value;
-            renderProducts(currentCategory, currentSearch);
-        }
-
-        // Reset search to empty
-        function resetSearch() {
-            const input = document.getElementById('search-input');
-            input.value = '';
-            currentSearch = '';
-            renderProducts(currentCategory, '');
-        }
-
-        function filterCategory(cat) {
-            currentCategory = cat;
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active', 'border-stone-900');
-                btn.classList.add('border-transparent', 'text-stone-500');
-            });
-            event.target.classList.add('active', 'border-stone-900');
-            event.target.classList.remove('border-transparent', 'text-stone-500');
-            renderProducts(currentCategory, currentSearch);
-        }
-
-        function addToCart(id, event) {
-            event.stopPropagation();
-            const product = products.find(p => p.id === id);
-            const exists = cart.find(item => item.id === id);
-
-            if (exists) {
-                exists.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-
-            updateCartUI();
-            showToast(`Added ${product.name} to bag`);
-        }
-
-        function updateCartUI() {
-            const container = document.getElementById('cart-items');
-            const count = document.getElementById('cart-count');
-            const total = document.getElementById('cart-total');
-
-            const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            if (count) count.innerText = totalQty;
-            if (total) total.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
-
-            if (cart.length === 0) {
-                container.innerHTML = '<div id="empty-cart-msg" class="text-center text-stone-400 mt-20 italic">Your bag is currently empty.</div>';
-                return;
-            }
-
-            container.innerHTML = '';
-
-            cart.forEach(item => {
-                const itemEl = document.createElement('div');
-                itemEl.className = 'flex gap-4 items-center border-b border-stone-100 pb-4';
-                itemEl.innerHTML = `
-                    <div class="w-20 h-24 bg-[#FDF5E6] flex-shrink-0">
-                        <img src="${item.img}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="flex-grow">
-                        <h4 class="text-xs font-bold uppercase tracking-wider mb-1">${item.name}</h4>
-                        <p class="text-xs text-stone-400 mb-2">${item.color}</p>
-                        <div class="flex items-center gap-4">
-                            <div class="flex items-center border border-stone-200">
-                                <button onclick="changeQty(${item.id}, -1)" class="px-2 py-1 text-stone-500 hover:text-stone-900">-</button>
-                                <span class="px-2 py-1 text-xs">${item.quantity}</span>
-                                <button onclick="changeQty(${item.id}, 1)" class="px-2 py-1 text-stone-500 hover:text-stone-900">+</button>
+                    <div class="p-5 flex flex-col flex-1">
+                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${p.brand}</span>
+                        <h3 class="font-bold text-gray-900 text-sm line-clamp-2 mb-2 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                        <div class="mt-auto">
+                            <span class="text-lg font-black text-gray-900">₹${p.price.toLocaleString('en-IN')}</span>
+                            <div class="grid grid-cols-2 gap-2 mt-4">
+                                <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="bg-gray-100 text-gray-900 py-3 rounded-xl font-bold text-xs hover:bg-gray-200 transition-all uppercase tracking-widest">Add</button>
+                                <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white py-3 rounded-xl font-bold text-xs hover:bg-[#3E2723] transition-all uppercase tracking-widest">Buy</button>
                             </div>
-                            <span class="text-xs font-bold">₹${(item.price * item.quantity).toLocaleString('en-IN')}</span>
                         </div>
                     </div>
-                    <button onclick="removeFromCart(${item.id})" class="text-stone-300 hover:text-red-500 transition-colors">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                    </button>
-                `;
-                container.appendChild(itemEl);
-            });
+                </div>
+            `).join('');
+            if (window.syncCartButtons) window.syncCartButtons();
         }
-
-        function changeQty(id, delta) {
-            const item = cart.find(i => i.id === id);
-            if (!item) return;
-
-            item.quantity += delta;
-            if (item.quantity <= 0) {
-                removeFromCart(id);
-            } else {
-                updateCartUI();
-            }
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(i => i.id !== id);
-            updateCartUI();
-        }
-
-        function toggleCart() {
-            const sidebar = document.getElementById('cart-sidebar');
-            const overlay = document.getElementById('cart-overlay');
-            const isOpen = sidebar.style.transform === 'translateX(0px)';
-
-            if (isOpen) {
-                sidebar.style.transform = 'translateX(100%)';
-                overlay.style.opacity = '0';
-                setTimeout(() => overlay.classList.add('hidden'), 500);
-            } else {
-                overlay.classList.remove('hidden');
-                setTimeout(() => {
-                    sidebar.style.transform = 'translateX(0px)';
-                    overlay.style.opacity = '1';
-                }, 10);
-            }
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.style.opacity = '1';
-            toast.style.transform = 'translate(-50%, 0)';
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translate(-50%, 20px)';
-            }, 3000);
-        }
-
-        window.onload = () => {
-            renderProducts();
-            window.addEventListener('scroll', () => {
-                const nav = document.querySelector('nav');
-                if (window.scrollY > 50) {
-                    nav.classList.add('py-2');
-                } else {
-                    nav.classList.remove('py-2');
-                }
-            });
-        };
+        fetchProducts();
     </script>
 </body>
-
 </html>

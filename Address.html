@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
     <script src="auth_global.js" defer></script>
+    <script src="profile_global.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -171,7 +172,7 @@
     <header class="hostelmart-header py-3">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-12 flex-1">
-                <a href="index.html" class="flex items-center gap-1 no-underline">
+                <a href="/index.html" class="flex items-center gap-1 no-underline">
                     <span class="font-black italic text-2xl flex items-center">
                         <span class="text-[#8D6E63]">Hostel</span>
                         <span class="text-[#C8A951] ml-1">Mart</span>
@@ -296,7 +297,7 @@
             btn.classList.add('active');
         }
 
-        function handleSaveAddress() {
+        async function handleSaveAddress() {
             const house = document.getElementById('house-name').value;
             const roomNumber = document.getElementById('room-number').value;
             const fullName = document.getElementById('full-name').value;
@@ -309,19 +310,22 @@
             }
 
             const addressData = {
-                house,
-                roomNumber,
-                fullName,
-                mobile,
-                locality,
-                type: addressType,
-                timestamp: new Date().toISOString()
+                hostel: house,
+                room: roomNumber,
+                name: fullName,
+                phone: mobile,
+                address: locality,
+                addressType: addressType
             };
 
-            // Save to localStorage (consistent with address_global.js)
-            const fullAddressString = `${house}, ${locality}`;
-            localStorage.setItem('deliveryAddress', fullAddressString);
-            localStorage.setItem('detailedAddress', JSON.stringify(addressData));
+            // Sync with global profile manager
+            if (window.ProfileManager) {
+                await window.ProfileManager.updateProfile(addressData);
+            } else {
+                // Fallback for standalone usage
+                localStorage.setItem('deliveryAddress', `${house}, ${locality}`);
+                localStorage.setItem('detailedAddress', JSON.stringify(addressData));
+            }
             
             // Show success and redirect
             const saveBtn = document.querySelector('.save-btn');
@@ -368,6 +372,23 @@
                 });
 
                 window.addressMap = map;
+            }
+
+            // Pre-fill existing data
+            if (window.ProfileManager) {
+                window.ProfileManager.getProfile().then(profile => {
+                    if (profile) {
+                        if (profile.hostel) document.getElementById('house-name').value = profile.hostel;
+                        if (profile.room) document.getElementById('room-number').value = profile.room;
+                        if (profile.name) document.getElementById('full-name').value = profile.name;
+                        if (profile.phone) document.getElementById('mobile-number').value = profile.phone;
+                        if (profile.address) document.getElementById('current-locality').textContent = profile.address;
+                        if (profile.addressType) {
+                            const btn = Array.from(document.querySelectorAll('.type-btn')).find(b => b.textContent.trim().includes(profile.addressType));
+                            if (btn) setType(profile.addressType, btn);
+                        }
+                    }
+                });
             }
         });
     </script>

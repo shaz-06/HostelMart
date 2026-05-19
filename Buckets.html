@@ -7,277 +7,64 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="/cart_global.js"></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #FDFBF7;
-            color: #3E2723;
-        }
-        .filter-chip {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .filter-chip.active {
-            background-color: #5D4037;
-            color: #FDFBF7;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
-        }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1); }
     </style>
 </head>
 <body class="antialiased">
-
-    <!-- Header Section (Simplified for Buckets) -->
     <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8]">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2">
-                <span class="text-2xl font-black italic">
-                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span>
-                </span>
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></span>
             </a>
             <div class="flex items-center gap-6">
-                <a href="Cart.html" class="relative group">
+                <a href="/Cart.html" class="relative group">
                     <ion-icon name="cart-outline" class="text-2xl text-[#5D4037]"></ion-icon>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                    <span class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold cart-badge">0</span>
                 </a>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <!-- Page Title & Breadcrumbs -->
         <div class="mb-8">
             <nav class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest flex items-center gap-2">
-                <a href="index.html">Home</a>
-                <ion-icon name="chevron-forward"></ion-icon>
-                <a href="Home.html">Home Essentials</a>
-                <ion-icon name="chevron-forward"></ion-icon>
-                <span class="text-[#5D4037]">Buckets</span>
+                <a href="/index.html">Home</a> <ion-icon name="chevron-forward"></ion-icon> <span class="text-[#5D4037]">Buckets</span>
             </nav>
             <h1 class="text-3xl font-black text-[#5D4037]">Bathroom Buckets & Mugs</h1>
-            <p class="text-gray-500 text-sm mt-1">Durable, stylish and space-saving essentials for your hostel bathroom.</p>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Sidebar Filters (Desktop) -->
-            <aside class="hidden lg:block w-64 space-y-8">
-                <div>
-                    <h3 class="font-black text-sm uppercase tracking-widest text-[#8D6E63] mb-4">Brands</h3>
-                    <div class="space-y-2" id="brand-filters">
-                        <!-- Dynamic Brands -->
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="font-black text-sm uppercase tracking-widest text-[#8D6E63] mb-4">Capacity</h3>
-                    <div class="space-y-2" id="capacity-filters">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" value="5L" class="filter-check hidden">
-                            <div class="w-5 h-5 border-2 border-[#D7CCC8] rounded group-hover:border-[#5D4037] transition-all"></div>
-                            <span class="text-sm font-semibold text-gray-600">5L - 10L</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" value="15L" class="filter-check hidden">
-                            <div class="w-5 h-5 border-2 border-[#D7CCC8] rounded group-hover:border-[#5D4037] transition-all"></div>
-                            <span class="text-sm font-semibold text-gray-600">15L - 20L</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" value="25L" class="filter-check hidden">
-                            <div class="w-5 h-5 border-2 border-[#D7CCC8] rounded group-hover:border-[#5D4037] transition-all"></div>
-                            <span class="text-sm font-semibold text-gray-600">25L+</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="font-black text-sm uppercase tracking-widest text-[#8D6E63] mb-4">Price Range</h3>
-                    <div class="space-y-2">
-                        <input type="range" id="price-range" min="0" max="2000" step="100" class="w-full accent-[#5D4037]">
-                        <div class="flex justify-between text-xs font-bold text-gray-400">
-                            <span>₹0</span>
-                            <span id="price-val">₹2000</span>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Main Product Area -->
-            <div class="flex-1">
-                <!-- Sorting & View Controls -->
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-[#F5F5DC]/30 p-4 rounded-2xl border border-[#D7CCC8]/50">
-                    <div class="flex items-center gap-4">
-                        <span class="text-sm font-bold text-gray-500"><span id="product-count">0</span> Products</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <span class="text-sm font-bold text-[#5D4037]">Sort By:</span>
-                        <select id="sort-select" class="bg-white border border-[#D7CCC8] rounded-xl px-4 py-2 text-sm font-bold text-[#5D4037] outline-none">
-                            <option value="popularity">Popularity</option>
-                            <option value="newest">Newest First</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Product Grid -->
-                <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-                    <!-- Products will be loaded here -->
-                </div>
-
-                <!-- Loading State -->
-                <div id="loading" class="hidden py-20 text-center">
-                    <div class="inline-block w-8 h-8 border-4 border-[#5D4037] border-t-transparent rounded-full animate-spin"></div>
-                    <p class="mt-4 font-bold text-[#5D4037]">Loading Buckets...</p>
-                </div>
-            </div>
-        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="product-grid"></div>
     </main>
 
     <script>
-        let allProducts = [];
-        let filters = {
-            brands: [],
-            capacities: [],
-            maxPrice: 2000,
-            sort: 'popularity'
-        };
-
         async function fetchProducts() {
-            document.getElementById('loading').classList.remove('hidden');
-            try {
-                const response = await fetch('/api/products?category=Home&subcategory=Bathroom Essentials');
-                const data = await response.json();
-                allProducts = data;
-                renderBrands();
-                applyFilters();
-            } catch (error) {
-                console.error("Error fetching products:", error);
-            }
-            document.getElementById('loading').classList.add('hidden');
-        }
-
-        function renderBrands() {
-            const brands = [...new Set(allProducts.map(p => p.brand))];
-            const brandContainer = document.getElementById('brand-filters');
-            brandContainer.innerHTML = brands.map(brand => `
-                <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" value="${brand}" class="brand-check hidden" onchange="toggleBrand('${brand}')">
-                    <div class="w-5 h-5 border-2 border-[#D7CCC8] rounded group-hover:border-[#5D4037] transition-all brand-box"></div>
-                    <span class="text-sm font-semibold text-gray-600">${brand}</span>
-                </label>
-            `).join('');
-        }
-
-        function toggleBrand(brand) {
-            const index = filters.brands.indexOf(brand);
-            if (index > -1) filters.brands.splice(index, 1);
-            else filters.brands.push(brand);
-            
-            // Update UI
-            const boxes = document.querySelectorAll('.brand-box');
-            const checks = document.querySelectorAll('.brand-check');
-            checks.forEach((c, i) => {
-                if (filters.brands.includes(c.value)) {
-                    boxes[i].classList.add('bg-[#5D4037]', 'border-[#5D4037]');
-                } else {
-                    boxes[i].classList.remove('bg-[#5D4037]', 'border-[#5D4037]');
-                }
-            });
-            
-            applyFilters();
-        }
-
-        function applyFilters() {
-            let filtered = allProducts.filter(p => {
-                const brandMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
-                const priceMatch = p.price <= filters.maxPrice;
-                return brandMatch && priceMatch;
-            });
-
-            // Sorting
-            if (filters.sort === 'price-low') filtered.sort((a, b) => a.price - b.price);
-            else if (filters.sort === 'price-high') filtered.sort((a, b) => b.price - a.price);
-            else if (filters.sort === 'popularity') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-            else if (filters.sort === 'newest') filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-            renderProducts(filtered);
-        }
-
-        function renderProducts(products) {
+            const res = await fetch('/api/products?category=Home&subcategory=Bathroom Essentials');
+            const products = await res.json();
             const grid = document.getElementById('product-grid');
-            document.getElementById('product-count').textContent = products.length;
-            
-            if (products.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center font-bold text-gray-400">No products found matching your filters.</div>`;
-                return;
-            }
-
             grid.innerHTML = products.map(p => `
-                <div class="product-card bg-white rounded-3xl border border-[#D7CCC8]/50 overflow-hidden transition-all duration-300 flex flex-col">
-                    <div class="relative aspect-square overflow-hidden bg-gray-100 cursor-pointer" onclick="window.location.href='ProductDetail.html?slug=${p.slug}'">
-                        <img src="${p.image}" class="w-full h-full object-cover" alt="${p.name}">
-                        ${p.discount ? `<div class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded-full">${p.discount}</div>` : ''}
-                        ${p.trending ? `<div class="absolute top-4 right-4 bg-yellow-400 text-[#5D4037] text-[10px] font-black px-2 py-1 rounded-full">TRENDING</div>` : ''}
+                <div class="product-card bg-white rounded-3xl border border-[#D7CCC8]/50 overflow-hidden transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-gray-100 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                     </div>
                     <div class="p-4 flex flex-col flex-1">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-tighter">${p.brand}</span>
-                            <div class="flex items-center gap-1 text-yellow-500 text-[10px] font-bold">
-                                <ion-icon name="star"></ion-icon>
-                                <span>${p.rating || '4.0'}</span>
-                            </div>
-                        </div>
-                        <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 mb-2 cursor-pointer" onclick="window.location.href='ProductDetail.html?slug=${p.slug}'">${p.name}</h3>
+                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-tighter">${p.brand}</span>
+                        <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 mb-2 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
                         <div class="mt-auto">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="text-lg font-black text-[#5D4037]">₹${p.price.toLocaleString('en-IN')}</span>
-                                ${p.originalPrice ? `<span class="text-xs text-gray-400 line-through">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <button onclick="addToCart('${p.slug}', event)" class="bg-[#F5F5DC] text-[#5D4037] py-2.5 rounded-xl font-bold text-xs hover:bg-[#D7CCC8] transition-all">Add</button>
-                                <button onclick="buyNow('${p.slug}')" class="bg-[#5D4037] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-[#3E2723] transition-all">Buy Now</button>
+                            <span class="text-lg font-black text-[#5D4037]">₹${p.price}</span>
+                            <div class="grid grid-cols-2 gap-2 mt-3">
+                                <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="bg-[#F5F5DC] text-[#5D4037] py-2.5 rounded-xl font-bold text-xs hover:bg-[#D7CCC8] transition-all">Add</button>
+                                <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-[#3E2723] transition-all">Buy</button>
                             </div>
                         </div>
                     </div>
                 </div>
             `).join('');
+            if (window.syncCartButtons) window.syncCartButtons();
         }
-
-        function addToCart(slug, e) {
-            e.stopPropagation();
-            // Logic to add to cart (stored in localStorage or DB)
-            alert("Added to cart: " + slug);
-            updateCartCount();
-        }
-
-        function buyNow(slug) {
-            window.location.href = `Checkout.html?slug=${slug}`;
-        }
-
-        function updateCartCount() {
-            // Placeholder logic
-            document.getElementById('cart-count').textContent = "1";
-        }
-
-        // Event Listeners
-        document.getElementById('sort-select').addEventListener('change', (e) => {
-            filters.sort = e.target.value;
-            applyFilters();
-        });
-
-        document.getElementById('price-range').addEventListener('input', (e) => {
-            filters.maxPrice = parseInt(e.target.value);
-            document.getElementById('price-val').textContent = `₹${filters.maxPrice}`;
-            applyFilters();
-        });
-
-        // Initialize
         fetchProducts();
-        updateCartCount();
     </script>
 </body>
 </html>

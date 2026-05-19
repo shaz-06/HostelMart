@@ -5,185 +5,655 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="/cart_global.js"></script>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #FDFBF7;
-            color: #3E2723;
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a1a;
         }
-        .main-image-container:hover img {
-            transform: scale(1.05);
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .sticky-gallery {
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .zoom-container {
+            overflow: hidden;
+            cursor: crosshair;
+        }
+        .zoom-container img {
+            transition: transform 0.3s ease-out;
+        }
+        .zoom-container:hover img {
+            transform: scale(1.5);
+        }
+        
+        .rating-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .rating-fill {
+            height: 100%;
+            background: #4caf50;
+        }
+        
+        .chip {
+            transition: all 0.2s;
+        }
+        .chip.active {
+            background-color: #5D4037;
+            color: white;
+            border-color: #5D4037;
+        }
+        
+        @keyframes skeleton-loading {
+            0% { background-color: #f0f0f0; }
+            100% { background-color: #e0e0e0; }
+        }
+        .skeleton {
+            animation: skeleton-loading 1s linear infinite alternate;
+        }
+
+        .product-card-similar {
+            min-width: 200px;
+        }
+        
+        .sticky-mobile-actions {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+            z-index: 50;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .sticky-mobile-actions { display: flex; }
+            .desktop-actions { display: none; }
         }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header Section -->
-    <header class="bg-[#F5F5DC] border-b border-[#D7CCC8]">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="text-2xl font-black italic">
-                <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span>
-            </a>
-            <a href="Cart.html" class="relative group">
-                <ion-icon name="cart-outline" class="text-2xl text-[#5D4037]"></ion-icon>
-            </a>
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="/index.html" class="text-2xl font-black italic">
+                    <span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span>
+                </a>
+                <div class="hidden md:flex items-center bg-gray-100 px-4 py-2 rounded-xl w-96">
+                    <ion-icon name="search-outline" class="text-gray-400 mr-2"></ion-icon>
+                    <input type="text" placeholder="Search for products, brands and more" class="bg-transparent border-none outline-none text-sm w-full">
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex flex-col items-center cursor-pointer group">
+                    <ion-icon name="heart-outline" class="text-xl group-hover:text-[#8D6E63]"></ion-icon>
+                    <span class="text-[10px] font-bold uppercase mt-1">Wishlist</span>
+                </div>
+                <a href="/Cart.html" class="flex flex-col items-center cursor-pointer group">
+                    <div class="relative">
+                        <ion-icon name="cart-outline" class="text-xl group-hover:text-[#8D6E63]"></ion-icon>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center cart-badge">0</span>
+                    </div>
+                    <span class="text-[10px] font-bold uppercase mt-1">Cart</span>
+                </a>
+                <div class="flex flex-col items-center cursor-pointer group">
+                    <ion-icon name="person-outline" class="text-xl group-hover:text-[#8D6E63]"></ion-icon>
+                    <span class="text-[10px] font-bold uppercase mt-1">Profile</span>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main id="product-content" class="container mx-auto px-4 py-12">
-        <!-- Loading State -->
-        <div id="loading" class="py-20 text-center">
-            <div class="inline-block w-12 h-12 border-4 border-[#5D4037] border-t-transparent rounded-full animate-spin"></div>
-        </div>
+    <main class="container mx-auto px-4 py-6">
+        <!-- Breadcrumbs -->
+        <nav class="text-xs text-gray-500 mb-6 flex items-center gap-2">
+            <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+            <ion-icon name="chevron-forward" class="text-[10px]"></ion-icon>
+            <a href="#" id="bc-category" class="hover:text-[#5D4037]">Category</a>
+            <ion-icon name="chevron-forward" class="text-[10px]"></ion-icon>
+            <span id="bc-name" class="text-gray-900 font-medium">Product Name</span>
+        </nav>
 
-        <!-- Product View (Hidden until loaded) -->
-        <div id="product-view" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Left: Images -->
-            <div class="space-y-6">
-                <div class="main-image-container aspect-square bg-white rounded-[3rem] overflow-hidden border border-[#D7CCC8]/50 shadow-xl group">
-                    <img id="main-image" src="" class="w-full h-full object-cover transition-transform duration-700" alt="">
-                </div>
-                <div id="image-gallery" class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
-                    <!-- Gallery thumbs -->
-                </div>
-            </div>
-
-            <!-- Right: Info -->
-            <div class="flex flex-col">
-                <nav class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-widest flex items-center gap-2">
-                    <a href="index.html">Home</a>
-                    <ion-icon name="chevron-forward"></ion-icon>
-                    <span id="breadcrumb-category" class="text-[#5D4037]">Category</span>
-                </nav>
-
-                <h1 id="product-name" class="text-4xl font-black text-[#5D4037] mb-2 leading-tight">Product Name</h1>
-                <div class="flex items-center gap-4 mb-6">
-                    <span id="product-brand" class="bg-[#F5F5DC] text-[#8D6E63] text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Brand</span>
-                    <div class="flex items-center gap-1 text-yellow-500 font-black">
-                        <ion-icon name="star"></ion-icon>
-                        <span id="product-rating">4.5</span>
-                    </div>
-                </div>
-
-                <div class="flex items-baseline gap-4 mb-8">
-                    <span id="product-price" class="text-4xl font-black text-[#5D4037]">₹0</span>
-                    <span id="product-original" class="text-xl text-gray-400 line-through">₹0</span>
-                    <span id="product-discount" class="text-green-600 font-bold">0% OFF</span>
-                </div>
-
-                <div class="space-y-6 mb-10">
-                    <div class="bg-[#F5F5DC]/30 p-6 rounded-3xl border border-[#D7CCC8]/50">
-                        <h3 class="font-black text-[#5D4037] mb-3 uppercase tracking-widest text-xs">Product Details</h3>
-                        <p id="product-desc" class="text-gray-600 leading-relaxed text-sm">Description goes here.</p>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 text-sm">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#8D6E63] border border-[#D7CCC8]/50">
-                                <ion-icon name="layers-outline"></ion-icon>
-                            </div>
-                            <div>
-                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-tighter">Material</p>
-                                <p id="product-material" class="font-bold text-[#5D4037]">Plastic</p>
-                            </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left: Gallery -->
+            <div class="lg:col-span-5">
+                <div class="sticky-gallery space-y-4">
+                    <div class="flex gap-4">
+                        <!-- Desktop Vertical Thumbs -->
+                        <div id="desktop-thumbs" class="hidden md:flex flex-col gap-3 w-16">
+                            <!-- Thumbs injected here -->
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#8D6E63] border border-[#D7CCC8]/50">
-                                <ion-icon name="flask-outline"></ion-icon>
-                            </div>
-                            <div>
-                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-tighter">Capacity</p>
-                                <p id="product-capacity" class="font-bold text-[#5D4037]">20L</p>
+                        
+                        <!-- Main Image -->
+                        <div class="flex-1">
+                            <div class="zoom-container aspect-[4/5] bg-white rounded-2xl border border-gray-100 shadow-sm relative group">
+                                <img id="main-product-image" src="" class="w-full h-full object-contain p-4" alt="">
+                                <button class="absolute top-4 right-4 bg-white/80 backdrop-blur p-3 rounded-full shadow-md hover:bg-white text-gray-400 hover:text-red-500 transition-all">
+                                    <ion-icon name="heart" class="text-xl"></ion-icon>
+                                </button>
+                                <button class="absolute bottom-4 right-4 bg-white/80 backdrop-blur p-3 rounded-full shadow-md hover:bg-white text-gray-400 hover:text-[#5D4037] transition-all">
+                                    <ion-icon name="share-social-outline" class="text-xl"></ion-icon>
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>
+                    
+                    <!-- Mobile Thumbs -->
+                    <div id="mobile-thumbs" class="flex md:hidden gap-3 overflow-x-auto no-scrollbar py-2">
+                        <!-- Mobile thumbs injected here -->
+                    </div>
 
-                <!-- Actions -->
-                <div class="flex flex-col sm:flex-row gap-4 mt-auto">
-                    <button onclick="addToCart()" class="flex-1 bg-[#F5F5DC] text-[#5D4037] py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-[#D7CCC8] transition-all flex items-center justify-center gap-2">
-                        <ion-icon name="cart-outline" class="text-xl"></ion-icon>
-                        Add to Cart
-                    </button>
-                    <button onclick="buyNow()" class="flex-1 bg-[#5D4037] text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-[#3E2723] shadow-xl shadow-[#D7CCC8]/50 transition-all">
-                        Buy Now
-                    </button>
+                    <!-- Actions (Desktop) -->
+                    <div class="desktop-actions grid grid-cols-2 gap-4">
+                        <button id="main-add-cart-btn" 
+                                data-cart-action="add" 
+                                class="bg-white border-2 border-[#5D4037] text-[#5D4037] py-4 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-gray-50 transition-all">
+                            <ion-icon name="cart-outline" class="text-xl"></ion-icon>
+                            Add to Cart
+                        </button>
+                        <button onclick="buyNow()" class="bg-[#5D4037] text-white py-4 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#3E2723] shadow-lg shadow-[#5D4037]/20 transition-all">
+                            <ion-icon name="flash-outline" class="text-xl"></ion-icon>
+                            Buy Now
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <!-- Right: Details -->
+            <div class="lg:col-span-7 space-y-8">
+                <!-- Essential Info -->
+                <section class="space-y-2">
+                    <h1 id="p-name" class="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">Product Loading...</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1 bg-green-600 text-white text-xs font-bold px-2 py-0.5 rounded">
+                            <span id="p-rating">4.5</span>
+                            <ion-icon name="star"></ion-icon>
+                        </div>
+                        <span id="p-ratings-count" class="text-sm font-medium text-gray-400">0 Ratings & 0 Reviews</span>
+                        <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_629728.png" class="h-5" alt="Assured">
+                    </div>
+                    
+                    <div class="flex items-center gap-4 pt-4">
+                        <span id="p-price" class="text-3xl font-bold text-gray-900">₹0</span>
+                        <span id="p-original" class="text-lg text-gray-400 line-through">₹0</span>
+                        <span id="p-discount" class="text-green-600 font-bold text-lg">0% off</span>
+                    </div>
+                </section>
+
+                <!-- Offers -->
+                <section class="space-y-3">
+                    <h3 class="font-bold text-sm uppercase tracking-wider text-gray-500">Available Offers</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-3 text-sm">
+                            <ion-icon name="pricetag" class="text-green-600 mt-0.5"></ion-icon>
+                            <p><span class="font-bold">Bank Offer</span> 10% instant discount on ICICI Bank Credit Cards, up to ₹1250 <a href="#" class="text-blue-600 font-bold">T&C</a></p>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm">
+                            <ion-icon name="pricetag" class="text-green-600 mt-0.5"></ion-icon>
+                            <p><span class="font-bold">Combo Offer</span> Buy 3 items and get 5% off; Buy 5 items and get 10% off <a href="#" class="text-blue-600 font-bold">T&C</a></p>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm">
+                            <ion-icon name="calendar" class="text-green-600 mt-0.5"></ion-icon>
+                            <p><span class="font-bold">No Cost EMI</span> Avail No Cost EMI on select cards for orders above ₹3000</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Delivery Details -->
+                <section class="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <ion-icon name="location-outline" class="text-xl text-gray-400"></ion-icon>
+                            <span class="text-sm font-bold">Deliver to</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
+                            <input type="text" value="560001" class="w-16 text-sm font-bold bg-transparent border-none outline-none">
+                            <button class="text-[#5D4037] text-xs font-bold uppercase border-l pl-2">Check</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-500 shadow-sm">
+                                <ion-icon name="bus-outline"></ion-icon>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase">Delivery by</p>
+                                <p id="p-delivery-date" class="text-sm font-bold">Tomorrow, 11 AM</p>
+                                <span class="text-[9px] bg-gold/10 text-[#C8A951] px-1.5 py-0.5 rounded-full font-black uppercase">Direct to Hostel Doorstep</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-green-500 shadow-sm">
+                                <ion-icon name="wallet-outline"></ion-icon>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase">COD Available</p>
+                                <p id="p-cod" class="text-sm font-bold">Yes, Pay on Delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-2 flex items-center gap-3 text-xs text-gray-500">
+                        <div class="flex items-center gap-1">
+                            <ion-icon name="refresh-circle" class="text-lg text-gray-400"></ion-icon>
+                            <span id="p-return">7 Days Replacement Policy</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <ion-icon name="shield-checkmark" class="text-lg text-gray-400"></ion-icon>
+                            <span>GST Invoice Available</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Options -->
+                <section id="product-options" class="space-y-6">
+                    <div id="color-options" class="space-y-3 hidden">
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-500">Color</h3>
+                        <div class="flex flex-wrap gap-3" id="color-chips"></div>
+                    </div>
+                    <div id="size-options" class="space-y-3 hidden">
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-500">Select Size</h3>
+                        <div class="flex flex-wrap gap-3" id="size-chips"></div>
+                    </div>
+                </section>
+
+                <!-- Highlights -->
+                <section class="space-y-3">
+                    <h3 class="font-bold text-sm uppercase tracking-wider text-gray-500">Product Highlights</h3>
+                    <ul id="p-highlights" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 list-disc list-inside text-sm text-gray-600"></ul>
+                </section>
+
+                <!-- Description -->
+                <section class="space-y-3">
+                    <h3 class="font-bold text-sm uppercase tracking-wider text-gray-500">Product Description</h3>
+                    <div class="relative">
+                        <div id="p-description" class="text-sm text-gray-600 leading-relaxed max-h-24 overflow-hidden transition-all duration-500"></div>
+                        <button onclick="toggleDescription()" id="desc-toggle" class="text-[#5D4037] text-sm font-bold mt-2 hover:underline">Read More</button>
+                    </div>
+                </section>
+
+                <!-- Seller -->
+                <section class="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-[#F5F5DC] rounded-xl flex items-center justify-center text-[#5D4037]">
+                            <ion-icon name="storefront" class="text-2xl"></ion-icon>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase">Seller</p>
+                            <div class="flex items-center gap-2">
+                                <span id="p-seller-name" class="font-bold text-gray-900">HostelMart Official</span>
+                                <span class="bg-blue-600 text-[10px] text-white px-1.5 py-0.5 rounded">4.5 ★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="text-[#5D4037] text-sm font-bold hover:underline">View Shop</button>
+                </section>
+
+                <!-- Specifications Table -->
+                <section class="space-y-4">
+                    <h3 class="text-xl font-bold text-gray-900">Specifications</h3>
+                    <div class="border border-gray-100 rounded-2xl overflow-hidden">
+                        <table class="w-full text-sm">
+                            <tbody id="p-specs-table"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Ratings & Reviews -->
+                <section class="space-y-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <h3 class="text-xl font-bold text-gray-900">Ratings & Reviews</h3>
+                        <button onclick="openReviewModal()" class="bg-white border border-gray-200 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-all">Rate Product</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                        <div class="md:col-span-4 flex flex-col items-center justify-center bg-gray-50 rounded-3xl p-8">
+                            <div class="text-5xl font-black text-gray-900 mb-2"><span id="p-rating-large">4.5</span><span class="text-2xl text-gray-400">★</span></div>
+                            <p id="p-total-ratings" class="text-sm font-medium text-gray-500">0 Ratings & 0 Reviews</p>
+                        </div>
+                        
+                        <div class="md:col-span-8 space-y-3">
+                            <!-- Rating bars will be injected -->
+                        </div>
+                    </div>
+
+                    <div id="reviews-container" class="space-y-6 pt-4 border-t border-gray-100"></div>
+                </section>
+            </div>
         </div>
+
+        <!-- Similar Products -->
+        <section class="mt-20 space-y-6">
+            <div class="flex items-center justify-between">
+                <h3 class="text-2xl font-bold text-gray-900">Similar Products</h3>
+                <div class="flex gap-2">
+                    <button onclick="scrollSimilar(-300)" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 shadow-sm"><ion-icon name="chevron-back"></ion-icon></button>
+                    <button onclick="scrollSimilar(300)" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 shadow-sm"><ion-icon name="chevron-forward"></ion-icon></button>
+                </div>
+            </div>
+            <div id="similar-products-slider" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-8"></div>
+        </section>
+
+        <!-- Trending Products -->
+        <section class="mt-20 space-y-6">
+            <h3 class="text-2xl font-bold text-gray-900">Trending Products</h3>
+            <div id="trending-products-slider" class="flex gap-6 overflow-x-auto no-scrollbar pb-8"></div>
+        </section>
     </main>
+
+    <!-- Sticky Mobile Actions -->
+    <div class="sticky-mobile-actions gap-4">
+        <button id="mobile-add-cart-btn" 
+                data-cart-action="add" 
+                class="flex-1 bg-white border-2 border-[#5D4037] text-[#5D4037] py-4 rounded-xl font-bold uppercase tracking-wider">
+            Add to Cart
+        </button>
+        <button onclick="buyNow()" class="flex-1 bg-[#5D4037] text-white py-4 rounded-xl font-bold uppercase tracking-wider">Buy Now</button>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="review-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-[2rem] p-8 space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold">Write a Review</h2>
+                <button onclick="closeReviewModal()" class="text-2xl"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <div class="flex items-center justify-center gap-2 text-4xl text-gray-200" id="star-rating-input">
+                <ion-icon name="star" class="cursor-pointer hover:text-yellow-400" onclick="setRating(1)"></ion-icon>
+                <ion-icon name="star" class="cursor-pointer hover:text-yellow-400" onclick="setRating(2)"></ion-icon>
+                <ion-icon name="star" class="cursor-pointer hover:text-yellow-400" onclick="setRating(3)"></ion-icon>
+                <ion-icon name="star" class="cursor-pointer hover:text-yellow-400" onclick="setRating(4)"></ion-icon>
+                <ion-icon name="star" class="cursor-pointer hover:text-yellow-400" onclick="setRating(5)"></ion-icon>
+            </div>
+            <textarea id="review-comment" placeholder="Tell us what you liked or disliked about this product..." class="w-full h-32 p-4 bg-gray-50 rounded-2xl border-none outline-none text-sm"></textarea>
+            <button onclick="submitReview()" class="w-full bg-[#5D4037] text-white py-4 rounded-xl font-bold uppercase tracking-widest">Submit Review</button>
+        </div>
+    </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get('slug');
-        let currentProduct = null;
+        let slug = urlParams.get('slug');
+        
+        if (!slug) {
+            const pathParts = window.location.pathname.split('/');
+            const prodIdx = pathParts.indexOf('product');
+            if (prodIdx !== -1 && pathParts[prodIdx + 1]) {
+                slug = pathParts[prodIdx + 1];
+            }
+        }
 
-        async function fetchProductDetails() {
+        let currentProduct = null;
+        let selectedRating = 0;
+
+        async function init() {
             if (!slug) {
-                window.location.href = 'index.html';
+                window.location.href = '/index.html';
                 return;
             }
+            await fetchProductDetails();
+            if (currentProduct) {
+                await fetchSimilarProducts();
+                await fetchReviews();
+                await fetchTrendingProducts();
+            }
+        }
 
+        async function fetchProductDetails() {
             try {
                 const response = await fetch(`/api/products/slug/${slug}`);
                 const product = await response.json();
-                if (!product) throw new Error("Product not found");
+                if (!product || product.success === false) throw new Error("Product not found");
                 
                 currentProduct = product;
                 renderProduct(product);
             } catch (error) {
-                document.getElementById('product-content').innerHTML = `
-                    <div class="py-20 text-center">
-                        <h2 class="text-2xl font-black text-[#5D4037]">Oops! Product not found.</h2>
-                        <a href="Buckets.html" class="mt-6 inline-block bg-[#5D4037] text-white px-8 py-3 rounded-xl font-bold">Back to Buckets</a>
+                console.error(error);
+                document.querySelector('main').innerHTML = `
+                    <div class="py-20 text-center space-y-6">
+                        <ion-icon name="alert-circle-outline" class="text-8xl text-gray-200"></ion-icon>
+                        <h2 class="text-2xl font-bold text-gray-900">Oops! Product not found.</h2>
+                        <a href="/index.html" class="inline-block bg-[#5D4037] text-white px-8 py-3 rounded-xl font-bold">Back to Home</a>
                     </div>
                 `;
             }
-            document.getElementById('loading').classList.add('hidden');
         }
 
         function renderProduct(p) {
             document.title = `${p.name} | HostelMart`;
-            document.getElementById('main-image').src = p.image;
-            document.getElementById('breadcrumb-category').textContent = p.subcategory || p.category;
-            document.getElementById('product-name').textContent = p.name;
-            document.getElementById('product-brand').textContent = p.brand;
-            document.getElementById('product-rating').textContent = p.rating || '4.0';
-            document.getElementById('product-price').textContent = `₹${p.price.toLocaleString('en-IN')}`;
-            document.getElementById('product-original').textContent = p.originalPrice ? `₹${p.originalPrice.toLocaleString('en-IN')}` : '';
-            document.getElementById('product-discount').textContent = p.discount || '';
-            document.getElementById('product-desc').textContent = p.description;
-            document.getElementById('product-material').textContent = p.material || 'N/A';
-            document.getElementById('product-capacity').textContent = p.capacity || 'N/A';
-
-            // Gallery
-            if (p.images && p.images.length > 0) {
-                const gallery = document.getElementById('image-gallery');
-                gallery.innerHTML = [p.image, ...p.images].map(img => `
-                    <div class="w-20 h-20 rounded-2xl overflow-hidden border border-[#D7CCC8]/50 flex-shrink-0 cursor-pointer hover:border-[#5D4037] transition-all" onclick="updateMainImage('${img}')">
-                        <img src="${img}" class="w-full h-full object-cover">
-                    </div>
-                `).join('');
+            
+            document.getElementById('bc-category').textContent = p.subcategory || p.category;
+            document.getElementById('bc-name').textContent = p.name;
+            
+            document.getElementById('p-name').textContent = p.name;
+            document.getElementById('p-rating').textContent = p.rating || '4.0';
+            document.getElementById('p-rating-large').textContent = p.rating || '4.0';
+            document.getElementById('p-ratings-count').textContent = `${(p.ratingsCount || 0).toLocaleString()} Ratings & ${(p.reviewsCount || 0).toLocaleString()} Reviews`;
+            document.getElementById('p-total-ratings').textContent = `${(p.ratingsCount || 0).toLocaleString()} Ratings & ${(p.reviewsCount || 0).toLocaleString()} Reviews`;
+            
+            document.getElementById('p-price').textContent = `₹${p.price.toLocaleString('en-IN')}`;
+            document.getElementById('p-original').textContent = p.originalPrice ? `₹${p.originalPrice.toLocaleString('en-IN')}` : '';
+            if (p.discount) {
+                document.getElementById('p-discount').textContent = p.discount;
+                document.getElementById('p-discount').classList.remove('hidden');
+            } else {
+                document.getElementById('p-discount').classList.add('hidden');
             }
 
-            document.getElementById('product-view').classList.remove('hidden');
+            document.getElementById('main-product-image').src = p.image;
+            const allImages = [p.image, ...(p.images || [])].filter(Boolean);
+            const thumbsHtml = allImages.map((img, i) => `
+                <div class="aspect-square rounded-lg border ${i === 0 ? 'border-[#5D4037] bg-gray-50' : 'border-gray-100'} overflow-hidden cursor-pointer hover:border-[#5D4037] transition-all thumb-item" onclick="changeImage('${img}', this)">
+                    <img src="${img}" class="w-full h-full object-contain p-1" alt="">
+                </div>
+            `).join('');
+            document.getElementById('desktop-thumbs').innerHTML = thumbsHtml;
+            document.getElementById('mobile-thumbs').innerHTML = thumbsHtml;
+
+            const deliveryDate = new Date();
+            deliveryDate.setDate(deliveryDate.getDate() + (p.deliveryDays || 2));
+            document.getElementById('p-delivery-date').textContent = deliveryDate.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' });
+            document.getElementById('p-return').textContent = p.returnPolicy || '7 Days Replacement Policy';
+            document.getElementById('p-seller-name').textContent = p.seller?.name || 'HostelMart Official';
+
+            const highlights = p.highlights || [];
+            if (highlights.length > 0) {
+                document.getElementById('p-highlights').parentElement.classList.remove('hidden');
+                document.getElementById('p-highlights').innerHTML = highlights.map(h => `<li>${h}</li>`).join('');
+            }
+
+            if (p.description) {
+                document.getElementById('p-description').textContent = p.description;
+            }
+
+            const autoFields = { 
+                "Brand": p.brand, 
+                "Category": p.category, 
+                "Type": p.type,
+                "Connectivity": p.connectivity,
+                "Battery": p.battery,
+                "Battery Life": p.batteryLife,
+                "Noise Cancellation": p.noiseCancellation,
+                "Water Resistance": p.waterResistance,
+                "Wattage": p.wattage,
+                "Compatibility": p.compatibility,
+                "Battery Capacity": p.batteryCapacity,
+                "Charging Speed": p.chargingSpeed,
+                "Output Ports": p.outputPorts,
+                "Material": p.material,
+                "Adjustability": p.adjustability,
+                "DPI": p.dpi,
+                "Switch Type": p.switchType,
+                "Backlight": p.backlight,
+                "Flavor": p.flavor,
+                "Weight": p.weight,
+                "Dietary Type": p.dietaryType,
+                "Spice Level": p.spiceLevel,
+                "Volume": p.volume,
+                "Sugar Type": p.sugarType,
+                "Usage": p.usage,
+                "Quantity": p.quantity,
+                "Flavor": p.flavor,
+                "Weight": p.weight,
+                "Ingredients": Array.isArray(p.ingredients) ? p.ingredients.join(', ') : p.ingredients,
+                "Skin Type": p.skinType,
+                "Hair Type": p.hairType,
+                "Dosage Form": p.dosageForm,
+                "Absorbency": p.absorbency,
+                "Fragrance": p.fragrance,
+                "Expiry Date": p.expiryDate,
+                "Cable Type": p.cableType,
+                "Warranty": p.warranty,
+                "Power Source": p.powerSource,
+                "Brightness": p.brightnessLevels,
+                "Color Temp": p.colorTemperature,
+                "Material": p.material, 
+                "Capacity": p.capacity, 
+                "Lid Type": p.lidType,
+                "Blade Material": p.bladeMaterial,
+                "Handle Material": p.handleMaterial,
+                "Blade Length": p.bladeLength,
+                "Operation Type": p.operationType,
+                "Power Consumption": p.powerConsumption,
+                "Control Type": p.controlType,
+                "Preset Modes": p.presetModes ? p.presetModes.join(', ') : null,
+                "Warranty": p.warranty,
+                "Weight": p.weight,
+                "Pack Size": p.packSize,
+                "Ingredients": p.ingredients ? p.ingredients.join(', ') : null,
+                "Expiry Date": p.expiryDate,
+                "Dietary Type": p.dietaryType,
+                "Size": p.size 
+            };
+            const combinedSpecs = { ...autoFields, ...(p.specifications || {}) };
+            document.getElementById('p-specs-table').innerHTML = Object.entries(combinedSpecs).filter(([k,v]) => v).map(([k, v]) => `
+                <tr class="border-b border-gray-50 last:border-0">
+                    <td class="py-4 px-6 text-gray-400 w-1/3">${k}</td>
+                    <td class="py-4 px-6 font-medium text-gray-900">${v}</td>
+                </tr>
+            `).join('');
+
+            const cartBtns = [document.getElementById('main-add-cart-btn'), document.getElementById('mobile-add-cart-btn')];
+            cartBtns.forEach(btn => {
+                if (btn) {
+                    btn.setAttribute('data-product-slug', p.slug);
+                    btn.setAttribute('data-product-name', p.name);
+                    btn.setAttribute('data-product-price', `₹${p.price}`);
+                    btn.setAttribute('data-product-image', p.image);
+                    btn.setAttribute('data-product-brand', p.brand || 'HostelMart');
+                }
+            });
+
+            if (window.syncCartButtons) window.syncCartButtons();
         }
 
-        function updateMainImage(src) {
-            document.getElementById('main-image').src = src;
+        function changeImage(src, el) {
+            document.getElementById('main-product-image').src = src;
+            document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('border-[#5D4037]', 'bg-gray-50'));
+            el.classList.add('border-[#5D4037]', 'bg-gray-50');
         }
 
-        function addToCart() {
-            alert("Added to cart: " + currentProduct.name);
+        function toggleDescription() {
+            const desc = document.getElementById('p-description');
+            desc.style.maxHeight = desc.style.maxHeight === 'none' ? '6rem' : 'none';
+        }
+
+        async function fetchSimilarProducts() {
+            const res = await fetch(`/api/products/similar/${slug}`);
+            const products = await res.json();
+            document.getElementById('similar-products-slider').innerHTML = products.map(p => `
+                <div class="product-card-similar bg-white rounded-2xl border border-gray-100 overflow-hidden group shadow-sm hover:shadow-xl transition-all w-52 flex-shrink-0">
+                    <a href="/product/${p.slug}" class="block aspect-square overflow-hidden relative">
+                        <img src="${p.image}" class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform">
+                    </a>
+                    <div class="p-4 space-y-1">
+                        <h4 class="text-sm font-bold text-gray-900 truncate">${p.name}</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold">₹${p.price}</span>
+                        </div>
+                        <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="w-full mt-2 py-1.5 border border-[#5D4037] text-[#5D4037] text-xs font-bold rounded-lg hover:bg-[#5D4037] hover:text-white transition-all">Add</button>
+                    </div>
+                </div>
+            `).join('');
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        async function fetchReviews() {
+            const res = await fetch(`/api/reviews/${currentProduct._id}`);
+            const reviews = await res.json();
+            const container = document.getElementById('reviews-container');
+            if (!reviews.length) {
+                container.innerHTML = '<p class="text-center py-10 text-gray-400">No reviews yet.</p>';
+                return;
+            }
+            container.innerHTML = reviews.map(r => `
+                <div class="space-y-2 pt-4 border-t border-gray-100">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-green-600 text-white text-[10px] px-1.5 py-0.5 rounded">${r.rating}★</span>
+                        <span class="font-bold text-sm">${r.userName}</span>
+                    </div>
+                    <p class="text-sm text-gray-600">${r.comment}</p>
+                </div>
+            `).join('');
+        }
+
+        async function fetchTrendingProducts() {
+            const res = await fetch(`/api/products/trending`);
+            const products = await res.json();
+            document.getElementById('trending-products-slider').innerHTML = products.map(p => `
+                <div class="product-card-similar bg-white rounded-2xl border border-gray-100 overflow-hidden group shadow-sm hover:shadow-xl transition-all w-52 flex-shrink-0">
+                    <a href="/product/${p.slug}" class="block aspect-square overflow-hidden relative">
+                        <img src="${p.image}" class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform">
+                    </a>
+                    <div class="p-4 space-y-1">
+                        <h4 class="text-sm font-bold text-gray-900 truncate">${p.name}</h4>
+                        <div class="flex items-center gap-2 pt-1">
+                            <span class="font-bold">₹${p.price}</span>
+                        </div>
+                        <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="w-full mt-2 py-1.5 border border-[#5D4037] text-[#5D4037] text-xs font-bold rounded-lg hover:bg-[#5D4037] hover:text-white transition-all">Add</button>
+                    </div>
+                </div>
+            `).join('');
+            if (window.syncCartButtons) window.syncCartButtons();
         }
 
         function buyNow() {
-            window.location.href = `Checkout.html?slug=${currentProduct.slug}`;
+            if (!currentProduct) return;
+            const item = { 
+                slug: currentProduct.slug, 
+                title: currentProduct.name, 
+                price: currentProduct.price, 
+                img: currentProduct.image, 
+                qty: 1,
+                size: localStorage.getItem('selectedSize') || 'Free Size'
+            };
+            localStorage.setItem('checkoutItem', JSON.stringify(item));
+            // Force redirect with slug to trigger dynamic loading in Checkout.html
+            window.location.href = `/Checkout.html?slug=${currentProduct.slug}`;
         }
 
-        fetchProductDetails();
+        function openReviewModal() { document.getElementById('review-modal').classList.remove('hidden'); }
+        function closeReviewModal() { document.getElementById('review-modal').classList.add('hidden'); }
+        function setRating(r) { selectedRating = r; }
+        
+        async function submitReview() {
+            // Placeholder
+            closeReviewModal();
+        }
+
+        function scrollSimilar(val) { document.getElementById('similar-products-slider').scrollBy({ left: val, behavior: 'smooth' }); }
+
+        init();
     </script>
 </body>
 </html>

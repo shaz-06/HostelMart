@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mugs - Bathroom Essentials | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="/cart_global.js"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1); }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8]">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037]"></ion-icon>
+                    <span class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold cart-badge">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <nav class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest flex items-center gap-2">
+                <a href="/index.html">Home</a> <ion-icon name="chevron-forward"></ion-icon> <span class="text-[#5D4037]">Bathroom Mugs</span>
+            </nav>
+            <h1 class="text-3xl font-black text-[#5D4037]">Premium Bathroom Mugs</h1>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="product-grid"></div>
+    </main>
+
+    <script>
+        async function fetchProducts() {
+            // Fetching mugs - adjusting query if needed
+            const res = await fetch('/api/products?subcategory=Bathroom Essentials');
+            let products = await res.json();
+            // Filter only mugs for this page if needed
+            products = products.filter(p => p.name.toLowerCase().includes('mug'));
+            
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card bg-white rounded-3xl border border-[#D7CCC8]/50 overflow-hidden transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-gray-100 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    </div>
+                    <div class="p-4 flex flex-col flex-1">
+                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-tighter">${p.brand}</span>
+                        <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 mb-2 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                        <div class="mt-auto">
+                            <span class="text-lg font-black text-[#5D4037]">₹${p.price}</span>
+                            <div class="grid grid-cols-2 gap-2 mt-3">
+                                <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="bg-[#F5F5DC] text-[#5D4037] py-2.5 rounded-xl font-bold text-xs hover:bg-[#D7CCC8] transition-all">Add</button>
+                                <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-[#3E2723] transition-all">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+        fetchProducts();
+    </script>
+</body>
+</html>

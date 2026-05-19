@@ -18,6 +18,7 @@ const connectDB = require('./lib/mongodb');
 const Product = require('./models/Product');
 const Order = require('./models/Order');
 const User = require('./models/User');
+const Review = require('./models/Review');
 
 // Connect to Database
 connectDB();
@@ -73,6 +74,31 @@ app.post('/api/auth/login', async (req, res) => {
             await userRef.update({ lastLogin: new Date() });
         }
 
+        // Sync with MongoDB
+        try {
+            await connectDB();
+            let mongoUser = await User.findOne({ phone });
+            if (!mongoUser) {
+                mongoUser = new User({
+                    name: userData.name,
+                    phone: userData.phone,
+                    hostel: userData.hostel || '',
+                    room: userData.room || '',
+                    address: userData.address || ''
+                });
+                await mongoUser.save();
+            } else {
+                // Update MongoDB with latest Firestore data if needed
+                mongoUser.name = userData.name;
+                mongoUser.hostel = userData.hostel || mongoUser.hostel;
+                mongoUser.room = userData.room || mongoUser.room;
+                mongoUser.address = userData.address || mongoUser.address;
+                await mongoUser.save();
+            }
+        } catch (mongoErr) {
+            console.error("MongoDB Sync Error during login:", mongoErr);
+        }
+
         let token;
         try {
             token = jwt.sign({ phone: userData.phone, name: userData.name, role: userData.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
@@ -91,26 +117,55 @@ app.post('/api/auth/login', async (req, res) => {
 
 app.get('/api/auth/me', verifyToken, async (req, res) => {
     try {
+        await connectDB();
+        // Priority to MongoDB for profile details
+        const mongoUser = await User.findOne({ phone: req.userPhone });
+        
+        // Fallback/Sync with Firestore
         const doc = await db.collection('users').doc(req.userPhone).get();
-        if (!doc.exists) return res.status(404).json({ success: false, message: 'User not found' });
-        res.json({ success: true, user: doc.data() });
+        const firestoreData = doc.exists ? doc.data() : {};
+
+        if (!mongoUser && !doc.exists) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        // Return merged data, MongoDB taking precedence for profile
+        const finalUser = {
+            ...firestoreData,
+            ...(mongoUser ? mongoUser.toObject() : {})
+        };
+
+        res.json({ success: true, user: finalUser });
     } catch (error) {
+        console.error("Auth Me Error:", error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 
 app.patch('/api/auth/profile', verifyToken, async (req, res) => {
-    const { name, address, hostel, room } = req.body;
+    const { name, address, hostel, room, addressType } = req.body;
     try {
+        await connectDB();
         const updateData = {};
         if (name) updateData.name = name;
         if (address) updateData.address = address;
         if (hostel) updateData.hostel = hostel;
         if (room) updateData.room = room;
+        if (addressType) updateData.addressType = addressType;
 
+        // Update MongoDB
+        const mongoUser = await User.findOneAndUpdate(
+            { phone: req.userPhone },
+            { $set: updateData },
+            { new: true, upsert: true }
+        );
+
+        // Sync with Firestore
         await db.collection('users').doc(req.userPhone).update(updateData);
-        res.json({ success: true, message: 'Profile updated' });
+
+        res.json({ success: true, message: 'Profile updated successfully', user: mongoUser });
     } catch (error) {
+        console.error("Profile Update Error:", error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
@@ -187,20 +242,27 @@ app.post('/api/orders', async (req, res) => {
         await connectDB();
         const newOrder = new Order({
             userId: orderData.phone,
+            customerName: orderData.customerName,
+            hostel: orderData.hostel,
+            room: orderData.room,
+            address: orderData.address,
             products: orderData.items.map(item => ({
-                productId: item.id || null,
-                quantity: item.quantity,
+                productId: item.slug || item.id || null,
+                quantity: item.qty || 1,
                 price: item.price,
-                name: item.name
+                name: item.title || item.name,
+                image: item.img || item.image,
+                size: item.size || 'Free Size'
             })),
-            totalAmount: orderData.totalPrice || orderData.totalAmount,
+            totalAmount: orderData.totalAmount,
             paymentMethod: orderData.paymentMethod || 'COD',
             paymentStatus: orderData.paymentStatus || 'Pending',
-            orderStatus: 'Processing'
+            orderStatus: 'Processing',
+            orderId: orderData.orderId // Optional, if you want to store the client-generated ID
         });
 
         await newOrder.save();
-        res.json({ success: true, message: 'Order placed successfully', orderId: newOrder._id });
+        res.json({ success: true, message: 'Order placed successfully', orderId: orderData.orderId });
     } catch (error) {
         console.error("Order Creation Error:", error);
         res.status(500).json({ success: false, message: 'Failed to place order: ' + error.message });
@@ -229,8 +291,17 @@ app.get('/api/products', async (req, res) => {
         const { category, subcategory, brand, sort } = req.query;
         let query = {};
         if (category) query.category = category;
-        if (subcategory) query.subcategory = subcategory;
+        if (subcategory) {
+            if (subcategory.includes(',')) {
+                query.subcategory = { $in: subcategory.split(',') };
+            } else {
+                query.subcategory = subcategory;
+            }
+        }
         if (brand) query.brand = brand;
+        if (req.query.section) query.section = req.query.section;
+        if (req.query.slug) query.slug = req.query.slug;
+        if (req.query.slugs) query.slug = { $in: req.query.slugs.split(',') };
 
         let productQuery = Product.find(query);
 
@@ -283,6 +354,75 @@ app.get('/api/products/slug/:slug', async (req, res) => {
         res.json(product);
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error fetching product' });
+    }
+});
+
+// Clean Product URL Route
+app.get('/product/:slug', (req, res) => {
+    // We serve the ProductDetail.html file which will handle fetching data based on the URL
+    res.sendFile(path.join(__dirname, 'ProductDetail.html'));
+});
+
+app.get('/api/products/similar/:slug', async (req, res) => {
+    try {
+        await connectDB();
+        const product = await Product.findOne({ slug: req.params.slug });
+        if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+
+        const similarProducts = await Product.find({
+            _id: { $ne: product._id },
+            $or: [
+                { category: product.category },
+                { subcategory: product.subcategory },
+                { brand: product.brand }
+            ]
+        }).limit(10);
+
+        res.json(similarProducts);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching similar products' });
+    }
+});
+
+app.get('/api/reviews/:productId', async (req, res) => {
+    try {
+        await connectDB();
+        const reviews = await Review.find({ productId: req.params.productId }).sort({ createdAt: -1 });
+        res.json(reviews);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching reviews' });
+    }
+});
+
+app.post('/api/reviews', async (req, res) => {
+    try {
+        await connectDB();
+        const review = new Review(req.body);
+        await review.save();
+        
+        // Update product rating (simple average logic or just increment count)
+        const product = await Product.findById(req.body.productId);
+        if (product) {
+            const reviews = await Review.find({ productId: product._id });
+            const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+            product.rating = parseFloat(avgRating.toFixed(1));
+            product.ratingsCount = reviews.length;
+            await product.save();
+        }
+
+        res.status(201).json({ success: true, review });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+});
+
+app.get('/api/products/trending', async (req, res) => {
+    try {
+        await connectDB();
+        const products = await Product.find({ trending: true }).limit(10);
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching trending products' });
     }
 });
 
@@ -369,50 +509,66 @@ app.post('/api/subscribe', (req, res) => {
 });
 
 // Server-Side Injection for index.html
-app.get(['/', '/index.html'], (req, res) => {
+app.get(['/', '/index.html'], async (req, res) => {
     const indexPath = path.join(__dirname, 'index.html');
     let html = fs.readFileSync(indexPath, 'utf8');
     const $ = cheerio.load(html);
 
-    // 1. Inject Products
-    const products = getProducts();
-    const $productGrid = $('.product-grid');
-    $productGrid.empty();
+    // 1. Inject Products from MongoDB
+    try {
+        await connectDB();
+        const products = await Product.find({}).limit(20); // Fetch top 20 for homepage
+        const $productGrid = $('.product-grid');
+        if ($productGrid.length > 0) {
+            $productGrid.empty();
+            products.forEach(product => {
+                const ratingHtml = Array(5).fill(0).map((_, i) =>
+                    `<ion-icon name="${i < (product.rating || 4) ? 'star' : 'star-outline'}"></ion-icon>`
+                ).join('');
 
-    products.forEach(product => {
-        const ratingHtml = Array(5).fill(0).map((_, i) =>
-            `<ion-icon name="${i < product.rating ? 'star' : 'star-outline'}"></ion-icon>`
-        ).join('');
+                const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-[#F5F5DC] text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
+                const delHtml = product.originalPrice ? `<del class="text-xs text-gray-300 font-normal">₹${product.originalPrice.toLocaleString('en-IN')}</del>` : '';
 
-        const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-[#F5F5DC] text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
-        const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">₹${product.delPrice.toLocaleString('en-IN')}</del>` : '';
+                const productImage = product.image;
+                const hoverImage = product.images?.[0] || product.image;
 
-        const productImage = product.images ? product.images.default : (product.image || '');
-        const hoverImage = product.images ? product.images.hover : (product.image || '');
-
-        const productHtml = `
-      <div class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
-          <div class="relative aspect-[4/5] overflow-hidden">
-              <img src="${productImage}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-              <img src="${hoverImage}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img">
-              ${badgeHtml}
-              <div class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
-                  <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#5D4037] hover:text-[#F5F5DC] transition-all transform hover:scale-110 active:scale-90"><ion-icon name="heart-outline"></ion-icon></button>
-                  <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#5D4037] hover:text-[#F5F5DC] transition-all transform hover:scale-110 active:scale-90"><ion-icon name="eye-outline"></ion-icon></button>
+                const productHtml = `
+              <div class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="navigateToProduct('${product.slug}')">
+                  <div class="relative aspect-[4/5] overflow-hidden">
+                      <img src="${productImage}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                      <img src="${hoverImage}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      ${badgeHtml}
+                      <div class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
+                          <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#5D4037] hover:text-[#F5F5DC] transition-all transform hover:scale-110 active:scale-90" 
+                                  onclick="event.stopPropagation()"
+                                  data-cart-action="add"
+                                  data-mini="true"
+                                  data-product-slug="${product.slug}"
+                                  data-product-name="${product.name}"
+                                  data-product-price="₹${product.price.toLocaleString('en-IN')}"
+                                  data-product-image="${product.image}"
+                                  data-product-brand="${product.brand || 'HostelMart'}">
+                              <ion-icon name="cart-outline"></ion-icon>
+                          </button>
+                          <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#5D4037] hover:text-[#F5F5DC] transition-all transform hover:scale-110 active:scale-90" onclick="event.stopPropagation()"><ion-icon name="eye-outline"></ion-icon></button>
+                      </div>
+                  </div>
+                  <div class="p-4 sm:p-6 space-y-2">
+                      <p class="text-[10px] text-[#5D4037] font-black uppercase tracking-widest">${product.category}</p>
+                      <h3 class="font-bold text-gray-800 truncate text-sm sm:text-base">${product.name}</h3>
+                      <div class="flex items-center gap-1 text-yellow-400 text-[10px]">${ratingHtml}</div>
+                      <div class="flex items-center gap-2 font-black text-lg text-gray-900 mt-1">
+                          <span>₹${product.price.toLocaleString('en-IN')}</span> ${delHtml}
+                      </div>
+                  </div>
               </div>
-          </div>
-          <div class="p-4 sm:p-6 space-y-2">
-              <p class="text-[10px] text-[#5D4037] font-black uppercase tracking-widest">${product.category}</p>
-              <h3 class="font-bold text-gray-800 truncate text-sm sm:text-base">${product.name}</h3>
-              <div class="flex items-center gap-1 text-yellow-400 text-[10px]">${ratingHtml}</div>
-              <div class="flex items-center gap-2 font-black text-lg text-gray-900 mt-1">
-                  <span>₹${product.price.toLocaleString('en-IN')}</span> ${delHtml}
-              </div>
-          </div>
-      </div>
-    `;
-        $productGrid.append(productHtml);
-    });
+            `;
+                $productGrid.append(productHtml);
+            });
+        }
+    } catch (err) {
+        console.error("Error injecting products from MongoDB:", err);
+    }
 
     // 2. Inject Categories
     const categories = getCategories();
@@ -562,7 +718,7 @@ app.use((req, res, next) => {
     res.status(404).send(`Cannot GET ${req.url}`);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 module.exports = app;

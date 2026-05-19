@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Essentials | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(93, 64, 55, 0.1); }
+        .custom-checkbox { width: 18px; height: 18px; border: 2px solid #D7CCC8; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+        .custom-checkbox.active { background: #8D6E63; border-color: #8D6E63; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .header-gradient { background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></span>
+            </a>
+            <div class="flex-1 max-w-xl mx-8 hidden md:block relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search-outline"></ion-icon></div>
+                <input type="text" id="top-search" placeholder="Search kitchen essentials..." class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-2xl pl-12 pr-4 py-2.5 outline-none focus:border-[#8D6E63] transition-all text-sm font-medium">
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#8D6E63] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black">0</span>
+                </a>
+                <div id="auth-user-ui"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="header-gradient py-12 text-white overflow-hidden relative">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+            <div class="max-w-xl text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight mb-4">Kitchen Essentials</h1>
+                <p class="text-lg opacity-90 mb-8 font-medium italic">Cook, Eat & Repeat with premium daily use kitchenware.</p>
+            </div>
+            <div class="hidden md:block">
+                <ion-icon name="restaurant-outline" class="text-[12rem] opacity-20"></ion-icon>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full md:w-72 flex-shrink-0 space-y-8 hidden md:block">
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3 max-h-60 overflow-y-auto no-scrollbar" id="brand-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Type</h3>
+                    <div class="space-y-3 max-h-60 overflow-y-auto no-scrollbar" id="type-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Capacity</h3>
+                    <div class="space-y-3" id="capacity-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Lid Type</h3>
+                    <div class="space-y-3" id="lid-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Blade Material</h3>
+                    <div class="space-y-3" id="blade-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Operation Type</h3>
+                    <div class="space-y-3" id="operation-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Handle Material</h3>
+                    <div class="space-y-3" id="handle-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Blade Length</h3>
+                    <div class="space-y-3" id="blade-length-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Power Consumption</h3>
+                    <div class="space-y-3" id="power-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Control Type</h3>
+                    <div class="space-y-3" id="control-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Preset Modes</h3>
+                    <div class="space-y-3" id="preset-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Color</h3>
+                    <div class="space-y-3" id="color-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹5000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="5000" step="50" class="w-full accent-[#8D6E63]">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <div class="flex items-center justify-between mb-8">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest"><span id="result-count" class="text-[#8D6E63]">0</span> Products Found</p>
+                    <select id="sort-select" class="bg-white border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs font-bold outline-none focus:border-[#8D6E63] cursor-pointer shadow-sm">
+                        <option value="popularity">Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">New Arrivals</option>
+                    </select>
+                </div>
+
+                <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+                <div id="empty-state" class="hidden py-20 text-center">
+                    <div class="text-6xl mb-4">🍳</div>
+                    <h3 class="text-xl font-black text-[#5D4037]">No kitchen essentials found</h3>
+                    <p class="text-gray-400 text-sm mt-2">Adjust your filters to see more results.</p>
+                    <button onclick="resetFilters()" class="mt-6 bg-[#8D6E63] text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest">Reset Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let allProducts = [];
+        let filters = { brands: [], types: [], materials: [], capacities: [], lidTypes: [], bladeMaterials: [], operationTypes: [], handleMaterials: [], bladeLengths: [], colors: [], powerConsumptions: [], controlTypes: [], presetModes: [], maxPrice: 5000, search: "" };
+
+        const config = {
+            brands: ["Prestige", "Pigeon", "Milton", "Cello", "Borosil", "Philips", "Butterfly", "Hawkins", "Solimo", "Home Puff", "Tupperware", "Signoraware", "Ganesh", "Victorinox", "Havells", "Bajaj", "Usha", "Lifelong"],
+            types: ["Electric Kettles", "Induction Stoves", "Water Boilers", "Lunch Boxes", "Storage Containers", "Choppers", "Cutting Boards", "Steel Plates", "Spoons & Fork Sets", "Mini Rice Cookers", "Coffee Mugs", "Water Jugs", "Portable Blenders", "Dish Drying Racks", "Kitchen Tool Sets", "Food Storage Containers", "Airtight Containers", "Steel Containers", "Plastic Containers", "Glass Containers", "Spice Containers", "Lunch Storage Containers", "Microwave Safe Containers", "Stackable Containers", "Multi-Container Sets", "Vegetable Choppers", "Manual Choppers", "Push Choppers", "Pull Cord Choppers", "Electric Choppers", "Mini Rice Cookers", "Chef Knives", "Utility Knives", "Paring Knives", "Bread Knives", "Fruit Knives", "Stainless Steel Knives", "Knife Sets", "Folding Kitchen Knives", "Multipurpose Kitchen Cutters", "Single Burner Induction Stoves", "Touch Control Induction Cooktops", "Portable Induction Stoves", "Energy Efficient Induction Stoves", "Digital Display Induction Cooktops", "Smart Induction Cookers", "Compact Hostel Induction Stoves", "Multi-Mode Induction Cooktops", "Auto Shut-Off Induction Stoves", "High Power Induction Stoves", "Stainless Steel Electric Kettles", "Glass Electric Kettles", "Travel Electric Kettles", "Fast Boil Kettles", "Temperature Control Kettles", "Auto Shut-Off Kettles", "Cordless Electric Kettles", "Compact Hostel Kettles", "Multi-Purpose Kettles", "Smart Electric Kettles"],
+            materials: ["Stainless Steel", "Plastic", "Wood", "Glass", "Ceramic", "Aluminium", "BPA-Free Plastic", "Borosilicate Glass", "Food-Grade Silicone"],
+            capacities: ["0.5L", "1.0L", "1.2L", "1.5L", "1.7L", "2.0L", "500ml", "1L", "1.5L", "2L", "5L", "3 Containers", "Set of 6", "Set of 12", "250ml", "350ml", "650ml", "750ml", "900ml"],
+            lidTypes: ["Airtight", "Clip-on", "Screw-top", "Press-fit", "Flip-top"],
+            bladeMaterials: ["Stainless Steel", "Hardened Steel", "High-Carbon Steel", "Rust-Proof Steel", "High-Carbon Stainless Steel", "Ceramic", "Titanium Coated Steel", "Forged Steel"],
+            operationTypes: ["Manual (Pull Cord)", "Manual (Push)", "Electric", "Manual (Twist)"],
+            handleMaterials: ["Ergonomic Plastic", "Wooden (Rosewood)", "Stainless Steel", "Soft-Grip Rubber", "ABS Polymer"],
+            bladeLengths: ["3 inch", "4 inch", "5 inch", "6 inch", "7 inch", "8 inch", "Set of 3", "Set of 6"],
+            colors: ["Green", "White", "Red", "Blue", "Black", "Silver", "Multicolor", "Glass Finish"],
+            powerConsumptions: ["600W", "1000W", "1200W", "1400W", "1500W", "1600W", "1800W", "2000W", "2100W"],
+            controlTypes: ["Push Button", "Soft Touch", "Feather Touch", "Digital Controls", "Smart Touch"],
+            presetModes: ["Pressure Cook", "Curry", "Deep Fry", "Keep Warm", "Milk/Tea", "Manual", "Boil", "Indian Menu"]
+        };
+
+        async function init() {
+            renderFilterUI();
+            await fetchProducts();
+            setupEventListeners();
+        }
+
+        async function fetchProducts() {
+            const sort = document.getElementById('sort-select').value;
+            const res = await fetch(`/api/products?subcategory=Kitchen %26 Appliances&sort=${sort}`);
+            allProducts = await res.json();
+            applyFiltersAndRender();
+        }
+
+        function renderFilterUI() {
+            const sections = { 
+                brands: 'brand-filters', 
+                types: 'type-filters', 
+                materials: 'material-filters', 
+                capacities: 'capacity-filters',
+                lidTypes: 'lid-filters',
+                bladeMaterials: 'blade-filters',
+                operationTypes: 'operation-filters',
+                handleMaterials: 'handle-filters',
+                bladeLengths: 'blade-length-filters',
+                colors: 'color-filters',
+                powerConsumptions: 'power-filters',
+                controlTypes: 'control-filters',
+                presetModes: 'preset-filters'
+            };
+            for (const [key, id] of Object.entries(sections)) {
+                const el = document.getElementById(id);
+                if (!el) continue;
+                el.innerHTML = config[key].map(val => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('${key}', '${val}')">
+                        <div class="custom-checkbox ${filters[key].includes(val) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#8D6E63] transition-colors">${val}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleFilter(key, val) {
+            const idx = filters[key].indexOf(val);
+            if (idx > -1) filters[key].splice(idx, 1); else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const b = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const t = filters.types.length === 0 || filters.types.includes(p.type);
+                const m = filters.materials.length === 0 || (p.material && filters.materials.includes(p.material));
+                const c = filters.capacities.length === 0 || (p.capacity && filters.capacities.includes(p.capacity));
+                const l = filters.lidTypes.length === 0 || (p.lidType && filters.lidTypes.includes(p.lidType));
+                const bm = filters.bladeMaterials.length === 0 || (p.bladeMaterial && filters.bladeMaterials.includes(p.bladeMaterial));
+                const ot = filters.operationTypes.length === 0 || (p.operationType && filters.operationTypes.includes(p.operationType));
+                const hm = filters.handleMaterials.length === 0 || (p.handleMaterial && filters.handleMaterials.includes(p.handleMaterial));
+                const bl = filters.bladeLengths.length === 0 || (p.bladeLength && filters.bladeLengths.includes(p.bladeLength));
+                const cl = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c)));
+                const pc = filters.powerConsumptions.length === 0 || (p.powerConsumption && filters.powerConsumptions.includes(p.powerConsumption));
+                const ct = filters.controlTypes.length === 0 || (p.controlType && filters.controlTypes.includes(p.controlType));
+                const pm = filters.presetModes.length === 0 || (p.presetModes && p.presetModes.some(m => filters.presetModes.includes(m)));
+                const pr = p.price <= filters.maxPrice;
+                const s = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase());
+                return b && t && m && c && l && bm && ot && hm && bl && cl && pc && ct && pm && pr && s;
+            });
+
+            document.getElementById('result-count').innerText = filtered.length;
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-[2rem] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col">
+                        <div class="relative aspect-square overflow-hidden bg-gray-50 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            ${p.discount ? `<span class="absolute top-4 left-4 bg-[#8D6E63] text-white text-[8px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">${p.discount}</span>` : ''}
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 gap-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">${p.brand}</span>
+                                <div class="flex items-center gap-1 text-yellow-500 text-[10px] font-bold"><ion-icon name="star"></ion-icon><span>${(p.rating || 4.0).toFixed(1)}</span></div>
+                            </div>
+                            <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 leading-tight cursor-pointer hover:text-[#8D6E63] transition-colors" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                            <div class="flex flex-wrap gap-1.5 mt-1">
+                                <span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.type}</span>
+                                ${p.material ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.material}</span>` : ''}
+                                ${p.capacity ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.capacity}</span>` : ''}
+                                ${p.lidType ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.lidType} Lid</span>` : ''}
+                                ${p.bladeMaterial ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.bladeMaterial}</span>` : ''}
+                                ${p.handleMaterial ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.handleMaterial} Handle</span>` : ''}
+                                ${p.bladeLength ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.bladeLength}</span>` : ''}
+                                ${p.operationType ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.operationType}</span>` : ''}
+                                ${p.powerConsumption ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.powerConsumption}</span>` : ''}
+                                ${p.controlType ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.controlType}</span>` : ''}
+                                ${p.colors ? p.colors.map(c => `<span class="bg-gray-100 text-gray-600 text-[8px] font-black px-2 py-1 rounded-md uppercase">${c}</span>`).join('') : ''}
+                            </div>
+                            <div class="mt-auto pt-4 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-black text-[#5D4037]">₹${p.price}</span>
+                                    ${p.originalPrice ? `<span class="text-[10px] text-gray-400 line-through font-bold">₹${p.originalPrice}</span>` : ''}
+                                </div>
+                                <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="w-10 h-10 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#8D6E63] hover:text-white transition-all"><ion-icon name="cart-outline" class="text-lg"></ion-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', fetchProducts);
+            document.getElementById('top-search').addEventListener('input', e => { filters.search = e.target.value; applyFiltersAndRender(); });
+            document.getElementById('price-range').addEventListener('input', e => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${filters.maxPrice}${filters.maxPrice == 5000 ? '+' : ''}`;
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = { brands: [], types: [], materials: [], capacities: [], lidTypes: [], bladeMaterials: [], operationTypes: [], handleMaterials: [], bladeLengths: [], colors: [], powerConsumptions: [], controlTypes: [], presetModes: [], maxPrice: 5000, search: "" };
+            document.getElementById('price-range').value = 5000;
+            document.getElementById('price-max').innerText = "₹5000+";
+            document.getElementById('top-search').value = "";
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        init();
+    </script>
+</body>
+</html>

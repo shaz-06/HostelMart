@@ -227,7 +227,7 @@ window.performGlobalSearch = async function(query) {
     const titleEl = document.getElementById('search-results-title');
 
     if (!searchArea || !searchGrid) {
-        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+        window.location.href = `/index.html?search=${encodeURIComponent(query)}`;
         return;
     }
 
@@ -299,7 +299,17 @@ function createProductCardHTML(product) {
                 <img src="${hoverImage}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 ${badgeHtml}
                 <div class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
-                    <button class="bg-[#FDFBF7]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90" onclick="event.stopPropagation()"><ion-icon name="heart-outline"></ion-icon></button>
+                    <button class="bg-[#FDFBF7]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90" 
+                            onclick="event.stopPropagation()"
+                            data-cart-action="add"
+                            data-mini="true"
+                            data-product-slug="${product.slug}"
+                            data-product-name="${product.name}"
+                            data-product-price="₹${product.price.toLocaleString('en-IN')}"
+                            data-product-image="${product.image}"
+                            data-product-brand="${product.brand || 'HostelMart'}">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </button>
                     <button class="bg-[#FDFBF7]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90" onclick="event.stopPropagation()"><ion-icon name="eye-outline"></ion-icon></button>
                 </div>
             </div>
@@ -313,6 +323,10 @@ function createProductCardHTML(product) {
             </div>
         </div>
     `;
+    
+    // Trigger sync after rendering
+    setTimeout(() => { if (window.syncCartButtons) window.syncCartButtons(); }, 100);
+    return html;
 }
 
 // Utility Functions
@@ -345,7 +359,7 @@ function saveSearchToHistory(term) {
 
 window.navigateToProduct = function(slug) {
     if (!slug) return;
-    window.location.href = `ProductDetail.html?slug=${slug}`;
+    window.location.href = `/product/${slug}`;
 };
 
 // Handle URL Search Params (e.g. for redirects from other pages)

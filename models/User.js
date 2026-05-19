@@ -19,9 +19,18 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
-  roomNumber: {
+  room: {
     type: String,
     default: '',
+  },
+  address: {
+    type: String,
+    default: '',
+  },
+  addressType: {
+    type: String,
+    enum: ['Home', 'Work', 'Other'],
+    default: 'Home',
   },
   cart: {
     type: Array,

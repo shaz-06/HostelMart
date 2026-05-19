@@ -164,7 +164,7 @@
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="meesho-logo italic"><span class="text-[#8D6E63]">Hostel</span><span
+            <a href="/index.html" class="meesho-logo italic"><span class="text-[#8D6E63]">Hostel</span><span
                     class="text-[#C8A951]">Mart</span></a>
             <div class="flex items-center gap-2 w-full max-w-xs justify-center">
                 <div class="flex flex-col items-center gap-1">
@@ -190,24 +190,13 @@
                 <section>
                     <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-brown">
                         <ion-icon name="receipt-outline" class="text-gold"></ion-icon>
-                        Order Summary
+                        Order Summary (<span id="summary-count">0</span>)
                     </h2>
-                    <div class="card p-6 flex gap-6">
-                        <div
-                            class="w-24 h-24 bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 flex-shrink-0">
-                            <img id="summary-img" src="" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex-1 space-y-1">
-                            <h3 id="summary-title" class="text-base font-bold text-gray-800 line-clamp-1">Loading...
-                            </h3>
-                            <p class="text-sm text-gray-500 font-medium">Size: <span id="summary-size"
-                                    class="font-bold text-gray-700">...</span> • Qty: <span id="summary-qty"
-                                    class="font-bold text-gray-700">1</span></p>
-                            <div class="flex items-center gap-2 pt-2">
-                                <span id="summary-price" class="text-lg font-black text-brown">₹0</span>
-                                <span id="summary-original" class="text-sm text-gray-400 line-through">₹0</span>
-                            </div>
-                        </div>
+                    <div id="payment-items-list" class="space-y-4">
+                         <!-- Items injected here -->
+                         <div class="card p-8 text-center animate-pulse">
+                            <p class="text-sm font-bold text-gray-400">Loading your bag...</p>
+                         </div>
                     </div>
                 </section>
 
@@ -350,11 +339,13 @@
 
     <script>
         let selectedPaymentMethod = null;
-        const checkoutData = JSON.parse(localStorage.getItem('checkoutItem'));
+        let pendingOrder = JSON.parse(localStorage.getItem('pendingOrder'));
         const deliveryDetails = JSON.parse(localStorage.getItem('deliveryDetails'));
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (!checkoutData || !deliveryDetails) {
+            console.log("Payment initialization...");
+            if (!pendingOrder || !deliveryDetails) {
+                console.error("Missing session data", { pendingOrder, deliveryDetails });
                 alert('Session expired or missing details. Redirecting to Checkout.');
                 window.location.href = 'Checkout.html';
                 return;
@@ -363,29 +354,40 @@
         });
 
         function renderUI() {
-            document.getElementById('summary-img').src = checkoutData.img;
-            document.getElementById('summary-title').textContent = checkoutData.title;
-            document.getElementById('summary-price').textContent = checkoutData.currentPrice;
-            document.getElementById('summary-original').textContent = checkoutData.originalPrice || '';
-            document.getElementById('summary-size').textContent = checkoutData.size || 'Free Size';
-            document.getElementById('summary-qty').textContent = checkoutData.qty || '1';
+            const list = document.getElementById('payment-items-list');
+            const items = pendingOrder.items || [];
+            document.getElementById('summary-count').textContent = items.length;
 
-            const qty = parseInt(checkoutData.qty || 1);
-            const currPrice = parseInt(checkoutData.currentPrice.replace(/[^\d]/g, ''));
-            const origPrice = checkoutData.originalPrice ? parseInt(checkoutData.originalPrice.replace(/[^\d]/g, '')) : currPrice;
+            list.innerHTML = items.map(item => `
+                <div class="card p-4 flex gap-6 animate-fadeIn">
+                    <div class="w-20 h-20 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 flex-shrink-0 p-1">
+                        <img src="${item.img}" class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-sm font-bold text-brown truncate">${item.title}</h3>
+                        <p class="text-[10px] text-gray-400 font-black uppercase tracking-widest mt-1">
+                            Qty: ${item.qty} • Size: ${item.size || 'Free Size'}
+                        </p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="text-base font-black text-brown">₹${item.price.toLocaleString('en-IN')}</span>
+                            ${item.originalPrice > item.price ? `<span class="text-[10px] text-gray-400 line-through">₹${item.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
 
-            const totalCurr = currPrice * qty;
-            const totalOrig = origPrice * qty;
-            const discount = totalOrig - totalCurr;
+            const totalCurr = pendingOrder.totalActual;
+            const totalOrig = pendingOrder.totalOriginal;
+            const discount = pendingOrder.totalSavings;
 
-            document.getElementById('side-original-price').textContent = '₹' + totalOrig;
-            document.getElementById('side-discount-amt').textContent = '- ₹' + discount;
-            document.getElementById('side-total-price').textContent = '₹' + totalCurr;
-            document.getElementById('side-discount-text').textContent = '₹' + discount;
+            document.getElementById('side-original-price').textContent = '₹' + totalOrig.toLocaleString('en-IN');
+            document.getElementById('side-discount-amt').textContent = '- ₹' + discount.toLocaleString('en-IN');
+            document.getElementById('side-total-price').textContent = '₹' + totalCurr.toLocaleString('en-IN');
+            document.getElementById('side-discount-text').textContent = '₹' + discount.toLocaleString('en-IN');
 
-            document.getElementById('payment-cod-price').textContent = '₹' + totalCurr;
-            document.getElementById('payment-online-orig').textContent = '₹' + totalCurr;
-            document.getElementById('payment-online-price').textContent = '₹' + Math.round(totalCurr * 0.9);
+            document.getElementById('payment-cod-price').textContent = '₹' + totalCurr.toLocaleString('en-IN');
+            document.getElementById('payment-online-orig').textContent = '₹' + totalCurr.toLocaleString('en-IN');
+            document.getElementById('payment-online-price').textContent = '₹' + Math.round(totalCurr * 0.9).toLocaleString('en-IN');
         }
 
         window.selectPayment = function (method) {
@@ -398,17 +400,17 @@
             document.getElementById('online-radio').innerHTML = '';
             const radio = document.getElementById(`${method}-radio`);
             radio.classList.add('bg-brown-medium', 'border-brown-medium');
-            radio.innerHTML = '<div class="w-2 h-2 bg-white rounded-full"></div>';
+            radio.innerHTML = '<ion-icon name="checkmark" class="text-white text-xs"></ion-icon>';
 
             const upiDetails = document.getElementById('upi-details');
             if (method === 'online') {
                 upiDetails.classList.remove('hidden');
-                const total = parseInt(document.getElementById('payment-online-price').textContent.replace(/[^\d]/g, ''));
-                document.getElementById('side-total-price').textContent = '₹' + total;
+                const total = Math.round(pendingOrder.totalActual * 0.9);
+                document.getElementById('side-total-price').textContent = '₹' + total.toLocaleString('en-IN');
             } else {
                 upiDetails.classList.add('hidden');
-                const total = parseInt(document.getElementById('payment-cod-price').textContent.replace(/[^\d]/g, ''));
-                document.getElementById('side-total-price').textContent = '₹' + total;
+                const total = pendingOrder.totalActual;
+                document.getElementById('side-total-price').textContent = '₹' + total.toLocaleString('en-IN');
             }
         };
 
@@ -427,25 +429,30 @@
 
             const btn = document.getElementById('place-order-btn');
             btn.disabled = true;
-            btn.innerHTML = '<ion-icon name="sync-outline" class="animate-spin"></ion-icon> PROCESSING...';
+            btn.innerHTML = '<ion-icon name="sync-outline" class="animate-spin"></ion-icon> FINALIZING ORDER...';
 
-            const orderId = 'HM' + Math.floor(10000 + Math.random() * 90000);
+            const finalAmountStr = document.getElementById('side-total-price').textContent.replace(/[^\d]/g, '');
+            const finalAmount = parseInt(finalAmountStr);
+
             const orderData = {
-                orderId: orderId,
+                orderId: pendingOrder.orderId || ('HM' + Math.floor(100000 + Math.random() * 900000)),
                 customerName: deliveryDetails.name,
                 phone: deliveryDetails.phone,
                 hostel: deliveryDetails.hostel,
                 room: deliveryDetails.room,
                 address: deliveryDetails.address,
-                items: [checkoutData],
-                totalAmount: document.getElementById('side-total-price').textContent.replace('₹', ''),
+                items: pendingOrder.items,
+                totalAmount: finalAmount,
+                originalAmount: pendingOrder.totalOriginal,
+                savings: pendingOrder.totalOriginal - finalAmount,
                 trackingStatus: 'confirmed',
                 timestamp: new Date().getTime(),
-                paymentMethod: selectedPaymentMethod
+                paymentMethod: selectedPaymentMethod,
+                paymentStatus: selectedPaymentMethod === 'cod' ? 'pending' : 'awaiting_upi'
             };
 
             if (selectedPaymentMethod === 'online') {
-                localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+                localStorage.setItem('finalOrder', JSON.stringify(orderData));
                 setTimeout(() => {
                     window.location.href = 'UPIPayment.html';
                 }, 800);
@@ -453,6 +460,7 @@
             }
 
             try {
+                console.log("Placing order to server...", orderData);
                 const response = await fetch('/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -461,19 +469,22 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    // Save order locally as a fallback for immediate display
-                    let localOrders = JSON.parse(localStorage.getItem('userOrders') || '[]');
-                    localOrders.unshift(orderData); // Add to beginning
-                    localStorage.setItem('userOrders', JSON.stringify(localOrders));
+                    // Clear cart after successful COD order
+                    if (window.localStorage) {
+                        localStorage.removeItem('hostelmart_cart');
+                        localStorage.removeItem('pendingOrder');
+                        localStorage.removeItem('checkoutItem');
+                    }
 
                     setTimeout(() => {
-                        renderSuccessScreen(orderId, deliveryDetails.phone);
-                    }, 2000);
+                        renderSuccessScreen(orderData.orderId, deliveryDetails.phone);
+                    }, 1500);
                 } else {
-                    throw new Error(result.message);
+                    throw new Error(result.message || 'Server failed to save order');
                 }
             } catch (err) {
-                alert("Order Placement Error: " + err.message);
+                console.error("Order Placement Error:", err);
+                alert("Order Placement Failed: " + err.message);
                 btn.disabled = false;
                 btn.innerHTML = 'Place Order';
             }

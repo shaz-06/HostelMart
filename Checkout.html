@@ -12,6 +12,8 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
     <script src="auth_global.js" defer></script>
+    <script src="profile_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
     <style>
         :root {
             --cream: #FDFBF7;
@@ -265,7 +267,7 @@
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="meesho-logo italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></a>
+            <a href="/index.html" class="meesho-logo italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></a>
             <div class="flex items-center gap-2 w-full max-w-xs justify-center">
                 <div class="flex flex-col items-center gap-1"><div id="step-1-dot" class="stepper-dot active">1</div><span id="step-1-text" class="text-[10px] font-bold text-gray-500 uppercase">Review</span></div>
                 <div id="step-line" class="stepper-line"></div>
@@ -283,31 +285,14 @@
                 <!-- STEP 1 -->
                 <div id="checkout-step-1" class="space-y-6">
                     <div>
-                        <h2 class="text-lg font-bold mb-4">Product Details</h2>
-                        <div class="card overflow-hidden">
-                            <div class="px-6 py-3 bg-white border-b border-gray-100 flex items-center gap-3">
-                                <ion-icon name="bus-outline" class="text-xl text-gray-400"></ion-icon>
-                                <span class="text-sm font-bold text-[#2b2b2b]">Estimated Delivery by <span id="delivery-date">...</span></span>
-                            </div>
-                            <div class="p-6 flex gap-4">
-                                <div class="w-20 h-20 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
-                                    <img id="product-img" src="" class="w-full h-full object-cover">
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex justify-between items-start mb-1">
-                                        <h3 id="product-title" class="text-sm font-bold leading-tight line-clamp-1 pr-8">Loading...</h3>
-                                        <button onclick="openEditModal()" class="text-[#9c27b0] text-xs font-black uppercase tracking-widest">Edit</button>
-                                    </div>
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <span id="product-price" class="text-sm font-black">₹0</span>
-                                        <span id="product-original-price" class="text-[10px] text-gray-400 line-through">₹0</span>
-                                        <span id="product-discount" class="text-[10px] font-black text-green-600">0% Off</span>
-                                    </div>
-                                    <div class="text-[11px] font-bold text-gray-500">Size: <span id="product-size">...</span> <span class="mx-2 opacity-30">•</span> Qty: <span id="product-qty">1</span></div>
-                                </div>
-                            </div>
-                            <div class="px-6 py-3 bg-gray-50/50 border-t border-gray-100">
-                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sold by: <span id="seller-name" class="text-gray-600 uppercase">HOSTELMART</span></p>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-bold">Order Items (<span id="total-items-count">0</span>)</h2>
+                        </div>
+                        <div id="checkout-items-list" class="space-y-4">
+                            <!-- Items will be injected here -->
+                            <div class="card p-8 text-center space-y-4">
+                                <div class="w-12 h-12 border-4 border-brown/10 border-t-brown animate-spin rounded-full mx-auto"></div>
+                                <p class="text-sm font-bold text-brown-light uppercase tracking-widest">Loading Order Details...</p>
                             </div>
                         </div>
                     </div>
@@ -379,109 +364,245 @@
     <script>
         // Removed Firebase client-side imports - using server API instead
 
-        let selectedPaymentMethod = null;
-        const checkoutData = JSON.parse(localStorage.getItem('checkoutItem'));
-        const userData = JSON.parse(localStorage.getItem('userData'));
+        let checkoutItems = [];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!checkoutData) {
-                alert('No item found!');
-                window.location.href = 'index.html';
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            const singleItem = JSON.parse(localStorage.getItem('checkoutItem'));
+
+            if (slug) {
+                // Buy Now Flow
+                await loadSingleProduct(slug, singleItem?.qty || 1);
+            } else {
+                // Cart Checkout Flow
+                // Wait for cart_global.js to initialize if needed
+                let attempts = 0;
+                while (!window.getCart && attempts < 10) {
+                    await new Promise(r => setTimeout(r, 100));
+                    attempts++;
+                }
+                await loadCartProducts();
+            }
+
+            if (checkoutItems.length === 0) {
+                document.getElementById('checkout-items-list').innerHTML = `
+                    <div class="card p-12 text-center space-y-4">
+                        <ion-icon name="cart-outline" class="text-6xl text-gray-200"></ion-icon>
+                        <p class="font-bold text-gray-500">Your checkout session is empty.</p>
+                        <a href="index.html" class="inline-block bg-brown text-white px-6 py-2 rounded-lg font-bold uppercase text-xs tracking-widest">Return to Home</a>
+                    </div>
+                `;
+                calculateTotals(); // Will set ₹0
                 return;
             }
 
-            renderUI();
+            renderOrderItems();
+            calculateTotals();
             
-            // Priority 1: Load from detailedAddress (saved in Address.html)
-            const detailedAddress = JSON.parse(localStorage.getItem('detailedAddress'));
-            if (detailedAddress) {
-                if (document.getElementById('guest-name')) document.getElementById('guest-name').value = detailedAddress.fullName || '';
-                if (document.getElementById('guest-phone')) document.getElementById('guest-phone').value = detailedAddress.mobile || '';
-                if (document.getElementById('guest-hostel')) document.getElementById('guest-hostel').value = detailedAddress.house || '';
-                if (document.getElementById('guest-room')) document.getElementById('guest-room').value = detailedAddress.roomNumber || '';
-                if (document.getElementById('guest-address')) document.getElementById('guest-address').value = detailedAddress.locality || '';
-            } 
-            // Priority 2: Load from deliveryAddress string (legacy/simple)
-            else if (localStorage.getItem('deliveryAddress')) {
-                const simpleAddr = localStorage.getItem('deliveryAddress');
-                if (document.getElementById('guest-address')) document.getElementById('guest-address').value = simpleAddr;
-            }
-            // Priority 3: Load from logged-in userData
-            else if (userData) {
-                if (document.getElementById('guest-name')) document.getElementById('guest-name').value = userData.name || '';
-                if (document.getElementById('guest-phone')) document.getElementById('guest-phone').value = userData.phone || '';
-                if (document.getElementById('guest-hostel')) document.getElementById('guest-hostel').value = userData.hostel || '';
-                if (document.getElementById('guest-room')) document.getElementById('guest-room').value = userData.room || '';
-                if (document.getElementById('guest-address')) document.getElementById('guest-address').value = userData.address || '';
-            }
-
             const d = new Date(); d.setDate(d.getDate() + 4);
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            document.getElementById('delivery-date').textContent = `${d.getDate()} ${months[d.getMonth()]}`;
-
-            // Auto-fill logic for known phone numbers (for non-logged in users)
-            const phoneInput = document.getElementById('guest-phone');
-            if (phoneInput && !userData) {
-                phoneInput.addEventListener('input', (e) => {
-                    const phone = e.target.value.trim();
-                    const savedProfiles = JSON.parse(localStorage.getItem('guestProfiles') || '{}');
-                    if (savedProfiles[phone]) {
-                        const profile = savedProfiles[phone];
-                        document.getElementById('guest-name').value = profile.name || '';
-                        document.getElementById('guest-hostel').value = profile.hostel || '';
-                        document.getElementById('guest-room').value = profile.room || '';
-                        document.getElementById('guest-address').value = profile.address || '';
-                    }
-                });
-            }
+            const deliveryDateElem = document.getElementById('delivery-date');
+            if (deliveryDateElem) deliveryDateElem.textContent = `${d.getDate()} ${months[d.getMonth()]}`;
         });
 
-        function renderUI() {
-            const data = JSON.parse(localStorage.getItem('checkoutItem'));
-            if (!data) return;
+        async function loadSingleProduct(slug, qty) {
+            try {
+                const res = await fetch(`/api/products?slug=${slug}`);
+                const data = await res.json();
+                const product = Array.isArray(data) ? data[0] : data;
+                if (product) {
+                    checkoutItems = [{
+                        id: product.slug,
+                        slug: product.slug,
+                        title: product.name,
+                        price: product.price,
+                        originalPrice: product.originalPrice || Math.round(product.price * 1.2),
+                        img: product.image,
+                        brand: product.brand,
+                        qty: qty,
+                        size: localStorage.getItem('selectedSize') || 'Free Size'
+                    }];
+                }
+            } catch (e) {
+                console.error("Error loading product:", e);
+            }
+        }
 
-            if (document.getElementById('product-img')) document.getElementById('product-img').src = data.img;
-            if (document.getElementById('product-title')) document.getElementById('product-title').textContent = data.title;
-            if (document.getElementById('product-price')) document.getElementById('product-price').textContent = data.currentPrice;
-            if (document.getElementById('product-original-price')) document.getElementById('product-original-price').textContent = data.originalPrice || '';
-            if (document.getElementById('product-size')) document.getElementById('product-size').textContent = data.size || 'Free Size';
-            if (document.getElementById('product-qty')) document.getElementById('product-qty').textContent = data.qty || '1';
-            
-            const qty = parseInt(data.qty || 1);
-            const currPrice = parseInt(data.currentPrice.replace(/[^\d]/g, ''));
-            const origPrice = data.originalPrice ? parseInt(data.originalPrice.replace(/[^\d]/g, '')) : currPrice;
-            
-            const totalCurr = currPrice * qty;
-            const totalOrig = origPrice * qty;
-            const discount = totalOrig - totalCurr;
+        async function loadCartProducts() {
+            console.log("Loading products from cart...");
+            if (window.getCart) {
+                const cart = window.getCart();
+                console.log("Cart items retrieved:", cart);
+                if (cart.length > 0) {
+                    // Fetch latest prices for all items in cart using efficient slugs filter
+                    const slugs = cart.map(item => item.slug || item.id).filter(s => s).join(',');
+                    if (!slugs) {
+                         console.warn("Cart has items but no valid slugs found.");
+                         checkoutItems = cart.map(item => ({
+                            ...item,
+                            price: parseInt(String(item.currentPrice || item.price).replace(/[^\d]/g, '')),
+                            originalPrice: parseInt(String(item.originalPrice || item.price).replace(/[^\d]/g, ''))
+                         }));
+                         return;
+                    }
+                    
+                    try {
+                        console.log("Fetching latest product data for slugs:", slugs);
+                        const res = await fetch(`/api/products?slugs=${slugs}`);
+                        const products = await res.json();
+                        console.log("Fetched products from DB:", products);
+                        
+                        checkoutItems = cart.map(item => {
+                            const latest = products.find(p => p.slug === (item.slug || item.id));
+                            return {
+                                ...item,
+                                title: latest?.name || item.title || item.name,
+                                price: latest?.price || parseInt(String(item.currentPrice || item.price).replace(/[^\d]/g, '')),
+                                originalPrice: latest?.originalPrice || (latest?.price ? Math.round(latest.price * 1.2) : parseInt(String(item.originalPrice || item.price).replace(/[^\d]/g, ''))),
+                                img: latest?.image || item.img || item.image,
+                                brand: latest?.brand || item.brand
+                            };
+                        });
+                    } catch (e) {
+                        console.error("Error syncing cart prices:", e);
+                        // Fallback to local data
+                        checkoutItems = cart.map(item => ({
+                            ...item,
+                            price: parseInt(String(item.currentPrice || item.price).replace(/[^\d]/g, '')),
+                            originalPrice: parseInt(String(item.originalPrice || item.price).replace(/[^\d]/g, ''))
+                        }));
+                    }
+                } else {
+                    console.log("Cart is empty according to getCart().");
+                }
+            } else {
+                console.error("window.getCart is not defined after waiting.");
+            }
+        }
 
-            if (document.getElementById('side-original-price')) document.getElementById('side-original-price').textContent = '₹' + totalOrig;
-            if (document.getElementById('side-discount-amt')) document.getElementById('side-discount-amt').textContent = '- ₹' + discount;
-            if (document.getElementById('side-total-price')) document.getElementById('side-total-price').textContent = '₹' + totalCurr;
-            if (document.getElementById('side-discount-text')) document.getElementById('side-discount-text').textContent = '₹' + discount;
+        function renderOrderItems() {
+            const list = document.getElementById('checkout-items-list');
+            document.getElementById('total-items-count').textContent = checkoutItems.length;
+            
+            list.innerHTML = checkoutItems.map((item, index) => `
+                <div class="card overflow-hidden animate-fadeIn" style="animation-delay: ${index * 0.1}s">
+                    <div class="px-6 py-2 bg-gray-50/50 border-b border-gray-100 flex items-center justify-between">
+                         <div class="flex items-center gap-2">
+                            <ion-icon name="bus-outline" class="text-lg text-gray-400"></ion-icon>
+                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Standard Delivery</span>
+                         </div>
+                         <span class="text-[10px] font-black text-green-600 uppercase tracking-widest">Guaranteed</span>
+                    </div>
+                    <div class="p-6 flex gap-6">
+                        <div class="w-24 h-24 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-100 p-2">
+                            <img src="${item.img}" class="w-full h-full object-contain">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-sm font-bold text-brown leading-tight pr-8">${item.title}</h3>
+                                <button onclick="openEditModal(${index})" class="text-gold text-[10px] font-black uppercase tracking-widest hover:underline">Edit</button>
+                            </div>
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-tighter mb-2">${item.brand || 'HostelMart'}</p>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-base font-black text-brown italic">₹${item.price.toLocaleString('en-IN')}</span>
+                                ${item.originalPrice > item.price ? `<span class="text-xs text-gray-400 line-through">₹${item.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                                ${item.originalPrice > item.price ? `<span class="text-[10px] font-black text-green-600">${Math.round((1 - item.price / item.originalPrice) * 100)}% OFF</span>` : ''}
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="bg-gold/5 px-3 py-1 rounded-lg border border-gold/10">
+                                    <span class="text-[10px] font-black text-brown-medium uppercase tracking-widest">Qty: ${item.qty}</span>
+                                </div>
+                                <div class="bg-brown/5 px-3 py-1 rounded-lg border border-brown/10">
+                                    <span class="text-[10px] font-black text-brown-medium uppercase tracking-widest">Size: ${item.size || 'Free Size'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function calculateTotals() {
+            let totalActual = 0;
+            let totalOriginal = 0;
+
+            checkoutItems.forEach(item => {
+                totalActual += (item.price * item.qty);
+                totalOriginal += ((item.originalPrice || item.price) * item.qty);
+            });
+
+            const totalSavings = totalOriginal - totalActual;
+
+            const updateText = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = val;
+            };
+
+            updateText('side-original-price', '₹' + totalOriginal.toLocaleString('en-IN'));
+            updateText('side-discount-amt', '- ₹' + totalSavings.toLocaleString('en-IN'));
+            updateText('side-total-price', '₹' + totalActual.toLocaleString('en-IN'));
+            updateText('side-discount-text', '₹' + totalSavings.toLocaleString('en-IN'));
+            
+            // For UPI Payment page prep
+            localStorage.setItem('pendingOrder', JSON.stringify({
+                items: checkoutItems,
+                totalAmount: '₹' + totalActual,
+                totalActual: totalActual,
+                totalOriginal: totalOriginal,
+                totalSavings: totalSavings,
+                orderId: 'HM' + Math.floor(Math.random() * 1000000)
+            }));
         }
 
         window.handleContinue = async function() {
-            console.log("Continue clicked");
+            const btn = document.getElementById('main-action-btn');
+            
+            // 1. Validate Items
+            if (!checkoutItems || checkoutItems.length === 0) {
+                alert('Your checkout session is empty. Please add items to proceed.');
+                return;
+            }
+
+            // 2. Validate Inputs
             const name = document.getElementById('guest-name').value.trim();
             const phone = document.getElementById('guest-phone').value.trim();
             const hostel = document.getElementById('guest-hostel').value.trim();
             const room = document.getElementById('guest-room').value.trim();
             const address = document.getElementById('guest-address').value.trim();
 
-            if (!name || !phone || !address) {
-                alert('Please fill in your Name, Phone Number, and Full Address to proceed.');
-                return;
-            }
+            if (!name) { alert('Please enter your full name.'); return; }
+            if (!phone || phone.length < 10) { alert('Please enter a valid 10-digit phone number.'); return; }
+            if (!address || address.length < 5) { alert('Please enter a complete delivery address.'); return; }
 
-            // Save delivery details for the next page
+            // 3. Save Data for Payment Page
             const deliveryDetails = { name, phone, hostel, room, address };
-            console.log("Saving delivery details:", deliveryDetails);
-            localStorage.setItem('deliveryDetails', JSON.stringify(deliveryDetails));
+            
+            btn.disabled = true;
+            btn.innerHTML = '<ion-icon name="sync-outline" class="animate-spin"></ion-icon> SECURING SESSION...';
 
-            // Redirect to Payment Method page
-            console.log("Redirecting to PaymentMethod.html");
-            window.location.href = 'PaymentMethod.html';
+            try {
+                // Sync with global profile manager
+                if (window.ProfileManager) {
+                    await window.ProfileManager.updateProfile(deliveryDetails);
+                }
+
+                // Save for PaymentMethod.html
+                localStorage.setItem('deliveryDetails', JSON.stringify(deliveryDetails));
+                
+                // Final calculation sync
+                calculateTotals();
+
+                // Smooth redirect
+                setTimeout(() => {
+                    window.location.href = 'PaymentMethod.html';
+                }, 800);
+            } catch (e) {
+                console.error("Checkout process error:", e);
+                alert("An error occurred. Please try again.");
+                btn.disabled = false;
+                btn.innerHTML = 'Proceed to Payment';
+            }
         };
 
 
@@ -496,23 +617,21 @@
                 document.body.style.overflow = 'auto'; 
             }, 500);
         };
-        window.openEditModal = () => {
-            const data = JSON.parse(localStorage.getItem('checkoutItem'));
-            if (!data) return;
+        let currentEditIndex = -1;
+        window.openEditModal = (index) => {
+            currentEditIndex = index;
+            const item = checkoutItems[index];
+            if (!item) return;
 
-            document.getElementById('edit-product-img').src = data.img;
-            document.getElementById('edit-product-title').textContent = data.title;
-            document.getElementById('edit-product-price').textContent = data.currentPrice;
-            document.getElementById('edit-qty-display').textContent = data.qty || 1;
+            document.getElementById('edit-product-img').src = item.img;
+            document.getElementById('edit-product-title').textContent = item.title;
+            document.getElementById('edit-product-price').textContent = '₹' + item.price.toLocaleString('en-IN');
+            document.getElementById('edit-qty-display').textContent = item.qty || 1;
             
-            // Calculate total based on qty
-            const p = parseInt(data.currentPrice.replace(/[^\d]/g, ''));
-            const q = parseInt(data.qty || 1);
-            document.getElementById('edit-total-price').textContent = '₹' + (p * q);
+            document.getElementById('edit-total-price').textContent = '₹' + (item.price * (item.qty || 1)).toLocaleString('en-IN');
             
-            // Set size select value
             const sizeSelect = document.getElementById('edit-size-select');
-            if (data.size) sizeSelect.value = data.size;
+            if (item.size) sizeSelect.value = item.size;
 
             const modal = document.getElementById('edit-modal');
             const container = document.getElementById('edit-modal-container');
@@ -525,18 +644,36 @@
             }, 10);
         };
         window.saveEditChanges = () => {
-            const data = JSON.parse(localStorage.getItem('checkoutItem'));
-            data.size = document.getElementById('edit-size-select').value;
-            data.qty = parseInt(document.getElementById('edit-qty-display').textContent);
-            localStorage.setItem('checkoutItem', JSON.stringify(data));
-            location.reload();
+            if (currentEditIndex === -1) return;
+            const item = checkoutItems[currentEditIndex];
+            item.size = document.getElementById('edit-size-select').value;
+            item.qty = parseInt(document.getElementById('edit-qty-display').textContent);
+            
+            // If it was a single checkout item, update that too
+            const singleItem = JSON.parse(localStorage.getItem('checkoutItem'));
+            if (singleItem && singleItem.slug === item.slug) {
+                localStorage.setItem('checkoutItem', JSON.stringify(item));
+            }
+            
+            // If it's in the cart, update the cart too
+            if (window.updateQuantity) {
+                const cart = window.getCart();
+                const cartIndex = cart.findIndex(c => (c.slug || c.id) === item.slug);
+                if (cartIndex > -1) {
+                    window.updateQuantity(cartIndex, item.qty);
+                }
+            }
+
+            window.closeEditModal();
+            renderOrderItems();
+            calculateTotals();
         };
         window.updateQty = (d) => {
             const el = document.getElementById('edit-qty-display');
             let q = Math.max(1, parseInt(el.textContent) + d);
             el.textContent = q;
             const p = parseInt(document.getElementById('edit-product-price').textContent.replace(/[^\d]/g, ''));
-            document.getElementById('edit-total-price').textContent = '₹' + (p * q);
+            document.getElementById('edit-total-price').textContent = '₹' + (p * q).toLocaleString('en-IN');
         };
         window.openAddressDrawer = () => window.location.href = 'Address.html';
         window.closeAddressDrawer = () => {};

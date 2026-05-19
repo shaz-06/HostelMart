@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Essentials | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(93, 64, 55, 0.1); }
+        .custom-checkbox { width: 18px; height: 18px; border: 2px solid #D7CCC8; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+        .custom-checkbox.active { background: #8D6E63; border-color: #8D6E63; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .header-gradient { background: linear-gradient(135deg, #8D6E63 0%, #5D4037 100%); }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></span>
+            </a>
+            <div class="flex-1 max-w-xl mx-8 hidden md:block relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search-outline"></ion-icon></div>
+                <input type="text" id="top-search" placeholder="Search daily essentials..." class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-2xl pl-12 pr-4 py-2.5 outline-none focus:border-[#8D6E63] transition-all text-sm font-medium">
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#8D6E63] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black">0</span>
+                </a>
+                <div id="auth-user-ui"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="header-gradient py-12 text-white overflow-hidden relative">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+            <div class="max-w-xl text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight mb-4">Daily Essentials</h1>
+                <p class="text-lg opacity-90 mb-8 font-medium italic">Everything you need for a fresh start to your hostel day.</p>
+            </div>
+            <div class="hidden md:block">
+                <ion-icon name="sparkles-outline" class="text-[12rem] opacity-20"></ion-icon>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full md:w-72 flex-shrink-0 space-y-8 hidden md:block">
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Type</h3>
+                    <div class="space-y-3" id="type-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Flavor</h3>
+                    <div class="space-y-3" id="flavor-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Fragrance</h3>
+                    <div class="space-y-3" id="fragrance-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Skin Type</h3>
+                    <div class="space-y-3" id="skintype-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Hair Type</h3>
+                    <div class="space-y-3" id="hairtype-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Volume</h3>
+                    <div class="space-y-3" id="volume-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Weight</h3>
+                    <div class="space-y-3" id="weight-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Dietary Type</h3>
+                    <div class="space-y-3" id="dietary-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹3000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="3000" step="50" value="3000" class="w-full accent-[#8D6E63]">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <div class="flex items-center justify-between mb-8">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest"><span id="result-count" class="text-[#8D6E63]">0</span> Products Found</p>
+                    <select id="sort-select" class="bg-white border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs font-bold outline-none focus:border-[#8D6E63] cursor-pointer shadow-sm">
+                        <option value="popularity">Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">New Arrivals</option>
+                    </select>
+                </div>
+
+                <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+                <div id="empty-state" class="hidden py-20 text-center">
+                    <div class="text-6xl mb-4">🧼</div>
+                    <h3 class="text-xl font-black text-[#5D4037]">No essentials found</h3>
+                    <p class="text-gray-400 text-sm mt-2">Adjust your filters to see more results.</p>
+                    <button onclick="resetFilters()" class="mt-6 bg-[#8D6E63] text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest">Reset Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let allProducts = [];
+        let filters = { brands: [], types: [], flavors: [], weights: [], fragrances: [], skintypes: [], hairtypes: [], volumes: [], dietaryTypes: [], maxPrice: 3000, search: "" };
+
+        const config = {
+            brands: ["Colgate", "Pepsodent", "Sensodyne", "Dabur Red", "Patanjali", "Closeup", "Himalaya", "Oral-B", "Dove", "Lux", "Lifebuoy", "Pears", "Santoor", "Dettol", "Medimix", "Head & Shoulders", "Pantene", "Clinic Plus", "Sunsilk", "Tresemmé", "Mamaearth", "WOW", "L'Oréal", "Aashirvaad", "Tata", "Fortune", "Britannia", "Haldiram’s", "Bru", "Nescafé", "Kellogg’s", "MTR"],
+            types: ["Whitening Toothpaste", "Herbal Toothpaste", "Sensitive Teeth Toothpaste", "Charcoal Toothpaste", "Gel Toothpaste", "Kids Toothpaste", "Ayurvedic Toothpaste", "Cavity Protection Toothpaste", "Fresh Mint Toothpaste", "Combo Toothpaste Packs", "Bath Soaps", "Herbal Soaps", "Moisturizing Soaps", "Antibacterial Soaps", "Charcoal Soaps", "Aloe Vera Soaps", "Ayurvedic Soaps", "Glycerin Soaps", "Luxury Soaps", "Combo Soap Packs", "Anti-Dandruff Shampoo", "Hair Fall Control Shampoo", "Herbal Shampoo", "Smoothening Shampoo", "Protein Shampoo", "Damage Repair Shampoo", "Daily Use Shampoo", "Shampoo Combo Packs", "Rice", "Atta", "Cooking Oil", "Sugar", "Salt", "Tea Powder", "Coffee Powder", "Spices", "Dal & Pulses", "Dry Fruits", "Instant Mixes", "Breakfast Cereals", "Biscuits", "Snacks", "Ready-to-Cook Products"],
+            flavors: ["Sparkling Mint", "Neem & Clove", "Fresh Mint", "Cool Mint", "Icy Cool", "Bubblegum", "Mix Herb", "Strong Mint", "Peppermint", "Classic Mint"],
+            weights: ["50g", "75g", "100g", "125g", "150g", "200g", "250g", "400g", "500g", "1kg", "2kg", "5kg", "10kg"],
+            dietaryTypes: ["Vegetarian", "Non-Vegetarian", "Veg", "Non-Veg", "Vegan", "Gluten-Free"],
+            fragrances: ["Mild", "Lemon", "Aloe Vera", "Rose", "Sandalwood", "Neem", "Charcoal", "Lavender", "Honey & Cream", "Apple", "Onion", "Argan Oil"],
+            skintypes: ["All Skin Types", "Oily Skin", "Dry Skin", "Sensitive Skin", "Normal Skin"],
+            hairtypes: ["All Hair Types", "Dry Hair", "Oily Hair", "Damaged Hair", "Frizzy Hair", "Normal Hair"],
+            volumes: ["100ml", "180ml", "340ml", "400ml", "650ml", "1L"]
+        };
+
+        async function init() {
+            renderFilterUI();
+            await fetchProducts();
+            setupEventListeners();
+        }
+
+        async function fetchProducts() {
+            const sort = document.getElementById('sort-select').value;
+            const res = await fetch(`/api/products?section=Daily Essentials&sort=${sort}`);
+            allProducts = await res.json();
+            applyFiltersAndRender();
+        }
+
+        function renderFilterUI() {
+            const sections = { 
+                brands: 'brand-filters', 
+                types: 'type-filters', 
+                flavors: 'flavor-filters', 
+                weights: 'weight-filters',
+                fragrances: 'fragrance-filters',
+                skintypes: 'skintype-filters',
+                hairtypes: 'hairtype-filters',
+                volumes: 'volume-filters',
+                dietaryTypes: 'dietary-filters'
+            };
+            for (const [key, id] of Object.entries(sections)) {
+                const el = document.getElementById(id);
+                el.innerHTML = config[key].map(val => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('${key}', '${val}')">
+                        <div class="custom-checkbox ${filters[key].includes(val) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#8D6E63] transition-colors">${val}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleFilter(key, val) {
+            const idx = filters[key].indexOf(val);
+            if (idx > -1) filters[key].splice(idx, 1); else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const b = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const t = filters.types.length === 0 || filters.types.includes(p.type);
+                const f = filters.flavors.length === 0 || (p.flavor && filters.flavors.includes(p.flavor));
+                const w = filters.weights.length === 0 || filters.weights.includes(p.weight);
+                const fr = filters.fragrances.length === 0 || (p.fragrance && filters.fragrances.includes(p.fragrance));
+                const st = filters.skintypes.length === 0 || (p.skinType && filters.skintypes.includes(p.skinType));
+                const ht = filters.hairtypes.length === 0 || (p.hairType && filters.hairtypes.includes(p.hairType));
+                const vol = filters.volumes.length === 0 || (p.volume && filters.volumes.includes(p.volume));
+                const d = filters.dietaryTypes.length === 0 || (p.dietaryType && filters.dietaryTypes.includes(p.dietaryType));
+                const pr = p.price <= filters.maxPrice;
+                const s = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase());
+                return b && t && f && w && fr && st && ht && vol && d && pr && s;
+            });
+
+            document.getElementById('result-count').innerText = filtered.length;
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-[2rem] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col">
+                        <div class="relative aspect-square overflow-hidden bg-gray-50 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            ${p.discount ? `<span class="absolute top-4 left-4 bg-[#8D6E63] text-white text-[8px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">${p.discount}</span>` : ''}
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 gap-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">${p.brand}</span>
+                                <div class="flex items-center gap-1 text-yellow-500 text-[10px] font-bold"><ion-icon name="star"></ion-icon><span>${p.rating.toFixed(1)}</span></div>
+                            </div>
+                            <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 leading-tight cursor-pointer hover:text-[#8D6E63] transition-colors" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                            <div class="flex flex-wrap gap-1.5 mt-1">
+                                <span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.type}</span>
+                                <span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.weight || p.volume}</span>
+                                ${p.skinType ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.skinType}</span>` : ''}
+                                ${p.hairType ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.hairType}</span>` : ''}
+                                ${p.dietaryType ? `<span class="bg-[#F5F5DC] text-[#8D6E63] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.dietaryType}</span>` : ''}
+                            </div>
+                            <div class="mt-auto pt-4 flex items-center justify-between">
+                                <span class="text-xl font-black text-[#5D4037]">₹${p.price}</span>
+                                <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="w-10 h-10 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#8D6E63] hover:text-white transition-all"><ion-icon name="cart-outline" class="text-lg"></ion-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', fetchProducts);
+            document.getElementById('top-search').addEventListener('input', e => { filters.search = e.target.value; applyFiltersAndRender(); });
+            document.getElementById('price-range').addEventListener('input', e => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${filters.maxPrice}${filters.maxPrice == 1000 ? '+' : ''}`;
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = { brands: [], types: [], flavors: [], weights: [], fragrances: [], skintypes: [], hairtypes: [], volumes: [], dietaryTypes: [], maxPrice: 3000, search: "" };
+            document.getElementById('price-range').value = 3000;
+            document.getElementById('price-max').innerText = "₹3000+";
+            document.getElementById('top-search').value = "";
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        init();
+    </script>
+</body>
+</html>

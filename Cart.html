@@ -9,8 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
     <script src="auth_global.js" defer></script>
     <script src="cart_global.js" defer></script>
@@ -89,7 +87,6 @@
             box-shadow: 0 15px 30px rgba(93, 64, 55, 0.3);
         }
 
-
         .qty-btn {
             width: 32px;
             height: 32px;
@@ -125,32 +122,12 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .animate-fadeIn {
             animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        .search-bar {
-            background: rgba(253, 245, 230, 0.5);
-            border: 1px solid rgba(215, 204, 200, 0.8);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .search-bar:focus-within {
-            background: white;
-            border-color: var(--brown-medium);
-            box-shadow: 0 0 0 4px rgba(93, 64, 55, 0.1);
         }
     </style>
 </head>
@@ -161,27 +138,18 @@
     <header class="hostelmart-header py-3">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-12 flex-1">
-                <a href="index.html" class="flex items-center gap-1 no-underline">
+                <a href="/index.html" class="flex items-center gap-1 no-underline">
                     <span class="font-black italic text-2xl flex items-center">
                         <span class="text-[#8D6E63]">Hostel</span>
                         <span class="text-[#C8A951] ml-1">Mart</span>
                     </span>
                 </a>
-                <div class="flex-1 max-w-2xl relative group">
-                    <div class="search-bar flex items-center px-4 py-2.5">
-                        <ion-icon name="search-outline" class="text-[#8D6E63] text-xl mr-3"></ion-icon>
-                        <input type="text" placeholder="Search for Products, Brands and More"
-                            class="w-full bg-transparent border-none outline-none text-sm font-medium text-brown">
-                    </div>
-                </div>
             </div>
             <div class="flex items-center gap-4 md:gap-8 ml-12 font-bold text-sm text-[#5D4037] auth-nav-slot">
-                <a href="Cart.html"
-                    class="flex items-center gap-2 relative text-[#5D4037] hover:text-[#8D6E63] transition-colors">
+                <a href="Cart.html" class="flex items-center gap-2 relative text-[#5D4037] hover:text-[#8D6E63] transition-colors">
                     <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
                     <span class="hidden md:inline">Cart</span>
-                    <span
-                        class="absolute -top-1 -right-2 bg-brown text-cream text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border-2 border-cream-dark cart-badge">0</span>
+                    <span class="absolute -top-1 -right-2 bg-brown text-cream text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border-2 border-cream-dark cart-badge">0</span>
                 </a>
             </div>
         </div>
@@ -189,7 +157,7 @@
 
     <!-- MAIN CONTENT -->
     <main class="flex-1 container mx-auto px-4 md:px-10 py-6 max-w-7xl">
-        <div id="cart-content" class="flex flex-col lg:flex-row gap-4">
+        <div id="cart-content" class="flex flex-col lg:flex-row gap-8">
             <!-- Loading State -->
             <div class="w-full text-center py-20">
                 <ion-icon name="sync-outline" class="text-4xl animate-spin text-gray-400"></ion-icon>
@@ -206,27 +174,33 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            renderCart();
+            initCart();
         });
+
+        function initCart() {
+            // Wait for cart_global.js if needed
+            if (window.getCart) {
+                renderCart();
+            } else {
+                setTimeout(initCart, 100);
+            }
+        }
 
         function renderCart() {
             const container = document.getElementById('cart-content');
-            const cart = window.getCart ? window.getCart() : [];
+            const cart = window.getCart();
 
             if (cart.length === 0) {
                 container.innerHTML = `
                     <div class="w-full bg-cream border border-brown/5 rounded-[40px] p-16 flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn shadow-xl shadow-brown/5">
                         <div class="w-48 h-48 bg-gold-light rounded-full flex items-center justify-center relative">
                             <ion-icon name="cart-outline" class="text-8xl text-brown/20"></ion-icon>
-                            <div class="absolute -top-2 -right-2 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-white text-2xl shadow-lg animate-bounce">
-                                <ion-icon name="search-outline"></ion-icon>
-                            </div>
                         </div>
                         <div class="space-y-2">
                             <h2 class="text-3xl font-black text-brown uppercase tracking-tight italic">Your cart is empty</h2>
                             <p class="text-sm text-brown-light font-bold">Discover our premium collection and start shopping</p>
                         </div>
-                        <a href="index.html" class="bg-brown-medium text-cream font-black px-12 py-5 rounded-2xl text-xs uppercase tracking-[0.2em] shadow-xl hover:bg-brown transition-all transform hover:scale-105">
+                        <a href="/index.html" class="bg-brown-medium text-cream font-black px-12 py-5 rounded-2xl text-xs uppercase tracking-[0.2em] shadow-xl hover:bg-brown transition-all transform hover:scale-105">
                             Return to Store
                         </a>
                     </div>
@@ -234,153 +208,94 @@
                 return;
             }
 
-
-            // Cart has items
             let itemsHTML = '';
-            let totalPrice = 0;
+            let totalActual = 0;
             let totalDiscount = 0;
 
             cart.forEach((item, index) => {
-                const price = parseInt(item.currentPrice.replace(/[^\d]/g, ''));
-                const original = item.originalPrice ? parseInt(item.originalPrice.replace(/[^\d]/g, '')) : price;
-                totalPrice += (original * item.qty);
-                totalDiscount += (original - price) * item.qty;
+                const priceNum = typeof item.price === 'number' ? item.price : parseInt((item.currentPrice || '0').replace(/[^\d]/g, ''));
+                const originalPriceNum = item.originalPrice ? parseInt(item.originalPrice.replace(/[^\d]/g, '')) : priceNum;
+                
+                totalActual += (priceNum * (item.qty || 1));
+                totalDiscount += (originalPriceNum - priceNum) * (item.qty || 1);
 
                 itemsHTML += `
                     <div class="cart-item-card animate-fadeIn" style="animation-delay: ${index * 0.1}s">
                         <div class="w-32 flex flex-col items-center gap-4">
                             <div class="w-32 h-32 bg-white rounded-2xl p-4 border border-brown/5 shadow-inner">
-                                <img src="${item.img}" class="w-full h-full object-contain" alt="${item.title}">
+                                <img src="${item.img || item.image}" class="w-full h-full object-contain" alt="${item.title || item.name}">
                             </div>
                             <div class="flex items-center justify-center gap-4 bg-cream-dark/50 p-2 rounded-xl border border-brown/10">
                                 <button onclick="handleQtyChange(${index}, -1)" class="qty-btn">-</button>
-                                <span class="text-sm font-black w-6 text-center text-brown">${item.qty}</span>
+                                <span class="text-sm font-black w-6 text-center text-brown">${item.qty || 1}</span>
                                 <button onclick="handleQtyChange(${index}, 1)" class="qty-btn">+</button>
                             </div>
                         </div>
                         <div class="flex-1 space-y-3">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h3 class="text-xl font-black text-brown tracking-tight">${item.title}</h3>
-                                    <p class="text-sm text-brown-light font-extrabold uppercase tracking-widest mt-1">${item.brand}</p>
+                                    <h3 class="text-xl font-black text-brown tracking-tight">${item.title || item.name}</h3>
+                                    <p class="text-sm text-brown-light font-extrabold uppercase tracking-widest mt-1">${item.brand || 'HostelMart'}</p>
                                 </div>
                                 <div class="text-right">
-                                    <div class="flex flex-col items-end">
-                                        <span class="text-2xl font-black text-brown">${item.currentPrice}</span>
-                                        ${item.originalPrice ? `<span class="text-sm text-brown-light/50 line-through font-bold">${item.originalPrice}</span>` : ''}
-                                    </div>
-                                    <span class="inline-block bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-md mt-2 uppercase tracking-tighter">Best Deal Applied</span>
+                                    <span class="text-2xl font-black text-brown">₹${priceNum.toLocaleString('en-IN')}</span>
+                                    ${item.originalPrice ? `<p class="text-xs text-brown-light/50 line-through font-bold">${item.originalPrice}</p>` : ''}
                                 </div>
                             </div>
-                            
                             <div class="flex items-center gap-6 py-2">
                                 <div class="flex items-center gap-2">
                                     <span class="text-[10px] font-black uppercase text-brown-light/60 tracking-widest">Variant</span>
-                                    <span class="bg-gold-light border border-brown/10 px-3 py-1 rounded-lg text-xs font-black text-brown-medium">${item.size}</span>
-                                </div>
-                                <div class="flex items-center gap-2 text-brown-light">
-                                    <ion-icon name="time-outline"></ion-icon>
-                                    <span class="text-[10px] font-bold uppercase tracking-widest">Delivery by Tomorrow</span>
+                                    <span class="bg-gold-light border border-brown/10 px-3 py-1 rounded-lg text-xs font-black text-brown-medium">${item.size || 'Free Size'}</span>
                                 </div>
                             </div>
-
                             <div class="pt-6 flex gap-8 border-t border-brown/5">
                                 <button onclick="handleRemove(${index})" class="remove-btn flex items-center gap-2 group">
                                     <ion-icon name="trash-outline" class="text-lg group-hover:scale-110 transition-transform"></ion-icon>
                                     Remove
                                 </button>
-                                <button class="text-[10px] font-black uppercase text-brown-medium hover:text-gold transition-colors flex items-center gap-2">
-                                    <ion-icon name="bookmark-outline" class="text-lg"></ion-icon>
-                                    Save for later
-                                </button>
                             </div>
                         </div>
                     </div>
                 `;
-
             });
 
-            const finalPrice = totalPrice - totalDiscount;
-
             container.innerHTML = `
-                <!-- ITEMS LIST -->
                 <div class="flex-1 space-y-6">
-                    <div class="bg-cream-dark px-8 py-5 flex justify-between items-center rounded-3xl border border-brown/5 shadow-sm">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 bg-brown-medium rounded-full flex items-center justify-center text-cream">
-                                <ion-icon name="cart" class="text-xl"></ion-icon>
-                            </div>
-                            <h2 class="text-lg font-black text-brown uppercase tracking-tight">Shopping Bag <span class="text-brown-light/60 italic ml-1">(${cart.length})</span></h2>
-                        </div>
-                        <div class="flex items-center gap-3 bg-cream/80 px-4 py-2 rounded-2xl border border-brown/10 shadow-inner">
-                            <ion-icon name="location" class="text-brown-light"></ion-icon>
-                            <span class="text-[10px] font-black uppercase tracking-widest text-brown-medium">Ship to: <span class="text-brown">Bangalore</span></span>
-                        </div>
+                    <div class="bg-cream-dark px-8 py-5 flex justify-between items-center rounded-3xl border border-brown/5">
+                        <h2 class="text-lg font-black text-brown uppercase tracking-tight">Shopping Bag (${cart.length})</h2>
                     </div>
                     <div class="cart-card">
                         ${itemsHTML}
                     </div>
-                    <div class="bg-cream-dark/80 backdrop-blur-md p-6 flex justify-end sticky bottom-4 rounded-[2rem] border border-brown/10 shadow-2xl z-20">
-                        <div class="flex items-center gap-8 w-full md:w-auto">
-                            <div class="hidden md:block text-right">
-                                <p class="text-[10px] font-black uppercase text-brown-light tracking-widest">Total Payable</p>
-                                <p class="text-2xl font-black text-brown">₹${finalPrice.toLocaleString()}</p>
-                            </div>
-                            <a href="Checkout.html" class="place-order-btn text-center md:min-w-[280px]">Proceed to Checkout</a>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- PRICE DETAILS -->
                 <div class="lg:w-[420px]">
                     <div class="price-details space-y-8 animate-fadeIn">
-                        <div class="flex items-center gap-3 border-b border-brown/10 pb-6">
-                            <ion-icon name="receipt-outline" class="text-2xl text-brown-light"></ion-icon>
-                            <h3 class="text-brown font-black uppercase tracking-widest text-xs">Order Summary</h3>
-                        </div>
-                        
-                        <div class="space-y-5">
-                            <div class="flex justify-between items-center text-xs font-bold text-brown-light uppercase tracking-widest">
-                                <span>Cart Subtotal (${cart.length})</span>
-                                <span class="text-brown text-sm font-black">₹${totalPrice.toLocaleString()}</span>
+                        <h3 class="text-brown font-black uppercase tracking-widest text-xs border-b border-brown/10 pb-4">Order Summary</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-sm font-bold text-brown-light">
+                                <span>Bag Total</span>
+                                <span class="text-brown">₹${(totalActual + totalDiscount).toLocaleString('en-IN')}</span>
                             </div>
-                            <div class="flex justify-between items-center text-xs font-bold text-brown-light uppercase tracking-widest">
+                            <div class="flex justify-between text-sm font-bold text-green-600">
                                 <span>Bag Discount</span>
-                                <span class="text-green-600 text-sm font-black">-₹${totalDiscount.toLocaleString()}</span>
+                                <span>-₹${totalDiscount.toLocaleString('en-IN')}</span>
                             </div>
-                            <div class="flex justify-between items-center text-xs font-bold text-brown-light uppercase tracking-widest border-b border-dashed border-brown/20 pb-6">
-                                <span>Convenience Fee</span>
-                                <span class="text-green-600 text-[10px] font-black bg-green-50 px-2 py-1 rounded">FREE</span>
-                            </div>
-                            <div class="flex justify-between items-center pt-2">
-                                <span class="text-sm font-black text-brown uppercase tracking-widest">Grand Total</span>
-                                <span class="text-3xl font-black text-brown">₹${finalPrice.toLocaleString()}</span>
+                            <div class="flex justify-between pt-4 border-t border-brown/10">
+                                <span class="text-lg font-black text-brown uppercase">Total Payable</span>
+                                <span class="text-2xl font-black text-brown">₹${totalActual.toLocaleString('en-IN')}</span>
                             </div>
                         </div>
-
-                        <div class="bg-gold-light/80 p-5 rounded-2xl border border-gold/20 flex items-start gap-4">
-                            <div class="w-8 h-8 bg-gold rounded-full flex items-center justify-center flex-shrink-0 text-white shadow-lg">
-                                <ion-icon name="sparkles"></ion-icon>
-                            </div>
-                            <div>
-                                <p class="text-gold text-[10px] font-black uppercase tracking-widest">HostelMart Savings</p>
-                                <p class="text-brown font-black text-sm mt-1">You save ₹${totalDiscount.toLocaleString()} on this bag</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8 bg-brown-medium/5 rounded-3xl p-6 border border-brown/10 flex items-center gap-5 animate-fadeIn" style="animation-delay: 0.3s">
-                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg text-brown-light">
-                            <ion-icon name="shield-checkmark" class="text-2xl"></ion-icon>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-black uppercase text-brown tracking-widest leading-tight">Secured Payments</p>
-                            <p class="text-[9px] font-bold text-brown-light mt-1 uppercase tracking-tighter">100% Buyer Protection Guarantee</p>
-                        </div>
+                        <button onclick="handleCheckout()" class="place-order-btn text-center block w-full">Proceed to Checkout</button>
                     </div>
                 </div>
-
             `;
+        }
+
+        function handleCheckout() {
+            // Ensure single-item checkout data is cleared to prioritize the full cart
+            localStorage.removeItem('checkoutItem');
+            // Redirect to the centralized checkout page
+            window.location.href = 'Checkout.html';
         }
 
         function handleQtyChange(index, delta) {
@@ -395,8 +310,6 @@
             window.removeFromCart(index);
             renderCart();
         }
-
     </script>
 </body>
-
 </html>

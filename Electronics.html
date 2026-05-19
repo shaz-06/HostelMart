@@ -1,1507 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronics - HostelMart</title>
+    <title>Electronics & Tech | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="address_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
     <script src="auth_global.js" defer></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #FDFBF7;
-            color: #3E2723;
-            touch-action: manipulation;
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .accordion-content.active {
-            max-height: 500px;
-        }
-
-        .overlay {
-            backdrop-filter: blur(4px);
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .accent-gold {
-            color: #C5A059;
-        }
-
-        .accent-gold-bg {
-            background-color: #C5A059;
-        }
-
-        .dark-brown-bg {
-            background-color: #3E2723;
-        }
-
-        .hover-lift {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
-        }
-
-        .category-item:hover .icon-box {
-            transform: translateY(-5px);
-            background-color: #F5F5DC;
-        }
-
-        .category-item.active .icon-box {
-            background-color: #F5F5DC;
-            border-bottom: 3px solid #5D4037;
-        }
-
-        .category-item.active span {
-            color: #5D4037;
-            font-weight: 900;
-        }
-
-        .tech-gradient {
-            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
-        }
-
-        .promo-card {
-            background: #F5F5DC;
-            border: 1px solid #E7E5E4;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.3s ease-out forwards;
-        }
-
-        /* Compact Category Navigation on Scroll */
-        #categories-section {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        #categories-section.scrolled {
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        #categories-section .icon-box {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            max-height: 50px;
-        }
-
-        #categories-section.scrolled .icon-box {
-            max-height: 0;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(-10px);
-        }
-
-        #categories-section.scrolled .category-item {
-            gap: 0;
-        }
-
-        #categories-section.scrolled span {
-            font-size: 11px;
-            color: #5D4037;
-        }
-
-        /* Redesigned Mega Menu Styles */
-        .mega-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            width: 1000px;
-            max-width: 95vw;
-            max-height: 80vh;
-            background: #FDFBF7;
-            border: 1px solid rgba(215, 204, 200, 0.5);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.15);
-            display: flex;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 50;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .nav-item-wrapper:hover .mega-menu,
-        .mega-menu.is-open {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(10px);
-            pointer-events: auto;
-        }
-
-        .mega-menu-left {
-            width: 280px;
-            background: #F5F5DC;
-            border-right: 1px solid rgba(215, 204, 200, 0.5);
-            padding: 20px 0;
-            overflow-y: auto;
-        }
-
-        .mega-menu-right {
-            flex: 1;
-            padding: 40px;
-            background: #FDFBF7;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #D7CCC8 #FDFBF7;
-        }
-
-        .mega-menu-right::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .mega-menu-right::-webkit-scrollbar-track {
-            background: #FDFBF7;
-        }
-
-        .mega-menu-right::-webkit-scrollbar-thumb {
-            background-color: #D7CCC8;
-            border-radius: 20px;
-        }
-
-        .mega-category-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 28px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #5D4037;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-transform: capitalize;
-            letter-spacing: 0.02em;
-        }
-
-        .mega-category-link:hover {
-            background: rgba(253, 245, 230, 0.8);
-            padding-left: 36px;
-        }
-
-        .mega-category-link.active {
-            background: #FDF5E6;
-            color: #8D6E63;
-            padding-left: 36px;
-            border-right: 4px solid #8D6E63;
-        }
-
-        .subcategory-grid {
-            display: none;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            animation: fadeInSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .subcategory-grid.active {
-            display: grid;
-        }
-
-        @keyframes fadeInSlide {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .subcategory-item {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 16px;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .subcategory-item:hover {
-            background: #F5F5DC;
-            border-color: #D7CCC8;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(93, 64, 55, 0.05);
-        }
-
-        .subcategory-icon {
-            width: 48px;
-            height: 48px;
-            background: #FDF5E6;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #8D6E63;
-            transition: all 0.3s ease;
-        }
-
-        .subcategory-item:hover .subcategory-icon {
-            background: #5D4037;
-            color: #FDFBF7;
-        }
-
-        .subcategory-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: #5D4037;
-            line-height: 1.4;
-        }
-
-        /* Mobile Accordion Content Customization */
-        .accordion-content.active {
-            display: block !important;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #D7CCC8 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #D7CCC8; border-radius: 10px; }
+        .product-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(62, 39, 35, 0.12); }
+        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #D7CCC8; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; background: white; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; font-weight: bold; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .color-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid white; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .color-dot.active { transform: scale(1.2); box-shadow: 0 0 0 2px #5D4037; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-
 <body class="antialiased">
-
-    <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
-
-    <!-- ADDRESS MODAL -->
-    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
-        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
-            id="address-container">
-            <button onclick="closeAddressModal()"
-                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
-                <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="p-8 md:p-10 space-y-6">
-                <div class="text-center md:text-left">
-                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
-                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
-                </div>
-
-                <!-- Map Section -->
-                <div class="relative group">
-                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
-                    <button onclick="useGPS(event)"
-                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
-                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
-                        Use GPS
-                    </button>
-                </div>
-
-                <!-- Manual Input Section -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street /
-                            Landmark</label>
-                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
-                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City /
-                            Town</label>
-                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
-                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
-                    </div>
-                </div>
-
-                <button onclick="saveAddress(event)"
-                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
-                    Confirm Delivery Location
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
-
     <!-- HEADER -->
-    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
-        <!-- Top Row: Tabs -->
-        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
-            <div class="container mx-auto px-4 flex gap-4">
-                <a href="index.html"
-                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
-                    <span class="font-black italic text-base flex items-center">
-                        <span class="text-[#8D6E63]">Hostel</span>
-                        <span class="text-[#C8A951] ml-1">Mart</span>
-                    </span>
-                </a>
-                <a href="Minutes.html"
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
-                    <div
-                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
-                        6</div>
-                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
-                </a>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
-                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
-                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
-                </div>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
-                    <div
-                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
-                        Xtra Saver</div>
-                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
-                </div>
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-[#D7CCC8]/30">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></span>
+            </a>
+            <div class="flex-1 max-w-xl mx-8 hidden md:block relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search-outline"></ion-icon></div>
+                <input type="text" id="top-search" placeholder="Search electronics, brands, specs..." class="w-full bg-gray-50 border border-gray-200 rounded-2xl pl-12 pr-4 py-3 outline-none focus:border-[#5D4037] focus:bg-white transition-all text-sm font-medium">
             </div>
-        </div>
-
-        <!-- Middle Row: Location & Info -->
-        <div class="bg-[#F5F5DC] py-2 hidden md:block">
-            <div
-                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                <div onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
-                    <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span id="current-location">Add Delivery Address</span>
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                </div>
-                <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
-                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
-                    <span>0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Row: Search & Profile -->
-        <div class="bg-[#F5F5DC] pb-4">
-            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
-                <!-- Mobile Menu Toggle -->
-                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </button>
-
-                <!-- Logo (Mobile only) -->
-                <a href="index.html" class="text-xl font-black text-[#5D4037] md:hidden">FM</a>
-
-                <!-- Search Bar -->
-                <div class="flex-1 relative group">
-                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
-                            name="search-outline"></ion-icon></div>
-                    <input type="search" id="product-search" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
-                </div>
-
-                <!-- Profile & Cart -->
-                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
-                    <a href="index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
-                    <div class="nav-item-wrapper">
-                        <a href="javascript:void(0)" onclick="toggleMegaMenu(event)"
-                            class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
-                        <div id="mega-menu" class="mega-menu shadow-2xl text-left">
-                            <div class="mega-menu-left">
-                                <div class="mega-category-link active"
-                                    onmouseover="showMegaCategory('mega-electronics', this)">
-                                    <span>Electronics</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-grocery', this)">
-                                    <span>Grocery & Snacks</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-hostel', this)">
-                                    <span>Hostel Essentials</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-study', this)">
-                                    <span>Study Essentials</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-beauty', this)">
-                                    <span>Beauty & Personal Care</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-fashion', this)">
-                                    <span>Fashion</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-mobiles', this)">
-                                    <span>Mobiles</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-appliances', this)">
-                                    <span>Home & Appliances</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-sports', this)">
-                                    <span>Sports & Fitness</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-emergency', this)">
-                                    <span>Emergency / Fast Delivery</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                            </div>
-                            <div class="mega-menu-right">
-                                <!-- Electronics -->
-                                <div id="mega-electronics" class="subcategory-grid active">
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="headset-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Earphones & Headphones</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Chargers & Cables</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="battery-charging-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Power Banks</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Bluetooth Speakers</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="watch-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Smart Watches</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Keyboards & Mouse</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="laptop-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Laptop Accessories</span>
-                                    </a>
-                                </div>
-                                <!-- Grocery -->
-                                <div id="mega-grocery" class="subcategory-grid">
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Instant Noodles</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="pizza-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Chips & Snacks</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Chocolates</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="wine-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Cold Drinks</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Biscuits</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Ice Cream</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Breakfast Items</span>
-                                    </a>
-                                </div>
-                                <!-- Hostel -->
-                                <div id="mega-hostel" class="subcategory-grid">
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bucket-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Buckets & Mugs</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Hangers</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bed-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Bedsheets</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Pillows</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Laundry Bags</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Locks</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="water-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Water Bottles</span>
-                                    </a>
-                                </div>
-                                <!-- Study -->
-                                <div id="mega-study" class="subcategory-grid">
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="book-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Notebooks</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="pencil-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Pens & Markers</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Calculators</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Sticky Notes</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Files & Folders</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Exam Pads</span>
-                                    </a>
-                                </div>
-                                <!-- Beauty -->
-                                <div id="mega-beauty" class="subcategory-grid">
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Face Wash</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Shampoo</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="rose-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Perfume</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="cut-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Trimmers</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="leaf-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Skin Care</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flask-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Hair Oil</span>
-                                    </a>
-                                </div>
-                                <!-- Fashion -->
-                                <div id="mega-fashion" class="subcategory-grid">
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
-                                        <span class="subcategory-name">T-Shirts</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Hoodies</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Shorts</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Slippers</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Watches</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Bags</span>
-                                    </a>
-                                </div>
-                                <!-- Mobiles -->
-                                <div id="mega-mobiles" class="subcategory-grid">
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="phone-portrait-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Smartphones</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="refresh-circle-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Refurbished Phones</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="shield-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Phone Covers</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="qr-code-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Tempered Glass</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="phone-landscape-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Mobile Stands</span>
-                                    </a>
-                                </div>
-                                <!-- Appliances -->
-                                <div id="mega-appliances" class="subcategory-grid">
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bulb-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Table Lamps</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="power-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Extension Boards</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="sync-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Mini Fans</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Electric Kettle</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flame-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Induction Stove</span>
-                                    </a>
-                                </div>
-                                <!-- Sports -->
-                                <div id="mega-sports" class="subcategory-grid">
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="barbell-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Dumbbells</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="body-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Yoga Mats</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Cricket</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Football</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bicycle-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Cycling</span>
-                                    </a>
-                                </div>
-                                <!-- Emergency -->
-                                <div id="mega-emergency" class="subcategory-grid">
-                                    <a href="Minutes.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="medkit-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Medicines</span>
-                                    </a>
-                                    <a href="Minutes.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="moon-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Late Night Snacks</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="create-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Stationery</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flash-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Chargers</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Umbrellas</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
-                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
-                        <span class="hidden md:inline">Cart</span>
-                    </a>
-                    <a href="Orders.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037]">
-                        <ion-icon name="location-outline" class="text-2xl md:text-xl"></ion-icon>
-                        <span class="hidden md:inline">Track Order</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- CATEGORY NAVIGATION (Icons) -->
-        <div id="categories-section" class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
-            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
-                <a href="index.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">For You</span>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-sm">0</span>
                 </a>
-
-                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
-                </a>
-
-                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
-                </a>
-
-                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
-                </a>
-
-                <a href="Electronics.html"
-                    class="category-item active flex flex-col items-center gap-1 group relative pb-1">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-[#5D4037]">Electronics</span>
-                </a>
-
-                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
-                </a>
-
-                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
-                </a>
-
-                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
-                </a>
-
-                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
-                </a>
-
-                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
-                </a>
-
-                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
-                </a>
-
-                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
-                </a>
-
-                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
-                </a>
-
-                <a href="javascript:void(0)" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
-                </a>
+                <div id="auth-user-ui"></div>
             </div>
         </div>
     </header>
 
-    <!-- MOBILE MENU DRAWER -->
-    <div id="mobileMenu"
-        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto no-scrollbar">
-        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
-            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
-            <button onclick="toggleMobileMenu()"
-                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
-                <ion-icon name="close-outline"></ion-icon>
-            </button>
-        </div>
-        <div class="p-6">
-            <ul class="space-y-6">
-                <li><a href="index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
-                <li>
-                    <div class="flex justify-between items-center cursor-pointer group"
-                        onclick="toggleAccordion('mob-categories')">
-                        <span
-                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
-                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
-                    </div>
-                    <div id="mob-categories"
-                        class="accordion-content pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
-                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
-                        <a href="index.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
-                        <a href="javascript:void(0)" class="block hover:text-[#795548] font-medium">Accessories</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-10">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full md:w-72 flex-shrink-0 space-y-8 hidden md:block sticky top-28 h-fit max-h-[80vh] overflow-y-auto pr-4 no-scrollbar">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-lg font-black text-[#5D4037] uppercase tracking-tight">Filters</h2>
+                    <button onclick="resetFilters()" class="text-[10px] font-black text-[#C8A951] uppercase tracking-widest hover:underline">Clear All</button>
+                </div>
 
-    <!-- 4. ELECTRONICS SUB-CATEGORIES (Screenshot 23.05.20.jpg) -->
-    <div class="max-w-7xl mx-auto px-4 py-8 overflow-x-auto no-scrollbar">
-        <div class="flex gap-6 min-w-max">
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-3xl bg-[#3E2723] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M5 2h14l-2 14H7L5 2z" />
-                        <path d="m12 11 3-7H9l3 7z" />
-                        <circle cx="12" cy="18" r="2" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold">Get in Mins</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723] group-hover:bg-stone-200 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <rect width="18" height="12" x="3" y="4" rx="2" ry="2" />
-                        <line x1="2" x2="22" y1="20" y2="20" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold">Laptops</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <rect width="16" height="20" x="4" y="2" rx="2" ry="2" />
-                        <line x1="12" x2="12" y1="18" y2="18" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold">Tablets</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <rect width="10" height="8" x="2" y="3" rx="2" />
-                        <rect width="10" height="8" x="12" y="13" rx="2" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold">ITPeripherals</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3" />
-                        <path
-                            d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold">Camera</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17 8 12 3 7 8" />
-                        <line x1="12" x2="12" y1="3" y2="15" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold">Data Storage</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center text-[#3E2723]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <rect width="16" height="12" x="4" y="4" rx="2" />
-                        <path d="M6 12h.01" />
-                        <path d="M18 12h.01" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold">Gaming</span>
-            </div>
-        </div>
-    </div>
-
-    <main class="max-w-7xl mx-auto px-4 py-4 space-y-12">
-
-        <!-- 5. HERO BANNERS (Screenshot 23.05.20.jpg) -->
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            <div
-                class="lg:col-span-8 tech-gradient rounded-[40px] p-8 md:p-14 text-white relative overflow-hidden flex flex-col justify-center min-h-[380px]">
-                <div class="absolute top-0 right-0 w-2/3 h-full opacity-20 pointer-events-none">
-                    <div class="w-full h-full bg-[radial-gradient(circle_at_center,#C5A059,transparent_70%)]"></div>
-                </div>
-                <div class="relative z-10 space-y-6">
-                    <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#C5A059]">
-                        <span>ASUS | BUSINESS</span>
-                        <span class="bg-[#5D4037] px-2 py-0.5 rounded text-[8px]">Flipkart f</span>
-                    </div>
-                    <h2 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
-                        ASUS ExpertBook Series <br>
-                        <span class="text-stone-400 text-2xl font-bold">Get FREE BLACK membership</span>
-                    </h2>
-                    <p class="text-sm font-semibold opacity-70 italic">& Get benefits up to ₹54,000*</p>
-                    <div class="flex flex-wrap gap-4 pt-4">
-                        <button
-                            class="accent-gold-bg text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Pre-order
-                            Now</button>
-                        <div
-                            class="bg-[#F5F5DC]/10 backdrop-blur-md px-6 py-2 rounded-2xl border border-white/10 flex items-center gap-4">
-                            <span class="text-xs font-black uppercase tracking-tighter">Axis Bank</span>
-                            <div class="h-6 w-px bg-[#F5F5DC]/20"></div>
-                            <span class="text-[10px] font-bold">₹20,000 Cashback</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="lg:col-span-4 bg-stone-200 rounded-[40px] p-8 text-[#3E2723] relative overflow-hidden flex flex-col justify-between group cursor-pointer shadow-inner">
-                <div class="relative z-10 space-y-2">
-                    <h2 class="text-3xl font-black leading-tight">Samsung Galaxy S10 FE+</h2>
-                    <p class="text-xl font-bold">From ₹43,999*</p>
-                    <p class="text-xs font-bold opacity-60">13-Inch Big-Screen Experience Now at the Lowest Price</p>
-                </div>
-                <div class="mt-8 relative h-40">
-                    <div
-                        class="absolute right-0 bottom-0 w-48 h-32 bg-[#F5F5DC] rounded-xl shadow-2xl rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500 overflow-hidden border-2 border-stone-300">
-                        <div class="w-full h-full bg-gradient-to-br from-indigo-100 to-amber-50"></div>
-                    </div>
-                    <div
-                        class="absolute right-8 bottom-4 w-40 h-28 bg-stone-900 rounded-xl shadow-2xl group-hover:translate-y-[-10px] transition-transform duration-500 border border-white/20">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. EXCLUSIVE FOR YOU (Screenshot 23.06.12.jpg) -->
-        <section class="space-y-6">
-            <div class="flex items-end justify-between">
-                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#C5A059] pl-4">Exclusive For
-                    You</h3>
-                <a href="javascript:void(0)"
-                    class="text-[10px] font-black uppercase tracking-widest text-[#C5A059] hover:underline">See
-                    All Deals</a>
-            </div>
-            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                <div
-                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
-                    <div class="h-48 bg-blue-100 flex items-center justify-center relative p-6">
-                        <img src="https://via.placeholder.com/160x100" alt="OnePlus Pad"
-                            class="mix-blend-multiply drop-shadow-lg">
-                        <div
-                            class="absolute bottom-4 left-4 bg-[#F5F5DC]/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black">
-                            Limited Offer</div>
-                    </div>
-                    <div class="p-4 space-y-1">
-                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
-                            From
-                            ₹13,999*</div>
-                        <h4 class="font-black text-sm text-center">OnePlus Pad Lite</h4>
-                    </div>
-                </div>
-                <div
-                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
-                    <div class="h-48 bg-[#FDF5E6] flex items-center justify-center relative p-6">
-                        <img src="https://via.placeholder.com/160x100" alt="Latest tablets" class="mix-blend-multiply">
-                    </div>
-                    <div class="p-4 space-y-1">
-                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
-                            From
-                            ₹23,999*</div>
-                        <h4 class="font-black text-sm text-center">Latest tablets</h4>
-                    </div>
-                </div>
-                <div
-                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
-                    <div class="h-48 bg-blue-100 flex items-center justify-center p-6">
-                        <img src="https://via.placeholder.com/160x100" alt="Gaming combo" class="mix-blend-multiply">
-                    </div>
-                    <div class="p-4 space-y-1">
-                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
-                            Extra 5% Off</div>
-                        <h4 class="font-black text-sm text-center">Gaming combo</h4>
-                    </div>
-                </div>
-                <div
-                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
-                    <div class="h-48 bg-stone-50 flex items-center justify-center p-6">
-                        <img src="https://via.placeholder.com/100x120" alt="Grooming" class="mix-blend-multiply">
-                    </div>
-                    <div class="p-4 space-y-1">
-                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
-                            Extra 5% Off</div>
-                        <h4 class="font-black text-sm text-center">Grooming & styling</h4>
-                    </div>
-                </div>
-                <div
-                    class="min-w-[240px] bg-[#F5F5DC] border border-stone-200 rounded-[32px] overflow-hidden hover-lift">
-                    <div class="h-48 bg-[#FDF5E6] flex items-center justify-center p-6">
-                        <img src="https://via.placeholder.com/160x100" alt="Gaming" class="mix-blend-multiply">
-                    </div>
-                    <div class="p-4 space-y-1">
-                        <div class="bg-[#5D4037] text-white text-[11px] font-black py-2 text-center rounded-xl mb-3">
-                            Extra 5% Off</div>
-                        <h4 class="font-black text-sm text-center">Gaming Gear</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. TRENDING TECH (Screenshot 23.07.03.jpg) -->
-        <section class="bg-[#FDF5E6] rounded-[40px] p-8 md:p-10 space-y-8 shadow-sm">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Trending tech</h3>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                <div class="text-center space-y-3 cursor-pointer group">
-                    <div
-                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
-                        <img src="https://via.placeholder.com/120x90" alt="Tablet" class="mix-blend-multiply">
-                    </div>
-                    <div class="space-y-0.5">
-                        <p class="text-[10px] font-bold opacity-60">Samsung S10 FE+</p>
-                        <p class="text-sm font-black">From ₹43,999*</p>
-                    </div>
-                </div>
-                <div class="text-center space-y-3 cursor-pointer group">
-                    <div
-                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
-                        <img src="https://via.placeholder.com/120x90" alt="EV" class="mix-blend-multiply">
-                    </div>
-                    <div class="space-y-0.5">
-                        <p class="text-[10px] font-bold opacity-60">Ampere EVs</p>
-                        <p class="text-sm font-black">From ₹55,480*</p>
-                    </div>
-                </div>
-                <div class="text-center space-y-3 cursor-pointer group">
-                    <div
-                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
-                        <img src="https://via.placeholder.com/120x90" alt="Laptop" class="mix-blend-multiply">
-                    </div>
-                    <div class="space-y-0.5">
-                        <p class="text-[10px] font-bold opacity-60">HP OmniBook 5 i5</p>
-                        <p class="text-sm font-black">Just ₹59,999*</p>
-                    </div>
-                </div>
-                <div class="text-center space-y-3 cursor-pointer group">
-                    <div
-                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
-                        <img src="https://via.placeholder.com/120x120" alt="Earbuds" class="mix-blend-multiply">
-                    </div>
-                    <div class="space-y-0.5">
-                        <p class="text-[10px] font-bold opacity-60">OnePlus NB 3r</p>
-                        <p class="text-sm font-black">Just ₹1,599</p>
-                    </div>
-                </div>
-                <div class="text-center space-y-3 cursor-pointer group">
-                    <div
-                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
-                        <img src="https://via.placeholder.com/120x120" alt="Watch" class="mix-blend-multiply">
-                    </div>
-                    <div class="space-y-0.5">
-                        <p class="text-[10px] font-bold opacity-60">Samsung W7 & 8</p>
-                        <p class="text-sm font-black">From ₹21,999</p>
-                    </div>
-                </div>
-                <div class="text-center space-y-3 cursor-pointer group">
-                    <div
-                        class="bg-[#F5F5DC] rounded-3xl h-44 flex items-center justify-center p-4 group-hover:shadow-xl transition-all border border-stone-200">
-                        <img src="https://via.placeholder.com/120x120" alt="Shaver" class="mix-blend-multiply">
-                    </div>
-                    <div class="space-y-0.5">
-                        <p class="text-[10px] font-bold opacity-60">Philips Shaver</p>
-                        <p class="text-sm font-black">Just ₹2,499</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. GET IT IN MINUTES (Screenshot 23.07.16.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Get it in minutes
-            </h3>
-            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
-                        <img src="https://via.placeholder.com/100x100" alt="Earphones"
-                            class="mix-blend-multiply drop-shadow-xl">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
-                            From ₹599</div>
-                    </div>
-                    <div class="mt-3 text-center">
-                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Earphones</p>
-                    </div>
-                </div>
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
-                        <img src="https://via.placeholder.com/100x100" alt="Watch"
-                            class="mix-blend-multiply drop-shadow-xl">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
-                            Just ₹1,299</div>
-                    </div>
-                    <div class="mt-3 text-center">
-                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Fire-Boltt Hurricane</p>
-                    </div>
-                </div>
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
-                        <img src="https://via.placeholder.com/100x120" alt="Grooming"
-                            class="mix-blend-multiply drop-shadow-xl">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
-                            From ₹579</div>
-                    </div>
-                    <div class="mt-3 text-center">
-                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Grooming & styling</p>
-                    </div>
-                </div>
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
-                        <img src="https://via.placeholder.com/120x80" alt="Memory"
-                            class="mix-blend-multiply drop-shadow-xl">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
-                            From ₹399*</div>
-                    </div>
-                    <div class="mt-3 text-center">
-                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Memory cards</p>
-                    </div>
-                </div>
-                <div class="min-w-[200px] flex-shrink-0 group cursor-pointer">
-                    <div
-                        class="bg-gradient-to-b from-pink-50 to-[#F5F5DC] rounded-[32px] p-6 h-64 flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform">
-                        <img src="https://via.placeholder.com/100x120" alt="Trimmer"
-                            class="mix-blend-multiply drop-shadow-xl">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#3E2723]/90 text-white text-[11px] font-black py-2.5 text-center rounded-b-[32px]">
-                            From ₹899</div>
-                    </div>
-                    <div class="mt-3 text-center">
-                        <p class="text-xs font-bold opacity-60 uppercase tracking-tighter">Top trimmers</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 9. STUDENT DEALS BANNER (Screenshot 23.08.11.jpg) -->
-        <section
-            class="tech-gradient rounded-[40px] p-8 md:p-14 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
-            <div class="absolute top-0 right-0 h-full w-1/2 opacity-20 pointer-events-none">
-                <div class="w-full h-full bg-[radial-gradient(circle_at_center,#C5A059,transparent_80%)]"></div>
-            </div>
-            <div class="relative z-10 max-w-xl space-y-6">
-                <h2 class="text-4xl md:text-5xl font-black leading-tight">Exclusive Student Deals</h2>
-                <p class="text-lg md:text-xl font-bold text-stone-400">On Laptops, Tablets, Headphones & More</p>
-                <button
-                    class="bg-[#5D4037] text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)]">Claim
-                    Now</button>
-            </div>
-            <div
-                class="relative z-10 bg-[#F5F5DC]/10 backdrop-blur-xl p-8 rounded-[32px] border border-white/20 text-center space-y-4">
-                <div
-                    class="w-20 h-20 bg-yellow-400 text-black rounded-full mx-auto flex items-center justify-center shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2.5">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                    </svg>
-                </div>
                 <div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Flipkart</p>
-                    <p class="text-2xl font-black tracking-tighter">STUDENT'S CLUB</p>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Categories</h3>
+                    <div class="space-y-3" id="subcategory-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Device Type</h3>
+                    <div class="space-y-3 grid grid-cols-1" id="type-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Connectivity</h3>
+                    <div class="space-y-3" id="connectivity-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹1,00,000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="100000" step="1000" class="w-full accent-[#5D4037]">
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Switch Type</h3>
+                    <div class="space-y-3" id="switch-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Backlight</h3>
+                    <div class="space-y-3" id="backlight-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">DPI Precision</h3>
+                    <div class="space-y-3" id="dpi-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Adjustability</h3>
+                    <div class="space-y-3" id="adjustability-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Battery Capacity</h3>
+                    <div class="space-y-3" id="capacity-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Charging Speed</h3>
+                    <div class="space-y-3" id="speed-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Output Ports</h3>
+                    <div class="space-y-3" id="port-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Wattage</h3>
+                    <div class="space-y-3" id="wattage-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Compatibility</h3>
+                    <div class="space-y-3" id="compatibility-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Battery Life</h3>
+                    <div class="space-y-3" id="battery-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Noise Cancellation</h3>
+                    <div class="space-y-3" id="noise-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Water Resistance</h3>
+                    <div class="space-y-3" id="water-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
+                    <div class="flex flex-wrap gap-3" id="color-filters"></div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4 bg-white p-4 rounded-3xl border border-[#D7CCC8]/30">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037]">Electronics & Tech</span>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037]">0</span> Products</p>
+                        <select id="sort-select" class="bg-[#FDF5E6] border border-[#D7CCC8]/30 rounded-xl px-4 py-2.5 text-xs font-bold outline-none focus:border-[#5D4037] cursor-pointer transition-all">
+                            <option value="popularity">Sort: Popularity</option>
+                            <option value="price-low">Sort: Price Low to High</option>
+                            <option value="price-high">Sort: Price High to Low</option>
+                            <option value="newest">Sort: Newest First</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Products injected here -->
+                </div>
+
+                <div id="empty-state" class="hidden py-32 text-center bg-white rounded-[3rem] border border-dashed border-[#D7CCC8]">
+                    <div class="text-7xl mb-6">🔌</div>
+                    <h3 class="text-2xl font-black text-[#5D4037]">No tech found here</h3>
+                    <p class="text-gray-400 text-sm mt-2 max-w-xs mx-auto font-medium">We couldn't find any electronics matching your current selection.</p>
+                    <button onclick="resetFilters()" class="mt-8 bg-[#5D4037] text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#3E2723] transition-all shadow-xl shadow-[#5D4037]/20">Reset Filters</button>
                 </div>
             </div>
-        </section>
-
-        <!-- 10. NEW LAUNCHES (Screenshot 23.07.51.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">New launches</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                <div class="relative rounded-3xl overflow-hidden aspect-[4/5] group cursor-pointer">
-                    <img src="https://via.placeholder.com/400x500" alt="OnePlus Pad 4"
-                        class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
-                    </div>
-                    <div class="absolute bottom-6 left-6 text-white space-y-1">
-                        <h4 class="font-black text-lg">OnePlus Pad 4</h4>
-                        <p class="text-[10px] font-bold opacity-60">World's Fastest Tablet</p>
-                        <p class="text-[10px] font-black uppercase tracking-widest text-[#C5A059]">Launch on 30th Apr |
-                            12 PM</p>
-                    </div>
-                </div>
-                <div
-                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-stone-200 group cursor-pointer shadow-sm">
-                    <div class="absolute inset-0 flex items-center justify-center p-6">
-                        <img src="https://via.placeholder.com/200x200" alt="Hero Destini"
-                            class="mix-blend-multiply transition-transform group-hover:scale-110">
-                    </div>
-                    <div class="absolute bottom-6 left-6 text-[#3E2723] space-y-1">
-                        <h4 class="font-black text-lg leading-tight">Hero Destini 110</h4>
-                        <p class="text-[10px] font-bold opacity-60">Best in Class 56.2 Kmpl Mileage*</p>
-                        <p class="text-sm font-black">From ₹66,500*</p>
-                    </div>
-                </div>
-                <div
-                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-blue-900 group cursor-pointer shadow-sm">
-                    <div class="absolute inset-0 flex items-center justify-center p-6">
-                        <img src="https://via.placeholder.com/200x150" alt="Asus"
-                            class="mix-blend-multiply opacity-50 contrast-125">
-                    </div>
-                    <div class="absolute bottom-6 left-6 text-white space-y-1">
-                        <h4 class="font-black text-lg leading-tight">Asus Vivobook 14 OLED</h4>
-                        <p class="text-[10px] font-bold opacity-60">Pre-order Now & Get Benefits Up to</p>
-                        <p class="text-sm font-black">From ₹5,499/m*</p>
-                    </div>
-                </div>
-                <div
-                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-stone-50 border border-stone-200 group cursor-pointer shadow-sm">
-                    <div class="absolute inset-0 flex items-center justify-center p-8">
-                        <img src="https://via.placeholder.com/150x150" alt="OnePlus NB"
-                            class="mix-blend-multiply transition-transform group-hover:scale-110">
-                    </div>
-                    <div class="absolute bottom-6 left-6 text-[#3E2723] space-y-1">
-                        <h4 class="font-black text-lg leading-tight">OnePlus NB 4 pro</h4>
-                        <p class="text-[10px] font-bold opacity-60">55dB Active Noise Cancellation</p>
-                        <p class="text-sm font-black">Just ₹3,799</p>
-                    </div>
-                </div>
-                <div
-                    class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-orange-50 border border-orange-100 group cursor-pointer shadow-sm">
-                    <div class="absolute inset-0 flex items-center justify-center p-8">
-                        <img src="https://via.placeholder.com/150x150" alt="Fastrack"
-                            class="mix-blend-multiply transition-transform group-hover:scale-110">
-                    </div>
-                    <div class="absolute bottom-6 left-6 text-[#3E2723] space-y-1">
-                        <h4 class="font-black text-lg leading-tight">Fastrack Xtreme Adve</h4>
-                        <p class="text-[10px] font-bold opacity-60">GPS & In-built torch</p>
-                        <p class="text-sm font-black">Just ₹6,499</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 11. EMI PROMO (image_21e810.jpg) -->
-        <section
-            class="bg-[#F5F5DC] border border-stone-200 rounded-[32px] p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
-            <div class="flex items-center gap-8 divide-x divide-stone-200">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-12 h-12 bg-[#5D4037] rounded-full flex items-center justify-center text-white font-black text-xl">
-                        S</div>
-                    <div class="font-black text-sm tracking-tighter leading-none">
-                        <span class="text-[#5D4037]">SBI</span> card
-                    </div>
-                </div>
-                <div class="flex flex-col pl-8">
-                    <h4 class="text-2xl font-black tracking-tight">10% Instant Discount*</h4>
-                    <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">on Credit Card EMI Trxns.
-                    </p>
-                </div>
-            </div>
-            <button
-                class="text-[#3E2723] border-2 border-[#3E2723] px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#3E2723] hover:text-white transition-all">Check
-                Eligibility</button>
-        </section>
-
+        </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="col-span-1 space-y-4">
-                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]">HOSTEL<span
-                        class="accent-gold">MART</span></h2>
-                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">Premium Electronics
-                    & Tech Lifestyle Hub. Fast delivery, trusted warranty, student deals.</p>
+    <footer class="bg-white border-t border-[#D7CCC8]/30 py-20 mt-20">
+        <div class="container mx-auto px-4 text-center space-y-6">
+            <h2 class="text-3xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></h2>
+            <div class="flex justify-center gap-8 text-[#8D6E63] text-sm font-black uppercase tracking-widest">
+                <a href="#" class="hover:text-[#5D4037]">About</a>
+                <a href="#" class="hover:text-[#5D4037]">Support</a>
+                <a href="#" class="hover:text-[#5D4037]">Warranty</a>
+                <a href="#" class="hover:text-[#5D4037]">Privacy</a>
             </div>
-            <div class="space-y-4">
-                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Categories</h4>
-                <ul class="text-xs font-bold space-y-2">
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Laptops & PCs</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Tablets & Mobile</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Smart Watches</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Gaming Consoles</a></li>
-                </ul>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Support</h4>
-                <ul class="text-xs font-bold space-y-2">
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Help Center</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Returns Policy</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Warranty Info</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Social</h4>
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-[#C5A059] transition-colors">
-                    </div>
-                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-[#C5A059] transition-colors">
-                    </div>
-                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-[#C5A059] transition-colors">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
-            <p class="text-[10px] font-bold text-stone-400">© 2026 <span class="text-[#8D6E63]">Hostel</span><span
-                    class="text-[#C8A951] ml-1">Mart</span> ELECTRONICS. ALL RIGHTS RESERVED.</p>
+            <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">&copy; 2026 HostelMart Tech Division</p>
         </div>
     </footer>
 
     <script>
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            const isActive = content.classList.contains('active');
-            const icon = event.currentTarget.querySelector('ion-icon');
-            if (!isActive) {
-                content.classList.add('active');
-                if (icon) icon.setAttribute('name', 'remove-outline');
-            } else {
-                content.classList.remove('active');
-                if (icon) icon.setAttribute('name', 'add-outline');
+        let allProducts = [];
+        let filters = {
+            subcategories: [],
+            brands: [],
+            types: [],
+            connectivities: [],
+            batteryLives: [],
+            noiseCancellations: [],
+            waterResistances: [],
+            wattages: [],
+            compatibilities: [],
+            batteryCapacities: [],
+            chargingSpeeds: [],
+            outputPorts: [],
+            materials: [],
+            adjustabilities: [],
+            dpis: [],
+            switchTypes: [],
+            backlights: [],
+            colors: [],
+            maxPrice: 100000,
+            search: ""
+        };
+
+        const config = {
+            subcategories: ["Mobiles", "Laptops", "Audio", "Smartwatches"],
+            brands: ["Apple", "Samsung", "OnePlus", "Sony", "JBL", "boAt", "HP", "Dell", "Lenovo", "Asus", "Logitech", "Xiaomi"],
+            types: ["Smartphone", "Laptop", "Earbuds", "Bluetooth Speaker", "Smartwatch", "Power Bank", "Charger", "USB Hub", "Wireless Mouse", "Mechanical Keyboard", "Gaming Headset", "Laptop Cooling Pad", "Tablet Device"],
+            connectivities: ["Wireless", "Wired", "Bluetooth 5.0", "Bluetooth 5.2", "Bluetooth 5.3", "USB-C", "Wi-Fi", "5G"],
+            batteryLives: ["20 Hours", "30 Hours", "40 Hours", "50 Hours", "60 Hours"],
+            noiseCancellations: ["Active Noise Cancellation (ANC)", "Environmental Noise Cancellation (ENC)", "Hybrid ANC", "Passive Noise Isolation"],
+            waterResistances: ["IPX4", "IPX5", "IPX7", "IP55", "Sweatproof"],
+            wattages: ["18W", "20W", "33W", "45W", "65W", "80W", "100W", "120W"],
+            compatibilities: ["iOS & Android", "Type-C Devices", "Laptops & Smartphones", "Qi-Enabled Devices", "Universal"],
+            batteryCapacities: ["5000mAh", "10000mAh", "12000mAh", "20000mAh", "30000mAh"],
+            chargingSpeeds: ["10W", "18W", "20W", "22.5W", "33W", "45W", "65W"],
+            outputPorts: ["1 USB-C", "2 USB-A", "1 USB-A, 1 USB-C", "2 USB-A, 1 USB-C", "2 USB-C"],
+            materials: ["Aluminum Alloy", "Engineered Wood", "ABS Plastic", "Stainless Steel", "Silicone"],
+            adjustabilities: ["6-Level Height Adjustment", "360-Degree Rotation", "Stepless Tilt", "Fixed Height", "Foldable"],
+            dpis: ["800 DPI", "1200 DPI", "1600 DPI", "2400 DPI", "3200 DPI", "6400 DPI", "12000 DPI+"],
+            switchTypes: ["Blue Switches (Clicky)", "Red Switches (Linear)", "Brown Switches (Tactile)", "Membrane", "Scissor Switches", "Optical Switches"],
+            backlights: ["Full RGB (16.8M Colors)", "Static White LED", "Rainbow Backlit", "No Backlight", "Single Color (Blue)"],
+            colors: {
+                "Space Grey": "#53565A", "Phantom Black": "#000000", "Midnight Blue": "#191970", 
+                "Arctic White": "#F0F8FF", "Rose Gold": "#B76E79", "Graphite": "#383838",
+                "Midnight Black": "#000000", "Ocean Blue": "#0077BE", "Crimson Red": "#DC143C", "Forest Green": "#228B22"
             }
+        };
+
+        async function init() {
+            renderFilterUI();
+            await fetchProducts();
+            setupEventListeners();
         }
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const overlay = document.getElementById('overlay');
-            const isOpen = menu.style.transform === 'translateX(0px)';
-            if (!isOpen) {
-                menu.style.transform = 'translateX(0)';
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            } else {
-                menu.style.transform = 'translateX(-100%)';
-                overlay.classList.add('hidden');
-                document.body.style.overflow = 'auto';
+
+        async function fetchProducts() {
+            try {
+                const sort = document.getElementById('sort-select').value;
+                const res = await fetch(`/api/products?category=Electronics & Tech&sort=${sort}`);
+                allProducts = await res.json();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Error:", e);
             }
         }
 
-        // Compact Category Navigation on Scroll (with Hysteresis)
-        let isScrolled = false;
-        window.addEventListener('scroll', () => {
-            const categoriesSection = document.getElementById('categories-section');
-            if (categoriesSection) {
-                const scrollY = window.scrollY;
-                if (!isScrolled && scrollY > 100) {
-                    categoriesSection.classList.add('scrolled');
-                    isScrolled = true;
-                } else if (isScrolled && scrollY < 40) {
-                    categoriesSection.classList.remove('scrolled');
-                    isScrolled = false;
-                }
+        function renderFilterUI() {
+            const scFilter = document.getElementById('subcategory-filters');
+            scFilter.innerHTML = config.subcategories.map(sc => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('subcategories', '${sc}')">
+                    <div class="custom-checkbox ${filters.subcategories.includes(sc) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${sc}</span>
+                </div>
+            `).join('');
+
+            const bFilter = document.getElementById('brand-filters');
+            bFilter.innerHTML = config.brands.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                    <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const tFilter = document.getElementById('type-filters');
+            tFilter.innerHTML = config.types.map(t => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('types', '${t}')">
+                    <div class="custom-checkbox ${filters.types.includes(t) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${t}</span>
+                </div>
+            `).join('');
+
+            const clFilter = document.getElementById('connectivity-filters');
+            clFilter.innerHTML = config.connectivities.map(c => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('connectivities', '${c}')">
+                    <div class="custom-checkbox ${filters.connectivities.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                </div>
+            `).join('');
+
+            const btFilter = document.getElementById('battery-filters');
+            btFilter.innerHTML = config.batteryLives.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('batteryLives', '${b}')">
+                    <div class="custom-checkbox ${filters.batteryLives.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const ncFilter = document.getElementById('noise-filters');
+            ncFilter.innerHTML = config.noiseCancellations.map(n => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('noiseCancellations', '${n}')">
+                    <div class="custom-checkbox ${filters.noiseCancellations.includes(n) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${n}</span>
+                </div>
+            `).join('');
+
+            const wrFilter = document.getElementById('water-filters');
+            wrFilter.innerHTML = config.waterResistances.map(w => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('waterResistances', '${w}')">
+                    <div class="custom-checkbox ${filters.waterResistances.includes(w) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${w}</span>
+                </div>
+            `).join('');
+
+            const wFilter = document.getElementById('wattage-filters');
+            wFilter.innerHTML = config.wattages.map(w => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('wattages', '${w}')">
+                    <div class="custom-checkbox ${filters.wattages.includes(w) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${w}</span>
+                </div>
+            `).join('');
+
+            const cpFilter = document.getElementById('compatibility-filters');
+            cpFilter.innerHTML = config.compatibilities.map(c => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('compatibilities', '${c}')">
+                    <div class="custom-checkbox ${filters.compatibilities.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                </div>
+            `).join('');
+
+            const capFilter = document.getElementById('capacity-filters');
+            capFilter.innerHTML = config.batteryCapacities.map(c => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('batteryCapacities', '${c}')">
+                    <div class="custom-checkbox ${filters.batteryCapacities.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                </div>
+            `).join('');
+
+            const spFilter = document.getElementById('speed-filters');
+            spFilter.innerHTML = config.chargingSpeeds.map(s => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('chargingSpeeds', '${s}')">
+                    <div class="custom-checkbox ${filters.chargingSpeeds.includes(s) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                </div>
+            `).join('');
+
+            const prtFilter = document.getElementById('port-filters');
+            prtFilter.innerHTML = config.outputPorts.map(p => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('outputPorts', '${p}')">
+                    <div class="custom-checkbox ${filters.outputPorts.includes(p) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${p}</span>
+                </div>
+            `).join('');
+
+            const matFilter = document.getElementById('material-filters');
+            matFilter.innerHTML = config.materials.map(m => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('materials', '${m}')">
+                    <div class="custom-checkbox ${filters.materials.includes(m) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${m}</span>
+                </div>
+            `).join('');
+
+            const adjFilter = document.getElementById('adjustability-filters');
+            adjFilter.innerHTML = config.adjustabilities.map(a => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('adjustabilities', '${a}')">
+                    <div class="custom-checkbox ${filters.adjustabilities.includes(a) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${a}</span>
+                </div>
+            `).join('');
+
+            const dFilter = document.getElementById('dpi-filters');
+            dFilter.innerHTML = config.dpis.map(d => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('dpis', '${d}')">
+                    <div class="custom-checkbox ${filters.dpis.includes(d) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${d}</span>
+                </div>
+            `).join('');
+
+            const swFilter = document.getElementById('switch-filters');
+            swFilter.innerHTML = config.switchTypes.map(s => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('switchTypes', '${s}')">
+                    <div class="custom-checkbox ${filters.switchTypes.includes(s) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                </div>
+            `).join('');
+
+            const bkFilter = document.getElementById('backlight-filters');
+            bkFilter.innerHTML = config.backlights.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('backlights', '${b}')">
+                    <div class="custom-checkbox ${filters.backlights.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const clrFilter = document.getElementById('color-filters');
+            clrFilter.innerHTML = Object.entries(config.colors).map(([name, hex]) => `
+                <div class="color-dot ${filters.colors.includes(name) ? 'active' : ''}" style="background-color: ${hex};" title="${name}" onclick="toggleFilter('colors', '${name}')"></div>
+            `).join('');
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const scMatch = filters.subcategories.length === 0 || filters.subcategories.includes(p.subcategory);
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const tMatch = filters.types.length === 0 || filters.types.includes(p.type);
+                const cMatch = filters.connectivities.length === 0 || filters.connectivities.includes(p.connectivity);
+                const batMatch = filters.batteryLives.length === 0 || filters.batteryLives.includes(p.batteryLife);
+                const noiseMatch = filters.noiseCancellations.length === 0 || filters.noiseCancellations.includes(p.noiseCancellation);
+                const waterMatch = filters.waterResistances.length === 0 || filters.waterResistances.includes(p.waterResistance);
+                const wattMatch = filters.wattages.length === 0 || filters.wattages.includes(p.wattage);
+                const compMatch = filters.compatibilities.length === 0 || filters.compatibilities.includes(p.compatibility);
+                const capMatch = filters.batteryCapacities.length === 0 || filters.batteryCapacities.includes(p.batteryCapacity);
+                const spdMatch = filters.chargingSpeeds.length === 0 || filters.chargingSpeeds.includes(p.chargingSpeed);
+                const portMatch = filters.outputPorts.length === 0 || filters.outputPorts.includes(p.outputPorts);
+                const matMatch = filters.materials.length === 0 || filters.materials.includes(p.material);
+                const adjMatch = filters.adjustabilities.length === 0 || filters.adjustabilities.includes(p.adjustability);
+                const dpiMatch = filters.dpis.length === 0 || filters.dpis.includes(p.dpi);
+                const swMatch = filters.switchTypes.length === 0 || filters.switchTypes.includes(p.switchType);
+                const bkMatch = filters.backlights.length === 0 || filters.backlights.includes(p.backlight);
+                const clrMatch = filters.colors.length === 0 || p.colors.some(c => filters.colors.includes(c));
+                const priceMatch = p.price <= filters.maxPrice;
+                const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase()) || p.type.toLowerCase().includes(filters.search.toLowerCase());
+                return scMatch && bMatch && tMatch && cMatch && batMatch && noiseMatch && waterMatch && wattMatch && compMatch && capMatch && spdMatch && portMatch && matMatch && adjMatch && dpiMatch && swMatch && bkMatch && clrMatch && priceMatch && qMatch;
+            });
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-[3rem] border border-[#D7CCC8]/20 overflow-hidden group flex flex-col h-full shadow-sm">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gray-50 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
+                            ${p.discount ? `<span class="absolute top-6 left-6 bg-[#5D4037] text-white text-[10px] font-black px-4 py-2 rounded-2xl uppercase tracking-widest shadow-xl">${p.discount}</span>` : ''}
+                            <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <ion-icon name="star" class="text-yellow-500 text-xs"></ion-icon>
+                                <span class="text-[10px] font-black">${p.rating.toFixed(1)}</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-1 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-[0.2em]">${p.brand}</span>
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">${p.subcategory}</span>
+                            </div>
+                            <h3 class="font-bold text-[#5D4037] text-base line-clamp-2 leading-tight group-hover:text-[#8D6E63] transition-colors cursor-pointer" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-[#FDF5E6] text-[#5D4037] text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-tighter border border-[#D7CCC8]/10">${p.type}</span>
+                                ${p.connectivity ? `<span class="bg-[#FDF5E6] text-[#5D4037] text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-tighter border border-[#D7CCC8]/10">${p.connectivity}</span>` : ''}
+                            </div>
+
+                            <div class="mt-auto pt-6 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-2xl font-black text-[#5D4037]">₹${p.price.toLocaleString('en-IN')}</span>
+                                    ${p.originalPrice ? `<del class="text-xs text-gray-300 font-bold">₹${p.originalPrice.toLocaleString('en-IN')}</del>` : ''}
+                                </div>
+                                <div class="flex gap-3">
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-mini="true" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image}" 
+                                        data-product-brand="${p.brand}"
+                                        class="w-12 h-12 bg-[#F5F5DC] text-[#5D4037] rounded-2xl flex items-center justify-center hover:bg-[#5D4037] hover:text-white transition-all shadow-sm border border-[#D7CCC8]/20">
+                                        <ion-icon name="cart-outline" class="text-xl"></ion-icon>
+                                    </button>
+                                    <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-6 h-12 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#3E2723] shadow-lg shadow-[#5D4037]/20 transition-all">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
             }
-        }, { passive: true });
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', fetchProducts);
+            document.getElementById('top-search').addEventListener('input', (e) => {
+                filters.search = e.target.value;
+                applyFiltersAndRender();
+            });
+            document.getElementById('price-range').addEventListener('input', (e) => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${parseInt(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 100000 ? '+' : ''}`;
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = { 
+                subcategories: [], brands: [], types: [], connectivities: [], 
+                batteryLives: [], noiseCancellations: [], waterResistances: [],
+                wattages: [], compatibilities: [],
+                batteryCapacities: [], chargingSpeeds: [], outputPorts: [],
+                materials: [], adjustabilities: [],
+                dpis: [],
+                switchTypes: [], backlights: [],
+                colors: [], maxPrice: 100000, search: "" 
+            };
+            document.getElementById('price-range').value = 100000;
+            document.getElementById('price-max').innerText = "₹1,00,000+";
+            document.getElementById('top-search').value = "";
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        init();
     </script>
 </body>
-
-
 </html>

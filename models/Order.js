@@ -12,12 +12,13 @@ const OrderSchema = new mongoose.Schema({
   },
   products: [{
     productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
+      type: String, // Storing slug or _id as string for flexibility
     },
     quantity: Number,
     price: Number,
     name: String,
+    image: String,
+    size: String
   }],
   totalAmount: {
     type: Number,
@@ -25,17 +26,14 @@ const OrderSchema = new mongoose.Schema({
   },
   paymentMethod: {
     type: String,
-    enum: ['COD', 'Online', 'UPI'],
     default: 'COD',
   },
   paymentStatus: {
     type: String,
-    enum: ['Pending', 'Completed', 'Failed'],
     default: 'Pending',
   },
   orderStatus: {
     type: String,
-    enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
     default: 'Processing',
   },
   createdAt: {

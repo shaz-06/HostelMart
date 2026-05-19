@@ -13,9 +13,9 @@
     "6363849863": {
       "name": "Shashank",
       "phone": "6363849863",
-      "address": "",
-      "hostel": "",
-      "room": "",
+      "address": "Aryabhatta Hostel, Room 302-B, IIT Kharagpur",
+      "hostel": "Aryabhatta Hostel",
+      "room": "302-B",
       "createdAt": "2026-05-09T16:02:17.956Z",
       "lastLogin": "2026-05-11T16:43:57.026Z",
       "role": "user"

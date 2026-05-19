@@ -151,6 +151,7 @@ async function startVerification() {
                 // Clear session
                 localStorage.removeItem('pendingOrder');
                 localStorage.removeItem('checkoutItem');
+                localStorage.removeItem('hostelmart_cart'); // Clear global cart
 
                 showSuccessState(orderData);
             } else {

@@ -1280,6 +1280,246 @@
                 }
             }
         }, { passive: true });
+
+        // DYNAMIC DATABASE PRODUCTS SYSTEM
+        let allProducts = [];
+        let filters = {
+            subcategories: [],
+            sections: [],
+            brands: [],
+            materials: [],
+            foldable: [],
+            storage: [],
+            assembly: [],
+            colors: [],
+            maxPrice: 25000,
+            search: ""
+        };
+
+        const config = {
+            subcategories: ["Study Essentials", "Furniture & Decor", "Home & Storage Essentials"],
+            sections: ["Daily Use Essentials", "Student Essentials", "Premium Essentials"],
+            brands: ["IKEA", "Amazon Basics", "Nayasa", "Cello", "Home Puff", "Cellbell", "Green Soul", "Wakefit"],
+            materials: ["Wood", "Metal", "Plastic", "Stainless Steel", "Engineered Wood"],
+            foldable: ["Yes", "No"],
+            storage: ["Yes", "No"],
+            assembly: ["Yes", "No"],
+            colors: {
+                "Classic Black": "#000000", "Professional Blue": "#0000FF", "Sleek Silver": "#C0C0C0",
+                "Warm Brown": "#8B4513", "Natural Wood": "#DEB887"
+            }
+        };
+
+        async function init() {
+            renderFilterUI();
+            await fetchProducts();
+            setupEventListeners();
+        }
+
+        async function fetchProducts() {
+            try {
+                const sort = document.getElementById('sort-select').value;
+                const res = await fetch(`/api/products?subcategory=Study Essentials,Furniture & Decor,Home & Storage Essentials&sort=${sort}`);
+                allProducts = await res.json();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Error:", e);
+            }
+        }
+
+        function renderFilterUI() {
+            const subFilter = document.getElementById('subcategory-filters');
+            subFilter.innerHTML = config.subcategories.map(sc => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('subcategories', '${sc}')">
+                    <div class="custom-checkbox ${filters.subcategories.includes(sc) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${sc}</span>
+                </div>
+            `).join('');
+
+            const secFilter = document.getElementById('section-filters');
+            secFilter.innerHTML = config.sections.map(s => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('sections', '${s}')">
+                    <div class="custom-checkbox ${filters.sections.includes(s) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                </div>
+            `).join('');
+
+            const bFilter = document.getElementById('brand-filters');
+            bFilter.innerHTML = config.brands.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                    <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const matFilter = document.getElementById('material-filters');
+            matFilter.innerHTML = config.materials.map(m => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('materials', '${m}')">
+                    <div class="custom-checkbox ${filters.materials.includes(m) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${m}</span>
+                </div>
+            `).join('');
+
+            const foldFilter = document.getElementById('foldable-filters');
+            foldFilter.innerHTML = config.foldable.map(f => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('foldable', '${f}')">
+                    <div class="custom-checkbox ${filters.foldable.includes(f) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${f}</span>
+                </div>
+            `).join('');
+
+            const storeFilter = document.getElementById('storage-filters');
+            storeFilter.innerHTML = config.storage.map(s => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('storage', '${s}')">
+                    <div class="custom-checkbox ${filters.storage.includes(s) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                </div>
+            `).join('');
+
+            const assFilter = document.getElementById('assembly-filters');
+            assFilter.innerHTML = config.assembly.map(a => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('assembly', '${a}')">
+                    <div class="custom-checkbox ${filters.assembly.includes(a) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${a}</span>
+                </div>
+            `).join('');
+
+            const clrFilter = document.getElementById('color-filters');
+            clrFilter.innerHTML = Object.entries(config.colors).map(([name, hex]) => `
+                <div class="color-dot ${filters.colors.includes(name) ? 'active' : ''}" style="background-color: ${hex};" title="${name}" onclick="toggleFilter('colors', '${name}')"></div>
+            `).join('');
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function selectQuickFilter(key, val) {
+            if (val === 'All') {
+                filters[key] = [];
+            } else {
+                filters[key] = [val];
+            }
+            
+            // Sync active states on pills
+            document.querySelectorAll(`[id^="pill-sub-"]`).forEach(p => p.classList.remove('active'));
+            document.querySelectorAll(`[id^="pill-sec-"]`).forEach(p => p.classList.remove('active'));
+            
+            if (key === 'subcategories') {
+                const cleanId = val.replace(/\s+/g, '-').replace(/&/g, '');
+                const target = document.getElementById(`pill-sub-${cleanId}`);
+                if (target) target.classList.add('active');
+                else document.getElementById('pill-sub-All').classList.add('active');
+            } else if (key === 'sections') {
+                const cleanId = val.replace(/\s+/g, '-').replace(/&/g, '');
+                const target = document.getElementById(`pill-sec-${cleanId}`);
+                if (target) target.classList.add('active');
+                else document.getElementById('pill-sec-All').classList.add('active');
+            }
+
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const scMatch = filters.subcategories.length === 0 || filters.subcategories.includes(p.subcategory);
+                const sMatch = filters.sections.length === 0 || (p.section && filters.sections.includes(p.section)) || (p.tags && p.tags.some(t => filters.sections.includes(t)));
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const matMatch = filters.materials.length === 0 || (p.material && filters.materials.includes(p.material)) || (p.specifications && p.specifications.Material && filters.materials.includes(p.specifications.Material));
+                const clrMatch = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c))) || (p.color && filters.colors.includes(p.color));
+                const priceMatch = p.price <= filters.maxPrice;
+                const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase());
+                return scMatch && sMatch && bMatch && matMatch && clrMatch && priceMatch && qMatch;
+            });
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col h-full shadow-sm">
+                        <div class="relative aspect-square overflow-hidden bg-gray-50 cursor-pointer border-b border-[#D7CCC8]/20" onclick="window.location.href='product-details.html?id=${p.slug}'">
+                            <img src="${p.image || p.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${p.name}">
+                            ${p.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">${p.discount}</span>` : ''}
+                            <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                                <span>${p.rating.toFixed(1)}</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">${p.brand}</span>
+                                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">${p.subcategory || 'Furniture'}</span>
+                            </div>
+                            <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors" onclick="window.location.href='product-details.html?id=${p.slug}'">${p.name}</h3>
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.type || 'Furniture'}</span>
+                                ${p.material ? `<span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.material}</span>` : ''}
+                            </div>
+                            <div class="mt-auto pt-4 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-black text-[#5D4037]">₹${p.price.toLocaleString('en-IN')}</span>
+                                    ${p.originalPrice ? `<del class="text-[10px] text-gray-300 font-bold">₹${p.originalPrice.toLocaleString('en-IN')}</del>` : ''}
+                                </div>
+                                <div class="flex gap-2">
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-mini="true" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image || p.images[0]}" 
+                                        data-product-brand="${p.brand}"
+                                        class="w-10 h-10 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#5D4037] hover:text-white transition-all shadow-sm">
+                                        <ion-icon name="cart-outline" class="text-lg"></ion-icon>
+                                    </button>
+                                    <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-4 h-10 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#3E2723] shadow-md shadow-[#D7CCC8]/50 transition-all">Buy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', fetchProducts);
+            document.getElementById('top-search').addEventListener('input', (e) => {
+                filters.search = e.target.value;
+                applyFiltersAndRender();
+            });
+            document.getElementById('price-range').addEventListener('input', (e) => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${parseInt(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 25000 ? '+' : ''}`;
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = { subcategories: [], sections: [], brands: [], materials: [], foldable: [], storage: [], assembly: [], colors: [], maxPrice: 25000, search: "" };
+            document.getElementById('price-range').value = 25000;
+            document.getElementById('price-max').innerText = "₹25,000+";
+            document.getElementById('top-search').value = "";
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function toggleFilterSidebar() {
+            const sidebar = document.getElementById('filter-sidebar');
+            if (sidebar) sidebar.classList.toggle('open');
+        }
+
+        init();
     </script>
 </body>
 

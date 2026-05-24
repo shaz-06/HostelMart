@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const admin = require('firebase-admin');
+const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env.local' });
 const { verifyToken, verifyAdmin } = require('./middleware/auth');
 
@@ -405,6 +406,29 @@ app.get('/api/products/search', async (req, res) => {
     }
 });
 
+// GET /api/products/mens
+app.get('/api/products/mens', async (req, res) => {
+    try {
+        await connectDB();
+        const terms = ['men', 'mens', 'male', 'boys', 'tshirt', 'shirt', 'hoodie', 'jean', 'pant', 'boxer', 'footwear', 'sneaker', 'watch', 'grooming'];
+        const regexTerms = new RegExp(terms.join('|'), 'i');
+        
+        const query = {
+            $or: [
+                { category: { $regex: /^(?!.*women).*men.*/i } },
+                { subCategory: { $regex: regexTerms } },
+                { subcategory: { $regex: regexTerms } },
+                { tags: { $regex: /men/i } }
+            ]
+        };
+        const products = await Product.find(query);
+        res.json(products);
+    } catch (error) {
+        console.error("Men's products API error:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 app.get('/api/products/slug/:slug', async (req, res) => {
     try {
         await connectDB();
@@ -414,6 +438,50 @@ app.get('/api/products/slug/:slug', async (req, res) => {
         res.json(product);
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error fetching product' });
+    }
+});
+
+// Dynamic Mongoose ObjectId & Slug Endpoint
+app.get('/api/products/:idOrSlug', async (req, res) => {
+    try {
+        await connectDB();
+        const param = req.params.idOrSlug;
+        let product;
+        
+        if (mongoose.Types.ObjectId.isValid(param)) {
+            product = await Product.findById(param);
+        }
+        
+        if (!product) {
+            const escapedSlug = param.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            product = await Product.findOne({ slug: { $regex: new RegExp("^" + escapedSlug + "$", "i") } });
+        }
+        
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching product' });
+    }
+});
+
+// Main Category Products API
+app.get('/api/products/category/:category', async (req, res) => {
+    try {
+        await connectDB();
+        const category = req.params.category;
+        const escapedCategory = category.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const products = await Product.find({ 
+            $or: [
+                { category: { $regex: new RegExp("^" + escapedCategory + "$", "i") } },
+                { subcategory: { $regex: new RegExp("^" + escapedCategory + "$", "i") } },
+                { subCategory: { $regex: new RegExp("^" + escapedCategory + "$", "i") } }
+            ]
+        });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching products by category' });
     }
 });
 

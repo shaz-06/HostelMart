@@ -1788,6 +1788,145 @@
             }
         }, { passive: true });
     </script>
+    <script>
+        async function syncProductsFromDB() {
+            try {
+                const res = await fetch('/api/products');
+                if (!res.ok) return;
+                const products = await res.json();
+                
+                const productBySlug = {};
+                const productByName = {};
+                
+                function normalize(str) {
+                    if (!str) return '';
+                    return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+                }
+                
+                products.forEach(p => {
+                    productBySlug[p.slug] = p;
+                    productByName[normalize(p.name)] = p;
+                });
+                
+                const cards = document.querySelectorAll(
+                    '.product-card, .furniture-card, .arrival-card, [class*="-card"], div[onclick*="product-details.html"], a[onclick*="product-details.html"], div[onclick*="ProductDetail.html"]'
+                );
+                
+                const allDivs = document.querySelectorAll('div');
+                const genericCards = Array.from(allDivs).filter(div => {
+                    if (div.children.length < 2 || div.children.length > 10) return false;
+                    const hasTitle = div.querySelector('h3, h4, .title, [class*="title"]');
+                    const hasPrice = div.innerHTML.includes('₹') || div.querySelector('del') || div.querySelector('.price');
+                    const isInsideAnother = div.parentElement && div.parentElement.closest('.product-card, .furniture-card, [class*="-card"]');
+                    return hasTitle && hasPrice && !isInsideAnother;
+                });
+                
+                const allCardsToProcess = new Set([...cards, ...genericCards]);
+                
+                allCardsToProcess.forEach(card => {
+                    const titleEl = card.querySelector('h3, h4, .title, [class*="title"]');
+                    if (!titleEl) return;
+                    
+                    let p = null;
+                    let slug = card.getAttribute('data-product-slug');
+                    if (!slug) {
+                        const onclickAttr = card.getAttribute('onclick') || '';
+                        const hrefAttr = card.getAttribute('href') || '';
+                        
+                        const clickMatch = onclickAttr.match(/(?:id=)([^']+)/) || onclickAttr.match(/(?:id=)([^"]+)/);
+                        if (clickMatch) slug = clickMatch[1];
+                        
+                        if (!slug) {
+                            const hrefMatch = hrefAttr.match(/(?:id=)([^&?#]+)/);
+                            if (hrefMatch) slug = hrefMatch[1];
+                        }
+                    }
+                    
+                    if (slug && productBySlug[slug]) {
+                        p = productBySlug[slug];
+                    }
+                    
+                    if (!p) {
+                        const titleText = titleEl.innerText.trim();
+                        const normTitle = normalize(titleText);
+                        p = productByName[normTitle];
+                        
+                        if (!p) {
+                            const matchedKey = Object.keys(productByName).find(k => {
+                                return normTitle.includes(k) || k.includes(normTitle);
+                            });
+                            if (matchedKey) p = productByName[matchedKey];
+                        }
+                    }
+                    
+                    if (!p) return;
+                    
+                    card.setAttribute('data-product-slug', p.slug);
+                    titleEl.innerText = p.name;
+                    
+                    const priceEl = card.querySelector('.price, .text-lg.font-black, .text-sm.font-black, .text-[#5D4037].font-black, span.font-black, .text-[#3E2723]');
+                    if (priceEl) priceEl.innerText = `₹${p.price}`;
+                    
+                    const delEl = card.querySelector('del, .original-price, .line-through, .text-xs.text-gray-400.line-through');
+                    if (delEl) {
+                        if (p.oldPrice) {
+                            delEl.innerText = `₹${p.oldPrice}`;
+                            delEl.style.display = '';
+                        } else {
+                            delEl.style.display = 'none';
+                        }
+                    }
+                    
+                    const discountBadge = card.querySelector('.discount, [class*="discount"], .bg-green-50, [class*="OFF"]');
+                    if (discountBadge && p.discount) {
+                        discountBadge.innerText = p.discount;
+                    }
+                    
+                    const imgEl = card.querySelector('img');
+                    if (imgEl && (p.image || (p.images && p.images[0]))) {
+                        imgEl.setAttribute('src', p.image || p.images[0]);
+                        imgEl.setAttribute('alt', p.name);
+                    }
+                    
+                    card.querySelectorAll('a, button, div').forEach(el => {
+                        const onclick = el.getAttribute('onclick') || '';
+                        if (onclick.includes('product-details.html') || onclick.includes('ProductDetail.html') || el.classList.contains('group-hover:scale-105')) {
+                            el.setAttribute('onclick', `event.stopPropagation(); window.location.href='product-details.html?id=${p.slug}'`);
+                        }
+                    });
+                    
+                    if (card.tagName === 'A') {
+                        card.setAttribute('href', `product-details.html?id=${p.slug}`);
+                    } else if (card.hasAttribute('onclick') && (card.getAttribute('onclick').includes('product-details.html') || card.getAttribute('onclick').includes('ProductDetail.html'))) {
+                        card.setAttribute('onclick', `window.location.href='product-details.html?id=${p.slug}'`);
+                    } else {
+                        card.style.cursor = 'pointer';
+                        card.setAttribute('onclick', `window.location.href='product-details.html?id=${p.slug}'`);
+                    }
+                    
+                    const cartBtn = card.querySelector('button');
+                    if (cartBtn) {
+                        cartBtn.setAttribute('data-product-slug', p.slug);
+                        cartBtn.setAttribute('data-product-price', `₹${p.price}`);
+                        cartBtn.setAttribute('data-product-name', p.name);
+                        cartBtn.setAttribute('data-product-image', p.image || (p.images && p.images[0]));
+                        cartBtn.setAttribute('data-product-brand', p.brand || 'HostelMart');
+                        cartBtn.setAttribute('data-cart-action', 'add');
+                        
+                        const existingOnclick = cartBtn.getAttribute('onclick') || '';
+                        if (!existingOnclick.includes('stopPropagation')) {
+                            cartBtn.setAttribute('onclick', 'event.stopPropagation();');
+                        }
+                    }
+                });
+                
+                if (window.syncCartButtons) window.syncCartButtons();
+            } catch (e) {
+                console.error("Error syncing products from DB:", e);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', syncProductsFromDB);
+    </script>
 </body>
 
 </html>

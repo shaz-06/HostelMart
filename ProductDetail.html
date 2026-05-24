@@ -538,61 +538,83 @@
         }
 
         async function fetchProductDetails() {
-            const productId = slug;
-            console.log("Product ID:", productId);
+            const params = new URLSearchParams(window.location.search);
+            let productId = params.get("id");
+            
+            // Fallback for clean URL slug path routing or slug query param
+            if (!productId) {
+                productId = params.get("slug") || slug;
+            }
+
+            console.log(productId);
+
             try {
-                const response = await fetch(`/api/products/slug/${slug}`);
+                const response = await fetch(`/api/products/${productId}`);
                 if (!response.ok) throw new Error("Product not found in DB");
                 const product = await response.json();
                 if (!product || product.success === false) throw new Error("Product not found in DB");
                 
-                console.log("Matched Product:", product);
+                console.log(product);
                 currentProduct = product;
                 renderProduct(product);
             } catch (error) {
-                console.warn("Fetch DB failed, checking static data...", error);
-                try {
-                    await loadStaticRunners();
-                    const match = findProductInStaticData(slug);
-                    if (match) {
-                        const product = mapStaticToSchema(match.value, match.key);
-                        console.log("Matched Product:", product);
-                        currentProduct = product;
-                        renderProduct(product);
-                        return;
-                    }
-                } catch (staticErr) {
-                    console.error("Static loader failed:", staticErr);
-                }
-
-                // Fallback to local products.json lookup!
-                console.log("Checking products.json fallback...");
-                try {
-                    const fallbackRes = await fetch('./data/products.json');
-                    if (fallbackRes.ok) {
-                        const localProducts = await fallbackRes.json();
-                        const match = localProducts.find(p => {
-                            const pSlug = p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                            return pSlug === slug;
-                        });
+                console.warn("Fetch DB failed, checking fallback options...", error);
+                
+                // If it is a 24-character Mongoose ObjectId, we shouldn't attempt text slug fallbacks.
+                const isObjectId = /^[0-9a-fA-F]{24}$/.test(productId);
+                
+                if (!isObjectId) {
+                    try {
+                        await loadStaticRunners();
+                        const match = findProductInStaticData(productId);
                         if (match) {
-                            const product = mapJSONFallbackToSchema(match, slug);
-                            console.log("Matched Product from local products.json:", product);
+                            const product = mapStaticToSchema(match.value, match.key);
+                            console.log("Matched Product from static runner:", product);
                             currentProduct = product;
                             renderProduct(product);
                             return;
                         }
+                    } catch (staticErr) {
+                        console.error("Static loader failed:", staticErr);
                     }
-                } catch (fallbackErr) {
-                    console.error("Local products.json fallback failed:", fallbackErr);
+
+                    // Fallback to local products.json lookup!
+                    console.log("Checking products.json fallback...");
+                    try {
+                        const fallbackRes = await fetch('./data/products.json');
+                        if (fallbackRes.ok) {
+                            const localProducts = await fallbackRes.json();
+                            const match = localProducts.find(p => {
+                                const pSlug = p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                return pSlug === productId;
+                            });
+                            if (match) {
+                                const product = mapJSONFallbackToSchema(match, productId);
+                                console.log("Matched Product from local products.json:", product);
+                                currentProduct = product;
+                                renderProduct(product);
+                                return;
+                            }
+                        }
+                    } catch (fallbackErr) {
+                        console.error("Local products.json fallback failed:", fallbackErr);
+                    }
                 }
                 
                 console.log("Matched Product:", null);
                 document.querySelector('main').innerHTML = `
-                    <div class="py-20 text-center space-y-6">
-                        <ion-icon name="alert-circle-outline" class="text-8xl text-gray-200"></ion-icon>
-                        <h2 class="text-2xl font-bold text-gray-900">Oops! Product not found.</h2>
-                        <a href="/index.html" class="inline-block bg-[#5D4037] text-white px-8 py-3 rounded-xl font-bold">Back to Home</a>
+                    <div class="py-24 text-center max-w-lg mx-auto bg-white/60 backdrop-blur-md border border-[#D7CCC8]/30 p-12 rounded-[2.5rem] shadow-xl space-y-6 my-12">
+                        <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#FDF5E6] text-[#5D4037] text-5xl mb-2 animate-bounce">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </div>
+                        <h2 class="text-3xl font-black text-[#5D4037]">Product Not Found</h2>
+                        <p class="text-gray-500 font-medium text-sm leading-relaxed max-w-sm mx-auto">
+                            Oops! The product with ID <span class="font-bold text-[#8D6E63] font-mono">${productId || 'undefined'}</span> could not be retrieved. It may have been removed, sold out, or the link might be incorrect.
+                        </p>
+                        <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="/index.html" class="bg-[#5D4037] text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#3E2723] transition-all shadow-md">Back to Homepage</a>
+                            <a href="/Electronics.html" class="bg-[#FDF5E6] text-[#5D4037] border border-[#D7CCC8]/50 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#F5F5DC] transition-all">Browse Electronics</a>
+                        </div>
                     </div>
                 `;
             }

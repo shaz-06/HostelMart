@@ -119,7 +119,7 @@ function renderSearchResults(products, query) {
         const image = product.image || (product.images && product.images.default) || 'https://via.placeholder.com/50';
         
         html += `
-            <div class="search-item group" onclick="navigateToProduct('${product.slug}')">
+            <div class="search-item group" onclick="navigateToProduct('${product._id || product.slug}')">
                 <div class="w-10 h-10 rounded-lg overflow-hidden bg-white border border-[#D7CCC8]/30 flex-shrink-0">
                     <img src="${image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
@@ -293,7 +293,7 @@ function createProductCardHTML(product) {
     const delHtml = product.originalPrice ? `<del class="text-xs text-gray-400 font-normal ml-2">₹${product.originalPrice.toLocaleString('en-IN')}</del>` : '';
 
     return `
-        <div class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="navigateToProduct('${product.slug}')">
+        <div class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="navigateToProduct('${product._id || product.slug}')">
             <div class="relative aspect-[4/5] overflow-hidden">
                 <img src="${image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 <img src="${hoverImage}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img opacity-0 group-hover:opacity-100 transition-opacity duration-500">

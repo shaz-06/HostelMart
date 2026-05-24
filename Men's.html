@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
     <script src="auth_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -616,63 +617,14 @@
             </div>
         </section>
 
-        <!-- 7. MUST-HAVE STYLES (Screenshot 09.59.20.jpg) -->
+        <!-- 7. TRENDING FOR MEN SECTION -->
         <section class="space-y-8">
             <div class="flex items-end justify-between">
-                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Must-have
-                    styles</h3>
-                <a href="#"
-                    class="text-[10px] font-black uppercase tracking-widest text-accent-gold hover:underline">See All
-                    Styles</a>
+                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Trending for Men</h3>
+                <span class="text-[10px] font-black uppercase tracking-widest text-[#C5A059]">Top Hot Picks</span>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="style-card hover-lift cursor-pointer">
-                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
-                        <div
-                            class="absolute top-4 left-4 bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded">
-                            NEW</div>
-                        <img src="https://via.placeholder.com/180x200" alt="Style 1"
-                            class="mix-blend-multiply transition-transform hover:scale-105">
-                    </div>
-                    <div class="p-5 space-y-2 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Campus casuals</p>
-                        <h4 class="font-bold text-sm">Cotton Graphic Tees</h4>
-                        <p class="text-base font-black">Under ₹399</p>
-                    </div>
-                </div>
-                <div class="style-card hover-lift cursor-pointer">
-                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
-                        <img src="https://via.placeholder.com/180x200" alt="Style 2"
-                            class="mix-blend-multiply transition-transform hover:scale-105">
-                    </div>
-                    <div class="p-5 space-y-2 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Athletic edge</p>
-                        <h4 class="font-bold text-sm">Lightweight Joggers</h4>
-                        <p class="text-base font-black">Min. 40% Off</p>
-                    </div>
-                </div>
-                <div class="style-card hover-lift cursor-pointer">
-                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
-                        <img src="https://via.placeholder.com/180x200" alt="Style 3"
-                            class="mix-blend-multiply transition-transform hover:scale-105">
-                    </div>
-                    <div class="p-5 space-y-2 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Street smart</p>
-                        <h4 class="font-bold text-sm">Denim Trucker Jackets</h4>
-                        <p class="text-base font-black">From ₹1,299</p>
-                    </div>
-                </div>
-                <div class="style-card hover-lift cursor-pointer">
-                    <div class="h-64 bg-stone-100 flex items-center justify-center p-6 relative">
-                        <img src="https://via.placeholder.com/180x200" alt="Style 4"
-                            class="mix-blend-multiply transition-transform hover:scale-105">
-                    </div>
-                    <div class="p-5 space-y-2 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Luxe vibes</p>
-                        <h4 class="font-bold text-sm">Linen Blend Shirts</h4>
-                        <p class="text-base font-black">Flat 30% Off</p>
-                    </div>
-                </div>
+            <div id="trending-mens-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Skeletons will be injected here -->
             </div>
         </section>
 
@@ -791,55 +743,10 @@
             </div>
         </section>
 
-        <!-- 11. FORMAL GRID (Screenshot 10.07.22.jpg) -->
-        <section class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
-                    <div
-                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
-                        Formal Shirt</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Van Heusen</p>
-                    <h4 class="font-bold text-sm">Slim Fit Solid Shirt</h4>
-                    <p class="text-base font-black">From ₹1,299</p>
-                </div>
-            </div>
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
-                    <div
-                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
-                        Formal Shirt</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Peter England</p>
-                    <h4 class="font-bold text-sm">Cotton Formal Shirt</h4>
-                    <p class="text-base font-black">From ₹999</p>
-                </div>
-            </div>
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
-                    <div
-                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
-                        Formal Shirt</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Louis Philippe</p>
-                    <h4 class="font-bold text-sm">Textured Formal Shirt</h4>
-                    <p class="text-base font-black">Min. 40% Off</p>
-                </div>
-            </div>
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-[#F8F7F4] flex items-center justify-center p-8">
-                    <div
-                        class="w-full h-full bg-white shadow-sm rounded-lg flex items-center justify-center italic text-stone-300 font-bold">
-                        Formal Shirt</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Arrow</p>
-                    <h4 class="font-bold text-sm">Premium Formal Shirt</h4>
-                    <p class="text-base font-black">Under ₹1,499</p>
-                </div>
+        <!-- 11. MEN'S FASHION SECTION -->
+        <section class="space-y-6">
+            <div id="fashion-mens-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Skeletons will be injected here -->
             </div>
         </section>
 
@@ -864,55 +771,10 @@
             </div>
         </section>
 
-        <!-- 13. FOOTWEAR GRID (Screenshot 10.08.04.jpg) -->
-        <section class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
-                    <div
-                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
-                        Sneaker</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Red Tape</p>
-                    <h4 class="font-bold text-sm">Lifestyle Sneakers</h4>
-                    <p class="text-base font-black">Under ₹1,499</p>
-                </div>
-            </div>
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
-                    <div
-                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
-                        Sneaker</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Puma</p>
-                    <h4 class="font-bold text-sm">Casual Canvas Shoes</h4>
-                    <p class="text-base font-black">Min. 50% Off</p>
-                </div>
-            </div>
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
-                    <div
-                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
-                        Sneaker</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Sparx</p>
-                    <h4 class="font-bold text-sm">Sporty Walking Shoes</h4>
-                    <p class="text-base font-black">Under ₹899</p>
-                </div>
-            </div>
-            <div class="style-card hover-lift cursor-pointer border-stone-100">
-                <div class="h-64 bg-stone-50 flex items-center justify-center p-10">
-                    <div
-                        class="w-full h-24 bg-white rounded-full shadow-lg flex items-center justify-center italic text-stone-300 font-black rotate-[-15deg]">
-                        Sneaker</div>
-                </div>
-                <div class="p-5 text-center space-y-1">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">Campus</p>
-                    <h4 class="font-bold text-sm">Mesh Running Shoes</h4>
-                    <p class="text-base font-black">Min. 30% Off</p>
-                </div>
+        <!-- 13. MEN'S FOOTWEAR SECTION -->
+        <section class="space-y-6">
+            <div id="footwear-mens-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Skeletons will be injected here -->
             </div>
         </section>
 
@@ -935,47 +797,32 @@
             </div>
         </section>
 
-        <!-- 15. GROOMING STRIP (Screenshot 10.08.38.jpg) -->
-        <section class="flex gap-6 overflow-x-auto no-scrollbar pb-4">
-            <div
-                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
-                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
-                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm">Face Washes</h4>
-                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Min. 40% Off</p>
-                </div>
+        <!-- 15. MEN'S GROOMING SECTION -->
+        <section class="space-y-6">
+            <div id="grooming-mens-list" class="flex gap-6 overflow-x-auto no-scrollbar pb-6 snap-x snap-mandatory">
+                <!-- Skeletons will be injected here -->
             </div>
-            <div
-                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
-                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
-                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm">Beard Oils</h4>
-                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Under ₹299</p>
-                </div>
+        </section>
+
+        <!-- 15.5. ACCESSORIES SECTION -->
+        <section class="space-y-8">
+            <div class="flex items-end justify-between">
+                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Men's Accessories</h3>
+                <span class="text-[10px] font-black uppercase tracking-widest text-[#C5A059]">Elite Accents</span>
             </div>
-            <div
-                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
-                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
-                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm">Fragrances</h4>
-                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Up to 70% Off</p>
-                </div>
+            <div id="accessories-mens-list" class="flex gap-6 overflow-x-auto no-scrollbar pb-6 snap-x snap-mandatory">
+                <!-- Skeletons will be injected here -->
             </div>
-            <div
-                class="min-w-[200px] bg-white border border-stone-100 rounded-[32px] p-6 text-center hover-lift cursor-pointer space-y-4">
-                <div class="w-24 h-24 mx-auto bg-stone-100 rounded-3xl flex items-center justify-center p-4">
-                    <div class="w-full h-full bg-white rounded-lg shadow-sm border border-stone-200/50"></div>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm">Hair Styling</h4>
-                    <p class="text-[10px] font-black uppercase text-[#C5A059] tracking-widest mt-1">Min. 25% Off</p>
-                </div>
+        </section>
+
+        <!-- 15.6. ESSENTIALS SECTION -->
+        <section class="space-y-8">
+            <div class="flex items-end justify-between">
+                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Men's Essentials</h3>
+                <span class="text-[10px] font-black uppercase tracking-widest text-[#C5A059]">Loungewear & Daily Staples</span>
+            </div>
+            <div id="essentials-mens-list" class="flex gap-6 overflow-x-auto no-scrollbar pb-6 snap-x snap-mandatory">
+                <!-- Skeletons will be injected here -->
             </div>
         </section>
 
@@ -1100,6 +947,209 @@
                 }
             });
         });
+
+        // Dynamic products fetching and rendering
+        async function loadMensProducts() {
+            const containers = {
+                trending: document.getElementById('trending-mens-list'),
+                fashion: document.getElementById('fashion-mens-list'),
+                footwear: document.getElementById('footwear-mens-list'),
+                grooming: document.getElementById('grooming-mens-list'),
+                accessories: document.getElementById('accessories-mens-list'),
+                essentials: document.getElementById('essentials-mens-list')
+            };
+
+            // 1. Show skeletons in all containers
+            Object.keys(containers).forEach(key => {
+                const container = containers[key];
+                if (!container) return;
+                
+                let skeletonHTML = '';
+                const count = (key === 'grooming' || key === 'accessories' || key === 'essentials') ? 6 : 4;
+                const isHorizontal = (key === 'grooming' || key === 'accessories' || key === 'essentials');
+                
+                for (let i = 0; i < count; i++) {
+                    skeletonHTML += `
+                        <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] animate-pulse ${isHorizontal ? 'snap-start min-w-[260px] sm:min-w-[300px] md:min-w-[320px] max-w-[340px] flex-shrink-0' : ''}">
+                            <div class="aspect-square w-full bg-stone-100/50"></div>
+                            <div class="p-4 flex flex-col flex-1 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="h-3 w-12 bg-stone-200 rounded"></div>
+                                    <div class="h-3 w-8 bg-stone-200 rounded"></div>
+                                </div>
+                                <div class="h-4 bg-stone-200 rounded w-5/6"></div>
+                                <div class="h-4 bg-stone-200 rounded w-2/3"></div>
+                                <div class="pt-2 flex flex-col space-y-1">
+                                    <div class="h-4 bg-stone-200 rounded w-1/3"></div>
+                                    <div class="h-3 bg-stone-100 rounded w-1/2"></div>
+                                </div>
+                                <div class="flex gap-2 pt-2 mt-auto">
+                                    <div class="h-8 bg-stone-200 rounded-xl flex-1"></div>
+                                    <div class="h-8 bg-stone-200 rounded-xl flex-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                container.innerHTML = skeletonHTML;
+            });
+
+            try {
+                // Fetch products
+                const res = await fetch('/api/products/mens');
+                if (!res.ok) throw new Error('Failed to fetch men\'s products');
+                const products = await res.json();
+
+                // 2. Classify lists
+                const lists = {
+                    trending: [],
+                    fashion: [],
+                    footwear: [],
+                    grooming: [],
+                    accessories: [],
+                    essentials: []
+                };
+
+                products.forEach(p => {
+                    const cat = (p.category || '').toLowerCase();
+                    const subcat = (p.subcategory || p.subCategory || '').toLowerCase();
+                    const tags = (p.tags || []).map(t => String(t).toLowerCase());
+
+                    // Trending
+                    if (p.trending === true || p.rating >= 4.4) {
+                        lists.trending.push(p);
+                    }
+
+                    // Footwear
+                    if (cat.includes('footwear') || cat.includes('sneaker') || cat.includes('shoe') ||
+                        subcat.includes('footwear') || subcat.includes('sneaker') || subcat.includes('shoe')) {
+                        lists.footwear.push(p);
+                    }
+                    // Grooming
+                    else if (cat.includes('grooming') || cat.includes('beard') || cat.includes('fragrance') || cat.includes('shaving') || cat.includes('perfume') ||
+                             subcat.includes('grooming') || subcat.includes('beard') || subcat.includes('fragrance') || subcat.includes('shaving') || subcat.includes('perfume')) {
+                        lists.grooming.push(p);
+                    }
+                    // Accessories
+                    else if (cat.includes('watch') || cat.includes('sunglasses') || cat.includes('accessory') || cat.includes('accessories') ||
+                             subcat.includes('watch') || subcat.includes('sunglasses') || subcat.includes('accessory') || subcat.includes('accessories')) {
+                        lists.accessories.push(p);
+                    }
+                    // Essentials
+                    else if (cat.includes('boxer') || cat.includes('innerwear') || cat.includes('socks') || cat.includes('underwear') ||
+                             subcat.includes('boxer') || subcat.includes('innerwear') || subcat.includes('socks') || subcat.includes('underwear')) {
+                        lists.essentials.push(p);
+                    }
+                    // Fashion (default clothing catch-all for remaining)
+                    else {
+                        lists.fashion.push(p);
+                    }
+                });
+
+                // Fallback Images Object
+                const fallbacks = {
+                    fashion: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&q=80',
+                    footwear: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&q=80',
+                    grooming: 'https://images.unsplash.com/photo-1626015713026-d837d172406f?w=400&q=80',
+                    accessories: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=400&q=80',
+                    essentials: 'https://images.unsplash.com/photo-1582533561751-ef6f6ab93a2e?w=400&q=80',
+                    trending: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&q=80'
+                };
+
+                // 3. Render lists
+                Object.keys(containers).forEach(key => {
+                    const container = containers[key];
+                    if (!container) return;
+                    
+                    const items = lists[key];
+                    const isHorizontal = (key === 'grooming' || key === 'accessories' || key === 'essentials');
+                    
+                    if (!items || items.length === 0) {
+                        // Premium empty state layout
+                        container.innerHTML = `
+                            <div class="col-span-full py-12 flex flex-col items-center justify-center text-center space-y-4 bg-white rounded-3xl border border-[#D7CCC8]/20 shadow-xs p-8 w-full ${isHorizontal ? 'min-w-[100%]' : ''}">
+                                <div class="w-16 h-16 rounded-full bg-[#FDF5E6] flex items-center justify-center text-[#C5A059] shadow-inner">
+                                    <ion-icon name="shirt-outline" class="text-3xl"></ion-icon>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-black text-[#5D4037] text-sm uppercase tracking-wider">No products available</h4>
+                                    <p class="text-xs text-stone-400 font-bold max-w-xs">New styled items are arriving soon in this collection. Stay tuned!</p>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    let listHTML = '';
+                    items.forEach(p => {
+                        const imgSource = p.image || (p.images && p.images[0]) || fallbacks[key] || fallbacks.fashion;
+                        const ratingVal = p.rating || '4.5';
+                        const reviewsCount = p.reviewsCount || p.reviews || Math.floor(Math.random() * 40) + 10;
+                        const originalPrice = p.oldPrice || p.originalPrice;
+                        const badgeHTML = p.badge ? `<span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">${p.badge}</span>` : '';
+                        const discountHTML = p.discount ? `<span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">${p.discount}</span>` : '';
+
+                        listHTML += `
+                            <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift ${isHorizontal ? 'snap-start min-w-[260px] sm:min-w-[300px] md:min-w-[320px] max-w-[340px] flex-shrink-0' : ''}">
+                                <div onclick="window.location.href='product-details.html?id=${p._id}'" class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                                    <img loading="lazy" src="${imgSource}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="${p.name}">
+                                    ${badgeHTML}
+                                    ${discountHTML}
+                                </div>
+                                <div class="p-4 flex flex-col flex-1 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">${p.brand || 'HostelMart'}</span>
+                                        <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                            <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                            <span>${ratingVal}</span>
+                                            <span class="text-gray-400 font-normal ml-0.5">(${reviewsCount})</span>
+                                        </div>
+                                    </div>
+                                    <h3 onclick="window.location.href='product-details.html?id=${p._id}'" class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">${p.name}</h3>
+                                    <div class="pt-2 flex flex-col">
+                                        <div class="flex items-baseline gap-2">
+                                            <span class="text-base font-black text-[#5D4037]">₹${p.price}</span>
+                                            ${originalPrice ? `<del class="text-[10px] text-gray-300 font-bold">₹${originalPrice}</del>` : ''}
+                                        </div>
+                                        <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹${Math.floor(p.price * 0.95)} with UPI offer</span>
+                                    </div>
+                                    <div class="flex gap-2 pt-2 mt-auto">
+                                        <button data-cart-action="add" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${imgSource}" data-product-brand="${p.brand || 'HostelMart'}" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                            Add
+                                        </button>
+                                        <button onclick="window.location.href='Checkout.html?slug=${p.slug}'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                            Buy
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = listHTML;
+                });
+                
+                // Sync buttons with current cart state
+                if (typeof syncCartButtons === 'function') {
+                    syncCartButtons();
+                }
+            } catch (e) {
+                console.error("Error loading Men's products dynamically:", e);
+                Object.keys(containers).forEach(key => {
+                    const container = containers[key];
+                    if (container) {
+                        container.innerHTML = `
+                            <div class="col-span-full py-12 flex flex-col items-center justify-center text-center space-y-2 bg-[#FDF5E6] rounded-3xl p-6">
+                                <ion-icon name="alert-circle-outline" class="text-3xl text-red-500"></ion-icon>
+                                <p class="text-xs font-black uppercase tracking-wider text-red-600">Failed to load items</p>
+                                <button onclick="loadMensProducts()" class="bg-[#5D4037] text-[#F5F5DC] text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl mt-2 hover:bg-[#8D6E63]">Retry</button>
+                            </div>
+                        `;
+                    }
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadMensProducts);
     </script>
 </body>
 

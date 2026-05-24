@@ -31,6 +31,9 @@ const ProductSchema = new mongoose.Schema({
   subcategory: {
     type: String,
   },
+  subCategory: {
+    type: String,
+  },
   section: {
     type: String,
   },
@@ -307,6 +310,9 @@ const ProductSchema = new mongoose.Schema({
   frontCamera: {
     type: String,
   },
+  camera: {
+    type: String,
+  },
   fingerprintType: {
     type: String,
   },
@@ -316,6 +322,9 @@ const ProductSchema = new mongoose.Schema({
   colors: {
     type: [String],
     default: []
+  },
+  color: {
+    type: String,
   },
   gender: {
     type: String,
@@ -354,6 +363,9 @@ const ProductSchema = new mongoose.Schema({
   originalPrice: {
     type: Number,
   },
+  oldPrice: {
+    type: Number,
+  },
   discount: {
     type: String,
   },
@@ -370,7 +382,18 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  reviews: {
+    type: Number,
+    default: 0
+  },
   highlights: {
+    type: [String],
+    default: []
+  },
+  badge: {
+    type: String,
+  },
+  tags: {
     type: [String],
     default: []
   },

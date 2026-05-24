@@ -2330,7 +2330,7 @@
                 </button>
             </div>
 
-            <div class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
+            <div id="suggested-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
                 <!-- Card 1: Nature Power -->
                 <a href="Papaya-Aura-Soap.html" class="product-link">
                     <div
@@ -5031,17 +5031,130 @@
 
         let allProductsGlobal = [];
 
+        function createStudyCardHTML(p) {
+            const brand = p.brand || 'HostelMart';
+            const rating = p.rating || 4.5;
+            const price = p.price;
+            const oldPrice = p.oldPrice || p.originalPrice || price;
+            let discountHtml = '';
+            if (oldPrice > price) {
+                const pct = Math.round((oldPrice - price) / oldPrice * 100);
+                discountHtml = `<span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">${pct}% OFF</span>`;
+            }
+            const oldPriceHtml = oldPrice > price ? `<span class="text-xs text-gray-400 line-through">₹${oldPrice}</span>` : '';
+            const image = p.image || (p.images && p.images[0]) || 'https://via.placeholder.com/300';
+            return `
+                <a href="product-details.html?id=${p._id || p.slug}" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="${image}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="${p.name}">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            ${brand}
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>${rating.toFixed(1)}</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">${p.name}</h3>
+                        <div class="flex items-center gap-2">
+                            ${oldPriceHtml}
+                            <span class="text-lg font-black text-[#5D4037]">₹${price}</span>
+                            ${discountHtml}
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+            `;
+        }
+
+        function createSuggestedCardHTML(p) {
+            const brand = p.brand || 'HostelMart';
+            const rating = p.rating || 4.5;
+            const price = p.price;
+            const oldPrice = p.oldPrice || p.originalPrice || price;
+            const oldPriceHtml = oldPrice > price ? `<span class="text-[10px] text-gray-400 line-through">₹${oldPrice}</span>` : '';
+            const image = p.image || (p.images && p.images[0]) || 'https://via.placeholder.com/300';
+            const upiPrice = Math.round(price * 0.85);
+            return `
+                <a href="product-details.html?id=${p._id || p.slug}" class="product-link">
+                    <div class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                        <div class="absolute top-4 left-4 z-10">
+                            <div class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                                <span class="italic">f</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <img src="${image}" class="max-w-full max-h-full object-contain" alt="${p.name}">
+                        </div>
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                                <span>${rating.toFixed(1)}</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">${p.name}</h3>
+                            <div class="flex items-baseline gap-2">
+                                ${oldPriceHtml}
+                                <span class="text-[14px] font-black text-[#5D4037]">₹${price}</span>
+                            </div>
+                            <p class="text-[11px] font-black text-[#2874f0]">₹${upiPrice} with UPI offer</p>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        function createDealsCardHTML(p) {
+            const brand = p.brand || 'HostelMart';
+            const rating = p.rating || 4.5;
+            const price = p.price;
+            const oldPrice = p.oldPrice || p.originalPrice || price;
+            const oldPriceHtml = oldPrice > price ? `<span class="text-xs text-gray-400 line-through">₹${oldPrice.toLocaleString('en-IN')}</span>` : '';
+            const image = p.image || (p.images && p.images[0]) || 'https://via.placeholder.com/300';
+            const upiPrice = Math.round(price * 0.85);
+            return `
+                <a href="product-details.html?id=${p._id || p.slug}"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
+                    <div class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="${image}" class="max-w-full max-h-full object-contain" alt="${p.name}">
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-1 bg-green-600 w-fit px-2 py-0.5 rounded text-white font-bold text-xs shadow-sm">
+                            <span>${rating.toFixed(1)}</span><ion-icon name="star" class="text-[10px]"></ion-icon>
+                        </div>
+                        <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1"><span class="font-black">${brand}</span> ${p.name}</h3>
+                        <div class="flex items-baseline gap-2">
+                            ${oldPriceHtml}
+                            <span class="text-base font-black text-[#5D4037]">₹${price.toLocaleString('en-IN')}</span>
+                        </div>
+                        <p class="text-xs font-black text-[#2874f0]">₹${upiPrice.toLocaleString('en-IN')} with UPI offer</p>
+                    </div>
+                </a>
+            `;
+        }
+
         async function loadProductsFallback() {
             const productGrid = document.querySelector('.product-grid');
             try {
-                const response = await fetch('./data/products.json');
-                if (!response.ok) throw new Error("Local products.json fetch failed");
+                const response = await fetch('/api/products');
+                if (!response.ok) throw new Error("Database products fetch failed");
                 allProductsGlobal = await response.json();
-                console.log("Products loaded from JSON:", allProductsGlobal.length);
+                console.log("Products loaded from MongoDB:", allProductsGlobal.length);
             } catch (e) {
-                console.warn("CORS/Fetch error or file missing, using local fallback data.");
-                allProductsGlobal = localProductFallback;
-                console.log("Fallback products loaded:", allProductsGlobal.length);
+                console.warn("MongoDB products fetch failed, falling back to local products.json:", e);
+                try {
+                    const response = await fetch('./data/products.json');
+                    if (!response.ok) throw new Error("Local products.json fetch failed");
+                    allProductsGlobal = await response.json();
+                    console.log("Products loaded from JSON:", allProductsGlobal.length);
+                } catch (jsonErr) {
+                    console.warn("CORS/Fetch error or file missing, using local fallback data.");
+                    allProductsGlobal = localProductFallback;
+                    console.log("Fallback products loaded:", allProductsGlobal.length);
+                }
             }
             renderProducts(allProductsGlobal, productGrid);
         }
@@ -5049,80 +5162,25 @@
         function renderProducts(products, container) {
             if (!container || !products) return;
             container.innerHTML = '';
-            // Render all products without slicing
             products.forEach(product => {
                 container.insertAdjacentHTML('beforeend', createProductHTML(product));
             });
         }
 
         function getProductUrl(product) {
-            const name = product.name.trim();
-            const mappings = {
-                "asian Firefly-04 Black Running Shoes": "Asian-Firefly-04.html",
-                "asian Elasto-02 Running Shoes": "Asian-Elasto-02.html",
-                "Sparx SL 9047 Running Shoes": "Sparx-SL9047.html",
-                "asian Grey Sports/Gym Shoes": "Asian-Grey-Sports.html",
-                "SKITTER SKITTER Stylish Shoes": "Skitter-Stylish.html",
-                "Sparx SL 194 Running Shoes": "Sparx-SL194.html",
-                "Portronics Highlighter Set": "Portronics-Highlighter-Set.html",
-                "Kangaro Executive Diary": "Kangaro-Executive-Diary.html",
-                "Portronics RGB Desk Lamp": "Portronics-RGB-DeskLamp.html",
-                "Philips RGB Desk Lamp": "Philips-RGB-DeskLamp.html",
-                "Wipro RGB Desk Lamp – Navy": "Wipro-RGB-DeskLamp.html",
-                "Wipro RGB Desk Lamp": "Wipro-RGB-DeskLamp.html",
-                "Mi LED Desk Lamp – White": "Mi-LED-DeskLamp.html",
-                "Mi LED Desk Lamp": "Mi-LED-DeskLamp.html",
-                "Portronics LED Desk Lamp": "Portronics-LED-DeskLamp.html",
-                "Mi Clip-On Study Lamp": "Mi-ClipOn-StudyLamp.html",
-                "nature power Papaya Aura Soap": "NaturePower-Aura-Soap.html",
-                "Ustraa Rebel Soap": "Ustraa-Rebel-Soap.html",
-                "Morvin Papaya Soap": "Morvin-Papaya-Soap.html",
-                "Morvin AloeVera Soap": "Morvin-AloeVera-Soap.html",
-                "LA Organo Neem Papaya": "LAOrgano-Neem-Papaya.html",
-                "Papaya Aura Soap": "Papaya-Aura-Soap.html",
-                "Samsung Galaxy Z Fold5": "Samsung-Galaxy-Z-Fold5.html",
-                "Samsung Galaxy Z Flip6": "Samsung-Galaxy-Z-Flip6.html",
-                "Samsung Galaxy Z Flip3 5G": "Samsung-Galaxy-Z-Flip3.html",
-                "Samsung Galaxy Z Flip3": "Samsung-Galaxy-Z-Flip3.html",
-                "MOTUL 7100 4T20W-50": "Motul-7100.html",
-                "Motul 7100": "Motul-7100.html",
-                "PL SUPER PALCO 4T DART 10W30": "palco-4t-dart-10w30.html",
-                "Good Friend Sports/Regular Cap": "Good-Friend-Cap.html",
-                "Good Friend Cap": "Good-Friend-Cap.html",
-                "LEXREX Men Loose Fit": "Lexrex-Loose-Fit.html",
-                "Eriko Men Sporty Polo Neck": "Eriko-Sporty-Polo.html",
-                "Angar Look Caps": "Angar-Look-Cap.html",
-                "Else & What Men Printed Round Neck T-Shirt": "Else-What-Tshirt.html",
-                "Mexican MX-10W30-SN-FS Lubricant": "Mexican-Lubricant.html",
-                "Mens Winter Leather Jacket": "Lauren-Tshirt.html",
-                "Elite Sports Running Shoes": "Asian-Grey-Sports.html"
-            };
-
-            if (mappings[name]) {
-                return mappings[name];
-            }
-
-            const slug = product.slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-            if (window.location.protocol === 'file:') {
-                return `ProductDetail.html?slug=${slug}`;
-            } else {
-                return `/product/${slug}`;
-            }
+            const slug = product.slug || product.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            return `product-details.html?id=${product._id || slug}`;
         }
 
         function getBrandName(product) {
-            if (product.brand) return product.brand;
-            if (product.tags && product.tags.length > 0) {
-                return product.tags[0].charAt(0).toUpperCase() + product.tags[0].slice(1);
-            }
-            return product.name.split(' ')[0];
+            return product.brand || 'HostelMart';
         }
 
         function createProductHTML(product) {
             const brandName = getBrandName(product);
             const ratingVal = product.rating || 4.5;
-            const delPrice = product.delPrice || 0;
             const price = product.price;
+            const delPrice = product.originalPrice || product.oldPrice || product.delPrice || price;
 
             let discountPercentHtml = '';
             if (delPrice > price) {
@@ -5130,16 +5188,20 @@
                 discountPercentHtml = `<span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">${pct}% OFF</span>`;
             }
 
-            const originalPriceHtml = delPrice ? `<span class="text-xs text-gray-400 line-through">₹${delPrice.toLocaleString('en-IN')}</span>` : '';
+            const originalPriceHtml = delPrice > price ? `<span class="text-xs text-gray-400 line-through">₹${delPrice.toLocaleString('en-IN')}</span>` : '';
             const upiPrice = Math.round(price * 0.85);
             
             const slug = product.slug || product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            const image = product.image || (product.images && product.images[0]) || (product.images && product.images.default) || 'https://via.placeholder.com/300';
+            const hoverImage = (product.images && product.images[1]) || (product.images && product.images.hover) || image;
+
+            const productId = product._id || slug;
 
             return `
-                <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block relative cursor-pointer" onclick="window.location.href='product-details.html?id=${slug}'" data-tags="${(product.tags || []).join(' ').toLowerCase()}">
+                <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block relative cursor-pointer" onclick="window.location.href='product-details.html?id=${productId}'" data-tags="${(product.tags || []).join(' ').toLowerCase()}">
                     <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
-                        <img src="${product.images.default}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <img src="${product.images.hover}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img group-hover:scale-105 transition-transform duration-700">
+                        <img src="${image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <img src="${hoverImage}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
                             ${brandName}
                         </div>
@@ -5155,7 +5217,7 @@
                             ${discountPercentHtml}
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹${upiPrice.toLocaleString('en-IN')} with UPI offer</p>
-                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2" onclick="event.stopPropagation(); window.location.href='product-details.html?id=${slug}'">
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2" onclick="event.stopPropagation(); window.location.href='product-details.html?id=${productId}'">
                             View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
                         </button>
                     </div>
@@ -5163,8 +5225,90 @@
             `;
         }
 
-        window.addEventListener('DOMContentLoaded', loadProductsFallback);
+        async function loadDynamicHomepageSections() {
+            // Load Bottom Grid
+            await loadProductsFallback();
+            
+            // Load Student Essentials
+            try {
+                const res = await fetch('/api/products?subcategory=Study Essentials&limit=10');
+                if (res.ok) {
+                    const products = await res.json();
+                    if (products && products.length > 0) {
+                        const scroller = document.getElementById('study-scroller');
+                        if (scroller) {
+                            scroller.innerHTML = products.map(createStudyCardHTML).join('');
+                        }
+                    }
+                }
+            } catch (e) { console.error("Error loading student essentials:", e); }
 
+            // Load Daily Use Essentials
+            try {
+                const res = await fetch('/api/products?subcategory=Bedroom,Home %26 Storage Essentials,Bathroom Essentials,Laundry,Home Utility&limit=10');
+                if (res.ok) {
+                    const products = await res.json();
+                    if (products && products.length > 0) {
+                        const scroller = document.getElementById('mugs-scroller');
+                        if (scroller) {
+                            scroller.innerHTML = products.map(createStudyCardHTML).join('');
+                        }
+                    }
+                }
+            } catch (e) { console.error("Error loading daily use essentials:", e); }
+
+            // Load Suggested Soaps/Beauty
+            try {
+                const res = await fetch('/api/products?category=Beauty %26 Personal Care&limit=10');
+                if (res.ok) {
+                    const products = await res.json();
+                    if (products && products.length > 0) {
+                        const scroller = document.getElementById('suggested-scroller');
+                        if (scroller) {
+                            scroller.innerHTML = products.map(createSuggestedCardHTML).join('');
+                        }
+                    }
+                }
+            } catch (e) { console.error("Error loading suggested beauty:", e); }
+
+            // Load Suggested Shoes
+            try {
+                const res = await fetch('/api/products?category=Fashion %26 Apparel&subcategory=Footwear&limit=10');
+                if (res.ok) {
+                    const products = await res.json();
+                    if (products && products.length > 0) {
+                        const scroller = document.getElementById('shoes-scroller');
+                        if (scroller) {
+                            scroller.innerHTML = products.map(createSuggestedCardHTML).join('');
+                        }
+                    }
+                }
+            } catch (e) { console.error("Error loading suggested shoes:", e); }
+
+            // Load Top Deals
+            try {
+                const res = await fetch('/api/products?category=Deals %26 Offers&limit=12');
+                if (res.ok) {
+                    const products = await res.json();
+                    if (products && products.length > 0) {
+                        const scroller1 = document.getElementById('deals-scroller');
+                        if (scroller1) {
+                            scroller1.innerHTML = products.slice(0, 4).map(createDealsCardHTML).join('');
+                        }
+                        const scroller2 = document.getElementById('deals-scroller-2');
+                        if (scroller2) {
+                            scroller2.innerHTML = products.slice(4, 8).map(createDealsCardHTML).join('');
+                        }
+                        const scroller3 = document.getElementById('deals-scroller-3');
+                        if (scroller3) {
+                            scroller3.innerHTML = products.slice(8, 12).map(createDealsCardHTML).join('');
+                        }
+                    }
+                }
+            } catch (e) { console.error("Error loading deals:", e); }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadDynamicHomepageSections);
 
                     // Show top-level search results area
                     searchArea.classList.remove('hidden');

@@ -4250,6 +4250,56 @@
                 console.warn('Swiper is not defined');
             }
         });
+
+        async function syncProductsFromDB() {
+            try {
+                const res = await fetch('/api/products');
+                if (!res.ok) return;
+                const products = await res.json();
+                const productMap = {};
+                products.forEach(p => {
+                    productMap[p.slug] = p;
+                });
+                
+                document.querySelectorAll('[data-product-slug]').forEach(btn => {
+                    const slug = btn.getAttribute('data-product-slug');
+                    const p = productMap[slug];
+                    if (!p) return;
+                    
+                    const card = btn.closest('.product-card, .furniture-card, [class*="-card"], a');
+                    if (card) {
+                        const titleEl = card.querySelector('h3, .title, [class*="title"]');
+                        if (titleEl) titleEl.innerText = p.name;
+                        
+                        const priceEl = card.querySelector('.text-base, .price, .text-lg.font-black, .text-sm.font-black');
+                        if (priceEl) priceEl.innerText = `₹${p.price}`;
+                        
+                        const delEl = card.querySelector('del, .original-price');
+                        if (delEl && p.originalPrice) delEl.innerText = `₹${p.originalPrice}`;
+                        
+                        const discountBadge = card.querySelector('span.absolute.top-3.right-3, span.absolute.top-4.right-4, .discount');
+                        if (discountBadge && p.discount) discountBadge.innerText = p.discount;
+                        
+                        const imgEl = card.querySelector('img');
+                        if (imgEl && p.image) imgEl.setAttribute('src', p.image);
+                        
+                        card.querySelectorAll('[onclick*="/product/"], [onclick*="ProductDetail.html"]').forEach(el => {
+                            el.setAttribute('onclick', `window.location.href='product-details.html?id=${slug}'`);
+                        });
+                        if (card.tagName === 'A') {
+                            card.setAttribute('href', `product-details.html?id=${slug}`);
+                        }
+                    }
+                    
+                    btn.setAttribute('data-product-price', `₹${p.price}`);
+                    btn.setAttribute('data-product-name', p.name);
+                    btn.setAttribute('data-product-image', p.image || p.images[0]);
+                });
+            } catch (e) {
+                console.error("Error syncing products from DB:", e);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', syncProductsFromDB);
     </script>
 </body>
 

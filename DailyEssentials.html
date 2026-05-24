@@ -103,6 +103,21 @@
                 </div>
 
                 <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Usage</h3>
+                    <div class="space-y-3" id="usage-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Quantity</h3>
+                    <div class="space-y-3" id="quantity-filters"></div>
+                </div>
+
+                <div>
                     <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
                     <div class="space-y-4">
                         <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
@@ -140,18 +155,21 @@
 
     <script>
         let allProducts = [];
-        let filters = { brands: [], types: [], flavors: [], weights: [], fragrances: [], skintypes: [], hairtypes: [], volumes: [], dietaryTypes: [], maxPrice: 3000, search: "" };
+        let filters = { brands: [], types: [], flavors: [], weights: [], fragrances: [], skintypes: [], hairtypes: [], volumes: [], dietaryTypes: [], usages: [], materials: [], quantities: [], maxPrice: 3000, search: "" };
 
         const config = {
-            brands: ["Colgate", "Pepsodent", "Sensodyne", "Dabur Red", "Patanjali", "Closeup", "Himalaya", "Oral-B", "Dove", "Lux", "Lifebuoy", "Pears", "Santoor", "Dettol", "Medimix", "Head & Shoulders", "Pantene", "Clinic Plus", "Sunsilk", "Tresemmé", "Mamaearth", "WOW", "L'Oréal", "Aashirvaad", "Tata", "Fortune", "Britannia", "Haldiram’s", "Bru", "Nescafé", "Kellogg’s", "MTR"],
-            types: ["Whitening Toothpaste", "Herbal Toothpaste", "Sensitive Teeth Toothpaste", "Charcoal Toothpaste", "Gel Toothpaste", "Kids Toothpaste", "Ayurvedic Toothpaste", "Cavity Protection Toothpaste", "Fresh Mint Toothpaste", "Combo Toothpaste Packs", "Bath Soaps", "Herbal Soaps", "Moisturizing Soaps", "Antibacterial Soaps", "Charcoal Soaps", "Aloe Vera Soaps", "Ayurvedic Soaps", "Glycerin Soaps", "Luxury Soaps", "Combo Soap Packs", "Anti-Dandruff Shampoo", "Hair Fall Control Shampoo", "Herbal Shampoo", "Smoothening Shampoo", "Protein Shampoo", "Damage Repair Shampoo", "Daily Use Shampoo", "Shampoo Combo Packs", "Rice", "Atta", "Cooking Oil", "Sugar", "Salt", "Tea Powder", "Coffee Powder", "Spices", "Dal & Pulses", "Dry Fruits", "Instant Mixes", "Breakfast Cereals", "Biscuits", "Snacks", "Ready-to-Cook Products"],
-            flavors: ["Sparkling Mint", "Neem & Clove", "Fresh Mint", "Cool Mint", "Icy Cool", "Bubblegum", "Mix Herb", "Strong Mint", "Peppermint", "Classic Mint"],
-            weights: ["50g", "75g", "100g", "125g", "150g", "200g", "250g", "400g", "500g", "1kg", "2kg", "5kg", "10kg"],
-            dietaryTypes: ["Vegetarian", "Non-Vegetarian", "Veg", "Non-Veg", "Vegan", "Gluten-Free"],
-            fragrances: ["Mild", "Lemon", "Aloe Vera", "Rose", "Sandalwood", "Neem", "Charcoal", "Lavender", "Honey & Cream", "Apple", "Onion", "Argan Oil"],
+            brands: ["Colgate", "Pepsodent", "Sensodyne", "Dabur Red", "Patanjali", "Closeup", "Himalaya", "Oral-B", "Dove", "Lux", "Lifebuoy", "Pears", "Santoor", "Dettol", "Medimix", "Head & Shoulders", "Pantene", "Clinic Plus", "Sunsilk", "Tresemmé", "Mamaearth", "WOW", "L'Oréal", "Aashirvaad", "Tata", "Fortune", "Britannia", "Haldiram’s", "Bru", "Nescafé", "Kellogg’s", "MTR", "India Gate", "Daawat", "Everest", "MDH", "Catch", "Dhampur", "Organic India", "Lizol", "Harpic", "Surf Excel", "Ariel", "Vim", "Scotch-Brite", "Gala", "Colin", "Domex", "Wheel", "Nivea", "Garnier", "Parachute", "Johnson’s Baby", "Pampers", "Huggies", "Whisper", "Horlicks", "Boost", "Bournvita", "Complan", "Pediasure", "Ensure", "Protinex", "Glucon-D", "Herbalife", "Fast&Up", "Indulekha", "Stayfree", "Sofy"],
+            types: ["Whitening Toothpaste", "Herbal Toothpaste", "Sensitive Teeth Toothpaste", "Charcoal Toothpaste", "Gel Toothpaste", "Kids Toothpaste", "Ayurvedic Toothpaste", "Cavity Protection Toothpaste", "Fresh Mint Toothpaste", "Combo Toothpaste Packs", "Bath Soaps", "Herbal Soaps", "Moisturizing Soaps", "Antibacterial Soaps", "Charcoal Soaps", "Aloe Vera Soaps", "Ayurvedic Soaps", "Glycerin Soaps", "Luxury Soaps", "Combo Soap Packs", "Anti-Dandruff Shampoo", "Hair Fall Control Shampoo", "Herbal Shampoo", "Smoothening Shampoo", "Protein Shampoo", "Damage Repair Shampoo", "Daily Use Shampoo", "Shampoo Combo Packs", "Rice", "Atta", "Cooking Oil", "Sugar", "Salt", "Tea Powder", "Coffee Powder", "Spices", "Dal & Pulses", "Dry Fruits", "Instant Mixes", "Breakfast Cereals", "Biscuits", "Snacks", "Ready-to-Cook Products", "Floor Cleaners", "Detergents", "Brushes", "Mops", "Face Wash", "Creams", "Hair Oil", "Shampoo", "Baby Care", "Personal Care", "Household Essentials", "Kitchen Daily Use", "Protein Drinks", "Energy Drinks", "Malt-Based Health Drinks", "Chocolate Health Drinks", "Nutrition Powders", "Kids Health Drinks", "Immunity Boost Drinks", "Weight Gain Drinks", "Sugar-Free Health Drinks", "Ready-to-Drink Nutrition Beverages", "Monthly Grocery Packs", "Student Grocery Kits", "Hostel Survival Packs", "Snack Combo Packs", "Breakfast Combo Packs", "Essential Cooking Packs", "Family Grocery Packs", "Rice + Atta Combo Packs", "Tea & Biscuit Packs", "Emergency Grocery Packs", "Sensitive Toothpaste", "Neem Face Wash", "Charcoal Face Wash", "Acne Control Face Wash", "Vitamin C Face Wash", "Oil Control Face Wash", "Coconut Hair Oil", "Almond Hair Oil", "Onion Hair Oil", "Ayurvedic Hair Oil", "Anti Hair Fall Oil", "Regular Pads", "XL Pads", "Overnight Pads", "Ultra Thin Pads", "Panty Liners"],
+            flavors: ["Sparkling Mint", "Neem & Clove", "Fresh Mint", "Cool Mint", "Icy Cool", "Bubblegum", "Mix Herb", "Strong Mint", "Peppermint", "Classic Mint", "Chocolate", "Vanilla", "Strawberry", "Orange", "Lemon", "Regular", "Classic Malt", "Elaichi", "Kesar Badam"],
+            weights: ["50g", "75g", "100g", "125g", "150g", "200g", "250g", "400g", "500g", "750g", "1kg", "2kg", "5kg", "10kg"],
+            dietaryTypes: ["Vegetarian", "Non-Vegetarian", "Veg", "Non-Veg", "Vegan", "Gluten-Free", "Diabetic Friendly"],
+            fragrances: ["Mild", "Lemon", "Aloe Vera", "Rose", "Sandalwood", "Neem", "Charcoal", "Lavender", "Honey & Cream", "Apple", "Onion", "Argan Oil", "Pine", "Fresh", "Jasmine", "Mint", "Unscented", "Coconut", "Almond", "Herbal", "Clove", "Charcoal Mint"],
             skintypes: ["All Skin Types", "Oily Skin", "Dry Skin", "Sensitive Skin", "Normal Skin"],
             hairtypes: ["All Hair Types", "Dry Hair", "Oily Hair", "Damaged Hair", "Frizzy Hair", "Normal Hair"],
-            volumes: ["100ml", "180ml", "340ml", "400ml", "650ml", "1L"]
+            volumes: ["50ml", "100ml", "150ml", "180ml", "200ml", "250ml", "340ml", "400ml", "500ml", "650ml", "1L", "2L", "5L"],
+            usages: ["Floor Cleaning", "Bathroom Cleaning", "Kitchen Cleaning", "Bottle Cleaning", "Shoe Cleaning", "Laundry", "Multi-Purpose", "Toilet Cleaning", "Glass Cleaning", "Baby Hygiene", "Baby Skin Care", "Daily Care", "Oral Care", "Body Wash", "Hair Care", "Feminine Hygiene", "Cleaning", "Waste Management", "Home Hygiene", "Insect Repellent", "Food Storage", "Dish Washing"],
+            materials: ["Plastic", "Cotton", "Microfiber", "Sponge", "Nylon", "Stainless Steel", "Wood"],
+            quantities: ["1 Pack", "2 Pack Combo", "50 Wipes", "100 Wipes", "1 Unit", "Pack of 3", "Pack of 6", "XL Pack", "Box of 100", "Roll of 30", "Refill Pack", "9 Meters", "25 Meters", "Pack of 2", "Pack of 15", "Pack of 30", "Pack of 40"]
         };
 
         async function init() {
@@ -177,7 +195,10 @@
                 skintypes: 'skintype-filters',
                 hairtypes: 'hairtype-filters',
                 volumes: 'volume-filters',
-                dietaryTypes: 'dietary-filters'
+                dietaryTypes: 'dietary-filters',
+                usages: 'usage-filters',
+                materials: 'material-filters',
+                quantities: 'quantity-filters'
             };
             for (const [key, id] of Object.entries(sections)) {
                 const el = document.getElementById(id);
@@ -208,9 +229,12 @@
                 const ht = filters.hairtypes.length === 0 || (p.hairType && filters.hairtypes.includes(p.hairType));
                 const vol = filters.volumes.length === 0 || (p.volume && filters.volumes.includes(p.volume));
                 const d = filters.dietaryTypes.length === 0 || (p.dietaryType && filters.dietaryTypes.includes(p.dietaryType));
+                const usg = filters.usages.length === 0 || (p.usage && filters.usages.includes(p.usage));
+                const mat = filters.materials.length === 0 || (p.material && filters.materials.includes(p.material));
+                const qt = filters.quantities.length === 0 || (p.quantity && filters.quantities.includes(p.quantity));
                 const pr = p.price <= filters.maxPrice;
                 const s = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase());
-                return b && t && f && w && fr && st && ht && vol && d && pr && s;
+                return b && t && f && w && fr && st && ht && vol && d && usg && mat && qt && pr && s;
             });
 
             document.getElementById('result-count').innerText = filtered.length;
@@ -263,7 +287,7 @@
         }
 
         function resetFilters() {
-            filters = { brands: [], types: [], flavors: [], weights: [], fragrances: [], skintypes: [], hairtypes: [], volumes: [], dietaryTypes: [], maxPrice: 3000, search: "" };
+            filters = { brands: [], types: [], flavors: [], weights: [], fragrances: [], skintypes: [], hairtypes: [], volumes: [], dietaryTypes: [], usages: [], materials: [], quantities: [], maxPrice: 3000, search: "" };
             document.getElementById('price-range').value = 3000;
             document.getElementById('price-max').innerText = "₹3000+";
             document.getElementById('top-search').value = "";

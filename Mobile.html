@@ -3,62 +3,1332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobiles & Accessories | HostelMart</title>
+    <title>Premium Smartphones & Tech | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script src="/cart_global.js"></script>
+    <script src="cart_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+
+    <!-- Swiper.js Slider Assets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <style>
-        body { font-family: 'Outfit', sans-serif; background-color: #f8f9fa; color: #1a1a1a; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        body { font-family: 'Outfit', sans-serif; background-color: #FDFBF7; color: #5D4037; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #D7CCC8 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #D7CCC8; border-radius: 10px; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(93, 64, 55, 0.18); }
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+        .product-card {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(93, 64, 55, 0.08);
+            border-color: #8D6E63;
+        }
+        .category-item:hover .icon-box {
+            transform: translateY(-5px);
+            background-color: #F5F5DC;
+        }
+        .category-item.active .icon-box {
+            background-color: #F5F5DC;
+            border-bottom: 3px solid #5D4037;
+        }
+        .category-item.active span {
+            color: #5D4037;
+            font-weight: 900;
+        }
+        .custom-checkbox { width: 18px; height: 18px; border: 2px solid #D7CCC8; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .toast-notification { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease-out;
+        }
+        #compare-drawer {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out;
+        }
+        .color-chip { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #D7CCC8; cursor: pointer; transition: all 0.2s; position: relative; }
+        .color-chip.active { border-color: #5D4037; transform: scale(1.15); box-shadow: 0 0 8px rgba(93, 64, 55, 0.3); }
+        .color-chip.active::after { content: '✓'; color: #5D4037; font-size: 12px; font-weight: 900; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        /* Premium Custom Swiper Styles */
+        .hero-deals-swiper {
+            width: 100%;
+            padding-bottom: 24px !important;
+        }
+        .hero-deals-swiper .swiper-pagination-bullet {
+            background: #D7CCC8 !important;
+            opacity: 1;
+            width: 8px;
+            height: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
+        }
+        .hero-deals-swiper .swiper-pagination-bullet-active {
+            background: #5D4037 !important;
+            width: 24px;
+        }
+        .hero-deals-swiper .swiper-button-prev,
+        .hero-deals-swiper .swiper-button-next {
+            opacity: 0;
+            transition: all 0.3s ease;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+        }
+        .hero-deals-swiper:hover .swiper-button-prev,
+        .hero-deals-swiper:hover .swiper-button-next {
+            opacity: 1;
+        }
+        .hero-deals-swiper .swiper-button-prev {
+            left: 16px !important;
+        }
+        .hero-deals-swiper .swiper-button-next {
+            right: 16px !important;
+        }
     </style>
 </head>
-<body class="antialiased">
-    <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="/index.html" class="flex items-center gap-2">
-                <span class="text-2xl font-black italic"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></span>
-            </a>
-            <div class="flex items-center gap-6">
-                <a href="/Cart.html" class="relative group">
-                    <ion-icon name="cart-outline" class="text-2xl text-gray-700"></ion-icon>
-                    <span class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold cart-badge">0</span>
+<body class="antialiased min-h-screen flex flex-col">
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 shadow-md">
+        <!-- Top Row: Tabs -->
+        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="/index.html"
+                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]">Hostel</span>
+                        <span class="text-[#C8A951] ml-1">Mart</span>
+                    </span>
+                </a>
+                <a href="Minutes.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div
+                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
+                        6</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+                </a>
+                <a href="Travel.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+                </a>
+                <a href="Footwear.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="footsteps-outline" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Footwear</span>
+                </a>
+                <div
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                    <div
+                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
+                        Xtra Saver</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location & Info -->
+        <div class="bg-[#F5F5DC] py-2 hidden md:block border-b border-[#D7CCC8]/40">
+            <div
+                class="container mx-auto px-4 flex justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <div></div>
+                <div class="flex items-center gap-6">
+                    <a href="Address.html"
+                        class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
+                        <ion-icon name="location" class="text-sm group-hover:scale-125 transition-transform text-[#8D6E63]"></ion-icon>
+                        <span id="current-address">ARYABHATTA HOSTEL, ROOM 302-B, IIT KHARAGPUR</span>
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    </a>
+                    <div class="bg-yellow-100 px-2 py-1 rounded flex items-center gap-1 text-yellow-700">
+                        <ion-icon name="flash" class="text-yellow-500"></ion-icon>
+                        <span>0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] pb-4 pt-4">
+            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
+                <!-- Mobile Menu Toggle -->
+                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+
+                <!-- Logo (Mobile only) -->
+                <a href="/index.html" class="text-xl font-black italic tracking-tighter md:hidden"><span class="text-[#8D6E63]">H</span><span class="text-[#C8A951]">M</span></a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl z-10">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+                    <input type="search" id="top-search" placeholder="Search for Products, Brands and More"
+                        class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium relative z-10"
+                        autocomplete="off">
+                </div>
+
+                <!-- Profile & Cart -->
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                    <a href="/index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
+                    <a href="Premium.html" class="hover:text-[#8D6E63] transition-colors flex items-center gap-1.5 relative group">
+                        Premium
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8A951] opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#C8A951]"></span>
+                        </span>
+                    </a>
+                    <a href="/Cart.html" class="relative group flex items-center gap-2 cursor-pointer hover:text-[#5D4037]">
+                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
+                        <span class="hidden md:inline">Cart</span>
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black">0</span>
+                    </a>
+                    <div id="auth-user-ui">
+                        <a href="/Profile.html" class="flex items-center gap-1 hover:text-[#8D6E63]"><ion-icon name="person-circle-outline" class="text-2xl"></ion-icon><span id="login-text" class="hidden md:inline">Shashank</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION (Icons) -->
+        <div id="categories-section" class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
+                <a href="/index.html" class="category-item flex flex-col items-center gap-1 group pb-1">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">For You</span>
+                </a>
+
+                <a href="Premium.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/crown.png" class="w-8 h-8" alt="Premium">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037] uppercase tracking-wide">Premium</span>
+                </a>
+
+                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
+                </a>
+
+                <a href="WeddingStore.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3656/3656842.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Wedding</span>
+                </a>
+
+                <a href="Mobile.html" class="category-item active flex flex-col items-center gap-1 group relative pb-1 border-b-2 border-[#5D4037]">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8 scale-110 filter brightness-105" alt="">
+                    </div>
+                    <span class="text-[10px] font-black text-[#5D4037]">Mobiles</span>
+                </a>
+
+                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
+                </a>
+
+                <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
+                </a>
+
+                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
+                </a>
+
+                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
+                </a>
+
+                <a href="Toys.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys & Baby</span>
+                </a>
+
+                <a href="Food.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & Health</span>
+                </a>
+
+                <a href="Auto.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc.</span>
+                </a>
+
+                <a href="2 wheel.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheelers</span>
+                </a>
+
+                <a href="Sports.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports</span>
+                </a>
+
+                <a href="Books.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & Studio</span>
+                </a>
+
+                <a href="Furniture.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-black text-gray-900 mb-8">Mobiles & Accessories</h1>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="product-grid"></div>
-    </main>
+    <!-- MOBILE HERO DEAL CAROUSEL -->
+    <section class="w-[95%] mx-auto mt-6 bg-[#F5F5DC] rounded-[2.5rem] p-6 shadow-sm border border-[#D7CCC8]/60">
+        <!-- Section Header -->
+        <div class="flex items-center justify-between mb-5 px-2">
+            <div class="flex items-center gap-2">
+                <ion-icon name="flash-outline" class="text-xl text-[#C8A951]"></ion-icon>
+                <h2 class="text-xs font-black uppercase tracking-[0.25em] text-[#5D4037]">Campus Tech Deals</h2>
+            </div>
+            <span class="text-[9px] font-black uppercase tracking-widest text-[#8D6E63] bg-[#FDFBF7] px-3.5 py-1.5 rounded-full border border-[#D7CCC8]/30 animate-pulse">Limited Time Offers</span>
+        </div>
 
-    <script>
-        async function fetchProducts() {
-            const res = await fetch('/api/products?category=Electronics&subcategory=Mobile');
-            const products = await res.json();
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="product-card bg-white rounded-3xl border border-gray-100 overflow-hidden transition-all duration-300 flex flex-col group shadow-sm">
-                    <div class="relative aspect-square overflow-hidden bg-gray-50 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
-                        <img src="${p.image}" class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform">
+        <!-- Slider Container -->
+        <div class="relative overflow-hidden rounded-[20px]">
+            <div class="swiper hero-deals-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1: realme P4 5G -->
+                    <div class="swiper-slide cursor-pointer" onclick="searchAndFilter('realme P4')">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[320px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="media__1778090802439.png" alt="realme P4 5G" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                        </div>
                     </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${p.brand}</span>
-                        <h3 class="font-bold text-gray-900 text-sm line-clamp-2 mb-2 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
-                        <div class="mt-auto">
-                            <span class="text-lg font-black text-gray-900">₹${p.price.toLocaleString('en-IN')}</span>
-                            <div class="grid grid-cols-2 gap-2 mt-4">
-                                <button data-cart-action="add" data-mini="true" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="₹${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="bg-gray-100 text-gray-900 py-3 rounded-xl font-bold text-xs hover:bg-gray-200 transition-all uppercase tracking-widest">Add</button>
-                                <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white py-3 rounded-xl font-bold text-xs hover:bg-[#3E2723] transition-all uppercase tracking-widest">Buy</button>
-                            </div>
+                    <!-- Slide 2: realme P4X 5G -->
+                    <div class="swiper-slide cursor-pointer" onclick="searchAndFilter('realme P4x')">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[320px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="media__1778090823169.png" alt="realme P4X 5G" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                        </div>
+                    </div>
+                    <!-- Slide 3: vivo T4 Lite 5G -->
+                    <div class="swiper-slide cursor-pointer" onclick="searchAndFilter('vivo T4')">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[320px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="media__1778090834961.png" alt="vivo T4 Lite 5G" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                        </div>
+                    </div>
+                    <!-- Slide 4: Google Pixel 10a -->
+                    <div class="swiper-slide cursor-pointer" onclick="searchAndFilter('Pixel 10a')">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[320px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="media__1778090848379.png" alt="Google Pixel 10a" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                        </div>
+                    </div>
+                    <!-- Slide 5: Motorola Edge 60 Fusion -->
+                    <div class="swiper-slide cursor-pointer" onclick="searchAndFilter('Edge 60 Fusion')">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[320px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="media__1778090861210.png" alt="Motorola Edge 60 Fusion" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                         </div>
                     </div>
                 </div>
-            `).join('');
+
+                <!-- Navigation Arrows -->
+                <div class="swiper-button-prev !text-[#5D4037] !w-10 !h-10 !bg-[#FDFBF7]/90 hover:!bg-[#FDFBF7] !rounded-full shadow-md after:!text-xs transition-all duration-300"></div>
+                <div class="swiper-button-next !text-[#5D4037] !w-10 !h-10 !bg-[#FDFBF7]/90 hover:!bg-[#FDFBF7] !rounded-full shadow-md after:!text-xs transition-all duration-300"></div>
+
+                <!-- Pagination Dots -->
+                <div class="swiper-pagination !bottom-0"></div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-8 flex-1">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full lg:w-80 flex-shrink-0 space-y-8 max-h-[85vh] overflow-y-auto filter-sidebar pr-2 hidden lg:block">
+                <div class="flex items-center justify-between border-b border-[#D7CCC8]/40 pb-4">
+                    <h2 class="text-sm font-black uppercase tracking-widest text-[#5D4037]">Filters</h2>
+                    <button onclick="resetFilters()" class="text-xs font-bold text-[#C8A951] hover:text-[#5D4037] transition-colors">Clear All</button>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1" id="brand-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Section</h3>
+                    <div class="space-y-3" id="section-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">RAM Size</h3>
+                    <div class="flex flex-wrap gap-2" id="ram-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Storage Capacity</h3>
+                    <div class="flex flex-wrap gap-2" id="storage-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Processor</h3>
+                    <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1" id="processor-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Rear Camera</h3>
+                    <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1" id="camera-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Battery Capacity</h3>
+                    <div class="flex flex-wrap gap-2" id="battery-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Operating System</h3>
+                    <div class="space-y-3" id="os-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Color Options</h3>
+                    <div class="flex flex-wrap gap-3" id="color-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                            <span id="price-min">₹5,000</span>
+                            <span id="price-max">₹2,00,000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="5000" max="200000" step="5000" value="200000" class="w-full accent-[#5D4037]">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="hover:text-[#5D4037]">Electronics & Tech</span>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037]">Mobiles</span>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <!-- Layout Switch Toggle (Mobile Only) -->
+                        <div class="flex items-center bg-[#F5F5DC] border border-[#D7CCC8]/80 p-0.5 rounded-xl md:hidden flex-shrink-0">
+                            <button onclick="toggleMobileViewMode('grid')" id="btn-view-grid" class="w-8 h-8 rounded-lg text-[#5D4037] bg-white shadow-xs transition-all flex items-center justify-center" title="Grid View">
+                                <ion-icon name="grid-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button onclick="toggleMobileViewMode('carousel')" id="btn-view-carousel" class="w-8 h-8 rounded-lg text-[#8D6E63] hover:text-[#5D4037] transition-all flex items-center justify-center" title="Carousel View">
+                                <ion-icon name="albums-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                        <p class="text-xs font-bold text-gray-400 hidden sm:block"><span id="result-count" class="text-[#5D4037]">0</span> Products Found</p>
+                        <select id="sort-select" class="bg-white border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs font-bold outline-none focus:border-[#5D4037] cursor-pointer">
+                            <option value="popularity">Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="newest">New Arrivals</option>
+                            <option value="best-gaming">🎮 Best Gaming (CPU Power + High Refresh)</option>
+                            <option value="best-camera">📸 Best Camera (High MP + Periscope/OIS)</option>
+                            <option value="best-battery">🔋 Best Battery (Higher mAh Capacity)</option>
+                        </select>
+                        <button onclick="toggleMobileSidebar()" class="lg:hidden w-10 h-10 border border-[#D7CCC8] rounded-xl flex items-center justify-center text-[#5D4037]">
+                            <ion-icon name="funnel-outline" class="text-lg"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6 lg:gap-8 transition-all duration-300"></div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden py-24 text-center">
+                    <div class="text-7xl mb-4">📱</div>
+                    <h3 class="text-xl font-black text-[#5D4037]">No matching smartphones found</h3>
+                    <p class="text-gray-400 text-sm mt-2">Try adjusting your filters or search term.</p>
+                    <button onclick="resetFilters()" class="mt-6 bg-[#5D4037] text-white px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:bg-[#3E2723] transition-all">Reset All Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FLOATING COMPARISON DRAWER -->
+    <div id="compare-drawer" class="fixed bottom-0 left-0 right-0 bg-[#FDFBF7]/95 backdrop-blur-md border-t border-[#D7CCC8] shadow-[0_-15px_30px_rgba(93,64,55,0.1)] transform translate-y-full opacity-0 z-40 py-5 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col sm:flex-row items-center gap-6 w-full md:w-auto">
+                <div class="flex items-center gap-2">
+                    <ion-icon name="git-compare-outline" class="text-2xl text-[#C8A951]"></ion-icon>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-[#5D4037]">Compare Smartphones</h4>
+                </div>
+                <div id="compare-thumbnails" class="flex flex-wrap items-center gap-3"></div>
+            </div>
+            <div class="flex items-center gap-4 w-full sm:w-auto justify-end">
+                <button onclick="clearComparison()" class="text-xs font-black text-gray-400 hover:text-[#5D4037] uppercase tracking-widest transition-colors mr-2">Clear All</button>
+                <button onclick="openComparisonModal()" class="w-full sm:w-auto bg-[#5D4037] text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-[#3E2723] shadow-md shadow-[#D7CCC8]/50 transition-all text-center">Compare Now (<span id="compare-count">0</span>/3)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARISON MODAL -->
+    <dialog id="compare-modal" closedby="any" aria-labelledby="dialogTitle" class="bg-transparent border-0 outline-none p-4 max-w-6xl w-full">
+        <div class="bg-[#FDFBF7] rounded-[2.5rem] border border-[#D7CCC8] shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="p-6 border-b border-[#D7CCC8]/60 flex items-center justify-between bg-[#F5F5DC]">
+                <h3 id="dialogTitle" class="text-lg font-black text-[#5D4037] uppercase tracking-wider flex items-center gap-2.5">
+                    <ion-icon name="git-compare-outline" class="text-2xl text-[#C8A951]"></ion-icon>
+                    Smartphone Specs Comparison
+                </h3>
+                <button onclick="closeComparisonModal()" class="w-10 h-10 bg-[#FDFBF7] hover:bg-gray-100 border border-[#D7CCC8] rounded-full flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors shadow-sm">
+                    <ion-icon name="close-outline" class="text-2xl"></ion-icon>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-1 filter-sidebar bg-[#FDFBF7]">
+                <div class="overflow-x-auto">
+                    <table class="w-full table-fixed min-w-[700px]">
+                        <thead>
+                            <tr id="compare-table-header" class="border-b border-[#D7CCC8]/60"></tr>
+                        </thead>
+                        <tbody id="compare-table-body" class="divide-y divide-[#D7CCC8]/30"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MOBILE FILTER SIDEBAR OVERLAY -->
+    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden" onclick="toggleMobileSidebar()">
+        <div class="absolute right-0 top-0 bottom-0 w-80 bg-[#FDFBF7] p-6 flex flex-col shadow-2xl" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between border-b border-[#D7CCC8]/40 pb-4 mb-6">
+                <h2 class="text-sm font-black uppercase tracking-widest text-[#5D4037]">Filters</h2>
+                <button onclick="toggleMobileSidebar()" class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 text-gray-500">
+                    <ion-icon name="close-outline" class="text-xl"></ion-icon>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto filter-sidebar space-y-8 pr-1" id="mobile-filters-container"></div>
+            <div class="pt-6 border-t border-[#D7CCC8]/40 mt-6 flex items-center gap-3">
+                <button onclick="resetFilters(); toggleMobileSidebar();" class="flex-1 border-2 border-[#D7CCC8] text-[#5D4037] py-3 rounded-xl text-xs font-black uppercase tracking-widest">Clear</button>
+                <button onclick="toggleMobileSidebar()" class="flex-1 bg-[#5D4037] text-white py-3 rounded-xl text-xs font-black uppercase tracking-widest">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] py-12 mt-20">
+        <div class="container mx-auto px-4 text-center space-y-4">
+            <h2 class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></h2>
+            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">Equip your lifestyle with premium tech at HostelMart</p>
+        </div>
+    </footer>
+
+    <script>
+        let allProducts = [];
+        let comparedMobiles = [];
+        let mobileViewMode = 'grid'; // 'grid' or 'carousel'
+        
+        function toggleMobileViewMode(mode) {
+            mobileViewMode = mode;
+            const grid = document.getElementById('product-grid');
+            const btnGrid = document.getElementById('btn-view-grid');
+            const btnCarousel = document.getElementById('btn-view-carousel');
+
+            if (mode === 'grid') {
+                grid.className = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6 lg:gap-8 transition-all duration-300";
+                if (btnGrid) {
+                    btnGrid.classList.add('bg-white', 'shadow-xs', 'text-[#5D4037]');
+                    btnGrid.classList.remove('text-[#8D6E63]');
+                }
+                if (btnCarousel) {
+                    btnCarousel.classList.remove('bg-white', 'shadow-xs', 'text-[#5D4037]');
+                    btnCarousel.classList.add('text-[#8D6E63]');
+                }
+            } else {
+                grid.className = "flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 pb-4 transition-all duration-300 scroll-smooth";
+                if (btnCarousel) {
+                    btnCarousel.classList.add('bg-white', 'shadow-xs', 'text-[#5D4037]');
+                    btnCarousel.classList.remove('text-[#8D6E63]');
+                }
+                if (btnGrid) {
+                    btnGrid.classList.remove('bg-white', 'shadow-xs', 'text-[#5D4037]');
+                    btnGrid.classList.add('text-[#8D6E63]');
+                }
+            }
+            applyFiltersAndRender();
+        }
+        
+        let filters = {
+            brands: [],
+            sections: [],
+            rams: [],
+            storages: [],
+            processors: [],
+            cameras: [],
+            batteries: [],
+            operatingSystems: [],
+            colors: [],
+            maxPrice: 200000,
+            search: ""
+        };
+
+        const config = {
+            brands: [],
+            sections: ["Gaming Essentials", "Premium Essentials", "Student Essentials", "Tech Essentials"],
+            rams: [],
+            storages: [],
+            processors: [],
+            cameras: [],
+            batteries: [],
+            operatingSystems: [],
+            colors: []
+        };
+
+        async function init() {
+            await fetchProducts();
+            setupEventListeners();
+            setupClosedByFallback();
+            initSwiper();
+        }
+
+        async function fetchProducts() {
+            try {
+                // Fetch mobiles under category=Electronics & Tech & subcategory=Mobiles
+                const res = await fetch(`/api/products?category=Electronics %26 Tech&subcategory=Mobiles`);
+                allProducts = await res.json();
+                
+                // Dynamically compile available filters based on what actually exists in database
+                config.brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean).sort();
+                
+                config.rams = [...new Set(allProducts.map(p => p.ram))].filter(Boolean).sort((a, b) => {
+                    const ramA = parseInt(a) || 0;
+                    const ramB = parseInt(b) || 0;
+                    return ramA - ramB;
+                });
+
+                config.storages = [...new Set(allProducts.map(p => p.storage))].filter(Boolean).sort((a, b) => {
+                    const storeA = parseInt(a) || 0;
+                    const storeB = parseInt(b) || 0;
+                    const multA = a.toLowerCase().includes('tb') ? 1024 : 1;
+                    const multB = b.toLowerCase().includes('tb') ? 1024 : 1;
+                    return (storeA * multA) - (storeB * multB);
+                });
+
+                config.processors = [...new Set(allProducts.map(p => p.processor))].filter(Boolean).sort();
+                
+                config.cameras = [...new Set(allProducts.map(p => p.rearCamera))].filter(Boolean).sort();
+                
+                config.batteries = [...new Set(allProducts.map(p => p.battery))].filter(Boolean).sort((a, b) => {
+                    return (parseInt(a) || 0) - (parseInt(b) || 0);
+                });
+
+                config.operatingSystems = [...new Set(allProducts.map(p => p.operatingSystem))].filter(Boolean).sort();
+                
+                // Flatten and unique colors array
+                const rawColors = allProducts.reduce((acc, p) => acc.concat(p.colors || []), []);
+                config.colors = [...new Set(rawColors)].filter(Boolean).sort();
+
+                renderFilterUI();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Error:", e);
+                showToast("Error loading mobiles catalog. Please try again.", "danger");
+            }
+        }
+
+        // Clean-looking tailwind styling for color options
+        const colorHexMapping = {
+            "Titanium Gray": "#8E8E93",
+            "Space Black": "#1C1C1E",
+            "Pearl White": "#F2F2F7",
+            "Ocean Blue": "#007AFF",
+            "Sunset Orange": "#FF9500",
+            "Mint Green": "#34C759",
+            "Lilac Purple": "#AF52DE",
+            "Emerald Green": "#4CD964",
+            "Cosmos Gold": "#FFD60A",
+            "Ruby Red": "#FF3B30",
+            "Default": "#D7CCC8"
+        };
+
+        function renderFilterUI() {
+            const renderFiltersHtml = (isMobile = false) => {
+                const prefix = isMobile ? 'mob-' : '';
+                
+                const brandHtml = config.brands.map(b => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                        <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                    </div>
+                `).join('');
+
+                const sectionHtml = config.sections.map(s => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('sections', '${s}')">
+                        <div class="custom-checkbox ${filters.sections.includes(s) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                    </div>
+                `).join('');
+
+                const ramHtml = config.rams.map(r => `
+                    <button onclick="toggleFilter('rams', '${r}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.rams.includes(r) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-md' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${r}</button>
+                `).join('');
+
+                const storageHtml = config.storages.map(st => `
+                    <button onclick="toggleFilter('storages', '${st}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.storages.includes(st) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-md' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${st}</button>
+                `).join('');
+
+                const procHtml = config.processors.map(p => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('processors', '${p}')">
+                        <div class="custom-checkbox ${filters.processors.includes(p) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors line-clamp-1" title="${p}">${p}</span>
+                    </div>
+                `).join('');
+
+                const cameraHtml = config.cameras.map(c => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('cameras', '${c}')">
+                        <div class="custom-checkbox ${filters.cameras.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors line-clamp-1" title="${c}">${c}</span>
+                    </div>
+                `).join('');
+
+                const batteryHtml = config.batteries.map(bat => `
+                    <button onclick="toggleFilter('batteries', '${bat}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.batteries.includes(bat) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-md' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${bat.split(' ')[0]}</button>
+                `).join('');
+
+                const osHtml = config.operatingSystems.map(os => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('operatingSystems', '${os}')">
+                        <div class="custom-checkbox ${filters.operatingSystems.includes(os) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${os}</span>
+                    </div>
+                `).join('');
+
+                const colorHtml = config.colors.map(col => {
+                    const hex = colorHexMapping[col] || colorHexMapping.Default;
+                    return `
+                        <div onclick="toggleFilter('colors', '${col}')" 
+                             class="color-chip ${filters.colors.includes(col) ? 'active' : ''}" 
+                             style="background-color: ${hex}" 
+                             title="${col}">
+                        </div>
+                    `;
+                }).join('');
+
+                if (!isMobile) {
+                    document.getElementById('brand-filters').innerHTML = brandHtml;
+                    document.getElementById('section-filters').innerHTML = sectionHtml;
+                    document.getElementById('ram-filters').innerHTML = ramHtml;
+                    document.getElementById('storage-filters').innerHTML = storageHtml;
+                    document.getElementById('processor-filters').innerHTML = procHtml;
+                    document.getElementById('camera-filters').innerHTML = cameraHtml;
+                    document.getElementById('battery-filters').innerHTML = batteryHtml;
+                    document.getElementById('os-filters').innerHTML = osHtml;
+                    document.getElementById('color-filters').innerHTML = colorHtml;
+                } else {
+                    return `
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                            <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1">${brandHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Section</h3>
+                            <div class="space-y-3">${sectionHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">RAM Size</h3>
+                            <div class="flex flex-wrap gap-2">${ramHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Storage Capacity</h3>
+                            <div class="flex flex-wrap gap-2">${storageHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Processor</h3>
+                            <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1">${procHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Rear Camera</h3>
+                            <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1">${cameraHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Battery Capacity</h3>
+                            <div class="flex flex-wrap gap-2">${batteryHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Operating System</h3>
+                            <div class="space-y-3">${osHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Color Options</h3>
+                            <div class="flex flex-wrap gap-3">${colorHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                                    <span>₹5,000</span>
+                                    <span id="mob-price-max">₹${Number(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 200000 ? '+' : ''}</span>
+                                </div>
+                                <input type="range" id="mob-price-range" min="5000" max="200000" step="5000" value="${filters.maxPrice}" class="w-full accent-[#5D4037]" oninput="syncMobilePrice(this.value)">
+                            </div>
+                        </div>
+                    `;
+                }
+            };
+
+            renderFiltersHtml(false);
+            const mobContainer = document.getElementById('mobile-filters-container');
+            if (mobContainer) {
+                mobContainer.innerHTML = renderFiltersHtml(true);
+            }
+        }
+
+        function syncMobilePrice(val) {
+            filters.maxPrice = val;
+            document.getElementById('price-range').value = val;
+            document.getElementById('price-max').innerText = `₹${Number(val).toLocaleString('en-IN')}${val == 200000 ? '+' : ''}`;
+            document.getElementById('mob-price-max').innerText = `₹${Number(val).toLocaleString('en-IN')}${val == 200000 ? '+' : ''}`;
+            applyFiltersAndRender();
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        // SCORING LOGIC FOR SPECIALIZED SORTING
+        function getGamingScore(p) {
+            let score = 0;
+            const cpu = (p.processor || "").toLowerCase();
+            if (cpu.includes("a18 pro") || cpu.includes("gen 4") || cpu.includes("9400")) score += 100;
+            else if (cpu.includes("a18") || cpu.includes("gen 3") || cpu.includes("9300")) score += 90;
+            else if (cpu.includes("a17 pro") || cpu.includes("gen 2")) score += 80;
+            else if (cpu.includes("a16") || cpu.includes("tensor g4")) score += 70;
+            else if (cpu.includes("tensor g3") || cpu.includes("7+")) score += 50;
+            else score += 20;
+
+            const refresh = parseInt(p.refreshRate) || 60;
+            if (refresh >= 165) score += 50;
+            else if (refresh >= 144) score += 40;
+            else if (refresh >= 120) score += 30;
+            else if (refresh >= 90) score += 15;
+
+            return score;
+        }
+
+        function getCameraScore(p) {
+            let score = 0;
+            const cam = (p.rearCamera || "").toLowerCase();
+            if (cam.includes("200mp") || cam.includes("quad")) score += 100;
+            else if (cam.includes("108mp") || cam.includes("triple ois") || cam.includes("64mp triple")) score += 80;
+            else if (cam.includes("50mp triple") || cam.includes("48mp triple")) score += 75;
+            else if (cam.includes("50mp dual") || cam.includes("48mp dual")) score += 60;
+            else if (cam.includes("12mp dual")) score += 40;
+            else score += 20;
+
+            if (cam.includes("ois")) score += 15;
+            if (cam.includes("periscope")) score += 15;
+
+            return score;
+        }
+
+        function getBatteryScore(p) {
+            // Extract battery mAh directly
+            return parseInt(p.battery) || 0;
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const sMatch = filters.sections.length === 0 || filters.sections.includes(p.section);
+                const rMatch = filters.rams.length === 0 || filters.rams.includes(p.ram);
+                const stMatch = filters.storages.length === 0 || filters.storages.includes(p.storage);
+                const pMatch = filters.processors.length === 0 || filters.processors.includes(p.processor);
+                const cMatch = filters.cameras.length === 0 || filters.cameras.includes(p.rearCamera);
+                const batMatch = filters.batteries.length === 0 || filters.batteries.includes(p.battery);
+                const osMatch = filters.operatingSystems.length === 0 || filters.operatingSystems.includes(p.operatingSystem);
+                
+                // Color array intersection match
+                const colMatch = filters.colors.length === 0 || (p.colors || []).some(c => filters.colors.includes(c));
+                
+                const prMatch = p.price <= filters.maxPrice;
+                
+                const searchStr = filters.search.toLowerCase();
+                const qMatch = !filters.search || 
+                               p.name.toLowerCase().includes(searchStr) || 
+                               p.brand.toLowerCase().includes(searchStr) ||
+                               (p.processor || "").toLowerCase().includes(searchStr) ||
+                               (p.aiFeatures || "").toLowerCase().includes(searchStr);
+
+                return bMatch && sMatch && rMatch && stMatch && pMatch && cMatch && batMatch && osMatch && colMatch && prMatch && qMatch;
+            });
+
+            // Sorting Modes
+            const sortVal = document.getElementById('sort-select').value;
+            if (sortVal === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortVal === 'newest') {
+                filtered.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+            } else if (sortVal === 'popularity') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            } else if (sortVal === 'best-gaming') {
+                filtered.sort((a, b) => getGamingScore(b) - getGamingScore(a));
+            } else if (sortVal === 'best-camera') {
+                filtered.sort((a, b) => getCameraScore(b) - getCameraScore(a));
+            } else if (sortVal === 'best-battery') {
+                filtered.sort((a, b) => getBatteryScore(b) - getBatteryScore(a));
+            }
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => {
+                    const isCompared = comparedMobiles.some(item => item.slug === p.slug);
+                    const originalP = p.originalPrice ? `₹${p.originalPrice.toLocaleString('en-IN')}` : '';
+                    
+                    let categoryBadgeClass = "bg-gradient-to-r from-[#5D4037] to-[#8D6E63]";
+                    if (p.section === "Gaming Essentials") {
+                        categoryBadgeClass = "bg-gradient-to-r from-[#B71C1C] to-[#E53935]";
+                    } else if (p.section === "Premium Essentials") {
+                        categoryBadgeClass = "bg-gradient-to-r from-[#8E24AA] to-[#D81B60]";
+                    } else if (p.section === "Student Essentials") {
+                        categoryBadgeClass = "bg-gradient-to-r from-[#004D40] to-[#00897B]";
+                    }
+                    
+                    const discountBadge = p.discount 
+                        ? `<span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">${p.discount}</span>` 
+                        : '';
+
+                    const cardClass = mobileViewMode === 'carousel' 
+                        ? "product-card flex-shrink-0 w-[calc(50%-8px)] sm:w-auto snap-start bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)]" 
+                        : "product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)]";
+
+                    return `
+                        <div class="${cardClass}">
+                            <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20" onclick="window.location.href='/product/${p.slug}'">
+                                <img src="${p.image}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out">
+                                <span class="absolute top-3 left-3 ${categoryBadgeClass} text-white text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">${p.section}</span>
+                                ${discountBadge}
+                            </div>
+                            <div class="p-4 flex flex-col flex-1 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">${p.brand}</span>
+                                    <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                        <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                        <span>${p.rating.toFixed(1)}</span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                                
+                                <div class="bg-[#FDFBF7] p-2.5 rounded-xl border border-[#D7CCC8]/20 space-y-1.5">
+                                    <div class="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[9px] font-bold text-gray-500">
+                                        <div class="flex items-center gap-1.5 min-w-0" title="Processor">
+                                            <ion-icon name="cpu-outline" class="text-xs text-[#C8A951] flex-shrink-0"></ion-icon>
+                                            <span class="truncate">${p.processor}</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 min-w-0" title="RAM + Storage">
+                                            <ion-icon name="hardware-chip-outline" class="text-xs text-[#C8A951] flex-shrink-0"></ion-icon>
+                                            <span class="truncate">${p.ram.split(' ')[0]} | ${p.storage.split(' ')[0]}</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 min-w-0" title="Camera">
+                                            <ion-icon name="camera-outline" class="text-xs text-[#C8A951] flex-shrink-0"></ion-icon>
+                                            <span class="truncate">${p.rearCamera.split(' ')[0]}</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 min-w-0" title="Battery">
+                                            <ion-icon name="battery-charging-outline" class="text-xs text-[#C8A951] flex-shrink-0"></ion-icon>
+                                            <span class="truncate">${p.battery.split(' ')[0]} mAh</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <div class="flex items-center gap-2 cursor-pointer select-none" onclick="toggleCompareState('${p.slug}')">
+                                        <div class="custom-checkbox ${isCompared ? 'active' : ''}">
+                                            <ion-icon name="checkmark-outline"></ion-icon>
+                                        </div>
+                                        <span class="text-[9px] font-black text-[#8D6E63] hover:text-[#5D4037] transition-colors uppercase tracking-wider">Compare</span>
+                                    </div>
+                                    <span class="text-[9px] font-bold uppercase text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">${p.operatingSystem.split(' ')[0]}</span>
+                                </div>
+
+                                <div class="pt-2 flex flex-col">
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="text-base font-black text-[#5D4037]">₹${p.price.toLocaleString('en-IN')}</span>
+                                        ${p.originalPrice ? `<del class="text-[10px] text-gray-300 font-bold">₹${p.originalPrice.toLocaleString('en-IN')}</del>` : ''}
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-2 pt-1 mt-auto">
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image}" 
+                                        data-product-brand="${p.brand}"
+                                        class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                        Add
+                                    </button>
+                                    <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                        Buy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
             if (window.syncCartButtons) window.syncCartButtons();
         }
-        fetchProducts();
+
+        // SMARTPHONE COMPARISON SYSTEM
+        function toggleCompareState(slug) {
+            const product = allProducts.find(p => p.slug === slug);
+            if (!product) return;
+
+            const existingIdx = comparedMobiles.findIndex(item => item.slug === slug);
+            if (existingIdx > -1) {
+                comparedMobiles.splice(existingIdx, 1);
+            } else {
+                if (comparedMobiles.length >= 3) {
+                    showToast("Maximum of 3 smartphones can be compared at a time.", "warning");
+                    return;
+                }
+                comparedMobiles.push(product);
+            }
+
+            renderComparisonDrawer();
+            applyFiltersAndRender();
+        }
+
+        function removeComparison(slug) {
+            comparedMobiles = comparedMobiles.filter(p => p.slug !== slug);
+            renderComparisonDrawer();
+            applyFiltersAndRender();
+        }
+
+        function clearComparison() {
+            comparedMobiles = [];
+            renderComparisonDrawer();
+            applyFiltersAndRender();
+        }
+
+        function renderComparisonDrawer() {
+            const drawer = document.getElementById('compare-drawer');
+            const thumbnails = document.getElementById('compare-thumbnails');
+            const countSpan = document.getElementById('compare-count');
+
+            countSpan.innerText = comparedMobiles.length;
+
+            if (comparedMobiles.length === 0) {
+                drawer.classList.add('translate-y-full', 'opacity-0');
+                drawer.classList.remove('translate-y-0', 'opacity-100');
+            } else {
+                drawer.classList.remove('translate-y-full', 'opacity-0');
+                drawer.classList.add('translate-y-0', 'opacity-100');
+
+                thumbnails.innerHTML = comparedMobiles.map(p => `
+                    <div class="flex items-center gap-2 bg-[#F5F5DC] border border-[#D7CCC8]/60 py-1.5 pl-2.5 pr-1.5 rounded-xl text-xs font-bold text-[#5D4037] shadow-sm">
+                        <img src="${p.image}" class="w-6 h-6 rounded-md object-contain border border-gray-200">
+                        <span class="max-w-[120px] truncate leading-none pt-0.5">${p.brand} ${p.name.replace(/.*?\((.*?)\)/, '').substring(0, 12)}...</span>
+                        <button onclick="removeComparison('${p.slug}')" class="w-5 h-5 rounded-full flex items-center justify-center bg-[#8D6E63]/25 hover:bg-[#8D6E63]/50 text-[#5D4037] transition-all ml-1">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function openComparisonModal() {
+            if (comparedMobiles.length === 0) return;
+            const modal = document.getElementById('compare-modal');
+            
+            // Header builder
+            const headerRow = document.getElementById('compare-table-header');
+            let headerHtml = `<th class="w-1/4 py-4 px-6 text-left text-xs font-black uppercase tracking-widest text-[#8D6E63] bg-[#F5F5DC]/40 border-r border-[#D7CCC8]/40">Specs Matrix</th>`;
+            
+            comparedMobiles.forEach(p => {
+                headerHtml += `
+                    <th class="w-1/4 py-6 px-6 text-center bg-[#FDFBF7] relative">
+                        <div class="flex flex-col items-center space-y-3">
+                            <img src="${p.image}" class="w-20 h-20 object-contain rounded-xl border border-gray-100 shadow-sm p-1">
+                            <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">${p.brand}</div>
+                            <h4 class="text-xs font-black text-[#5D4037] line-clamp-2 min-h-[32px] leading-snug px-2">${p.name}</h4>
+                            <div class="text-base font-black text-[#C8A951]">₹${p.price.toLocaleString('en-IN')}</div>
+                            <div class="flex items-center justify-center gap-1.5 mt-2">
+                                <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-[#3E2723] transition-all shadow-sm">Buy</button>
+                                <button 
+                                    data-cart-action="add" 
+                                    data-product-slug="${p.slug}" 
+                                    data-product-name="${p.name}" 
+                                    data-product-price="₹${p.price}" 
+                                    data-product-image="${p.image}" 
+                                    data-product-brand="${p.brand}"
+                                    class="w-8 h-8 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#5D4037] hover:text-white transition-all shadow-sm">
+                                    <ion-icon name="cart-outline" class="text-sm"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                `;
+            });
+            headerRow.innerHTML = headerHtml;
+
+            // Comparison Attributes mapped side-by-side
+            const specAttributes = [
+                { label: "Rating & Reviews", key: "rating", formatter: (val, p) => `⭐ ${val.toFixed(1)} (${p.reviewsCount || p.ratingsCount || 0} reviews)` },
+                { label: "Section Theme", key: "section" },
+                { label: "Processor (CPU)", key: "processor" },
+                { label: "RAM Memory", key: "ram" },
+                { label: "Storage Drive", key: "storage" },
+                { label: "Display screen", key: "display" },
+                { label: "Refresh Rate", key: "refreshRate" },
+                { label: "Operating System", key: "operatingSystem" },
+                { label: "Rear Camera Specs", key: "rearCamera" },
+                { label: "Front Camera Specs", key: "frontCamera" },
+                { label: "Security & Biometrics", key: "fingerprintType" },
+                { label: "Battery Pack", key: "battery" },
+                { label: "Charging Speed", key: "chargingSpeed", fallbackKey: "specifications.Charging Speed" },
+                { label: "AI Integrated Features", key: "aiFeatures" }
+            ];
+
+            const tbody = document.getElementById('compare-table-body');
+            tbody.innerHTML = specAttributes.map(attr => {
+                let rowHtml = `
+                    <tr class="hover:bg-[#FDF5E6]/40 transition-colors">
+                        <td class="py-4 px-6 text-left text-xs font-bold text-[#8D6E63] border-r border-[#D7CCC8]/30 bg-[#F5F5DC]/10">${attr.label}</td>
+                `;
+
+                comparedMobiles.forEach(p => {
+                    let value = p[attr.key];
+                    if (!value && attr.fallbackKey) {
+                        const keys = attr.fallbackKey.split('.');
+                        let cur = p;
+                        for (let k of keys) {
+                            cur = cur ? cur[k] : null;
+                        }
+                        value = cur;
+                    }
+                    if (!value) value = "N/A";
+
+                    if (attr.formatter) {
+                        value = attr.formatter(value, p);
+                    }
+
+                    rowHtml += `
+                        <td class="py-4 px-6 text-center text-xs text-gray-600 font-medium font-mono border-r border-[#D7CCC8]/10 last:border-r-0">${value}</td>
+                    `;
+                });
+
+                rowHtml += `</tr>`;
+                return rowHtml;
+            }).join('');
+
+            modal.showModal();
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function closeComparisonModal() {
+            document.getElementById('compare-modal').close();
+        }
+
+        function setupClosedByFallback() {
+            const dialog = document.getElementById('compare-modal');
+            if (dialog && !('closedBy' in HTMLDialogElement.prototype)) {
+                dialog.addEventListener('click', (event) => {
+                    if (event.target !== dialog) return;
+                    const rect = dialog.getBoundingClientRect();
+                    const isDialogContent = (
+                        rect.top <= event.clientY &&
+                        event.clientY <= rect.top + rect.height &&
+                        rect.left <= event.clientX &&
+                        event.clientX <= rect.left + rect.width
+                    );
+                    if (isDialogContent) return;
+                    dialog.close();
+                });
+            }
+        }
+
+        // PREMIUM CUSTOM TOAST MESSAGES
+        function showToast(message, type = "success") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: "bg-emerald-600 text-white shadow-emerald-200",
+                warning: "bg-[#C8A951] text-white shadow-amber-200",
+                danger: "bg-rose-600 text-white shadow-rose-200"
+            };
+
+            const icons = {
+                success: "checkmark-circle-outline",
+                warning: "alert-circle-outline",
+                danger: "close-circle-outline"
+            };
+
+            toast.className = `toast-notification flex items-center gap-3 px-5 py-4 rounded-2xl ${colors[type]} shadow-xl text-xs font-black uppercase tracking-wider max-w-sm pointer-events-auto`;
+            toast.innerHTML = `
+                <ion-icon name="${icons[type]}" class="text-xl"></ion-icon>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', () => {
+                applyFiltersAndRender();
+            });
+            
+            document.getElementById('top-search').addEventListener('input', (e) => {
+                filters.search = e.target.value;
+                applyFiltersAndRender();
+            });
+
+            document.getElementById('price-range').addEventListener('input', (e) => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${Number(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 200000 ? '+' : ''}`;
+                
+                const mobSlider = document.getElementById('mob-price-range');
+                if (mobSlider) mobSlider.value = filters.maxPrice;
+                const mobLabel = document.getElementById('mob-price-max');
+                if (mobLabel) mobLabel.innerText = `₹${Number(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 200000 ? '+' : ''}`;
+
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = {
+                brands: [],
+                sections: [],
+                rams: [],
+                storages: [],
+                processors: [],
+                cameras: [],
+                batteries: [],
+                operatingSystems: [],
+                colors: [],
+                maxPrice: 200000,
+                search: ""
+            };
+            
+            document.getElementById('price-range').value = 200000;
+            document.getElementById('price-max').innerText = "₹2,00,000+";
+            document.getElementById('top-search').value = "";
+            document.getElementById('sort-select').value = "popularity";
+            
+            renderFilterUI();
+            applyFiltersAndRender();
+            showToast("Filters successfully reset", "success");
+        }
+
+        function toggleMobileSidebar() {
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            if (overlay.classList.contains('hidden')) {
+                overlay.classList.remove('hidden');
+                renderFilterUI();
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function initSwiper() {
+            if (typeof Swiper !== 'undefined') {
+                new Swiper('.hero-deals-swiper', {
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.hero-deals-swiper .swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.hero-deals-swiper .swiper-button-next',
+                        prevEl: '.hero-deals-swiper .swiper-button-prev',
+                    },
+                    effect: 'slide',
+                    speed: 800,
+                    spaceBetween: 20
+                });
+            } else {
+                console.warn('Swiper.js is not loaded yet.');
+            }
+        }
+
+        function searchAndFilter(searchTerm) {
+            const searchInput = document.getElementById('top-search');
+            if (searchInput) {
+                searchInput.value = searchTerm;
+                filters.search = searchTerm;
+                applyFiltersAndRender();
+                
+                const grid = document.getElementById('product-grid');
+                if (grid) {
+                    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                showToast(`Showing deals for "${searchTerm}"`, "success");
+            }
+        }
+
+        init();
     </script>
 </body>
 </html>

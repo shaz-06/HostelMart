@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Essentials | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #C8A951 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #C8A951; border-radius: 10px; }
+        .product-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(93, 64, 55, 0.15); border-color: rgba(200, 169, 81, 0.4); }
+        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #D7CCC8; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; background: white; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; font-weight: bold; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .color-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; cursor: pointer; transition: all 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); position: relative; }
+        .color-dot.active { transform: scale(1.2); box-shadow: 0 0 0 3px #C8A951; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .gradient-gold { background: linear-gradient(135deg, #C8A951 0%, #B3923B 100%); }
+        .text-gradient-gold { background: linear-gradient(135deg, #C8A951 0%, #8D6E63 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- HEADER -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-[#D7CCC8]/40 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></span>
+            </a>
+            
+            <div class="flex-1 max-w-xl mx-8 hidden md:block relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search-outline"></ion-icon></div>
+                <input type="text" id="top-search" placeholder="Search premium electronics, luxury home decor, brands..." class="w-full bg-gray-50 border border-gray-200 rounded-2xl pl-12 pr-4 py-3 outline-none focus:border-[#C8A951] focus:bg-white transition-all text-sm font-medium">
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Premium Portal Active Pill -->
+                <a href="/Premium.html" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#FDF5E6] text-[#C8A951] rounded-2xl text-xs font-black tracking-widest border border-[#C8A951]/20 uppercase">
+                    <span class="w-2 h-2 bg-[#C8A951] rounded-full animate-ping"></span>
+                    Premium Essentials
+                </a>
+                
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-sm">0</span>
+                </a>
+                <div id="auth-user-ui"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Banner Showcase -->
+        <div class="mb-12 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-r from-[#3E2723] to-[#5D4037] text-white p-8 md:p-12 shadow-xl border border-[#C8A951]/20">
+            <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 bg-[radial-gradient(#C8A951_2px,transparent_2px)] [background-size:20px_20px] pointer-events-none"></div>
+            <div class="max-w-xl relative z-10 space-y-4">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#C8A951]">Curated Luxury Catalog</span>
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-none">Premium Electronics & Home Utility</h1>
+                <p class="text-xs md:text-sm text-gray-300 font-medium leading-relaxed">Indulge in highest caliber tech and stunning furnishing essentials. Designed, engineered, and handpicked to elevate your hostel room into a luxury lifestyle haven.</p>
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <span class="bg-white/10 backdrop-blur-sm border border-white/10 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Free Room Delivery</span>
+                    <span class="bg-[#C8A951]/20 backdrop-blur-sm border border-[#C8A951]/30 text-[#C8A951] text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Brand Official Warranty</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-10">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full lg:w-72 flex-shrink-0 space-y-8 sticky top-28 h-fit max-h-[85vh] overflow-y-auto pr-4 no-scrollbar">
+                <div class="flex items-center justify-between pb-4 border-b border-[#D7CCC8]/40">
+                    <h2 class="text-base font-black text-[#3E2723] uppercase tracking-tight flex items-center gap-2">
+                        <ion-icon name="options-outline" class="text-lg text-[#C8A951]"></ion-icon>
+                        Advanced Filters
+                    </h2>
+                    <button onclick="resetFilters()" class="text-[10px] font-black text-[#C8A951] uppercase tracking-widest hover:underline">Clear All</button>
+                </div>
+
+                <!-- Category subcategories -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Categories</h3>
+                    <div class="space-y-3" id="subcategory-filters"></div>
+                </div>
+
+                <!-- Brand -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
+                </div>
+
+                <!-- Storage Capacity -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Storage / Capacity</h3>
+                    <div class="space-y-3" id="storage-filters"></div>
+                </div>
+
+                <!-- Connectivity -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Connectivity</h3>
+                    <div class="space-y-3" id="connectivity-filters"></div>
+                </div>
+
+                <!-- Color -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
+                    <div class="flex flex-wrap gap-3" id="color-filters"></div>
+                </div>
+
+                <!-- Pricing Range -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-black text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹2,50,000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="250000" step="5000" class="w-full accent-[#5D4037]">
+                    </div>
+                </div>
+
+                <!-- Specific Technical Specifications -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Technical Highlights</h3>
+                    <div class="space-y-3" id="specs-filters"></div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <!-- Dynamic Header catalog info -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4 bg-white p-4 rounded-3xl border border-[#D7CCC8]/30 shadow-sm">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037] font-extrabold">Premium Essentials</span>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037] font-black">0</span> Products Matches</p>
+                        <select id="sort-select" class="bg-[#FDF5E6] border border-[#D7CCC8]/30 rounded-xl px-4 py-2.5 text-xs font-black outline-none focus:border-[#C8A951] cursor-pointer transition-all text-[#3E2723]">
+                            <option value="popularity">Sort: Popularity</option>
+                            <option value="price-low">Sort: Price Low to High</option>
+                            <option value="price-high">Sort: Price High to Low</option>
+                            <option value="newest">Sort: New Arrivals</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Catalog responsive rows -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                    <!-- Dynamic rendering standard -->
+                </div>
+
+                <!-- EMPTY STATE -->
+                <div id="empty-state" class="hidden py-32 text-center bg-white rounded-[3rem] border border-dashed border-[#D7CCC8] shadow-sm">
+                    <div class="text-7xl mb-6">💎</div>
+                    <h3 class="text-2xl font-black text-[#5D4037]">No luxury items match</h3>
+                    <p class="text-gray-400 text-sm mt-2 max-w-xs mx-auto font-medium">Try checking different combinations or clearing some sidebar parameters.</p>
+                    <button onclick="resetFilters()" class="mt-8 bg-[#5D4037] text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#3E2723] transition-all shadow-xl shadow-[#5D4037]/20">Clear All Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-[#D7CCC8]/30 py-20 mt-28">
+        <div class="container mx-auto px-4 text-center space-y-6">
+            <h2 class="text-3xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951]">Mart</span></h2>
+            <p class="text-xs text-gray-400 font-bold uppercase tracking-[0.2em] max-w-sm mx-auto">Providing luxury, efficiency, and stunning living experiences globally for students.</p>
+            <div class="flex justify-center gap-8 text-[#8D6E63] text-xs font-black uppercase tracking-widest pt-4">
+                <a href="#" class="hover:text-[#C8A951]">About Us</a>
+                <a href="#" class="hover:text-[#C8A951]">Help Desk</a>
+                <a href="#" class="hover:text-[#C8A951]">Warranty Claim</a>
+                <a href="#" class="hover:text-[#C8A951]">Privacy Policy</a>
+            </div>
+            <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em] pt-8">&copy; 2026 HostelMart Premium Division. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let allProducts = [];
+        let filters = {
+            subcategories: [],
+            brands: [],
+            storages: [],
+            connectivities: [],
+            colors: [],
+            specifications: [],
+            maxPrice: 250000,
+            search: ""
+        };
+
+        const config = {
+            subcategories: ["Mobiles", "Home Appliances", "Furniture & Decor"],
+            brands: ["Samsung", "LG", "Sony", "Xiaomi", "Apple", "OnePlus", "Whirlpool", "IFB", "Godrej", "IKEA", "Nilkamal", "Pepperfry", "Philips"],
+            storages: ["128GB", "256GB", "512GB", "1TB", "95L", "190L", "250L", "340L", "450L", "650L"],
+            connectivities: ["5G", "Wi-Fi", "Bluetooth", "Wired", "Wireless"],
+            colors: {
+                "Carbon Black": "#242526",
+                "Space Grey": "#53565A",
+                "Platinum Silver": "#E5E4E2",
+                "Obsidian Black": "#0B0B0B",
+                "Walnut Wood": "#5C4033",
+                "Matte Black": "#111111",
+                "Titanium Grey": "#8A9597",
+                "Warm Gold": "#D4AF37",
+                "Wine Red": "#722F37",
+                "Glacier White": "#F3F4F6",
+                "Deep Purple": "#301934",
+                "Emerald Green": "#50C878",
+                "Steel Grey": "#464646",
+                "Titanium Silver": "#C0C0C0",
+                "Teak Finish": "#B38B6D",
+                "Charcoal Grey": "#36454F",
+                "Ivory Cream": "#FDF6E2",
+                "Golden Rose": "#B76E79",
+                "Minimalist White": "#FFFFFF",
+                "Warm White": "#FFFDD0"
+            },
+            specifications: [
+                "120Hz Smooth motion",
+                "4K Ultra HD",
+                "Double-Zone",
+                "Frost-Free Sensors",
+                "5 Star Premium",
+                "Direct Drive Inverter",
+                "Steam Wash",
+                "Titanium frame",
+                "Solid Teak Wood",
+                "Ergonomic Mesh",
+                "Dimmable high CRI",
+                "Touch control"
+            ]
+        };
+
+        async function init() {
+            renderFilterUI();
+            await fetchProducts();
+            setupEventListeners();
+        }
+
+        async function fetchProducts() {
+            try {
+                const sort = document.getElementById('sort-select').value;
+                const res = await fetch(`/api/products?section=Premium Essentials&sort=${sort}`);
+                allProducts = await res.json();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Premium Products Error:", e);
+            }
+        }
+
+        function renderFilterUI() {
+            // Render Categories (subcategories)
+            document.getElementById('subcategory-filters').innerHTML = config.subcategories.map(sc => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('subcategories', '${sc}')">
+                    <div class="custom-checkbox ${filters.subcategories.includes(sc) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${sc}</span>
+                </div>
+            `).join('');
+
+            // Render Brands
+            document.getElementById('brand-filters').innerHTML = config.brands.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                    <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            // Render Storage
+            document.getElementById('storage-filters').innerHTML = config.storages.map(st => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('storages', '${st}')">
+                    <div class="custom-checkbox ${filters.storages.includes(st) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${st}</span>
+                </div>
+            `).join('');
+
+            // Render Connectivity
+            document.getElementById('connectivity-filters').innerHTML = config.connectivities.map(c => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('connectivities', '${c}')">
+                    <div class="custom-checkbox ${filters.connectivities.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                </div>
+            `).join('');
+
+            // Render Color dots
+            document.getElementById('color-filters').innerHTML = Object.entries(config.colors).map(([name, hex]) => `
+                <div class="color-dot ${filters.colors.includes(name) ? 'active' : ''}" style="background-color: ${hex};" title="${name}" onclick="toggleFilter('colors', '${name}')"></div>
+            `).join('');
+
+            // Render Specs
+            document.getElementById('specs-filters').innerHTML = config.specifications.map(s => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('specifications', '${s}')">
+                    <div class="custom-checkbox ${filters.specifications.includes(s) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                </div>
+            `).join('');
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const scMatch = filters.subcategories.length === 0 || filters.subcategories.includes(p.subcategory);
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const sMatch = filters.storages.length === 0 || (p.storageCapacity && filters.storages.includes(p.storageCapacity));
+                const cMatch = filters.connectivities.length === 0 || (p.connectivity && filters.connectivities.some(c => p.connectivity.includes(c)));
+                const clrMatch = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c)));
+                const priceMatch = p.price <= filters.maxPrice;
+                const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase()) || p.type.toLowerCase().includes(filters.search.toLowerCase());
+                
+                const specMatch = filters.specifications.length === 0 || filters.specifications.some(specVal => {
+                    const inName = p.name.toLowerCase().includes(specVal.toLowerCase());
+                    const inDesc = p.description.toLowerCase().includes(specVal.toLowerCase());
+                    const inSpecs = Object.values(p.specifications || {}).some(val => val.toLowerCase().includes(specVal.toLowerCase()));
+                    return inName || inDesc || inSpecs;
+                });
+
+                return scMatch && bMatch && sMatch && cMatch && clrMatch && priceMatch && qMatch && specMatch;
+            });
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-[2.5rem] border border-[#C8A951]/10 overflow-hidden group flex flex-col h-full shadow-sm hover:shadow-2xl">
+                        <!-- Card Image -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gray-50 cursor-pointer border-b border-[#D7CCC8]/20" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
+                            ${p.discount ? `<span class="absolute top-6 left-6 bg-[#3E2723] text-white text-[9px] font-black px-4 py-2 rounded-2xl uppercase tracking-widest shadow-lg border border-[#C8A951]/20">${p.discount}</span>` : ''}
+                            <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <ion-icon name="star" class="text-yellow-500 text-xs"></ion-icon>
+                                <span class="text-[10px] font-black">${p.rating.toFixed(1)}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Details -->
+                        <div class="p-6 flex flex-col flex-1 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-[0.2em]">${p.brand}</span>
+                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${p.subcategory}</span>
+                            </div>
+                            
+                            <h3 class="font-bold text-[#3E2723] text-sm md:text-base line-clamp-2 leading-tight group-hover:text-[#C8A951] transition-colors cursor-pointer" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                            
+                            <!-- Badges -->
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="bg-[#FDF5E6] text-[#8D6E63] text-[9px] font-extrabold px-3 py-1.5 rounded-full uppercase border border-[#C8A951]/10">${p.type}</span>
+                                ${p.connectivity ? `<span class="bg-[#FDF5E6] text-[#8D6E63] text-[9px] font-extrabold px-3 py-1.5 rounded-full uppercase border border-[#C8A951]/10">${p.connectivity.split(',')[0]}</span>` : ''}
+                                ${p.storageCapacity ? `<span class="bg-[#FDF5E6] text-[#8D6E63] text-[9px] font-extrabold px-3 py-1.5 rounded-full uppercase border border-[#C8A951]/10">${p.storageCapacity}</span>` : ''}
+                            </div>
+
+                            <p class="text-xs text-gray-400 line-clamp-2 font-medium">${p.description}</p>
+
+                            <!-- Pricing / CTA -->
+                            <div class="mt-auto pt-6 flex items-center justify-between border-t border-[#D7CCC8]/10">
+                                <div class="flex flex-col">
+                                    <span class="text-xl md:text-2xl font-black text-[#3E2723]">₹${p.price.toLocaleString('en-IN')}</span>
+                                    ${p.originalPrice ? `<del class="text-[10px] text-gray-300 font-bold">₹${p.originalPrice.toLocaleString('en-IN')}</del>` : ''}
+                                </div>
+                                <div class="flex gap-2">
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-mini="true" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image}" 
+                                        data-product-brand="${p.brand}"
+                                        class="w-11 h-11 bg-[#F5F5DC] text-[#3E2723] rounded-xl flex items-center justify-center hover:bg-[#3E2723] hover:text-white transition-all shadow-sm border border-[#C8A951]/10">
+                                        <ion-icon name="cart-outline" class="text-lg"></ion-icon>
+                                    </button>
+                                    <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-5 h-11 rounded-xl font-black text-[9px] uppercase tracking-widest hover:bg-[#3E2723] shadow-md shadow-[#5D4037]/20 transition-all flex items-center justify-center">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', fetchProducts);
+            document.getElementById('top-search').addEventListener('input', (e) => {
+                filters.search = e.target.value;
+                applyFiltersAndRender();
+            });
+            document.getElementById('price-range').addEventListener('input', (e) => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${parseInt(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 250000 ? '+' : ''}`;
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = { 
+                subcategories: [], 
+                brands: [], 
+                storages: [],
+                connectivities: [], 
+                colors: [], 
+                specifications: [],
+                maxPrice: 250000, 
+                search: "" 
+            };
+            document.getElementById('price-range').value = 250000;
+            document.getElementById('price-max').innerText = "₹2,50,000+";
+            document.getElementById('top-search').value = "";
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        init();
+    </script>
+</body>
+</html>

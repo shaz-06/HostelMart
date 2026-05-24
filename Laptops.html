@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptops & Tech Essentials | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #5D4037; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #D7CCC8 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #D7CCC8; border-radius: 10px; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(93, 64, 55, 0.18); }
+        .custom-checkbox { width: 18px; height: 18px; border: 2px solid #D7CCC8; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .toast-notification { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        /* Custom modal backdrop blur styling */
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease-out;
+        }
+        /* Smooth transitions for comparison drawer */
+        #compare-drawer {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></span>
+            </a>
+            <div class="flex-1 max-w-xl mx-8 hidden md:block relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search-outline"></ion-icon></div>
+                <input type="text" id="top-search" placeholder="Search laptops (e.g. MacBook Air, XPS, RTX 4060)..." class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-2xl pl-12 pr-4 py-2.5 outline-none focus:border-[#5D4037] transition-all text-sm font-medium">
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black">0</span>
+                </a>
+                <div id="auth-user-ui"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-1">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full lg:w-80 flex-shrink-0 space-y-8 max-h-[85vh] overflow-y-auto filter-sidebar pr-2 hidden lg:block">
+                <div class="flex items-center justify-between border-b border-[#D7CCC8]/40 pb-4">
+                    <h2 class="text-sm font-black uppercase tracking-widest text-[#5D4037]">Filters</h2>
+                    <button onclick="resetFilters()" class="text-xs font-bold text-[#C8A951] hover:text-[#5D4037] transition-colors">Clear All</button>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1" id="brand-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Section</h3>
+                    <div class="space-y-3" id="section-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Graphics Type</h3>
+                    <div class="space-y-3" id="gpu-type-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">RAM Size</h3>
+                    <div class="flex flex-wrap gap-2" id="ram-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Storage Capacity</h3>
+                    <div class="flex flex-wrap gap-2" id="storage-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Processor Type</h3>
+                    <div class="space-y-3 max-h-56 overflow-y-auto filter-sidebar pr-1" id="processor-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Refresh Rate</h3>
+                    <div class="flex flex-wrap gap-2" id="refresh-rate-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Operating System</h3>
+                    <div class="space-y-3" id="os-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                            <span id="price-min">₹15,000</span>
+                            <span id="price-max">₹3,50,000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="15000" max="350000" step="5000" value="350000" class="w-full accent-[#5D4037]">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="hover:text-[#5D4037]">Electronics & Tech</span>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037]">Laptops</span>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037]">0</span> Products Found</p>
+                        <select id="sort-select" class="bg-white border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs font-bold outline-none focus:border-[#5D4037] cursor-pointer">
+                            <option value="popularity">Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="newest">New Arrivals</option>
+                            <option value="best-gaming">🎮 Best Gaming (RTX + 120Hz+)</option>
+                            <option value="best-battery">🔋 Best Battery (M-Series / Snapdragon / Ultra)</option>
+                        </select>
+                        <!-- Mobile Filter Toggle Button -->
+                        <button onclick="toggleMobileSidebar()" class="lg:hidden w-10 h-10 border border-[#D7CCC8] rounded-xl flex items-center justify-center text-[#5D4037]">
+                            <ion-icon name="funnel-outline" class="text-lg"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8"></div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden py-24 text-center">
+                    <div class="text-7xl mb-4">💻</div>
+                    <h3 class="text-xl font-black text-[#5D4037]">No matching laptops found</h3>
+                    <p class="text-gray-400 text-sm mt-2">Try adjusting your filters or search term.</p>
+                    <button onclick="resetFilters()" class="mt-6 bg-[#5D4037] text-white px-8 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:bg-[#3E2723] transition-all">Reset All Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FLOATING COMPARISON DRAWER -->
+    <div id="compare-drawer" class="fixed bottom-0 left-0 right-0 bg-[#FDFBF7]/95 backdrop-blur-md border-t border-[#D7CCC8] shadow-[0_-15px_30px_rgba(93,64,55,0.1)] transform translate-y-full opacity-0 z-40 py-5 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col sm:flex-row items-center gap-6 w-full md:w-auto">
+                <div class="flex items-center gap-2">
+                    <ion-icon name="git-compare-outline" class="text-2xl text-[#C8A951]"></ion-icon>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-[#5D4037]">Compare Laptops</h4>
+                </div>
+                <div id="compare-thumbnails" class="flex flex-wrap items-center gap-3"></div>
+            </div>
+            <div class="flex items-center gap-4 w-full sm:w-auto justify-end">
+                <button onclick="clearComparison()" class="text-xs font-black text-gray-400 hover:text-[#5D4037] uppercase tracking-widest transition-colors mr-2">Clear All</button>
+                <button onclick="openComparisonModal()" class="w-full sm:w-auto bg-[#5D4037] text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-[#3E2723] shadow-md shadow-[#D7CCC8]/50 transition-all text-center">Compare Now (<span id="compare-count">0</span>/3)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARISON MODAL (Modern HTML5 <dialog> with closedby="any") -->
+    <dialog id="compare-modal" closedby="any" aria-labelledby="dialogTitle" class="bg-transparent border-0 outline-none p-4 max-w-6xl w-full">
+        <div class="bg-[#FDFBF7] rounded-[2.5rem] border border-[#D7CCC8] shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-[#D7CCC8]/60 flex items-center justify-between bg-[#F5F5DC]">
+                <h3 id="dialogTitle" class="text-lg font-black text-[#5D4037] uppercase tracking-wider flex items-center gap-2.5">
+                    <ion-icon name="git-compare-outline" class="text-2xl text-[#C8A951]"></ion-icon>
+                    Specifications Comparison
+                </h3>
+                <button onclick="closeComparisonModal()" class="w-10 h-10 bg-[#FDFBF7] hover:bg-gray-100 border border-[#D7CCC8] rounded-full flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors shadow-sm">
+                    <ion-icon name="close-outline" class="text-2xl"></ion-icon>
+                </button>
+            </div>
+            <!-- Modal Content -->
+            <div class="p-6 overflow-y-auto flex-1 filter-sidebar bg-[#FDFBF7]">
+                <div class="overflow-x-auto">
+                    <table class="w-full table-fixed min-w-[700px]">
+                        <thead>
+                            <tr id="compare-table-header" class="border-b border-[#D7CCC8]/60"></tr>
+                        </thead>
+                        <tbody id="compare-table-body" class="divide-y divide-[#D7CCC8]/30"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MOBILE FILTER SIDEBAR OVERLAY -->
+    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden" onclick="toggleMobileSidebar()">
+        <div class="absolute right-0 top-0 bottom-0 w-80 bg-[#FDFBF7] p-6 flex flex-col shadow-2xl" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between border-b border-[#D7CCC8]/40 pb-4 mb-6">
+                <h2 class="text-sm font-black uppercase tracking-widest text-[#5D4037]">Filters</h2>
+                <button onclick="toggleMobileSidebar()" class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 text-gray-500">
+                    <ion-icon name="close-outline" class="text-xl"></ion-icon>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto filter-sidebar space-y-8 pr-1" id="mobile-filters-container"></div>
+            <div class="pt-6 border-t border-[#D7CCC8]/40 mt-6 flex items-center gap-3">
+                <button onclick="resetFilters(); toggleMobileSidebar();" class="flex-1 border-2 border-[#D7CCC8] text-[#5D4037] py-3 rounded-xl text-xs font-black uppercase tracking-widest">Clear</button>
+                <button onclick="toggleMobileSidebar()" class="flex-1 bg-[#5D4037] text-white py-3 rounded-xl text-xs font-black uppercase tracking-widest">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREMIUM CUSTOM TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] py-12 mt-20">
+        <div class="container mx-auto px-4 text-center space-y-4">
+            <h2 class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></h2>
+            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">Equip your success with premium tech at HostelMart</p>
+        </div>
+    </footer>
+
+    <script>
+        let allProducts = [];
+        let comparedLaptops = []; // Stores laptop objects being compared
+        
+        let filters = {
+            brands: [],
+            sections: [],
+            gpuTypes: [],
+            rams: [],
+            storages: [],
+            processors: [],
+            refreshRates: [],
+            operatingSystems: [],
+            maxPrice: 350000,
+            search: ""
+        };
+
+        const config = {
+            brands: [],
+            sections: ["Tech Essentials", "Premium Essentials", "Student Essentials", "Gaming Essentials"],
+            gpuTypes: ["Dedicated GPU (NVIDIA RTX)", "Integrated Graphics"],
+            rams: [],
+            storages: [],
+            processors: [],
+            refreshRates: [],
+            operatingSystems: []
+        };
+
+        async function init() {
+            await fetchProducts();
+            setupEventListeners();
+            setupClosedByFallback();
+        }
+
+        async function fetchProducts() {
+            try {
+                const sort = document.getElementById('sort-select').value;
+                // Fetch laptops under subcategory=Laptops
+                const res = await fetch(`/api/products?category=Electronics %26 Tech&subcategory=Laptops`);
+                allProducts = await res.json();
+                
+                // Dynamically compile available filters based on what actually exists in database
+                config.brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean).sort();
+                
+                // Process RAM: clean and sort numerically
+                config.rams = [...new Set(allProducts.map(p => p.ram))].filter(Boolean).sort((a, b) => {
+                    const ramA = parseInt(a.replace(/[^0-9]/g, '')) || 0;
+                    const ramB = parseInt(b.replace(/[^0-9]/g, '')) || 0;
+                    return ramA - ramB;
+                });
+
+                // Process Storage: clean and sort numerically
+                config.storages = [...new Set(allProducts.map(p => p.storage))].filter(Boolean).sort((a, b) => {
+                    const storeA = parseInt(a.replace(/[^0-9]/g, '')) || 0;
+                    const storeB = parseInt(b.replace(/[^0-9]/g, '')) || 0;
+                    // Account for TB vs GB
+                    const multiplierA = a.toLowerCase().includes('tb') ? 1024 : 1;
+                    const multiplierB = b.toLowerCase().includes('tb') ? 1024 : 1;
+                    return (storeA * multiplierA) - (storeB * multiplierB);
+                });
+
+                config.processors = [...new Set(allProducts.map(p => p.processor))].filter(Boolean).sort();
+                
+                config.refreshRates = [...new Set(allProducts.map(p => p.refreshRate))].filter(Boolean).sort((a, b) => {
+                    return (parseInt(a) || 0) - (parseInt(b) || 0);
+                });
+
+                config.operatingSystems = [...new Set(allProducts.map(p => p.operatingSystem))].filter(Boolean).sort();
+
+                renderFilterUI();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Error:", e);
+                showToast("Error loading laptop catalog. Please try again.", "danger");
+            }
+        }
+
+        function renderFilterUI() {
+            const renderFiltersHtml = (isMobile = false) => {
+                const prefix = isMobile ? 'mob-' : '';
+                
+                const brandHtml = config.brands.map(b => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                        <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                    </div>
+                `).join('');
+
+                const sectionHtml = config.sections.map(s => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('sections', '${s}')">
+                        <div class="custom-checkbox ${filters.sections.includes(s) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                    </div>
+                `).join('');
+
+                const gpuHtml = config.gpuTypes.map(g => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('gpuTypes', '${g}')">
+                        <div class="custom-checkbox ${filters.gpuTypes.includes(g) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${g}</span>
+                    </div>
+                `).join('');
+
+                const ramHtml = config.rams.map(r => `
+                    <button onclick="toggleFilter('rams', '${r}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.rams.includes(r) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-md' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${r}</button>
+                `).join('');
+
+                const storageHtml = config.storages.map(st => `
+                    <button onclick="toggleFilter('storages', '${st}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.storages.includes(st) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-md' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${st}</button>
+                `).join('');
+
+                const procHtml = config.processors.map(p => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('processors', '${p}')">
+                        <div class="custom-checkbox ${filters.processors.includes(p) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors line-clamp-1" title="${p}">${p}</span>
+                    </div>
+                `).join('');
+
+                const refreshHtml = config.refreshRates.map(rr => `
+                    <button onclick="toggleFilter('refreshRates', '${rr}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.refreshRates.includes(rr) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-md' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${rr}</button>
+                `).join('');
+
+                const osHtml = config.operatingSystems.map(os => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('operatingSystems', '${os}')">
+                        <div class="custom-checkbox ${filters.operatingSystems.includes(os) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${os}</span>
+                    </div>
+                `).join('');
+
+                if (!isMobile) {
+                    document.getElementById('brand-filters').innerHTML = brandHtml;
+                    document.getElementById('section-filters').innerHTML = sectionHtml;
+                    document.getElementById('gpu-type-filters').innerHTML = gpuHtml;
+                    document.getElementById('ram-filters').innerHTML = ramHtml;
+                    document.getElementById('storage-filters').innerHTML = storageHtml;
+                    document.getElementById('processor-filters').innerHTML = procHtml;
+                    document.getElementById('refresh-rate-filters').innerHTML = refreshHtml;
+                    document.getElementById('os-filters').innerHTML = osHtml;
+                } else {
+                    return `
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                            <div class="space-y-3 max-h-48 overflow-y-auto filter-sidebar pr-1">${brandHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Section</h3>
+                            <div class="space-y-3">${sectionHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Graphics Type</h3>
+                            <div class="space-y-3">${gpuHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">RAM Size</h3>
+                            <div class="flex flex-wrap gap-2">${ramHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Storage Capacity</h3>
+                            <div class="flex flex-wrap gap-2">${storageHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Processor Type</h3>
+                            <div class="space-y-3 max-h-56 overflow-y-auto filter-sidebar pr-1">${procHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Refresh Rate</h3>
+                            <div class="flex flex-wrap gap-2">${refreshHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Operating System</h3>
+                            <div class="space-y-3">${osHtml}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                                    <span>₹15,000</span>
+                                    <span id="mob-price-max">₹${Number(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 350000 ? '+' : ''}</span>
+                                </div>
+                                <input type="range" id="mob-price-range" min="15000" max="350000" step="5000" value="${filters.maxPrice}" class="w-full accent-[#5D4037]" oninput="syncMobilePrice(this.value)">
+                            </div>
+                        </div>
+                    `;
+                }
+            };
+
+            renderFiltersHtml(false);
+            const mobContainer = document.getElementById('mobile-filters-container');
+            if (mobContainer) {
+                mobContainer.innerHTML = renderFiltersHtml(true);
+            }
+        }
+
+        function syncMobilePrice(val) {
+            filters.maxPrice = val;
+            document.getElementById('price-range').value = val;
+            document.getElementById('price-max').innerText = `₹${Number(val).toLocaleString('en-IN')}${val == 350000 ? '+' : ''}`;
+            document.getElementById('mob-price-max').innerText = `₹${Number(val).toLocaleString('en-IN')}${val == 350000 ? '+' : ''}`;
+            applyFiltersAndRender();
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function getGamingScore(p) {
+            let score = 0;
+            const gpu = (p.graphicsCard || "").toLowerCase();
+            if (gpu.includes("4090")) score += 100;
+            else if (gpu.includes("4080")) score += 90;
+            else if (gpu.includes("4070")) score += 80;
+            else if (gpu.includes("4060")) score += 70;
+            else if (gpu.includes("4050")) score += 60;
+            else score += 10; // Integrated
+
+            const refresh = parseInt(p.refreshRate) || 60;
+            if (refresh >= 240) score += 50;
+            else if (refresh >= 165) score += 40;
+            else if (refresh >= 144) score += 30;
+            else if (refresh >= 120) score += 20;
+            else if (refresh >= 90) score += 10;
+
+            return score;
+        }
+
+        function getBatteryScore(p) {
+            let score = 0;
+            const cpu = (p.processor || "").toLowerCase();
+            if (cpu.includes("m3 chip")) score += 100;
+            else if (cpu.includes("m3 pro")) score += 95;
+            else if (cpu.includes("m3 max")) score += 90;
+            else if (cpu.includes("snapdragon")) score += 95;
+            else if (cpu.includes("ultra")) score += 80;
+            else if (cpu.includes("ryzen")) score += 70;
+            else score += 40; // Standard Intel
+
+            const life = (p.batteryLife || "").toLowerCase();
+            if (life.includes("22")) score += 80;
+            else if (life.includes("18")) score += 60;
+            else if (life.includes("15")) score += 45;
+            else if (life.includes("12")) score += 30;
+            else if (life.includes("8")) score += 15;
+
+            return score;
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const sMatch = filters.sections.length === 0 || filters.sections.includes(p.section);
+                
+                // GPU Type dynamic filter
+                let isDedicated = (p.graphicsCard || "").toLowerCase().includes("rtx");
+                let gpuTypeMatch = filters.gpuTypes.length === 0;
+                if (filters.gpuTypes.length > 0) {
+                    if (filters.gpuTypes.includes("Dedicated GPU (NVIDIA RTX)") && isDedicated) gpuTypeMatch = true;
+                    if (filters.gpuTypes.includes("Integrated Graphics") && !isDedicated) gpuTypeMatch = true;
+                }
+
+                const rMatch = filters.rams.length === 0 || filters.rams.includes(p.ram);
+                const stMatch = filters.storages.length === 0 || filters.storages.includes(p.storage);
+                const pMatch = filters.processors.length === 0 || filters.processors.includes(p.processor);
+                const rrMatch = filters.refreshRates.length === 0 || filters.refreshRates.includes(p.refreshRate);
+                const osMatch = filters.operatingSystems.length === 0 || filters.operatingSystems.includes(p.operatingSystem);
+                
+                const prMatch = p.price <= filters.maxPrice;
+                
+                const searchStr = filters.search.toLowerCase();
+                const qMatch = !filters.search || 
+                               p.name.toLowerCase().includes(searchStr) || 
+                               p.brand.toLowerCase().includes(searchStr) ||
+                               (p.processor || "").toLowerCase().includes(searchStr) ||
+                               (p.graphicsCard || "").toLowerCase().includes(searchStr);
+
+                return bMatch && sMatch && gpuTypeMatch && rMatch && stMatch && pMatch && rrMatch && osMatch && prMatch && qMatch;
+            });
+
+            // Apply Sorting
+            const sortVal = document.getElementById('sort-select').value;
+            if (sortVal === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortVal === 'newest') {
+                filtered.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+            } else if (sortVal === 'popularity') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            } else if (sortVal === 'best-gaming') {
+                filtered.sort((a, b) => getGamingScore(b) - getGamingScore(a));
+            } else if (sortVal === 'best-battery') {
+                filtered.sort((a, b) => getBatteryScore(b) - getBatteryScore(a));
+            }
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => {
+                    const isCompared = comparedLaptops.some(item => item.slug === p.slug);
+                    return `
+                        <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group transition-all duration-500 flex flex-col shadow-sm">
+                            <!-- Image container -->
+                            <div class="relative aspect-[4/3] overflow-hidden bg-gray-50 cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                                <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <span class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-md">${p.section}</span>
+                                ${p.discount ? `<span class="absolute top-4 right-4 bg-[#C8A951] text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-md">${p.discount}</span>` : ''}
+                            </div>
+                            <!-- Specs details -->
+                            <div class="p-6 flex flex-col flex-1 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">${p.brand}</span>
+                                    <div class="flex items-center gap-1 text-yellow-500 text-[10px] font-bold">
+                                        <ion-icon name="star"></ion-icon>
+                                        <span>${p.rating.toFixed(1)}</span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                                
+                                <!-- Core Tags Grid -->
+                                <div class="grid grid-cols-2 gap-2 text-[9px] font-bold text-gray-500 pt-1">
+                                    <div class="flex items-center gap-1">
+                                        <ion-icon name="cpu-outline" class="text-xs text-[#C8A951]"></ion-icon>
+                                        <span class="line-clamp-1">${p.processor}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <ion-icon name="hardware-chip-outline" class="text-xs text-[#C8A951]"></ion-icon>
+                                        <span>${p.ram} | ${p.storage.split(' ')[0]}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <ion-icon name="videocam-outline" class="text-xs text-[#C8A951]"></ion-icon>
+                                        <span class="line-clamp-1">${p.graphicsCard.includes('GeForce') ? p.graphicsCard.split(' ')[2] + ' ' + p.graphicsCard.split(' ')[3] : 'Integrated'}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <ion-icon name="phone-portrait-outline" class="text-xs text-[#C8A951]"></ion-icon>
+                                        <span>${p.display.split('-')[0]} ${p.refreshRate}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Compare Trigger -->
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <div class="flex items-center gap-2 cursor-pointer select-none" onclick="toggleCompareState('${p.slug}')">
+                                        <div class="custom-checkbox ${isCompared ? 'active' : ''}">
+                                            <ion-icon name="checkmark-outline"></ion-icon>
+                                        </div>
+                                        <span class="text-xs font-black text-[#8D6E63] hover:text-[#5D4037] transition-colors uppercase tracking-wider">Compare</span>
+                                    </div>
+                                    <span class="text-[9px] font-black uppercase text-gray-300 tracking-wider">${p.operatingSystem}</span>
+                                </div>
+
+                                <!-- Prices & E-Commerce actions -->
+                                <div class="mt-auto pt-4 flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <span class="text-lg font-black text-[#5D4037]">₹${p.price.toLocaleString('en-IN')}</span>
+                                        ${p.originalPrice ? `<del class="text-[10px] text-gray-300 font-bold">₹${p.originalPrice.toLocaleString('en-IN')}</del>` : ''}
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button 
+                                            data-cart-action="add" 
+                                            data-mini="true" 
+                                            data-product-slug="${p.slug}" 
+                                            data-product-name="${p.name}" 
+                                            data-product-price="₹${p.price}" 
+                                            data-product-image="${p.image}" 
+                                            data-product-brand="${p.brand}"
+                                            class="w-10 h-10 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#5D4037] hover:text-white transition-all shadow-sm">
+                                            <ion-icon name="cart-outline" class="text-lg"></ion-icon>
+                                        </button>
+                                        <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-5 h-10 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#3E2723] shadow-md shadow-[#D7CCC8]/50 transition-all">Buy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        // LAPTOP COMPARISON LOGIC
+        function toggleCompareState(slug) {
+            const product = allProducts.find(p => p.slug === slug);
+            if (!product) return;
+
+            const existingIdx = comparedLaptops.findIndex(item => item.slug === slug);
+            if (existingIdx > -1) {
+                comparedLaptops.splice(existingIdx, 1);
+            } else {
+                if (comparedLaptops.length >= 3) {
+                    showToast("Maximum of 3 laptops can be compared at a time.", "warning");
+                    return;
+                }
+                comparedLaptops.push(product);
+            }
+
+            renderComparisonDrawer();
+            applyFiltersAndRender();
+        }
+
+        function removeComparison(slug) {
+            comparedLaptops = comparedLaptops.filter(p => p.slug !== slug);
+            renderComparisonDrawer();
+            applyFiltersAndRender();
+        }
+
+        function clearComparison() {
+            comparedLaptops = [];
+            renderComparisonDrawer();
+            applyFiltersAndRender();
+        }
+
+        function renderComparisonDrawer() {
+            const drawer = document.getElementById('compare-drawer');
+            const thumbnails = document.getElementById('compare-thumbnails');
+            const countSpan = document.getElementById('compare-count');
+
+            countSpan.innerText = comparedLaptops.length;
+
+            if (comparedLaptops.length === 0) {
+                drawer.classList.add('translate-y-full', 'opacity-0');
+                drawer.classList.remove('translate-y-0', 'opacity-100');
+            } else {
+                drawer.classList.remove('translate-y-full', 'opacity-0');
+                drawer.classList.add('translate-y-0', 'opacity-100');
+
+                thumbnails.innerHTML = comparedLaptops.map(p => `
+                    <div class="flex items-center gap-2 bg-[#F5F5DC] border border-[#D7CCC8]/60 py-1.5 pl-2.5 pr-1.5 rounded-xl text-xs font-bold text-[#5D4037] shadow-sm animate-fade-in">
+                        <img src="${p.image}" class="w-6 h-6 rounded-md object-cover border border-gray-200">
+                        <span class="max-w-[120px] truncate leading-none pt-0.5">${p.brand} ${p.name.replace(/.*?\((.*?)\)/, '').substring(0, 15)}...</span>
+                        <button onclick="removeComparison('${p.slug}')" class="w-5 h-5 rounded-full flex items-center justify-center bg-[#8D6E63]/25 hover:bg-[#8D6E63]/50 text-[#5D4037] transition-all ml-1">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function openComparisonModal() {
+            if (comparedLaptops.length === 0) return;
+            const modal = document.getElementById('compare-modal');
+            
+            // Build Table headers
+            const headerRow = document.getElementById('compare-table-header');
+            let headerHtml = `<th class="w-1/4 py-4 px-6 text-left text-xs font-black uppercase tracking-widest text-[#8D6E63] bg-[#F5F5DC]/40 border-r border-[#D7CCC8]/40">Specs Matrix</th>`;
+            
+            comparedLaptops.forEach(p => {
+                headerHtml += `
+                    <th class="w-1/4 py-6 px-6 text-center bg-[#FDFBF7] relative">
+                        <div class="flex flex-col items-center space-y-3">
+                            <img src="${p.image}" class="w-24 h-16 object-cover rounded-xl border border-gray-200 shadow-sm">
+                            <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">${p.brand}</div>
+                            <h4 class="text-xs font-black text-[#5D4037] line-clamp-2 min-h-[32px] leading-snug px-2">${p.name}</h4>
+                            <div class="text-base font-black text-[#C8A951]">₹${p.price.toLocaleString('en-IN')}</div>
+                            <div class="flex items-center justify-center gap-1.5 mt-2">
+                                <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-[#3E2723] transition-all shadow-sm">Buy</button>
+                                <button 
+                                    data-cart-action="add" 
+                                    data-product-slug="${p.slug}" 
+                                    data-product-name="${p.name}" 
+                                    data-product-price="₹${p.price}" 
+                                    data-product-image="${p.image}" 
+                                    data-product-brand="${p.brand}"
+                                    class="w-8 h-8 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#5D4037] hover:text-white transition-all shadow-sm">
+                                    <ion-icon name="cart-outline" class="text-sm"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                `;
+            });
+            headerRow.innerHTML = headerHtml;
+
+            // List of comparison attributes
+            const specAttributes = [
+                { label: "Rating & Reviews", key: "rating", formatter: (val, p) => `⭐ ${val.toFixed(1)} (${p.reviewsCount || 0} reviews)` },
+                { label: "Section Profile", key: "section" },
+                { label: "Processor (CPU)", key: "processor" },
+                { label: "Graphics Card (GPU)", key: "graphicsCard" },
+                { label: "RAM Memory", key: "ram" },
+                { label: "Storage Drive", key: "storage" },
+                { label: "Display screen", key: "display" },
+                { label: "Refresh Rate", key: "refreshRate" },
+                { label: "Operating System", key: "operatingSystem" },
+                { label: "Battery Pack", key: "battery", fallbackKey: "specifications.Battery" },
+                { label: "Battery Life Estimate", key: "batteryLife" },
+                { label: "Weight", key: "weight" },
+                { label: "I/O Ports Available", key: "ports" },
+                { label: "Keyboard Type", key: "keyboardType" },
+                { label: "Cooling Setup", key: "coolingSystem" },
+                { label: "AI Integrated Features", key: "aiFeatures" }
+            ];
+
+            const tbody = document.getElementById('compare-table-body');
+            tbody.innerHTML = specAttributes.map(attr => {
+                let rowHtml = `
+                    <tr class="hover:bg-[#FDF5E6]/40 transition-colors">
+                        <td class="py-4 px-6 text-left text-xs font-bold text-[#8D6E63] border-r border-[#D7CCC8]/30 bg-[#F5F5DC]/10">${attr.label}</td>
+                `;
+
+                comparedLaptops.forEach(p => {
+                    let value = p[attr.key];
+                    if (!value && attr.fallbackKey) {
+                        // resolve nested specs
+                        const keys = attr.fallbackKey.split('.');
+                        let cur = p;
+                        for (let k of keys) {
+                            cur = cur ? cur[k] : null;
+                        }
+                        value = cur;
+                    }
+                    if (!value) value = "N/A";
+
+                    if (attr.formatter) {
+                        value = attr.formatter(value, p);
+                    }
+
+                    rowHtml += `
+                        <td class="py-4 px-6 text-center text-xs text-gray-600 font-medium font-mono border-r border-[#D7CCC8]/10 last:border-r-0">${value}</td>
+                    `;
+                });
+
+                rowHtml += `</tr>`;
+                return rowHtml;
+            }).join('');
+
+            modal.showModal();
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function closeComparisonModal() {
+            document.getElementById('compare-modal').close();
+        }
+
+        // Setup light dismiss fallback helper for older/Safari browsers
+        function setupClosedByFallback() {
+            const dialog = document.getElementById('compare-modal');
+            if (dialog && !('closedBy' in HTMLDialogElement.prototype)) {
+                dialog.addEventListener('click', (event) => {
+                    if (event.target !== dialog) return;
+                    const rect = dialog.getBoundingClientRect();
+                    const isDialogContent = (
+                        rect.top <= event.clientY &&
+                        event.clientY <= rect.top + rect.height &&
+                        rect.left <= event.clientX &&
+                        event.clientX <= rect.left + rect.width
+                    );
+                    if (isDialogContent) return;
+                    dialog.close();
+                });
+            }
+        }
+
+        // PREMIUM CUSTOM TOAST MESSAGES
+        function showToast(message, type = "success") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: "bg-emerald-600 text-white shadow-emerald-200",
+                warning: "bg-[#C8A951] text-white shadow-amber-200",
+                danger: "bg-rose-600 text-white shadow-rose-200"
+            };
+
+            const icons = {
+                success: "checkmark-circle-outline",
+                warning: "alert-circle-outline",
+                danger: "close-circle-outline"
+            };
+
+            toast.className = `toast-notification flex items-center gap-3 px-5 py-4 rounded-2xl ${colors[type]} shadow-xl text-xs font-black uppercase tracking-wider max-w-sm pointer-events-auto`;
+            toast.innerHTML = `
+                <ion-icon name="${icons[type]}" class="text-xl"></ion-icon>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // EVENT LISTENERS
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', () => {
+                applyFiltersAndRender();
+            });
+            
+            document.getElementById('top-search').addEventListener('input', (e) => {
+                filters.search = e.target.value;
+                applyFiltersAndRender();
+            });
+
+            document.getElementById('price-range').addEventListener('input', (e) => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${Number(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 350000 ? '+' : ''}`;
+                
+                const mobSlider = document.getElementById('mob-price-range');
+                if (mobSlider) mobSlider.value = filters.maxPrice;
+                const mobLabel = document.getElementById('mob-price-max');
+                if (mobLabel) mobLabel.innerText = `₹${Number(filters.maxPrice).toLocaleString('en-IN')}${filters.maxPrice == 350000 ? '+' : ''}`;
+
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = {
+                brands: [],
+                sections: [],
+                gpuTypes: [],
+                rams: [],
+                storages: [],
+                processors: [],
+                refreshRates: [],
+                operatingSystems: [],
+                maxPrice: 350000,
+                search: ""
+            };
+            
+            document.getElementById('price-range').value = 350000;
+            document.getElementById('price-max').innerText = "₹3,50,000+";
+            document.getElementById('top-search').value = "";
+            document.getElementById('sort-select').value = "popularity";
+            
+            renderFilterUI();
+            applyFiltersAndRender();
+            showToast("Filters successfully reset", "success");
+        }
+
+        // MOBILE SIDEBAR LAYOUT
+        function toggleMobileSidebar() {
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            if (overlay.classList.contains('hidden')) {
+                overlay.classList.remove('hidden');
+                // render filters
+                renderFilterUI();
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

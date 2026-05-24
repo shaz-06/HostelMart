@@ -13,6 +13,10 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
     <script src="auth_global.js" defer></script>
+
+    <!-- Swiper.js Slider Assets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -323,6 +327,41 @@
                 transform: translateY(0);
             }
         }
+
+        /* Premium Custom Swiper Styles */
+        .hero-deals-swiper {
+            width: 100%;
+            padding-bottom: 24px !important;
+        }
+        .hero-deals-swiper .swiper-pagination-bullet {
+            background: #D7CCC8 !important;
+            opacity: 1;
+            width: 8px;
+            height: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
+        }
+        .hero-deals-swiper .swiper-pagination-bullet-active {
+            background: #5D4037 !important;
+            width: 24px;
+        }
+        .hero-deals-swiper .swiper-button-prev,
+        .hero-deals-swiper .swiper-button-next {
+            opacity: 0;
+            transition: all 0.3s ease;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+        }
+        .hero-deals-swiper:hover .swiper-button-prev,
+        .hero-deals-swiper:hover .swiper-button-next {
+            opacity: 1;
+        }
+        .hero-deals-swiper .swiper-button-prev {
+            left: 16px !important;
+        }
+        .hero-deals-swiper .swiper-button-next {
+            right: 16px !important;
+        }
     </style>
 </head>
 
@@ -399,11 +438,16 @@
                         6</div>
                     <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                <a href="Travel.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
                     <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
-                </div>
+                </a>
+                <a href="Footwear.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="footsteps-outline" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Footwear</span>
+                </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
@@ -677,19 +721,19 @@
                                         <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
                                         <span class="subcategory-name">Shorts</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Footwear.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Slippers</span>
+                                        <span class="subcategory-name">Footwear & Slippers</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
                                         <span class="subcategory-name">Watches</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Travel.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Bags</span>
+                                        <span class="subcategory-name">Bags & Luggage</span>
                                     </a>
                                 </div>
                                 <!-- Mobiles -->
@@ -956,6 +1000,64 @@
             </ul>
         </div>
     </div>
+
+
+    <!-- HERO DEAL CAROUSEL -->
+    <section class="w-[95%] mx-auto mt-6 bg-[#FAF7F2] rounded-[2.5rem] p-6 shadow-sm border border-[#D7CCC8]/60">
+        <!-- Section Header -->
+        <div class="flex items-center justify-between mb-5 px-2">
+            <div class="flex items-center gap-2">
+                <ion-icon name="sparkles-outline" class="text-xl text-[#C8A951]"></ion-icon>
+                <h2 class="text-xs font-black uppercase tracking-[0.25em] text-[#5D4037]">Exclusive Beauty Offers</h2>
+            </div>
+            <span class="text-[9px] font-black uppercase tracking-widest text-[#8D6E63] bg-[#FDFBF7] px-3.5 py-1.5 rounded-full border border-[#D7CCC8]/30 animate-pulse">Limited Time Deals</span>
+        </div>
+
+        <!-- Slider Container -->
+        <div class="relative overflow-hidden rounded-[20px]">
+            <div class="swiper hero-deals-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1: HIRA Perfumes -->
+                    <div class="swiper-slide cursor-pointer" onclick="location.href='Fragnances.html'">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[340px] lg:h-[400px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="beauty_banner_1.png" alt="Hira Perfumes" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                        </div>
+                    </div>
+                    <!-- Slide 2: Invest in the Best -->
+                    <div class="swiper-slide cursor-pointer" onclick="location.href='Premium.html'">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[340px] lg:h-[400px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="beauty_banner_2.png" alt="Invest in the Best" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                        </div>
+                    </div>
+                    <!-- Slide 3: Coffee Body Scrub -->
+                    <div class="swiper-slide cursor-pointer" onclick="location.href='Skincare.html'">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[340px] lg:h-[400px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="beauty_banner_3.png" alt="Coffee Body Scrub" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                        </div>
+                    </div>
+                    <!-- Slide 4: Gen Z Faves -->
+                    <div class="swiper-slide cursor-pointer" onclick="location.href='Beauty.html'">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[340px] lg:h-[400px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="beauty_banner_4.png" alt="Gen Z Faves" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                        </div>
+                    </div>
+                    <!-- Slide 5: Back to Campus -->
+                    <div class="swiper-slide cursor-pointer" onclick="location.href='Beauty.html'">
+                        <div class="relative w-full h-[180px] sm:h-[240px] md:h-[340px] lg:h-[400px] rounded-[20px] overflow-hidden shadow-sm group">
+                            <img src="beauty_banner_5.png" alt="Back to Campus" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <div class="swiper-button-prev !text-[#5D4037] !w-10 !h-10 !bg-[#FDFBF7]/90 hover:!bg-[#FDFBF7] !rounded-full shadow-md after:!text-xs transition-all duration-300"></div>
+                <div class="swiper-button-next !text-[#5D4037] !w-10 !h-10 !bg-[#FDFBF7]/90 hover:!bg-[#FDFBF7] !rounded-full shadow-md after:!text-xs transition-all duration-300"></div>
+
+                <!-- Pagination Dots -->
+                <div class="swiper-pagination !bottom-0"></div>
+            </div>
+        </div>
+    </section>
 
 
     <!-- 4. BEAUTY SUB-CATEGORIES (GRID) -->
@@ -1270,12 +1372,1800 @@
                         class="bg-gradient-to-b from-stone-50 to-red-50 rounded-3xl h-44 flex items-center justify-center mb-3 relative overflow-hidden group-hover:shadow-lg transition-all">
                         <img src="https://via.placeholder.com/100x120" alt="Perfume"
                             class="mix-blend-multiply group-hover:scale-110 transition-transform">
-                    </div>
-                    <p class="text-xs font-bold opacity-60">Perfume</p>
-                    <p class="text-sm font-black dark-brown-text">Up to 75% Off</p>
                 </div>
             </div>
         </section>
+
+
+        <!-- BRAND SPOTLIGHT DEALS -->
+        <section class="space-y-8 py-6">
+            <div class="flex items-center justify-between border-l-4 border-[#3E2723] pl-4">
+                <div>
+                    <h3 class="text-2xl font-black uppercase tracking-widest text-[#3E2723]">Brand Spotlight Deals</h3>
+                    <p class="text-xs font-bold text-[#8D6E63] uppercase tracking-wider mt-0.5">Top-rated beauty & skincare faves</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Card 1: ANI'S Face Full Body Bikini Hair removal -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img loading="lazy" src="assets/images/spotlight/product_1.png" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="ANI'S Face Full Body Bikini Hair removal">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Waxing</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">78% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">ANI'S</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>5.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(41)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Face Full Body Bikini Hair removal</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹172</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹799</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹122 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="anis-face-body-wax-powder" data-product-name="ANI'S Face Full Body Bikini Hair removal" data-product-price="₹172" data-product-image="assets/images/spotlight/product_1.png" data-product-brand="ANI'S" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=anis-face-body-wax-powder'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: PARK AVENUE Ultimate Grooming Kit for Men -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img loading="lazy" src="assets/images/spotlight/product_2.png" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="PARK AVENUE Ultimate Grooming Kit for Men">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Grooming</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">56% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">PARK AVENUE</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.5</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(56,043)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Ultimate Grooming Kit for Men - 9 in 1</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹747</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹1,699</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹588 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="park-avenue-ultimate-grooming-kit" data-product-name="PARK AVENUE Ultimate Grooming Kit" data-product-price="₹747" data-product-image="assets/images/spotlight/product_2.png" data-product-brand="PARK AVENUE" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=park-avenue-ultimate-grooming-kit'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: everteen bikini hair remover Cream -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img loading="lazy" src="assets/images/spotlight/product_3.png" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="everteen bikini hair remover Cream">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Hair Removal</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">50% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">everteen</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.1</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(30,694)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">bikini hair remover Cream</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹179</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹358</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹119 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="everteen-bikini-hair-remover-cream" data-product-name="everteen bikini hair remover Cream" data-product-price="₹179" data-product-image="assets/images/spotlight/product_3.png" data-product-brand="everteen" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=everteen-bikini-hair-remover-cream'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Carmesi Disposable Body Razors for Women -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img loading="lazy" src="assets/images/spotlight/product_4.png" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Carmesi Disposable Body Razors for Women">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Razor</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">29% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#4CAF50] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-down-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Carmesi</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(7,353)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Disposable Body Razors for Women</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹159</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹225</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹109 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="carmesi-disposable-body-razors" data-product-name="Carmesi Disposable Body Razors" data-product-price="₹159" data-product-image="assets/images/spotlight/product_4.png" data-product-brand="Carmesi" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=carmesi-disposable-body-razors'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: BLUEWELL Instant Tan & Dead Skin Removal -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img loading="lazy" src="assets/images/spotlight/product_5.png" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="BLUEWELL Instant Tan & Dead Skin Removal">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Exfoliator</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Chemist at Play</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.8</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(503)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Exfoliating Kit with Body Wash</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹519</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹597</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹459 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="chemist-exfoliating-kit" data-product-name="Chemist at Play Exfoliating Kit" data-product-price="₹519" data-product-image="https://images.unsplash.com/photo-1570172619661-04183427357c?auto=format&fit=crop&w=400&q=80" data-product-brand="Chemist at Play" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=chemist-exfoliating-kit'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Sanfe 2-in-1 Moisturising Soap -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1607006342411-923f10136455?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe 2-in-1 Soap">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Bath & Body</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(112)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">2-in-1 Moisturising & Exfoliating Soap</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹161</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹169</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹111 with UPI offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-2in1-soap" data-product-name="Sanfe 2-in-1 Moisturising & Exfoliating Soap" data-product-price="₹161" data-product-image="https://images.unsplash.com/photo-1607006342411-923f10136455?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-2in1-soap'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: THE TRZ SHOP Chocolate Wax -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfad450516?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="THE TRZ SHOP Chocolate Wax">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Waxing</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">70% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">THE TRZ SHOP</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(3)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Chocolate Hair Removal Wax Powder</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹150</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹500</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹100 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="trz-chocolate-wax" data-product-name="THE TRZ SHOP Chocolate Wax" data-product-price="₹150" data-product-image="https://images.unsplash.com/photo-1596462502278-27bfad450516?auto=format&fit=crop&w=400&q=80" data-product-brand="THE TRZ SHOP" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=trz-chocolate-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Sanfe Mummy Mask -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Mummy Mask">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Face Mask</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(139)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Mummy Wrinkle Mask - Anti-Wrinkle</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹142</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹149</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹82 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-mummy-mask" data-product-name="Sanfe Mummy Mask" data-product-price="₹142" data-product-image="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-mummy-mask'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Sanfe Instant Tan Body Wash -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1556229167-731300067644?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Instant Tan Body Wash">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Body Wash</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(900)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Instant Tan & Dead Skin Removal Wash</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹379</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹399</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹319 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-tan-bodywash" data-product-name="Sanfe Instant Tan Body Wash" data-product-price="₹379" data-product-image="https://images.unsplash.com/photo-1556229167-731300067644?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-tan-bodywash'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Estetica Chocolate Wax Powder -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Estetica Chocolate Wax Powder">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Waxing</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">87% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Estetica</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(50)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Chocolate Wax Powder Herbal Removal</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹50</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹399</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹47 with Bank offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="estetica-chocolate-wax" data-product-name="Estetica Chocolate Wax Powder" data-product-price="₹50" data-product-image="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" data-product-brand="Estetica" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=estetica-chocolate-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Sanfe Underarm Lightening Roll On Oudh -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Underarm Roll On Oudh">
+                        <span class="absolute top-3 left-3 bg-[#8D6E63] text-white text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">#IndulgentBaths</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(120)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Underarm Lightening Roll On Oudh</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹284</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹299</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹224 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-underarm-rollon" data-product-name="Sanfe Underarm Roll On Oudh" data-product-price="₹284" data-product-image="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-underarm-rollon'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9: Sanfe Painless & Detan Hair Removal Cream -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Painless Hair Removal Cream">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Depilatory</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(2,186)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Painless & Detan Hair Removal Cream</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹474</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹499</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹414 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-painless-cream" data-product-name="Sanfe Painless Hair Removal Cream" data-product-price="₹474" data-product-image="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-painless-cream'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10: Sanfe Line Trimming Razor Pack of 2 -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Line Trimming Razor">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Razor</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">48% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.1</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(1,411)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Line Trimming Razor Pack of 2</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹112</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹218</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹52 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-bikini-razor-2" data-product-name="Sanfe Bikini Line Razor Pack of 2" data-product-price="₹112" data-product-image="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-bikini-razor-2'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11: Dot & Key Sunscreen - SPF 50 -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1614859324967-bdf461fcf7f3?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Dot & Key Sunscreen">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Sunscreen</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">22% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Dot & Key</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(1,24,587)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Watermelon Cooling Sunscreen SPF 50 PA++++</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹231</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹299</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹171 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="dotkey-sunscreen-spf50" data-product-name="Dot & Key Watermelon Sunscreen" data-product-price="₹231" data-product-image="https://images.unsplash.com/photo-1614859324967-bdf461fcf7f3?auto=format&fit=crop&w=400&q=80" data-product-brand="Dot & Key" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=dotkey-sunscreen-spf50'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 12: Multani Natural Gold Hair Removal Cream -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Multani Natural Gold Cream">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Depilatory</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">36% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Multani</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(8)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Natural Gold Hair Removal Cream</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹38</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹60</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹36 with Bank offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="multani-gold-cream" data-product-name="Multani Natural Gold Hair Removal Cream" data-product-price="₹38" data-product-image="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=400&q=80" data-product-brand="Multani" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=multani-gold-cream'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 13: Entice Painless Crystal Hair Eraser -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Entice Painless Crystal Hair Eraser">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Depilation Tool</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">80% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Entice Enterprise</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.2</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(45)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Painless Crystal Hair Eraser</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹96</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹499</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹91 with Bank offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="entice-hair-eraser" data-product-name="Entice Crystal Hair Eraser" data-product-price="₹96" data-product-image="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=400&q=80" data-product-brand="Entice Enterprise" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=entice-hair-eraser'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 14: Ghar Soaps Wood And Saffron Soap -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Ghar Soaps Magic Soap">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Bath & Body</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">15% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Ghar Soaps</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(5,09,460)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Wood & Saffron Soap For Tan - 3 Pack</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹399</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹470</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹319 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="gharsoaps-wood-saffron" data-product-name="Ghar Soaps Wood & Saffron Soap 3 Pack" data-product-price="₹399" data-product-image="https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=400&q=80" data-product-brand="Ghar Soaps" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=gharsoaps-wood-saffron'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 15: NATURAL AND HERBAL PRODUCTS Face Wax -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Natural and Herbal Face Wax">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Face Wax</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">78% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Natural & Herbal</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(34)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Turmeric Wax Powder Instant Hair Removal</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹106</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹499</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹50 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="naturalherbal-face-wax" data-product-name="Natural & Herbal Turmeric Wax Powder" data-product-price="₹106" data-product-image="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" data-product-brand="Natural & Herbal" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=naturalherbal-face-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 16: TRU HAIR & SKIN Natural Hair Wax -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="TRU HAIR & SKIN Natural Hair Wax">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Hair Care</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">25% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">TRU HAIR & SKIN</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.4</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(88)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Natural Hair Wax - Strong Hold 12hrs</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹223</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹299</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹163 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="truhair-hair-wax" data-product-name="TRU HAIR & SKIN Natural Hair Wax" data-product-price="₹223" data-product-image="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80" data-product-brand="TRU HAIR & SKIN" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=truhair-hair-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 17: Sanfe Instant Tan Removal Exfoliating Gel -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Instant Tan Gel">
+                        <span class="absolute top-3 left-3 bg-[#E91E63] text-white text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">#BathRituals</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">20% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.5</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(156)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Instant Tan Removal Exfoliating Gel</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹319</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹399</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹319 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-tan-exfoliating-gel" data-product-name="Sanfe Instant Tan Removal Exfoliating Gel" data-product-price="₹319" data-product-image="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-tan-exfoliating-gel'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 18: Sanfe Anti Dandruff One Wash Shampoo -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Anti Dandruff Shampoo">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Hair Care</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.7</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(114)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Anti Dandruff One Wash Shampoo</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹189</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹199</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹129 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-antidandruff-shampoo" data-product-name="Sanfe Anti Dandruff Shampoo" data-product-price="₹189" data-product-image="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-antidandruff-shampoo'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 19: Sanfe Ubtan Detan Hair Removal Wax Powder -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Ubtan Detan Wax Powder">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Waxing</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">15% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(452)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Ubtan Detan Hair Removal Wax Powder</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹339</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹399</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹339 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-ubtan-detan-wax" data-product-name="Sanfe Ubtan Detan Hair Removal Wax" data-product-price="₹339" data-product-image="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-ubtan-detan-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 20: Sanfe Bikini Line Trimming Razor -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1522337660859-02fbefad4740?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Bikini Line Razor">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Razor</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">4% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.1</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(5,331)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Bikini Line Trimming Razor</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹104</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹109</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹54 with UPI offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-bikini-razor-single" data-product-name="Sanfe Bikini Line Trimming Razor" data-product-price="₹104" data-product-image="https://images.unsplash.com/photo-1522337660859-02fbefad4740?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 21: Sanfe Insta Facial Kit -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Insta Facial Kit">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Facial Kit</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(116)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Insta Facial Kit - 5-Step Facial Magic</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹169</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹179</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹109 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-insta-facial-kit" data-product-name="Sanfe Insta Facial Kit" data-product-price="₹169" data-product-image="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-insta-facial-kit'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 22: ANI'S Face Full Body Private are hair removal -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfad450516?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="ANI'S Rose Water & Wax Powder">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Hair Removal</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">80% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">ANI'S</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(103)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Rose Water & Face Hair Removal Powder</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹157</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹799</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹97 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="anis-rosewater-wax" data-product-name="ANI'S Rose Water & Wax Powder" data-product-price="₹157" data-product-image="https://images.unsplash.com/photo-1596462502278-27bfad450516?auto=format&fit=crop&w=400&q=80" data-product-brand="ANI'S" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=anis-rosewater-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 23: NEUTROGENA Moisturizer and Sunscreen -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Neutrogena Moisturizer & Sunscreen">
+                        <span class="absolute top-3 left-3 bg-[#E91E63] text-white text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">#ProBeauty</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">35% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">NEUTROGENA</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.5</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(318)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Hydro Boost Moisturizer & Ultra Sheer Sunscreen</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹967</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹1,489</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹811 with Bank offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="neutrogena-combo" data-product-name="Neutrogena Moisturizer & Sunscreen" data-product-price="₹967" data-product-image="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" data-product-brand="NEUTROGENA" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=neutrogena-combo'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 24: Ayuvya Drop-it Ayurvedic Detox Kit -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1547032440-0fa8723733b1?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Ayuvya Drop-it Detox Kit">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Ayurveda</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">41% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Ayuvya</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.4</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(285)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Drop-it Ayurvedic Body Detox Kit</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹799</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹1,358</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹759 with Bank offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="ayuvya-detox-kit" data-product-name="Ayuvya Drop-it Ayurvedic Detox Kit" data-product-price="₹799" data-product-image="https://images.unsplash.com/photo-1547032440-0fa8723733b1?auto=format&fit=crop&w=400&q=80" data-product-brand="Ayuvya" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=ayuvya-detox-kit'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 25: ANI'S Painless Face Sandalwood Powder -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="ANI'S Sandalwood Wax Powder">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Waxing</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">87% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">ANI'S</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.1</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(88)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Sandalwood Herbal Wax Powder Pack of 2</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹204</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹1,599</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹144 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="anis-sandalwood-wax" data-product-name="ANI'S Sandalwood Wax Powder 2 Pack" data-product-price="₹204" data-product-image="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" data-product-brand="ANI'S" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=anis-sandalwood-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 26: Sanfe Facial Hair Removal Tool -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1522337660859-02fbefad4740?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Silk Thread Kit">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Epilation</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.2</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(80)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Facial Hair Removal Tool & Silk Thread Kit</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹189</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹199</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹129 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-hair-epilator" data-product-name="Sanfe Facial Hair Removal Tool" data-product-price="₹189" data-product-image="https://images.unsplash.com/photo-1522337660859-02fbefad4740?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-hair-epilator'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 27: Dermatouch Bye Bye Pigmentation Serum -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Dermatouch Pigmentation Serum">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Serum</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">66% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Dermatouch</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.1</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(18,105)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Bye Bye Pigmentation Anti-Blemish Serum</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹199</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹599</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹139 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="dermatouch-pigmentation" data-product-name="Dermatouch Bye Bye Pigmentation Serum" data-product-price="₹199" data-product-image="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" data-product-brand="Dermatouch" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=dermatouch-pigmentation'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 28: NATURAL AND HERBAL PRODUCTS Face Shaving Powder -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Natural & Herbal Shaving Powder">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Sandalwood</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">76% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Natural & Herbal</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.4</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(12)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Sandalwood Wax Powder Shaving Powder</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹115</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹499</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹59 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="naturalherbal-sandalwood-shave" data-product-name="Natural & Herbal Sandalwood Powder" data-product-price="₹115" data-product-image="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" data-product-brand="Natural & Herbal" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=naturalherbal-sandalwood-shave'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 29: FOZZBY Night Peel-off Mask -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="FOZZBY Night Peel-off Mask">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Face Mask</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">83% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">FOZZBY</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.2</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(36)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Korean Collagen Night Peel-off Face Mask</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹83</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹499</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹78 with Bank offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="fozzby-night-mask" data-product-name="FOZZBY Korean Peel-off Face Mask" data-product-price="₹83" data-product-image="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" data-product-brand="FOZZBY" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=fozzby-night-mask'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 30: Sanfe Instant BrightUp D-Tan -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1556229167-731300067644?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Instant BrightUp D-Tan">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">D-Tan</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">HOT</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(33)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Instant BrightUp D-Tan Wash - Licorice</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹249</span>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹199 with UPI offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-brightup-dtan" data-product-name="Sanfe Instant BrightUp D-Tan Wash" data-product-price="₹249" data-product-image="https://images.unsplash.com/photo-1556229167-731300067644?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-brightup-dtan'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 31: RIVERIYA Painless Hair Removal Cream -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="RIVERIYA Painless Hair Removal Cream">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Depilatory</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">70% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">RIVERIYA</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.2</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(96)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Painless Hair Removal Cream with Spatula</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹121</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹399</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹71 with UPI offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="riveriya-hair-removal" data-product-name="RIVERIYA Painless Hair Removal Cream" data-product-price="₹121" data-product-image="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&w=400&q=80" data-product-brand="RIVERIYA" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=riveriya-hair-removal'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 32: nature power Papaya Aura Soap -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="nature power Papaya Soap">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Bath & Body</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">28% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">nature power</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.2</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(7,565)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Papaya Aura Brightening Soap - 4 Pieces</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹295</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹410</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹245 with UPI offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="naturepower-papaya-soap" data-product-name="nature power Papaya Aura Soap 4 Pack" data-product-price="₹295" data-product-image="https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=400&q=80" data-product-brand="nature power" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=naturepower-papaya-soap'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 33: Multani Naturals Papaya Painless Shaving Cream -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Multani Papaya Hair Removal Cream">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Depilatory</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">38% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Multani</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(83)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Naturals Papaya Painless Hair Removal</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹37</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹60</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹35 with Bank offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="multani-papaya-cream" data-product-name="Multani Naturals Papaya Shaving Cream" data-product-price="₹37" data-product-image="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" data-product-brand="Multani" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=multani-papaya-cream'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 34: Nurpi Copper Tongue Cleaner -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Nurpi Copper Tongue Cleaner">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Oral Care</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">60% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Nurpi</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(9,257)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Copper Tongue Cleaner Scraper</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹157</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹399</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹97 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="nurpi-copper-tongue" data-product-name="Nurpi Copper Tongue Cleaner" data-product-price="₹157" data-product-image="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400&q=80" data-product-brand="Nurpi" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=nurpi-copper-tongue'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 35: Aaryanveda Hair Removal Cream -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Aaryanveda Papaya Cream">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Depilatory</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">16% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Aaryanveda</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(774)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Papaya Hair Removal Cream with Spatula</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹75</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹90</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹71 with Bank offer</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="aaryanveda-papaya-cream" data-product-name="Aaryanveda Papaya Shaving Cream" data-product-price="₹75" data-product-image="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=400&q=80" data-product-brand="Aaryanveda" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=aaryanveda-papaya-cream'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 36: Sanfe Hydrojelly Face Mask -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Hydrojelly Face Mask">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Face Mask</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">5% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.3</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(112)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Hydrojelly Face Mask - Vitamin C</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹119</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹125</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹59 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-hydrojelly-mask" data-product-name="Sanfe Hydrojelly Face Mask" data-product-price="₹119" data-product-image="https://images.unsplash.com/photo-1590156546746-c58d04f64724?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-hydrojelly-mask'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 37: Sanfe Detan Charcoal Hair Removal Wax Powder -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sanfe Charcoal Wax Powder">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Waxing</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">15% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Sanfe</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.8</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(69)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Detan Charcoal Hair Removal Wax Powder</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹424</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹499</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹364 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="sanfe-charcoal-wax" data-product-name="Sanfe Charcoal Wax Powder" data-product-price="₹424" data-product-image="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=400&q=80" data-product-brand="Sanfe" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=sanfe-charcoal-wax'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 38: NEUTROGENA Sunscreen - SPF 50+ PA++++ -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1614859324967-bdf461fcf7f3?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Neutrogena SPF 50 Sunscreen">
+                        <span class="absolute top-3 left-3 bg-[#8D6E63] text-white text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">#SPFHydration</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">17% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">NEUTROGENA</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.5</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(287)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Ultra Sheer Sunblock Sunscreen SPF 50+</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹640</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹780</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹515 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="neutrogena-ultrasheer-sunblock" data-product-name="Neutrogena Ultra Sheer Sunblock" data-product-price="₹640" data-product-image="https://images.unsplash.com/photo-1614859324967-bdf461fcf7f3?auto=format&fit=crop&w=400&q=80" data-product-brand="NEUTROGENA" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=neutrogena-ultrasheer-sunblock'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 39: Nurpi Steel Tongue Cleaner -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Nurpi Steel Tongue Cleaner">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Oral Care</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">73% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-[#E91E63] text-white p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="trending-up-outline" class="text-sm"></ion-icon>
+                            </button>
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Nurpi</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.4</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(4,117)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Steel Tongue Cleaner Scraper</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹157</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹599</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹97 with UPI offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="nurpi-steel-tongue" data-product-name="Nurpi Steel Tongue Cleaner" data-product-price="₹157" data-product-image="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=400&q=80" data-product-brand="Nurpi" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=nurpi-steel-tongue'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 40: Olivia Strawberry Hair Remover Cream -->
+                <div class="product-card bg-white rounded-[22px] border border-[#D7CCC8]/30 overflow-hidden group transition-all duration-500 flex flex-col shadow-[0_8px_30px_rgba(93,64,55,0.03)] hover-lift">
+                    <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FDFBF7] cursor-pointer border-b border-[#D7CCC8]/20">
+                        <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Olivia Strawberry Cream">
+                        <span class="absolute top-3 left-3 bg-[#E91E63]/10 text-[#E91E63] text-[8px] font-black px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">Depilatory</span>
+                        <span class="absolute top-3 right-3 bg-gradient-to-r from-[#C8A951] to-[#8D6E63] text-white text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">30% OFF</span>
+                        <div class="absolute bottom-3 left-3 flex gap-1 z-10">
+                            <button class="bg-white/90 hover:bg-white text-[#5D4037] p-2 rounded-full shadow-md transition-all flex items-center justify-center">
+                                <ion-icon name="heart-outline" class="text-sm"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black text-[#8D6E63] uppercase tracking-widest">Olivia</span>
+                            <div class="flex items-center gap-1 bg-[#C8A951]/10 text-[#C8A951] px-1.5 py-0.5 rounded-md text-[9px] font-bold">
+                                <ion-icon name="star" class="text-[8px]"></ion-icon>
+                                <span>4.0</span>
+                                <span class="text-gray-400 font-normal ml-0.5">(90)</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-[#5D4037] text-xs md:text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors min-h-[36px]">Strawberry Hair Remover Cream with Jojoba Oil</h3>
+                        <div class="pt-2 flex flex-col">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base font-black text-[#5D4037]">₹97</span>
+                                <del class="text-[10px] text-gray-300 font-bold">₹140</del>
+                            </div>
+                            <span class="text-[10px] font-black text-[#C8A951] uppercase tracking-wide mt-1">₹92 with Bank offer + more</span>
+                        </div>
+                        <div class="flex gap-2 pt-2 mt-auto">
+                            <button data-cart-action="add" data-product-slug="olivia-strawberry-cream" data-product-name="Olivia Strawberry Hair Remover" data-product-price="₹97" data-product-image="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=400&q=80" data-product-brand="Olivia" class="flex-1 border border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-xs">
+                                Add
+                            </button>
+                            <button onclick="window.location.href='Checkout.html?slug=olivia-strawberry-cream'" class="flex-1 bg-[#5D4037] border border-[#5D4037] hover:bg-[#3E2723] hover:border-[#3E2723] text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 text-center shadow-md shadow-[#D7CCC8]/40">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
         <!-- 7. ASSOCIATE SPONSORS (REFINE DESIGN) -->
         <section class="space-y-10 py-10">
@@ -2332,6 +4222,34 @@
                 }
             }
         }, { passive: true });
+
+        // Initialize Swiper.js for Hero Banners
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof Swiper !== 'undefined') {
+                new Swiper('.hero-deals-swiper', {
+                    loop: true,
+                    autoplay: {
+                        delay: 3500,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.hero-deals-swiper .swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.hero-deals-swiper .swiper-button-next',
+                        prevEl: '.hero-deals-swiper .swiper-button-prev',
+                    },
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    keyboard: {
+                        enabled: true,
+                    },
+                });
+            } else {
+                console.warn('Swiper is not defined');
+            }
+        });
     </script>
 </body>
 

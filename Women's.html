@@ -145,6 +145,18 @@
             color: #9CA3AF !important;
             cursor: not-allowed !important;
         }
+
+        .product-link, .dress-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-link:hover, .dress-link:hover {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
     <link rel="stylesheet" href="search_styles.css">
     <script src="search_global.js" defer></script>
@@ -1137,8 +1149,6 @@
 
 
             <!-- TRENDING DRESSES SECTION -->
-
-            <!-- TRENDING DRESSES SECTION -->
             <section id="trending-dresses" class="container mx-auto px-4 md:px-12 mb-24">
                 <div class="flex flex-col items-center mb-12">
                     <h2 class="text-3xl md:text-5xl font-black text-[#5D4037] uppercase tracking-tighter">Trending Dresses</h2>
@@ -1146,132 +1156,140 @@
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
                     <!-- Product 1: Ridsiya -->
-                    <div onclick="window.location.href='Ridsiya-Gown.html'" class="product-card group cursor-pointer space-y-3">
-                        <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
-                            <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/maroon_floral_gown_1778000920508.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="Ridsiya Women Gown">
-                            <div class="absolute top-3 left-3">
-                                <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm">
-                                    <span class="text-white font-black text-[10px]">F</span>
-                                </div>
-                            </div>
-                            <div class="absolute bottom-4 left-4 right-4 flex gap-2">
-                                <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Add to Cart
-                                </button>
-                                <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Buy Now
-                                </button>
-                            </div>
-                        </div>
-                        <div class="px-1">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">Ridsiya</p>
-                            <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 flex items-center gap-2 product-title">
-                                Women Gown Maroon ... 
-                                <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-3" alt="Assured">
-                            </h3>
-                            <div class="flex items-center gap-2 mt-1">
-                                <span class="text-base font-black current-price">₹373</span>
-                                <span class="text-xs text-gray-400 line-through original-price">₹999</span>
-                                <span class="text-xs font-bold text-green-600 discount">62% off</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 2: MOSTUNIQUE BY KASSUALLY -->
-                    <div class="product-card group cursor-pointer space-y-3">
-                        <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
-                            <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/green_patterned_dress_fit_flare_1778000936014.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="MOSTUNIQUE BY KASSUALLY">
-                            <div class="absolute top-3 left-3">
-                                <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm">
-                                    <span class="text-white font-black text-[10px]">F</span>
-                                </div>
-                            </div>
-                            <div class="absolute bottom-4 left-4 right-4 flex gap-2">
-                                <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Add to Cart
-                                </button>
-                                <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Buy Now
-                                </button>
-                            </div>
-                        </div>
-                        <div class="px-1">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">MOSTUNIQUE BY KASSUALLY</p>
-                            <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 flex items-center gap-2 product-title">
-                                Women Fit and Flare G... 
-                                <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-3" alt="Assured">
-                            </h3>
-                            <div class="flex items-center gap-2 mt-1">
-                                <span class="text-base font-black current-price">₹339</span>
-                                <span class="text-xs text-gray-400 line-through original-price">₹2,599</span>
-                                <span class="text-xs font-bold text-green-600 discount">86% off</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 3: sadhnazon -->
-                    <div class="product-card group cursor-pointer space-y-3">
-                        <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
-                            <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/black_floral_border_dress_1778000952469.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="sadhnazon Green Midi">
-                            <div class="absolute top-3 left-3">
-                                <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm relative">
-                                    <span class="text-white font-black text-[10px]">F</span>
-                                    <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
-                                        <ion-icon name="trending-up" class="text-[8px] text-white"></ion-icon>
+                    <a href="Ridsiya-Gown.html" class="product-link dress-link">
+                        <div class="product-card group cursor-pointer space-y-3">
+                            <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
+                                <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/maroon_floral_gown_1778000920508.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="Ridsiya Women Gown">
+                                <div class="absolute top-3 left-3">
+                                    <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm">
+                                        <span class="text-white font-black text-[10px]">F</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="absolute bottom-4 left-4 right-4 flex gap-2">
-                                <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Add to Cart
-                                </button>
-                                <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Buy Now
-                                </button>
-                            </div>
-                        </div>
-                        <div class="px-1">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">sadhnazon</p>
-                            <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 product-title">Women Fit and Flare Green Midi/Cal...</h3>
-                            <div class="flex items-center gap-2 mt-1">
-                                <span class="text-base font-black current-price">₹343</span>
-                                <span class="text-xs text-gray-400 line-through original-price">₹899</span>
-                                <span class="text-xs font-bold text-green-600 discount">61% off</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 4: sadhnazon -->
-                    <div class="product-card group cursor-pointer space-y-3">
-                        <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
-                            <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/black_daisy_print_dress_1778000967704.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="sadhnazon Black Daisy">
-                            <div class="absolute top-3 left-3">
-                                <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm">
-                                    <span class="text-white font-black text-[10px]">F</span>
+                                <div class="absolute bottom-4 left-4 right-4 flex gap-2">
+                                    <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Add to Cart
+                                    </button>
+                                    <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Buy Now
+                                    </button>
                                 </div>
                             </div>
-                            <div class="absolute bottom-4 left-4 right-4 flex gap-2">
-                                <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Add to Cart
-                                </button>
-                                <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
-                                    Buy Now
-                                </button>
+                            <div class="px-1">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">Ridsiya</p>
+                                <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 flex items-center gap-2 product-title">
+                                    Women Gown Maroon ... 
+                                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-3" alt="Assured">
+                                </h3>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="text-base font-black current-price">₹373</span>
+                                    <span class="text-xs text-gray-400 line-through original-price">₹999</span>
+                                    <span class="text-xs font-bold text-green-600 discount">62% off</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="px-1">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">sadhnazon</p>
-                            <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 flex items-center gap-2 product-title">
-                                Women Fit and Flare Bl... 
-                                <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-3" alt="Assured">
-                            </h3>
-                            <div class="flex items-center gap-2 mt-1">
-                                <span class="text-base font-black current-price">₹316</span>
-                                <span class="text-xs text-gray-400 line-through original-price">₹999</span>
-                                <span class="text-xs font-bold text-green-600 discount">68% off</span>
+                    </a>
+
+                    <!-- Product 2: MOSTUNIQUE BY KASSUALLY -->
+                    <a href="MostUnique-Gown.html" class="product-link dress-link">
+                        <div class="product-card group cursor-pointer space-y-3">
+                            <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
+                                <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/green_patterned_dress_fit_flare_1778000936014.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="MOSTUNIQUE BY KASSUALLY">
+                                <div class="absolute top-3 left-3">
+                                    <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm">
+                                        <span class="text-white font-black text-[10px]">F</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 right-4 flex gap-2">
+                                    <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Add to Cart
+                                    </button>
+                                    <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Buy Now
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="px-1">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">MOSTUNIQUE BY KASSUALLY</p>
+                                <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 flex items-center gap-2 product-title">
+                                    Women Fit and Flare G... 
+                                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-3" alt="Assured">
+                                </h3>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="text-base font-black current-price">₹339</span>
+                                    <span class="text-xs text-gray-400 line-through original-price">₹2,599</span>
+                                    <span class="text-xs font-bold text-green-600 discount">86% off</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+
+                    <!-- Product 3: sadhnazon -->
+                    <a href="Sadhnazon-Green-Midi.html" class="product-link dress-link">
+                        <div class="product-card group cursor-pointer space-y-3">
+                            <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
+                                <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/black_floral_border_dress_1778000952469.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="sadhnazon Green Midi">
+                                <div class="absolute top-3 left-3">
+                                    <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm relative">
+                                        <span class="text-white font-black text-[10px]">F</span>
+                                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
+                                            <ion-icon name="trending-up" class="text-[8px] text-white"></ion-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 right-4 flex gap-2">
+                                    <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Add to Cart
+                                    </button>
+                                    <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Buy Now
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="px-1">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">sadhnazon</p>
+                                <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 product-title">Women Fit and Flare Green Midi/Cal...</h3>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="text-base font-black current-price">₹343</span>
+                                    <span class="text-xs text-gray-400 line-through original-price">₹899</span>
+                                    <span class="text-xs font-bold text-green-600 discount">61% off</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Product 4: sadhnazon -->
+                    <a href="Sadhnazon-Black-Daisy.html" class="product-link dress-link">
+                        <div class="product-card group cursor-pointer space-y-3">
+                            <div class="aspect-[3/4] bg-white overflow-hidden relative rounded-2xl shadow-sm border border-[#D7CCC8]/30">
+                                <img src="file:///Users/shashankshetty/.gemini/antigravity/brain/0fabdfdb-6383-4f91-bfe5-9360fa72e7f2/black_daisy_print_dress_1778000967704.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 product-img" alt="sadhnazon Black Daisy">
+                                <div class="absolute top-3 left-3">
+                                    <div class="w-6 h-6 bg-[#2874f0] rounded-sm flex items-center justify-center shadow-sm">
+                                        <span class="text-white font-black text-[10px]">F</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 right-4 flex gap-2">
+                                    <button onclick="event.stopPropagation()" class="add-to-cart flex-1 bg-white/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Add to Cart
+                                    </button>
+                                    <button onclick="event.stopPropagation()" class="buy-now flex-1 bg-amber-400/90 backdrop-blur-md text-[#5D4037] py-2 rounded-xl text-[10px] font-bold shadow-lg hover:bg-[#5D4037] hover:text-white transition-all">
+                                        Buy Now
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="px-1">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest brand-name">sadhnazon</p>
+                                <h3 class="text-sm font-bold text-[#5D4037] line-clamp-1 flex items-center gap-2 product-title">
+                                    Women Fit and Flare Bl... 
+                                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-3" alt="Assured">
+                                </h3>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="text-base font-black current-price">₹316</span>
+                                    <span class="text-xs text-gray-400 line-through original-price">₹999</span>
+                                    <span class="text-xs font-bold text-green-600 discount">68% off</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </section>
 

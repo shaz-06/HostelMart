@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footwear | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="address_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
+    <script src="search_global.js" defer></script>
+    <link rel="stylesheet" href="search_styles.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #C8A951 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #C8A951; border-radius: 10px; }
+        .product-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(93, 64, 55, 0.15); border-color: rgba(200, 169, 81, 0.4); }
+        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #D7CCC8; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; background: white; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; font-weight: bold; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .color-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; cursor: pointer; transition: all 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); position: relative; }
+        .color-dot.active { transform: scale(1.2); box-shadow: 0 0 0 3px #C8A951; }
+        .quick-pill { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 16px; border-radius: 9999px; background-color: #F5F5DC; border: 1px solid #e7e5e4; color: #5D4037; transition: all 0.2s ease; white-space: nowrap; cursor: pointer; }
+        .quick-pill:hover { border-color: #C5A059; transform: translateY(-1px); }
+        .quick-pill.active { background-color: #5D4037; border-color: #5D4037; color: #FDFBF7; box-shadow: 0 4px 10px rgba(93, 64, 55, 0.15); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @media (max-width: 1023px) {
+            #filter-sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 50;
+                width: 300px;
+                height: 100vh;
+                max-height: 100vh;
+                background: #FDFBF7;
+                padding: 24px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                box-shadow: 20px 0 40px rgba(0,0,0,0.15);
+            }
+            #filter-sidebar.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-40 border-b border-[#D7CCC8]/40 shadow-sm">
+        <!-- Top Row: Portal Tabs -->
+        <div class="border-b border-gray-100 py-2 bg-gray-50 text-xs">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="/index.html" class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm border border-gray-200 no-underline">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]">Hostel</span>
+                        <span class="text-[#C8A951] ml-1">Mart</span>
+                    </span>
+                </a>
+                <a href="/Minutes.html" class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">6</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+                </a>
+                <a href="/Travel.html" class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
+                </a>
+                <a href="/Footwear.html" class="bg-[#5D4037] px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-colors no-underline">
+                    <ion-icon name="walk" class="text-white text-xl"></ion-icon>
+                    <span class="font-bold text-white text-sm italic">Footwear</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location -->
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
+            <div class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <a href="javascript:void(0)" onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
+                    <ion-icon name="location" class="text-sm group-hover:scale-125 transition-transform"></ion-icon>
+                    <span id="current-address">Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] py-4">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-4 md:gap-12">
+                <!-- Mobile Menu Logo -->
+                <a href="/index.html" class="text-xl font-black text-[#5D4037] md:hidden">HostelMart</a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative group" id="search-container">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl z-10">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+                    <input type="search" id="product-search" placeholder="Search for Nike Air Jordan, Puma, sneakers, boots..."
+                        class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium relative z-10"
+                        onfocus="showSearchDropdown()" autocomplete="off">
+
+                    <!-- Search Dropdown -->
+                    <div id="search-suggestions" class="search-dropdown" style="display: none;">
+                        <div id="recent-searches-list"></div>
+                        <div class="dropdown-section-title">Trending Footwear</div>
+                        <div class="search-item" onclick="handleSearchClick('Air Jordan')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">Air Jordan</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('Ultraboost')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">Ultraboost</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('Woodland boots')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">Woodland boots</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile & Cart -->
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                    <a href="/Cart.html" class="relative group flex items-center">
+                        <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-sm">0</span>
+                    </a>
+                    <div id="auth-user-ui"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Banner Showcase -->
+        <div class="mb-12 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-r from-[#3E2723] to-[#5D4037] text-white p-8 md:p-12 shadow-xl border border-[#C8A951]/20">
+            <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 bg-[radial-gradient(#C8A951_2px,transparent_2px)] [background-size:20px_20px] pointer-events-none"></div>
+            <div class="max-w-xl relative z-10 space-y-4">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#C8A951]">Premium Sports & Streetwear Shoes</span>
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-none">The Footwear Collection</h1>
+                <p class="text-xs md:text-sm text-gray-300 font-medium leading-relaxed">Pace ahead with premium comfort. Discover iconic Air Jordans, high-performance Ultraboosts, rugged Woodland trekking boots, Bateman loafers, and sleek slip-ons designed to wow at first glance.</p>
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <span class="bg-white/10 backdrop-blur-sm border border-white/10 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">100% Genuine Brands</span>
+                    <span class="bg-[#C8A951]/20 backdrop-blur-sm border border-[#C8A951]/30 text-[#C8A951] text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Free Campus Delivery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK FILTERS SECTION -->
+        <div class="mb-8 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-extrabold text-[#3E2723] tracking-tight">Quick Browse</h2>
+                <button onclick="toggleMobileFilters()" class="lg:hidden bg-[#5D4037] text-white px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-black uppercase tracking-wider">
+                    <ion-icon name="options-outline"></ion-icon>
+                    Filters
+                </button>
+            </div>
+            
+            <!-- Quick Pills (Horizontal scrollable) -->
+            <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                <div class="quick-pill active" id="pill-sec-all" onclick="selectQuickSection('All')">All Sections</div>
+                <div class="quick-pill" id="pill-sec-sports" onclick="selectQuickSection('Sports Essentials')">Sports Essentials</div>
+                <div class="quick-pill" id="pill-sec-premium" onclick="selectQuickSection('Premium Essentials')">Premium Essentials</div>
+                <div class="quick-pill" id="pill-sec-student" onclick="selectQuickSection('Student Essentials')">Student Essentials</div>
+                <div class="quick-pill" id="pill-sec-daily" onclick="selectQuickSection('Daily Wear')">Daily Wear</div>
+
+                <div class="w-px h-6 bg-[#D7CCC8]/40 self-center"></div>
+
+                <div class="quick-pill" id="pill-gender-all" onclick="selectQuickGender('All')">All Genders</div>
+                <div class="quick-pill" id="pill-gender-men" onclick="selectQuickGender('Men')">Men</div>
+                <div class="quick-pill" id="pill-gender-women" onclick="selectQuickGender('Women')">Women</div>
+                <div class="quick-pill" id="pill-gender-unisex" onclick="selectQuickGender('Unisex')">Unisex</div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-10">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full lg:w-72 flex-shrink-0 space-y-8 sticky top-28 h-fit max-h-[85vh] overflow-y-auto pr-4 no-scrollbar filter-sidebar">
+                <div class="flex items-center justify-between pb-4 border-b border-[#D7CCC8]/40">
+                    <h2 class="text-base font-black text-[#3E2723] uppercase tracking-tight flex items-center gap-2">
+                        <ion-icon name="options-outline" class="text-lg text-[#C8A951]"></ion-icon>
+                        Filters
+                    </h2>
+                    <button onclick="resetFilters()" class="text-[10px] font-black text-[#C8A951] uppercase tracking-widest hover:underline">Clear All</button>
+                    <button onclick="toggleMobileFilters()" class="lg:hidden text-2xl text-[#3E2723]"><ion-icon name="close-outline"></ion-icon></button>
+                </div>
+
+                <!-- Brand -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
+                </div>
+
+                <!-- Gender -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Gender</h3>
+                    <div class="space-y-3" id="gender-filters"></div>
+                </div>
+
+                <!-- Material -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
+                </div>
+
+                <!-- Sport Type -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Sport Type</h3>
+                    <div class="space-y-3" id="sport-filters"></div>
+                </div>
+
+                <!-- Waterproof -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Waterproof</h3>
+                    <div class="space-y-3" id="waterproof-filters"></div>
+                </div>
+
+                <!-- Sizes UK -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Sizes (UK)</h3>
+                    <div class="grid grid-cols-3 gap-2" id="size-filters"></div>
+                </div>
+
+                <!-- Color dots selection -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
+                    <div class="flex flex-wrap gap-2.5" id="color-filters"></div>
+                </div>
+
+                <!-- Pricing Range -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-black text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹30,000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="30000" step="500" class="w-full accent-[#5D4037]" value="30000">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CATALOG GRID -->
+            <div class="flex-1">
+                <!-- Sorting & Count Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4 bg-white p-4 rounded-3xl border border-[#D7CCC8]/30 shadow-sm">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037] no-underline">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037] font-extrabold">Footwear</span>
+                    </nav>
+                    <div class="flex items-center gap-4 flex-wrap">
+                        <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037] font-black">0</span> Shoes Found</p>
+                        <select id="sort-select" onchange="applySortingAndRender()" class="bg-[#FDF5E6] border border-[#D7CCC8]/30 rounded-xl px-4 py-2.5 text-xs font-black outline-none focus:border-[#C8A951] cursor-pointer transition-all text-[#3E2723]">
+                            <option value="popularity">Sort: Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="newest">New Arrivals</option>
+                            <option value="best-running">Best Running Shoes</option>
+                            <option value="best-casual">Best Casual Shoes</option>
+                            <option value="best-sports">Best Sports Shoes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Grid (Flipkart-style) -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                    <!-- Cards will be dynamically injected here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden text-center py-20 bg-white rounded-[2.5rem] border border-[#D7CCC8]/20 p-8 shadow-sm">
+                    <div class="w-24 h-24 bg-[#F5F5DC] rounded-full flex items-center justify-center mx-auto mb-6 text-[#C8A951]">
+                        <ion-icon name="walk-outline" class="text-5xl"></ion-icon>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-[#3E2723] mb-2">No Footwear Matches Found</h3>
+                    <p class="text-xs text-gray-400 font-medium max-w-sm mx-auto mb-6">We couldn't find any footwear items matching your current filters. Try resetting your choices or sliding the price limit.</p>
+                    <button onclick="resetFilters()" class="bg-[#5D4037] text-white px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-wider hover:bg-[#8D6E63] transition-colors">Reset All Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Address Modal (Synchronized with global system) -->
+    <div id="address-modal" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-stone-200 shadow-2xl relative">
+            <button onclick="closeAddressModal()" class="absolute right-4 top-4 text-stone-500 hover:text-stone-800 text-2xl">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <h3 class="text-lg font-extrabold text-[#3E2723] mb-4">Set Delivery Address</h3>
+            <div class="space-y-4">
+                <button onclick="getUserGPSLocation()" class="w-full bg-[#5D4037] text-white py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-black uppercase tracking-wider">
+                    <ion-icon name="location-outline" class="text-sm"></ion-icon>
+                    Use Live GPS Location
+                </button>
+                <div class="relative flex py-2 items-center">
+                    <div class="flex-grow border-t border-gray-200"></div>
+                    <span class="flex-shrink mx-4 text-gray-400 text-[10px] font-black uppercase tracking-wider">Or Enter Address</span>
+                    <div class="flex-grow border-t border-gray-200"></div>
+                </div>
+                <input type="text" id="manual-street" placeholder="e.g. Hostel 4, Room 221" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-[#C8A951]">
+                <input type="text" id="manual-city" placeholder="e.g. IIT Campus, Bangalore" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-[#C8A951]">
+                <button onclick="saveManualAddress()" class="w-full bg-[#C8A951] text-white py-3 rounded-xl text-xs font-black uppercase tracking-wider">
+                    Save Address
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE LOGIC SCRIPTS -->
+    <script>
+        let allProducts = [];
+        let filteredProducts = [];
+        let activeSection = "All";
+        let activeGender = "All";
+
+        let filters = {
+            brands: [],
+            genders: [],
+            materials: [],
+            sports: [],
+            waterproof: [],
+            sizes: [],
+            colors: [],
+            maxPrice: 30000,
+            search: ""
+        };
+
+        const config = {
+            brands: ["Nike", "Adidas", "Puma", "Reebok", "Skechers", "ASICS", "New Balance", "Converse", "Vans", "Under Armour", "Woodland", "Bata", "Red Tape", "Sparx", "Campus", "Liberty", "Relaxo", "Paragon", "Lee Cooper", "Hush Puppies", "Clarks", "Timberland", "Gucci", "Balenciaga", "Tommy Hilfiger", "Aldo", "HRX", "Yonex", "Li-Ning"],
+            genders: ["Men", "Women", "Unisex", "Kids"],
+            materials: ["Leather", "Mesh", "Canvas", "Suede", "Synthetic", "Rubber", "Primeknit", "Nubuck", "Faux Leather", "Velvet"],
+            sports: ["Running", "Training", "Football", "Basketball", "Tennis", "Badminton", "Hiking", "Volleyball", "Walking"],
+            waterproof: ["Yes", "Water-resistant", "No"],
+            sizes: ["UK 4", "UK 5", "UK 6", "UK 7", "UK 8", "UK 9", "UK 10", "UK 11", "UK 12"],
+            colors: {
+                "Core Black": "#0b0b0b",
+                "Cloud White": "#f8f9fa",
+                "Solar Red": "#ff4d4d",
+                "Royal Blue": "#1a73e8",
+                "Forest Green": "#2e7d32",
+                "Amber Gold": "#fbc02d",
+                "Steel Grey": "#757575",
+                "Champagne Gold": "#f5e0a0",
+                "Navy Blue": "#1a237e",
+                "Dark Tan": "#a1887f",
+                "Chocolate Brown": "#5d4037",
+                "Crimson Red": "#c62828",
+                "Pastel Pink": "#f8bbd0",
+                "Classic Beige": "#f5f5dc"
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFilterSidebarUI();
+            fetchProducts();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Price range slider listener
+            const slider = document.getElementById('price-range');
+            slider.addEventListener('input', (e) => {
+                filters.maxPrice = parseInt(e.target.value);
+                document.getElementById('price-max').innerText = filters.maxPrice === 30000 ? "₹30,000+" : `₹${filters.maxPrice.toLocaleString()}`;
+                applyFiltersAndRender();
+            });
+
+            // Listen to search events
+            const searchInput = document.getElementById('product-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    filters.search = e.target.value.trim();
+                    applyFiltersAndRender();
+                });
+            }
+        }
+
+        async function fetchProducts() {
+            try {
+                // Fetch all Footwear subcategory items
+                const res = await fetch(`/api/products?subcategory=Footwear`);
+                allProducts = await res.json();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Footwear Error:", e);
+            }
+        }
+
+        function renderFilterSidebarUI() {
+            // Render Brands
+            document.getElementById('brand-filters').innerHTML = config.brands.slice(0, 10).map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                    <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}" id="check-brand-${b.replace(/\s+/g, '')}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            // Render Genders
+            document.getElementById('gender-filters').innerHTML = config.genders.map(g => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('genders', '${g}')">
+                    <div class="custom-checkbox ${filters.genders.includes(g) ? 'active' : ''}" id="check-gender-${g}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${g}</span>
+                </div>
+            `).join('');
+
+            // Render Materials
+            document.getElementById('material-filters').innerHTML = config.materials.slice(0, 8).map(m => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('materials', '${m}')">
+                    <div class="custom-checkbox ${filters.materials.includes(m) ? 'active' : ''}" id="check-material-${m.replace(/\s+/g, '')}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${m}</span>
+                </div>
+            `).join('');
+
+            // Render Sports
+            document.getElementById('sport-filters').innerHTML = config.sports.slice(0, 6).map(s => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('sports', '${s}')">
+                    <div class="custom-checkbox ${filters.sports.includes(s) ? 'active' : ''}" id="check-sport-${s}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${s}</span>
+                </div>
+            `).join('');
+
+            // Render Waterproof
+            document.getElementById('waterproof-filters').innerHTML = config.waterproof.map(w => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('waterproof', '${w}')">
+                    <div class="custom-checkbox ${filters.waterproof.includes(w) ? 'active' : ''}" id="check-wproof-${w}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${w}</span>
+                </div>
+            `).join('');
+
+            // Render Sizes
+            document.getElementById('size-filters').innerHTML = config.sizes.map(s => `
+                <div class="border border-[#D7CCC8]/60 px-2 py-2 rounded-xl flex items-center justify-center text-center cursor-pointer transition-all ${filters.sizes.includes(s) ? 'bg-[#5D4037] border-[#5D4037] text-white font-extrabold' : 'bg-white text-gray-500 hover:border-[#C5A059]'}" onclick="toggleSizeFilter('${s}')">
+                    <span class="text-[9px] font-black uppercase">${s}</span>
+                </div>
+            `).join('');
+
+            // Render Color dots
+            document.getElementById('color-filters').innerHTML = Object.entries(config.colors).map(([name, hex]) => `
+                <div class="color-dot ${filters.colors.includes(name) ? 'active' : ''}" style="background-color: ${hex};" title="${name}" onclick="toggleFilter('colors', '${name}')" id="dot-color-${name.replace(/\s+/g, '')}"></div>
+            `).join('');
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterSidebarUI();
+            applyFiltersAndRender();
+        }
+
+        function toggleSizeFilter(val) {
+            const index = filters.sizes.indexOf(val);
+            if (index > -1) filters.sizes.splice(index, 1);
+            else filters.sizes.push(val);
+            renderFilterSidebarUI();
+            applyFiltersAndRender();
+        }
+
+        function selectQuickSection(section) {
+            activeSection = section;
+            document.querySelectorAll("[id^='pill-sec-']").forEach(pill => pill.classList.remove('active'));
+            if (section === 'All') document.getElementById('pill-sec-all').classList.add('active');
+            else if (section === 'Sports Essentials') document.getElementById('pill-sec-sports').classList.add('active');
+            else if (section === 'Premium Essentials') document.getElementById('pill-sec-premium').classList.add('active');
+            else if (section === 'Student Essentials') document.getElementById('pill-sec-student').classList.add('active');
+            else if (section === 'Daily Wear') document.getElementById('pill-sec-daily').classList.add('active');
+            applyFiltersAndRender();
+        }
+
+        function selectQuickGender(g) {
+            activeGender = g;
+            document.querySelectorAll("[id^='pill-gender-']").forEach(pill => pill.classList.remove('active'));
+            if (g === 'All') document.getElementById('pill-gender-all').classList.add('active');
+            else if (g === 'Men') document.getElementById('pill-gender-men').classList.add('active');
+            else if (g === 'Women') document.getElementById('pill-gender-women').classList.add('active');
+            else if (g === 'Unisex') document.getElementById('pill-gender-unisex').classList.add('active');
+            applyFiltersAndRender();
+        }
+
+        function resetFilters() {
+            filters = {
+                brands: [],
+                genders: [],
+                materials: [],
+                sports: [],
+                waterproof: [],
+                sizes: [],
+                colors: [],
+                maxPrice: 30000,
+                search: ""
+            };
+            activeSection = "All";
+            activeGender = "All";
+            document.getElementById('price-range').value = 30000;
+            document.getElementById('price-max').innerText = "₹30,000+";
+            
+            document.querySelectorAll("[id^='pill-sec-']").forEach(p => p.classList.remove('active'));
+            document.getElementById('pill-sec-all').classList.add('active');
+            document.querySelectorAll("[id^='pill-gender-']").forEach(p => p.classList.remove('active'));
+            document.getElementById('pill-gender-all').classList.add('active');
+
+            const searchInput = document.getElementById('product-search');
+            if (searchInput) searchInput.value = "";
+
+            renderFilterSidebarUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            filteredProducts = allProducts.filter(p => {
+                // Section Match
+                const secMatch = activeSection === "All" || p.section === activeSection;
+
+                // Gender quick Match
+                const genPillMatch = activeGender === "All" || p.gender === activeGender;
+
+                // Sidebar Brand Match
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+
+                // Sidebar Gender Match
+                const gMatch = filters.genders.length === 0 || filters.genders.includes(p.gender);
+
+                // Sidebar Material Match
+                const mMatch = filters.materials.length === 0 || filters.materials.includes(p.material);
+
+                // Sidebar Sport Match
+                const sMatch = filters.sports.length === 0 || filters.sports.includes(p.sportType);
+
+                // Waterproof Match
+                const wMatch = filters.waterproof.length === 0 || filters.waterproof.includes(p.waterproof);
+
+                // Size Match (sizeOptions check)
+                const szMatch = filters.sizes.length === 0 || (p.sizeOptions && p.sizeOptions.some(sz => filters.sizes.includes(sz)));
+
+                // Color Match
+                const cMatch = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c)));
+
+                // Price Match
+                const priceMatch = p.price <= filters.maxPrice;
+
+                // Search Match
+                const searchMatch = !filters.search || 
+                    p.name.toLowerCase().includes(filters.search.toLowerCase()) || 
+                    p.brand.toLowerCase().includes(filters.search.toLowerCase()) || 
+                    (p.type && p.type.toLowerCase().includes(filters.search.toLowerCase()));
+
+                return secMatch && genPillMatch && bMatch && gMatch && mMatch && sMatch && wMatch && szMatch && cMatch && priceMatch && searchMatch;
+            });
+
+            applySortingAndRender();
+        }
+
+        function applySortingAndRender() {
+            const sort = document.getElementById('sort-select').value;
+            let displayList = [...filteredProducts];
+
+            // Sorting logic
+            if (sort === "price-low") {
+                displayList.sort((a, b) => a.price - b.price);
+            } else if (sort === "price-high") {
+                displayList.sort((a, b) => b.price - a.price);
+            } else if (sort === "newest") {
+                displayList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            } else if (sort === "popularity") {
+                displayList.sort((a, b) => b.rating - a.rating);
+            } else if (sort === "best-running") {
+                // Prioritize sportType === Running
+                displayList = displayList.filter(p => p.sportType === "Running");
+            } else if (sort === "best-casual") {
+                // Prioritize Casual sneakers or shoes
+                displayList = displayList.filter(p => p.type && (p.type.includes("Sneakers") || p.type.includes("Loafers") || p.type.includes("Casual")));
+            } else if (sort === "best-sports") {
+                // Prioritize sports shoes (sportType !== None)
+                displayList = displayList.filter(p => p.sportType && p.sportType !== "None");
+            }
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = displayList.length;
+
+            if (displayList.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = displayList.map(p => {
+                    const priceFormatted = `₹${p.price.toLocaleString()}`;
+                    const originalFormatted = p.originalPrice ? `₹${p.originalPrice.toLocaleString()}` : '';
+                    
+                    return `
+                    <div class="product-card bg-white rounded-[2.5rem] border border-[#C8A951]/10 overflow-hidden group flex flex-col h-full shadow-sm hover:shadow-2xl">
+                        <!-- Card Image -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gray-50 cursor-pointer border-b border-[#D7CCC8]/20" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
+                            ${p.discount ? `<span class="absolute top-6 left-6 bg-[#3E2723] text-white text-[9px] font-black px-4 py-2 rounded-2xl uppercase tracking-widest shadow-lg border border-[#C8A951]/20">${p.discount}</span>` : ''}
+                            <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <ion-icon name="star" class="text-yellow-500 text-xs"></ion-icon>
+                                <span class="text-xs font-black text-[#5D4037]">${p.rating}</span>
+                                <span class="text-[9px] font-bold text-gray-400">(${p.ratingsCount || 0})</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-6 flex flex-col flex-grow space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-black uppercase tracking-widest text-[#C8A951]">${p.brand}</span>
+                                <span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">${p.gender}</span>
+                            </div>
+
+                            <h3 class="text-sm font-extrabold text-[#3E2723] line-clamp-1 group-hover:text-[#5D4037] transition-colors cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                                ${p.name}
+                            </h3>
+
+                            <!-- Technical Tags -->
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <span class="bg-[#FDFBF7] border border-[#D7CCC8]/30 text-gray-400 text-[8px] font-black px-2.5 py-1 rounded-md">${p.material}</span>
+                                ${p.sportType && p.sportType !== 'None' ? `<span class="bg-amber-50 border border-amber-100 text-[#C8A951] text-[8px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider">${p.sportType}</span>` : ''}
+                                ${p.cushioning && p.cushioning !== 'None' ? `<span class="bg-[#FDFBF7] border border-[#D7CCC8]/30 text-gray-400 text-[8px] font-black px-2.5 py-1 rounded-md">${p.cushioning} Cushion</span>` : ''}
+                            </div>
+
+                            <p class="text-gray-400 font-medium text-[10px] leading-relaxed line-clamp-2">
+                                ${p.description}
+                            </p>
+
+                            <!-- Pricing -->
+                            <div class="pt-2 flex items-baseline gap-2">
+                                <span class="text-lg font-black text-[#5D4037]">${priceFormatted}</span>
+                                ${originalFormatted ? `<span class="text-xs text-gray-400 line-through font-bold">${originalFormatted}</span>` : ''}
+                            </div>
+
+                            <!-- Cart Controls -->
+                            <div class="pt-4 flex items-center gap-3 mt-auto">
+                                <button onclick="handleBuyNow('${p.slug}')" class="flex-1 bg-[#5D4037] text-white text-xs font-black uppercase tracking-wider py-3 rounded-2xl hover:bg-[#8D6E63] transition-colors shadow-md">
+                                    Buy Now
+                                </button>
+                                <button id="grid-btn-${p.slug}" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="cart-action-btn bg-white border border-[#D7CCC8] hover:border-[#5D4037] text-[#5D4037] w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm">
+                                    <ion-icon name="cart-outline" class="text-lg"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+
+                // Sync newly rendered cart actions
+                if (window.syncCartButtons) window.syncCartButtons();
+            }
+        }
+
+        function handleBuyNow(slug) {
+            window.location.href = `/product/${slug}?buyNow=true`;
+        }
+
+        function toggleMobileFilters() {
+            document.getElementById('filter-sidebar').classList.toggle('open');
+        }
+
+        function openAddressModal() {
+            document.getElementById('address-modal').style.display = 'flex';
+        }
+
+        function closeAddressModal() {
+            document.getElementById('address-modal').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

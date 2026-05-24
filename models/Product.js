@@ -9,7 +9,7 @@ const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide a name for this product.'],
-    maxlength: [100, 'Name cannot be more than 100 characters'],
+    maxlength: [200, 'Name cannot be more than 200 characters'],
   },
   slug: {
     type: String,
@@ -40,7 +40,42 @@ const ProductSchema = new mongoose.Schema({
   capacity: {
     type: String,
   },
+  compartments: {
+    type: String,
+  },
+  laptopCompatibility: {
+    type: String,
+  },
+  waterproof: {
+    type: String,
+  },
+  usbCharging: {
+    type: String,
+  },
+  antiTheft: {
+    type: String,
+  },
+  storageCapacity: {
+    type: String,
+  },
+  foldable: {
+    type: Boolean,
+    default: false,
+  },
+  assemblyRequired: {
+    type: Boolean,
+    default: false,
+  },
+  weightCapacity: {
+    type: String,
+  },
   size: {
+    type: String,
+  },
+  washable: {
+    type: String,
+  },
+  dimensions: {
     type: String,
   },
   lidType: {
@@ -97,6 +132,9 @@ const ProductSchema = new mongoose.Schema({
   batteryLife: {
     type: String,
   },
+  batteryBackup: {
+    type: String,
+  },
   noiseCancellation: {
     type: String,
   },
@@ -130,6 +168,9 @@ const ProductSchema = new mongoose.Schema({
   chargingSpeed: {
     type: String,
   },
+  chargingType: {
+    type: String,
+  },
   outputPorts: {
     type: String,
   },
@@ -143,6 +184,21 @@ const ProductSchema = new mongoose.Schema({
     type: String,
   },
   backlight: {
+    type: String,
+  },
+  socketCount: {
+    type: String,
+  },
+  cableLength: {
+    type: String,
+  },
+  powerRating: {
+    type: String,
+  },
+  usbPorts: {
+    type: String,
+  },
+  surgeProtection: {
     type: String,
   },
   flavor: {
@@ -166,6 +222,18 @@ const ProductSchema = new mongoose.Schema({
   sugarType: {
     type: String,
   },
+  speed: {
+    type: String,
+  },
+  remoteRange: {
+    type: String,
+  },
+  ageGroup: {
+    type: String,
+  },
+  batteryRequired: {
+    type: String,
+  },
   usage: {
     type: String,
   },
@@ -185,16 +253,89 @@ const ProductSchema = new mongoose.Schema({
     type: [String],
     default: []
   },
+  rulingType: {
+    type: String,
+  },
+  bindingType: {
+    type: String,
+  },
+  paperQuality: {
+    type: String,
+  },
   skinType: {
     type: String,
   },
   hairType: {
     type: String,
   },
+  processor: {
+    type: String,
+  },
+  graphicsCard: {
+    type: String,
+  },
+  ram: {
+    type: String,
+  },
+  storage: {
+    type: String,
+  },
+  display: {
+    type: String,
+  },
+  refreshRate: {
+    type: String,
+  },
+  operatingSystem: {
+    type: String,
+  },
+  ports: {
+    type: String,
+  },
+  keyboardType: {
+    type: String,
+  },
+  coolingSystem: {
+    type: String,
+  },
+  aiFeatures: {
+    type: String,
+  },
+  rearCamera: {
+    type: String,
+  },
+  frontCamera: {
+    type: String,
+  },
+  fingerprintType: {
+    type: String,
+  },
   warranty: {
     type: String,
   },
   colors: {
+    type: [String],
+    default: []
+  },
+  gender: {
+    type: String,
+  },
+  soleType: {
+    type: String,
+  },
+  closureType: {
+    type: String,
+  },
+  ankleType: {
+    type: String,
+  },
+  sportType: {
+    type: String,
+  },
+  cushioning: {
+    type: String,
+  },
+  sizeOptions: {
     type: [String],
     default: []
   },

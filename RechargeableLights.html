@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechargeable Lights | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="cart_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #5D4037; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #D7CCC8 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #D7CCC8; border-radius: 10px; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(93, 64, 55, 0.15); }
+        .custom-checkbox { width: 18px; height: 18px; border: 2px solid #D7CCC8; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; }
+        .custom-checkbox.active ion-icon { display: block; }
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+        .mobile-filter-open { animation: slideIn 0.3s ease-out; }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- HEADER -->
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></span>
+            </a>
+            <div class="flex-1 max-w-xl mx-8 hidden md:block relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search-outline"></ion-icon></div>
+                <input type="text" id="top-search" placeholder="Search rechargeable lights..." class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-2xl pl-12 pr-4 py-2.5 outline-none focus:border-[#5D4037] transition-all text-sm font-medium">
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black">0</span>
+                </a>
+                <div id="auth-user-ui"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full md:w-72 flex-shrink-0 space-y-8 hidden md:block">
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Battery Backup</h3>
+                    <div class="space-y-3" id="backup-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Charging Type</h3>
+                    <div class="space-y-3" id="charging-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brightness Levels</h3>
+                    <div class="space-y-3" id="brightness-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
+                    <div class="space-y-3" id="color-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹5000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="5000" step="100" class="w-full accent-[#5D4037]">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <!-- BREADCRUMBS & SORT -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037]">Rechargeable Lights</span>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037]">0</span> Products Found</p>
+                        <select id="sort-select" class="bg-white border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs font-bold outline-none focus:border-[#5D4037] cursor-pointer">
+                            <option value="popularity">Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="newest">New Arrivals</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- PRODUCT GRID -->
+                <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+                <!-- EMPTY STATE -->
+                <div id="empty-state" class="hidden py-20 text-center">
+                    <div class="text-6xl mb-4">🔦</div>
+                    <h3 class="text-xl font-black text-[#5D4037]">No matching rechargeable lights found</h3>
+                    <p class="text-gray-400 text-sm mt-2">Try adjusting your filters or search term.</p>
+                    <button onclick="resetFilters()" class="mt-6 bg-[#5D4037] text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest">Reset All Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] py-16 mt-20">
+        <div class="container mx-auto px-4 text-center space-y-4">
+            <h2 class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></h2>
+            <p class="text-xs text-gray-400 font-bold uppercase tracking-[0.2em]">Efficiency for your hostel life</p>
+        </div>
+    </footer>
+
+    <script>
+        let allProducts = [];
+        let filters = {
+            brands: [],
+            batteryBackups: [],
+            chargingTypes: [],
+            brightnessLevels: [],
+            colors: [],
+            maxPrice: 5000,
+            search: ""
+        };
+
+        const config = {
+            brands: ["Philips", "Wipro", "Syska", "Havells", "Eveready", "Bajaj", "Mi", "Portronics", "Murphy", "DP"],
+            batteryBackups: ["Up to 4 Hours", "Up to 6 Hours", "Up to 10 Hours", "Up to 15 Hours", "Up to 24 Hours"],
+            chargingTypes: ["Micro USB", "Type-C", "Solar & AC", "Direct AC Plug"],
+            brightnessLevels: ["Single Level", "Dual Level", "3 Levels", "Stepless Dimmable"],
+            colors: ["White", "Black", "Red", "Blue", "Yellow"]
+        };
+
+        async function init() {
+            renderFilterUI();
+            await fetchProducts();
+            setupEventListeners();
+        }
+
+        async function fetchProducts() {
+            try {
+                const sort = document.getElementById('sort-select').value;
+                const res = await fetch(`/api/products?subcategory=Home Utility&sort=${sort}`);
+                const data = await res.json();
+                allProducts = data.filter(p => p.type && (p.type.toLowerCase().includes('rechargeable') || p.name.toLowerCase().includes('rechargeable') || p.type.toLowerCase().includes('motion sensor')));
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Error:", e);
+            }
+        }
+
+        function renderFilterUI() {
+            const bFilter = document.getElementById('brand-filters');
+            bFilter.innerHTML = config.brands.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                    <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const bkFilter = document.getElementById('backup-filters');
+            bkFilter.innerHTML = config.batteryBackups.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('batteryBackups', '${b}')">
+                    <div class="custom-checkbox ${filters.batteryBackups.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const cFilter = document.getElementById('charging-filters');
+            cFilter.innerHTML = config.chargingTypes.map(c => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('chargingTypes', '${c}')">
+                    <div class="custom-checkbox ${filters.chargingTypes.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                </div>
+            `).join('');
+
+            const brFilter = document.getElementById('brightness-filters');
+            brFilter.innerHTML = config.brightnessLevels.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brightnessLevels', '${b}')">
+                    <div class="custom-checkbox ${filters.brightnessLevels.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const colFilter = document.getElementById('color-filters');
+            colFilter.innerHTML = config.colors.map(c => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('colors', '${c}')">
+                    <div class="custom-checkbox ${filters.colors.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                </div>
+            `).join('');
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const bkMatch = filters.batteryBackups.length === 0 || (p.batteryBackup && filters.batteryBackups.includes(p.batteryBackup));
+                const cMatch = filters.chargingTypes.length === 0 || (p.chargingType && filters.chargingTypes.includes(p.chargingType));
+                const brMatch = filters.brightnessLevels.length === 0 || (p.brightnessLevels && filters.brightnessLevels.includes(p.brightnessLevels));
+                const colMatch = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c)));
+                const priceMatch = p.price <= filters.maxPrice;
+                const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase());
+                return bMatch && bkMatch && cMatch && brMatch && colMatch && priceMatch && qMatch;
+            });
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group transition-all duration-500 flex flex-col">
+                        <div class="relative aspect-square overflow-hidden bg-gray-50 cursor-pointer p-4" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700">
+                            ${p.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">${p.discount}</span>` : ''}
+                            <div class="absolute inset-0 bg-[#5D4037]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">${p.brand}</span>
+                                <div class="flex items-center gap-1 text-yellow-500 text-[10px] font-bold">
+                                    <ion-icon name="star"></ion-icon>
+                                    <span>${p.rating.toFixed(1)}</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                ${p.batteryBackup ? `<span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.batteryBackup}</span>` : ''}
+                                ${p.chargingType ? `<span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.chargingType}</span>` : ''}
+                            </div>
+                            <div class="mt-auto pt-4 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-black text-[#5D4037]">₹${p.price}</span>
+                                    ${p.originalPrice ? `<del class="text-[10px] text-gray-300 font-bold">₹${p.originalPrice}</del>` : ''}
+                                </div>
+                                <div class="flex gap-2">
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-mini="true" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image}" 
+                                        data-product-brand="${p.brand}"
+                                        class="w-10 h-10 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#5D4037] hover:text-white transition-all shadow-sm">
+                                        <ion-icon name="cart-outline" class="text-lg"></ion-icon>
+                                    </button>
+                                    <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-4 h-10 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#3E2723] shadow-md shadow-[#D7CCC8]/50 transition-all">Buy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', fetchProducts);
+            document.getElementById('top-search').addEventListener('input', (e) => {
+                filters.search = e.target.value;
+                applyFiltersAndRender();
+            });
+            document.getElementById('price-range').addEventListener('input', (e) => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${filters.maxPrice}${filters.maxPrice == 5000 ? '+' : ''}`;
+                applyFiltersAndRender();
+            });
+        }
+
+        function resetFilters() {
+            filters = { brands: [], batteryBackups: [], chargingTypes: [], brightnessLevels: [], colors: [], maxPrice: 5000, search: "" };
+            document.getElementById('price-range').value = 5000;
+            document.getElementById('price-max').innerText = "₹5000+";
+            document.getElementById('top-search').value = "";
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        init();
+    </script>
+</body>
+</html>

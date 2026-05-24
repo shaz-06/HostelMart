@@ -385,11 +385,16 @@
                         6</div>
                     <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                <a href="Travel.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
                     <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
-                </div>
+                </a>
+                <a href="Footwear.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="footsteps-outline" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Footwear</span>
+                </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
@@ -655,19 +660,19 @@
                                         <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
                                         <span class="subcategory-name">Shorts</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Footwear.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Slippers</span>
+                                        <span class="subcategory-name">Footwear & Slippers</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
                                         <span class="subcategory-name">Watches</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Travel.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Bags</span>
+                                        <span class="subcategory-name">Bags & Luggage</span>
                                     </a>
                                 </div>
                                 <!-- Mobiles -->
@@ -1339,6 +1344,10 @@
                         <div class="flex flex-wrap gap-2" id="volume-filters"></div>
                     </div>
                     <div>
+                        <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Flavor</h3>
+                        <div class="flex flex-wrap gap-2" id="flavor-filters"></div>
+                    </div>
+                    <div>
                         <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Spice Level</h3>
                         <div class="flex flex-wrap gap-2" id="spice-filters"></div>
                     </div>
@@ -1506,6 +1515,7 @@
             brands: [],
             types: [],
             dietary: [],
+            flavors: [],
             spices: [],
             packs: [],
             volumes: [],
@@ -1515,12 +1525,13 @@
         };
 
         const config = {
-            brands: ["Aashirvaad", "Tata", "Fortune", "Surf Excel", "Britannia", "Haldiram’s", "Bru", "Nescafé", "Kellogg’s", "MTR", "Saffola", "Maggi", "Parle-G", "Sunfeast", "Everest", "MDH", "Lay’s", "Kurkure", "Oreo", "Parle", "Coca-Cola", "Pepsi", "Red Bull", "Cadbury", "Yippee", "Nissin", "Nongshim", "Top Ramen", "Knorr", "Bingo", "Doritos", "Too Yumm", "Pringles", "Balaji", "Unibic", "Good Day", "McVitie’s", "Hide & Seek", "Sprite", "Fanta", "Mountain Dew", "Sting", "Appy Fizz", "7UP", "Limca", "KitKat", "Nestlé", "Ferrero Rocher", "Hershey’s", "Mars", "Snickers", "Lindt"],
-            types: ["Rice", "Atta", "Cooking Oil", "Sugar", "Salt", "Tea Powder", "Coffee Powder", "Spices", "Dal & Pulses", "Dry Fruits", "Instant Mixes", "Breakfast Cereals", "Biscuits", "Snacks", "Ready-to-Cook Products", "Instant Noodles", "Chips", "Chocolates", "Cold Drinks", "Energy Drinks", "Cookies", "Namkeen", "Cup Noodles", "Popcorn", "Protein Bars", "Juices", "Candy", "Ready-to-Eat Snacks"],
-            dietary: ["Vegetarian", "Non-Vegetarian", "Veg", "Non-Veg", "Vegan", "Gluten-Free"],
+            brands: ["Aashirvaad", "Tata", "Fortune", "Surf Excel", "Britannia", "Haldiram’s", "Bru", "Nescafé", "Kellogg’s", "MTR", "Saffola", "Maggi", "Parle-G", "Sunfeast", "Everest", "MDH", "Lay’s", "Kurkure", "Oreo", "Parle", "Coca-Cola", "Pepsi", "Red Bull", "Cadbury", "Yippee", "Nissin", "Nongshim", "Top Ramen", "Knorr", "Bingo", "Doritos", "Too Yumm", "Pringles", "Balaji", "Unibic", "Good Day", "McVitie’s", "Hide & Seek", "Sprite", "Fanta", "Mountain Dew", "Sting", "Appy Fizz", "7UP", "Limca", "KitKat", "Nestlé", "Ferrero Rocher", "Hershey’s", "Mars", "Snickers", "Lindt", "Tropicana", "Real", "Minute Maid"],
+            types: ["Rice", "Atta", "Cooking Oil", "Sugar", "Salt", "Tea Powder", "Coffee Powder", "Spices", "Dal & Pulses", "Dry Fruits", "Instant Mixes", "Breakfast Cereals", "Biscuits", "Snacks", "Ready-to-Cook Products", "Instant Noodles", "Chips", "Chocolates", "Cold Drinks", "Energy Drinks", "Cookies", "Namkeen", "Cup Noodles", "Popcorn", "Protein Bars", "Juices", "Candy", "Ready-to-Eat Snacks", "Instant Snacks", "Protein Snacks", "Milk Chocolates", "Dark Chocolates", "Wafer Chocolates", "Mini Chocolate Packs", "Premium Chocolates", "Chocolate Cookies", "Butter Cookies", "Cream Cookies", "Digestive Cookies", "Oat Cookies", "Fruit Juices", "Mango Drinks", "Mixed Fruit Drinks", "Energy Juices", "Tetra Pack Juices"],
+            flavors: ["Classic", "Spicy", "Sweet", "Salty", "Tangy", "Cheese", "Chocolate", "Mango", "Mixed Fruit", "Vanilla"],
+            dietary: ["Vegetarian", "Non-Vegetarian", "Veg", "Non-Veg", "Vegan", "Gluten-Free", "Contains Egg", "Gluten Free"],
             spices: ["Mild", "Medium", "High", "Very High"],
-            packs: ["Single Pack", "Pack of 4", "Pack of 6", "Family Pack", "Mini Cup", "Jumbo Pack", "Combo Pack", "Single Unit"],
-            volumes: ["250ml", "330ml", "600ml", "750ml", "1.25L", "2L", "2.25L"],
+            packs: ["Single Pack", "Pack of 4", "Pack of 6", "Family Pack", "Mini Cup", "Jumbo Pack", "Combo Pack", "Single Unit", "Pack of 1", "Pack of 2", "Pack of 3", "Pack of 10"],
+            volumes: ["200ml", "250ml", "330ml", "500ml", "600ml", "750ml", "1L", "1.25L", "2L", "2.25L"],
             weights: ["50g", "70g", "100g", "150g", "200g", "250g", "280g", "400g", "500g", "1kg", "2kg", "5kg", "10kg"]
         };
         };
@@ -1549,6 +1560,14 @@
             spiceDiv.innerHTML = config.spices.map(s => `
                 <button onclick="toggleFilter('spices', '${s}')" class="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${filters.spices.includes(s) ? 'bg-orange-600 text-white shadow-lg' : 'bg-[#FDF5E6] text-[#8D6E63] border border-[#D7CCC8]'}">${s}</button>
             `).join('');
+
+            // Flavors
+            const flavDiv = document.getElementById('flavor-filters');
+            if (flavDiv) {
+                flavDiv.innerHTML = config.flavors.map(f => `
+                    <button onclick="toggleFilter('flavors', '${f}')" class="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${filters.flavors.includes(f) ? 'bg-purple-600 text-white shadow-lg' : 'bg-[#FDF5E6] text-[#8D6E63] border border-[#D7CCC8]'}">${f}</button>
+                `).join('');
+            }
 
             // Volumes
             const volDiv = document.getElementById('volume-filters');
@@ -1625,7 +1644,7 @@
         }
 
         function resetFilters() {
-            filters = { brands: [], types: [], dietary: [], spices: [], packs: [], volumes: [], weights: [], maxPrice: 2000, sort: 'popularity' };
+            filters = { brands: [], types: [], dietary: [], flavors: [], spices: [], packs: [], volumes: [], weights: [], maxPrice: 2000, sort: 'popularity' };
             document.getElementById('price-range').value = 2000;
             document.getElementById('price-display').innerText = `Up to ₹2000`;
             document.getElementById('sort-select').value = 'popularity';
@@ -1639,11 +1658,12 @@
                 const typeMatch = filters.types.length === 0 || filters.types.includes(p.type);
                 const dietMatch = filters.dietary.length === 0 || filters.dietary.includes(p.dietaryType);
                 const spiceMatch = filters.spices.length === 0 || filters.spices.includes(p.spiceLevel);
+                const flavorMatch = filters.flavors.length === 0 || (p.flavor && filters.flavors.includes(p.flavor));
                 const packMatch = filters.packs.length === 0 || filters.packs.includes(p.packSize);
                 const volMatch = filters.volumes.length === 0 || filters.volumes.includes(p.volume);
                 const weightMatch = filters.weights.length === 0 || filters.weights.includes(p.weight);
                 const priceMatch = p.price <= filters.maxPrice;
-                return brandMatch && typeMatch && dietMatch && spiceMatch && packMatch && volMatch && weightMatch && priceMatch;
+                return brandMatch && typeMatch && dietMatch && spiceMatch && flavorMatch && packMatch && volMatch && weightMatch && priceMatch;
             });
 
             // Sort

@@ -359,7 +359,7 @@ function saveSearchToHistory(term) {
 
 window.navigateToProduct = function(slug) {
     if (!slug) return;
-    window.location.href = `/product/${slug}`;
+    window.location.href = `product-details.html?id=${slug}`;
 };
 
 // Handle URL Search Params (e.g. for redirects from other pages)

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="auth_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
+    <script src="daily_detail_runner.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2723;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .zara-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .shadow-premium {
+            box-shadow: 0 20px 50px rgba(62, 39, 35, 0.05);
+        }
+
+        .btn-premium {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(62, 39, 35, 0.1);
+        }
+
+        /* Hover Zoom Specifics */
+        .image-zoom-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-zoom-container img {
+            transition: transform 0.1s ease-out;
+        }
+
+        .size-btn.active {
+            background-color: #3E2723;
+            color: white;
+            border-color: #3E2723;
+        }
+
+        .variant-btn.active {
+            border-color: #3E2723;
+            ring: 2px;
+            ring-color: #3E2723;
+        }
+
+        #address-map {
+            height: 300px;
+            width: 100%;
+            border-radius: 1rem;
+            z-index: 10;
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .overlay {
+            backdrop-filter: blur(4px);
+        }
+
+        /* Variant Modal Specifics */
+        #variant-modal {
+            transition: all 0.3s ease-out;
+        }
+
+        .variant-modal-content {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #variant-modal.active .variant-modal-content {
+            transform: translateX(0);
+        }
+
+        .continue-btn:disabled {
+            background-color: #F3F4F6;
+            color: #9CA3AF;
+            cursor: not-allowed;
+        }
+
+        #cart-toast {
+            opacity: 0;
+            transform: translate(-50%, 200%);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #cart-toast.active {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CART TOAST -->
+    <div id="cart-toast" class="fixed bottom-12 left-1/2 z-[130] pointer-events-none w-[90%] md:w-auto">
+        <div class="bg-[#3E2723] text-[#FDFBF7] px-8 py-5 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex flex-col md:flex-row items-center gap-4 md:gap-8 pointer-events-auto border border-white/10 text-center md:text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                    <ion-icon name="checkmark-circle" class="text-green-400 text-2xl"></ion-icon>
+                </div>
+                <span class="text-sm font-black tracking-tight uppercase">Item added to cart</span>
+            </div>
+            <a href="Cart.html" class="text-xs font-black text-amber-400 hover:text-amber-300 transition-colors uppercase tracking-[0.2em] border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0 md:pl-8">Go to Cart</a>
+        </div>
+    </div>
+
+    <!-- GPS ADDRESS MODAL -->
+    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
+            id="address-container">
+            <button onclick="closeAddressModal()"
+                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            
+            <div class="p-8 md:p-10 space-y-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
+                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
+                </div>
+
+                <!-- Map Section -->
+                <div class="relative group">
+                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
+                    <button onclick="useGPS()" 
+                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
+                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
+                        Use GPS
+                    </button>
+                </div>
+
+                <!-- Manual Input Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street / Landmark</label>
+                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City / Town</label>
+                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
+                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
+                    </div>
+                </div>
+
+                <button onclick="saveAddress()"
+                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
+                    Confirm Delivery Location
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SELECT VARIANT MODAL -->
+    <div id="variant-modal" class="fixed inset-0 z-[110] flex items-stretch justify-end hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeVariantModal()"></div>
+        <div class="variant-modal-content bg-white w-[85%] md:max-w-md h-full relative overflow-hidden shadow-2xl z-[120] flex flex-col">
+            <div class="p-8 space-y-10 flex-1 overflow-y-auto no-scrollbar">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-black text-[#3E2723]">Select variant</h3>
+                    <button onclick="closeVariantModal()" class="text-2xl p-2 hover:bg-gray-100 rounded-full transition-colors">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-24 h-32 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0">
+                        <img src="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-black text-[#3E2723] leading-tight"></h4>
+                        <p class="text-xs text-gray-500 font-medium"></p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 font-bold line-through"></span>
+                            <span class="text-lg font-black text-[#3E2723]"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 justify-between">
+                    <!-- Populated dynamically by runner script -->
+                </div>
+
+                <button id="modal-continue-btn" disabled onclick="confirmVariantSelection()"
+                    class="continue-btn w-full bg-[#3E2723] text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl transition-all duration-300">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER NAVIGATION -->
+    <header class="bg-[#FDFBF7]/80 backdrop-blur-md sticky top-0 z-50 border-b border-[#D7CCC8]/30">
+        <div class="container mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-12">
+                <a href="/index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-[#3E2723] rounded-xl flex items-center justify-center shadow-lg">
+                        <span class="text-white font-black text-xl italic">H</span>
+                    </div>
+                    <span class="text-xl font-black tracking-tighter text-[#3E2723] uppercase">Hostel<span
+                            class="text-amber-700">Mart</span></span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                <div class="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-gray-500">
+                    <a href="Women's.html" class="hover:text-amber-700 transition-colors border-b-2 border-amber-700 pb-1">Women</a>
+                    <a href="Men's.html" class="hover:text-amber-700 transition-colors">Men</a>
+                    <a href="Kids.html" class="hover:text-amber-700 transition-colors">Kids</a>
+                    <a href="Beauty.html" class="hover:text-amber-700 transition-colors">Beauty</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div onclick="window.location.href='Cart.html'" class="flex items-center gap-2 cursor-pointer hover:text-amber-700 relative">
+                        <ion-icon name="bag-handle-outline" class="text-2xl"></ion-icon>
+                        <span id="cart-count-badge" class="absolute -top-1 -right-1 bg-amber-700 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-12 py-8">
+        <!-- BREADCRUMBS -->
+        <nav class="flex text-[10px] md:text-xs text-gray-400 gap-2 mb-8 items-center overflow-x-auto no-scrollbar whitespace-nowrap">
+            <a href="/index.html" class="hover:text-[#3E2723]">Home</a>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <a href="javascript:void(0)" class="hover:text-[#3E2723]">Clothing and Accessories</a>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <a href="javascript:void(0)" class="hover:text-[#3E2723]">Dresses and Gowns</a>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <a href="javascript:void(0)" class="hover:text-[#3E2723]">Dresses</a>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <a href="Women's.html" id="breadcrumb-brand-name" class="hover:text-[#3E2723]">Women's Dresses</a>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <span id="breadcrumb-product-name" class="text-[#3E2723] font-bold"></span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+            <!-- LEFT: IMAGE GALLERY GRID -->
+            <div class="lg:col-span-7 space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="aspect-[3/4] rounded-2xl image-zoom-container shadow-premium border border-[#D7CCC8]/30 group relative">
+                        <img id="main-img-1" src="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Front View">
+                        <div class="absolute top-4 right-4 flex flex-col gap-2">
+                            <button class="w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors">
+                                <ion-icon name="heart-outline" class="text-xl"></ion-icon>
+                            </button>
+                            <button class="w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors">
+                                <ion-icon name="share-social-outline" class="text-xl"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="aspect-[3/4] rounded-2xl image-zoom-container shadow-premium border border-[#D7CCC8]/30 group">
+                        <img id="main-img-2" src="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Back View">
+                    </div>
+                    <div class="aspect-[3/4] rounded-2xl image-zoom-container shadow-premium border border-[#D7CCC8]/30 group">
+                        <img id="main-img-3" src="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Full Length">
+                    </div>
+                    <div class="aspect-[3/4] rounded-2xl image-zoom-container shadow-premium border border-[#D7CCC8]/30 group">
+                        <img id="main-img-4" src="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Pattern Detail">
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: STICKY PRODUCT DETAILS -->
+            <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-24 self-start">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <p id="product-brand" class="text-xs font-black uppercase tracking-[0.3em] text-gray-400"></p>
+                        <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-4" alt="Assured">
+                    </div>
+                    <h1 id="product-title" class="text-2xl md:text-3xl font-black text-[#3E2723] leading-tight"></h1>
+                    
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1 bg-green-700 text-white px-2 py-0.5 rounded text-xs font-bold shadow-sm">
+                            <span id="product-rating"></span>
+                            <ion-icon name="star" class="text-[10px]"></ion-icon>
+                        </div>
+                        <p id="product-rating-count" class="text-xs font-bold text-gray-400 underline cursor-pointer"></p>
+                        <div class="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center">
+                            <ion-icon name="trending-up" class="text-xs text-red-600"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRICE SECTION -->
+                <div class="space-y-3 p-6 rounded-3xl bg-white border border-[#D7CCC8]/30 shadow-premium">
+                    <div class="flex items-baseline gap-3">
+                        <span id="product-price" class="text-4xl font-black text-[#3E2723]"></span>
+                        <span id="product-original-price" class="text-lg text-gray-400 line-through"></span>
+                        <span id="product-discount" class="text-lg font-black text-green-600"></span>
+                    </div>
+                    
+                    <!-- WOW DEAL -->
+                    <div class="bg-blue-600 rounded-2xl p-4 text-white relative overflow-hidden group cursor-pointer">
+                        <div class="relative z-10 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-white/20 p-2 rounded-lg backdrop-blur">
+                                    <span class="text-[10px] font-black italic">WOW DEAL</span>
+                                </div>
+                                <span id="deal-saving-text" class="text-lg font-black uppercase tracking-tight"></span>
+                            </div>
+                            <ion-icon name="chevron-down-outline" class="group-hover:rotate-180 transition-transform"></ion-icon>
+                        </div>
+                        <div class="mt-2 text-[10px] font-bold text-white/80">Apply offers for maximum savings!</div>
+                    </div>
+                </div>
+
+                <!-- VARIANTS -->
+                <div class="space-y-4">
+                    <p class="text-xs font-black uppercase tracking-widest">Selected Color: <span id="color-label"></span></p>
+                    <div id="variants-container" class="flex gap-4">
+                        <!-- Populated Dynamically -->
+                    </div>
+                </div>
+
+                <!-- SIZE SELECTOR -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-black uppercase tracking-widest">Select Size</p>
+                        <button class="text-blue-600 text-xs font-bold hover:underline">Size Chart</button>
+                    </div>
+                    <div id="sizes-container" class="flex gap-3">
+                        <!-- Populated Dynamically -->
+                    </div>
+                </div>
+
+                <!-- DELIVERY DETAILS -->
+                <div onclick="openAddressModal()" class="space-y-4 p-6 rounded-3xl bg-[#F5F5DC]/50 border border-[#D7CCC8]/30 cursor-pointer group transition-all hover:bg-[#F5F5DC]">
+                    <div class="flex items-start gap-3">
+                        <ion-icon name="location-outline" class="text-xl mt-0.5 group-hover:scale-110 transition-transform text-[#5D4037]"></ion-icon>
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span id="current-address" class="text-xs font-black">Add Delivery Address</span>
+                                <ion-icon name="chevron-forward-outline" class="text-[10px] group-hover:translate-x-1 transition-transform"></ion-icon>
+                            </div>
+                            <p class="text-[10px] text-gray-400">Your Current Location</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 border-t border-[#D7CCC8]/30 pt-4">
+                        <ion-icon name="time-outline" class="text-xl"></ion-icon>
+                        <p class="text-xs font-bold text-[#3E2723]">Delivery by <span id="delivery-date-estimate" class="font-black"></span></p>
+                    </div>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="grid grid-cols-2 gap-4 sticky bottom-4 z-20">
+                    <button id="add-to-cart-btn" onclick="handleAddToCart()" class="btn-premium bg-white text-[#3E2723] py-4 rounded-2xl font-black uppercase tracking-widest text-xs border-2 border-[#3E2723] flex items-center justify-center gap-2">
+                        <ion-icon name="bag-add-outline" class="text-lg"></ion-icon>
+                        Add to Cart
+                    </button>
+                    <button onclick="handleBuyNow()" class="btn-premium bg-amber-400 text-[#3E2723] py-4 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-lg">
+                        <ion-icon name="flash-outline" class="text-lg"></ion-icon>
+                        <span id="buy-btn-price-text"></span>
+                    </button>
+                </div>
+
+                <!-- PRODUCT HIGHLIGHTS -->
+                <div class="space-y-6 pt-8 border-t border-[#D7CCC8]/30">
+                    <div class="flex items-center justify-between cursor-pointer group">
+                        <h3 class="text-sm font-black uppercase tracking-widest">Product highlights</h3>
+                        <ion-icon name="chevron-up-outline" class="group-hover:translate-y-[-2px] transition-transform"></ion-icon>
+                    </div>
+                    <div id="highlights-container" class="grid grid-cols-2 gap-y-6">
+                        <!-- Populated Dynamically -->
+                    </div>
+                </div>
+
+                <!-- DYNAMIC EXTRA SECTIONS -->
+                <div id="extra-sections-container" class="space-y-6 mt-8 hidden">
+                    <!-- Populated dynamically by runner script -->
+                </div>
+                
+                <!-- SELLER INFO -->
+                <div class="p-6 rounded-3xl border border-[#D7CCC8]/30 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <ion-icon name="storefront-outline" class="text-gray-400"></ion-icon>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fulfilled by</p>
+                            <p id="seller-name" class="text-xs font-black"></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-t border-[#D7CCC8]/30 pt-4">
+                        <div class="flex items-center gap-2">
+                            <ion-icon name="refresh-outline" class="text-lg"></ion-icon>
+                            <span>10-Day Return</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <ion-icon name="cash-outline" class="text-lg"></ion-icon>
+                            <span>Cash on Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RELATED PRODUCTS -->
+        <section class="mt-20 pt-12 border-t border-[#D7CCC8]/30 space-y-8">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl md:text-2xl font-black text-[#3E2723] uppercase tracking-tight">Related Products</h2>
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Selected For You</span>
+            </div>
+            <div id="related-products-container" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Populated dynamically by runner script -->
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#3E2723] text-white py-20 mt-24">
+        <div class="container mx-auto px-4 md:px-12 text-center space-y-8">
+            <div class="flex flex-col items-center gap-4">
+                <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-xl border border-white/20">
+                    <span class="text-white font-black text-3xl italic">H</span>
+                </div>
+                <h2 class="text-2xl font-black tracking-tighter uppercase">Hostel<span class="text-amber-400">Mart</span></h2>
+            </div>
+            <p class="text-xs text-white/60 max-w-md mx-auto leading-relaxed">The ultimate shopping destination for hostel life. Premium quality, lightning fast delivery, and community-curated styles.</p>
+            <div class="flex justify-center gap-6 pt-8">
+                <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-[#3E2723] transition-all">
+                    <ion-icon name="logo-instagram" class="text-xl"></ion-icon>
+                </a>
+                <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-[#3E2723] transition-all">
+                    <ion-icon name="logo-twitter" class="text-xl"></ion-icon>
+                </a>
+                <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-[#3E2723] transition-all">
+                    <ion-icon name="logo-whatsapp" class="text-xl"></ion-icon>
+                </a>
+            </div>
+            <p class="text-[10px] text-white/40 pt-12 uppercase tracking-[0.2em]">© 2026 HostelMart. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

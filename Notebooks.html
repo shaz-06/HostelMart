@@ -59,6 +59,11 @@
                 </div>
 
                 <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Binding Type</h3>
+                    <div class="space-y-3" id="binding-filters"></div>
+                </div>
+
+                <div>
                     <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Page Count</h3>
                     <div class="flex flex-wrap gap-2" id="page-count-filters"></div>
                 </div>
@@ -133,24 +138,26 @@
             pageCounts: [],
             sizes: [],
             colors: [],
+            bindingTypes: [],
             maxPrice: 1000,
             search: ""
         };
 
         const config = {
-            brands: ["Classmate", "Navneet", "Camlin", "Doms", "Paperkraft", "Sundaram"],
-            types: ["Ruled Notebook", "Unruled Notebook", "Spiral Notebook", "Hardcover Notebook", "Softcover Notebook", "Subject Notebook", "Pocket Notebook", "Premium Journal", "Graph Notebook", "Practical Record"],
-            pageCounts: ["120 Pages", "160 Pages", "200 Pages", "300 Pages", "400 Pages"],
-            sizes: ["A4", "A5", "B5", "Executive", "Pocket"],
+            brands: [],
+            types: [],
+            pageCounts: [],
+            sizes: [],
+            bindingTypes: [],
             colors: {
                 "Midnight Blue": "#191970", "Forest Green": "#228B22", "Royal Black": "#28282B", 
                 "Vibrant Orange": "#FF8C00", "Sunset Yellow": "#FFD700", "Pastel Pink": "#FFB6C1", 
-                "Tan Brown": "#D2B48C"
+                "Tan Brown": "#D2B48C", "Classic Black": "#000000", "Professional Blue": "#0000FF", 
+                "Vibrant Red": "#FF0000", "Neon Yellow": "#FFFF00"
             }
         };
 
         async function init() {
-            renderFilterUI();
             await fetchProducts();
             setupEventListeners();
         }
@@ -158,8 +165,19 @@
         async function fetchProducts() {
             try {
                 const sort = document.getElementById('sort-select').value;
-                const res = await fetch(`/api/products?category=Books&subcategory=Study Essentials&sort=${sort}`);
+                const res = await fetch(`/api/products?category=Hostel %26 Student Essentials&subcategory=Study Essentials&sort=${sort}`);
                 allProducts = await res.json();
+                
+                // Dynamically compile available filters based on what exists in the database
+                config.brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean).sort();
+                config.types = [...new Set(allProducts.map(p => p.type))].filter(Boolean).sort();
+                config.pageCounts = [...new Set(allProducts.map(p => p.pageCount))].filter(Boolean).sort((a, b) => parseInt(a) - parseInt(b));
+                config.sizes = [...new Set(allProducts.map(p => p.size))].filter(Boolean).sort();
+                
+                // Binding types can be top-level or inside specifications
+                config.bindingTypes = [...new Set(allProducts.map(p => p.bindingType || p.specifications?.Binding || p.specifications?.['Binding']))].filter(Boolean).sort();
+
+                renderFilterUI();
                 applyFiltersAndRender();
             } catch (e) {
                 console.error("Fetch Error:", e);
@@ -180,6 +198,14 @@
                 <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('types', '${t}')">
                     <div class="custom-checkbox ${filters.types.includes(t) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
                     <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${t}</span>
+                </div>
+            `).join('');
+
+            const bindingFilter = document.getElementById('binding-filters');
+            bindingFilter.innerHTML = config.bindingTypes.map(bt => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('bindingTypes', '${bt}')">
+                    <div class="custom-checkbox ${filters.bindingTypes.includes(bt) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${bt}</span>
                 </div>
             `).join('');
 
@@ -214,9 +240,10 @@
                 const pcMatch = filters.pageCounts.length === 0 || filters.pageCounts.includes(p.pageCount);
                 const szMatch = filters.sizes.length === 0 || filters.sizes.includes(p.size);
                 const clrMatch = filters.colors.length === 0 || p.colors.some(c => filters.colors.includes(c));
+                const bindingMatch = filters.bindingTypes.length === 0 || filters.bindingTypes.includes(p.bindingType || p.specifications?.Binding || p.specifications?.['Binding']);
                 const pMatch = p.price <= filters.maxPrice;
                 const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase());
-                return bMatch && tMatch && pcMatch && szMatch && clrMatch && pMatch && qMatch;
+                return bMatch && tMatch && pcMatch && szMatch && clrMatch && bindingMatch && pMatch && qMatch;
             });
 
             const grid = document.getElementById('product-grid');
@@ -247,6 +274,7 @@
                                 <span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.type}</span>
                                 <span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.pageCount}</span>
                                 <span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.size}</span>
+                                ${p.bindingType ? `<span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.bindingType}</span>` : ''}
                             </div>
                             <div class="mt-auto pt-4 flex items-center justify-between">
                                 <div class="flex flex-col">
@@ -289,7 +317,7 @@
         }
 
         function resetFilters() {
-            filters = { brands: [], types: [], pageCounts: [], sizes: [], colors: [], maxPrice: 1000, search: "" };
+            filters = { brands: [], types: [], pageCounts: [], sizes: [], colors: [], bindingTypes: [], maxPrice: 1000, search: "" };
             document.getElementById('price-range').value = 1000;
             document.getElementById('price-max').innerText = "₹1000+";
             document.getElementById('top-search').value = "";

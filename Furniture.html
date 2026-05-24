@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="address_global.js" defer></script>
     <script src="auth_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -84,6 +85,35 @@
         .furniture-card:hover {
             border-color: #C5A059;
             box-shadow: 0 12px 30px -10px rgba(197, 160, 89, 0.15);
+        }
+
+        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #D7CCC8; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; background: white; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; font-weight: bold; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .color-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; cursor: pointer; transition: all 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); position: relative; }
+        .color-dot.active { transform: scale(1.2); box-shadow: 0 0 0 3px #C8A951; }
+        .quick-pill { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 16px; border-radius: 9999px; background-color: #F5F5DC; border: 1px solid #e7e5e4; color: #5D4037; transition: all 0.2s ease; white-space: nowrap; cursor: pointer; }
+        .quick-pill:hover { border-color: #C5A059; transform: translateY(-1px); }
+        .quick-pill.active { background-color: #5D4037; border-color: #5D4037; color: #FDFBF7; box-shadow: 0 4px 10px rgba(93, 64, 55, 0.15); }
+        @media (max-width: 1023px) {
+            #filter-sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 50;
+                width: 300px;
+                height: 100vh;
+                max-height: 100vh;
+                background: #FDFBF7;
+                padding: 24px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                box-shadow: 20px 0 40px rgba(0,0,0,0.15);
+            }
+            #filter-sidebar.open {
+                transform: translateX(0);
+            }
         }
 
         @keyframes fadeIn {
@@ -380,11 +410,16 @@
                         6</div>
                     <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                <a href="Travel.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
                     <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
-                </div>
+                </a>
+                <a href="Footwear.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="footsteps-outline" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Footwear</span>
+                </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
@@ -420,7 +455,7 @@
                 <div class="flex-1 relative group">
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
                             name="search-outline"></ion-icon></div>
-                    <input type="search" placeholder="Search for Products, Brands and More"
+                    <input type="search" id="top-search" placeholder="Search for Products, Brands and More"
                         class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
                 </div>
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
@@ -650,19 +685,19 @@
                                         <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
                                         <span class="subcategory-name">Shorts</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Footwear.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Slippers</span>
+                                        <span class="subcategory-name">Footwear & Slippers</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
                                         <span class="subcategory-name">Watches</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Travel.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Bags</span>
+                                        <span class="subcategory-name">Bags & Luggage</span>
                                     </a>
                                 </div>
                                 <!-- Mobiles -->
@@ -953,179 +988,147 @@
             </div>
         </section>
 
-        <!-- 5. ESSENTIAL FURNITURE (Screenshot 15.24.27.jpg) -->
-        <section class="space-y-6">
-            <div class="flex items-end justify-between">
-                <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Essential
-                    furniture</h3>
-                <a href="javascript:void(0)"
-                    class="text-[10px] font-black uppercase tracking-widest text-accent-gold hover:underline">View
-                    All</a>
-            </div>
-            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                <div
-                    class="min-w-[200px] furniture-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
-                    <div class="absolute top-4 right-4 font-black text-stone-400 text-[10px] italic">Essential</div>
-                    <div class="space-y-1">
-                        <h4 class="font-black text-sm">Study Tables</h4>
-                        <p class="text-[10px] font-bold opacity-60">Compact & Foldable</p>
-                    </div>
-                    <img src="https://via.placeholder.com/160x160" alt="Table"
-                        class="h-32 object-contain my-4 group-hover:scale-105 transition-transform shadow-md">
-                    <div class="space-y-0.5">
-                        <p class="text-lg font-black">₹1,499*</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 40% Off</p>
+        <!-- 5. SHOPPING PORTAL & SPLIT CATALOG -->
+        <div class="flex flex-col lg:flex-row gap-10">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full lg:w-72 flex-shrink-0 space-y-8 sticky top-28 h-fit max-h-[85vh] overflow-y-auto pr-4 no-scrollbar">
+                <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+                    <h2 class="text-base font-black text-[#3E2723] uppercase tracking-tight flex items-center gap-2">
+                        <ion-icon name="options-outline" class="text-lg text-[#C8A951]"></ion-icon>
+                        Advanced Filters
+                    </h2>
+                    <div class="flex items-center gap-2">
+                        <button onclick="resetFilters()" class="text-[10px] font-black text-[#C8A951] uppercase tracking-widest hover:underline">Clear All</button>
+                        <button onclick="toggleFilterSidebar()" class="lg:hidden text-2xl p-1 rounded-full hover:bg-stone-200/50 flex items-center justify-center">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
                     </div>
                 </div>
-                <div
-                    class="min-w-[200px] furniture-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
-                    <div class="absolute top-4 right-4 font-black text-stone-400 text-[10px] italic">Essential</div>
-                    <div class="space-y-1">
-                        <h4 class="font-black text-sm">Office Chairs</h4>
-                        <p class="text-[10px] font-bold opacity-60">Ergonomic Design</p>
-                    </div>
-                    <img src="https://via.placeholder.com/160x160" alt="Chair"
-                        class="h-32 object-contain my-4 group-hover:scale-105 transition-transform shadow-md">
-                    <div class="space-y-0.5">
-                        <p class="text-lg font-black">₹2,999*</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 35% Off</p>
-                    </div>
-                </div>
-                <div
-                    class="min-w-[200px] furniture-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
-                    <div class="absolute top-4 right-4 font-black text-stone-400 text-[10px] italic">Essential</div>
-                    <div class="space-y-1">
-                        <h4 class="font-black text-sm">Bean Bags</h4>
-                        <p class="text-[10px] font-bold opacity-60">XXL Size, with Filler</p>
-                    </div>
-                    <img src="https://via.placeholder.com/160x160" alt="Bean Bag"
-                        class="h-32 object-contain my-4 group-hover:scale-105 transition-transform shadow-md">
-                    <div class="space-y-0.5">
-                        <p class="text-lg font-black">₹1,299*</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 30% Off</p>
-                    </div>
-                </div>
-                <div
-                    class="min-w-[200px] furniture-card p-6 flex flex-col items-center justify-between text-center relative overflow-hidden group">
-                    <div class="absolute top-4 right-4 font-black text-stone-400 text-[10px] italic">Essential</div>
-                    <div class="space-y-1">
-                        <h4 class="font-black text-sm">Shoe Racks</h4>
-                        <p class="text-[10px] font-bold opacity-60">4 Tier, Metal</p>
-                    </div>
-                    <img src="https://via.placeholder.com/160x160" alt="Shoe Rack"
-                        class="h-32 object-contain my-4 group-hover:scale-105 transition-transform shadow-md">
-                    <div class="space-y-0.5">
-                        <p class="text-lg font-black">₹899*</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 50% Off</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- 6. SHOP BY ROOM (Screenshot 15.24.45.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Shop by room
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div
-                    class="furniture-card p-6 flex flex-col items-center gap-6 group cursor-pointer hover:bg-stone-50 transition-colors relative">
-                    <img src="https://via.placeholder.com/150x150" alt="Study Room"
-                        class="w-full object-contain my-4 group-hover:scale-105 transition-transform shadow-lg">
-                    <div class="w-full text-center space-y-2">
-                        <h4 class="font-black text-sm uppercase">Study Room</h4>
-                        <p class="text-[10px] font-bold opacity-60">Tables, Chairs, Shelves</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 30% Off</p>
-                    </div>
+                <!-- Subcategories Filters -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Subcategory</h3>
+                    <div class="space-y-3" id="subcategory-filters"></div>
                 </div>
-                <div
-                    class="furniture-card p-6 flex flex-col items-center gap-6 group cursor-pointer hover:bg-stone-50 transition-colors relative">
-                    <img src="https://via.placeholder.com/150x150" alt="Living Room"
-                        class="w-full object-contain my-4 group-hover:scale-105 transition-transform shadow-lg">
-                    <div class="w-full text-center space-y-2">
-                        <h4 class="font-black text-sm uppercase">Living Room</h4>
-                        <p class="text-[10px] font-bold opacity-60">Sofas, Bean Bags, TV Units</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 25% Off</p>
-                    </div>
-                </div>
-                <div
-                    class="furniture-card p-6 flex flex-col items-center gap-6 group cursor-pointer hover:bg-stone-50 transition-colors relative">
-                    <img src="https://via.placeholder.com/150x150" alt="Bedroom"
-                        class="w-full object-contain my-4 group-hover:scale-105 transition-transform shadow-lg">
-                    <div class="w-full text-center space-y-2">
-                        <h4 class="font-black text-sm uppercase">Bedroom</h4>
-                        <p class="text-[10px] font-bold opacity-60">Beds, Mattresses, Wardrobes</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 30% Off</p>
-                    </div>
-                </div>
-                <div
-                    class="furniture-card p-6 flex flex-col items-center gap-6 group cursor-pointer hover:bg-stone-50 transition-colors relative">
-                    <img src="https://via.placeholder.com/150x150" alt="Storage"
-                        class="w-full object-contain my-4 group-hover:scale-105 transition-transform shadow-lg">
-                    <div class="w-full text-center space-y-2">
-                        <h4 class="font-black text-sm uppercase">Storage & Org.</h4>
-                        <p class="text-[10px] font-bold opacity-60">Racks, Cabinets, Organizers</p>
-                        <p
-                            class="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-2 py-0.5 rounded-full w-fit mx-auto">
-                            Min. 25% Off</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- 7. CURATED SETS (Screenshot 15.25.03.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-accent-gold-bg pl-4">Curated sets
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div
-                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center gap-2 hover-lift cursor-pointer">
-                    <img src="https://via.placeholder.com/300x180" alt="WFH Set"
-                        class="w-full object-cover rounded-xl h-40">
-                    <div class="w-full text-center space-y-1">
-                        <h4 class="font-black text-sm uppercase">Work From Home Set</h4>
-                        <p class="text-[10px] font-bold opacity-60">Table + Chair + Lamp</p>
-                        <p class="text-lg font-black">₹4,999* <span
-                                class="text-[10px] line-through opacity-30 font-normal">₹7,999</span></p>
+                <!-- Sections Filters -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Section</h3>
+                    <div class="space-y-3" id="section-filters"></div>
+                </div>
+
+                <!-- Brand Filters -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
+                </div>
+
+                <!-- Material Filters -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
+                </div>
+
+                <!-- Space-saving Foldable Toggle -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Foldable Design</h3>
+                    <div class="space-y-3" id="foldable-filters"></div>
+                </div>
+
+                <!-- Storage Capacity Filters -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Storage Option</h3>
+                    <div class="space-y-3" id="storage-filters"></div>
+                </div>
+
+                <!-- Assembly Required -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Assembly Option</h3>
+                    <div class="space-y-3" id="assembly-filters"></div>
+                </div>
+
+                <!-- Colors Filter -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
+                    <div class="flex flex-wrap gap-3" id="color-filters"></div>
+                </div>
+
+                <!-- Pricing Range -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-black text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹25,000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="25000" step="500" class="w-full accent-[#5D4037]">
                     </div>
                 </div>
-                <div
-                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center gap-2 hover-lift cursor-pointer">
-                    <img src="https://via.placeholder.com/300x180" alt="Relax Set"
-                        class="w-full object-cover rounded-xl h-40">
-                    <div class="w-full text-center space-y-1">
-                        <h4 class="font-black text-sm uppercase">Relaxation Set</h4>
-                        <p class="text-[10px] font-bold opacity-60">Bean Bag + Footrest</p>
-                        <p class="text-lg font-black">₹1,999* <span
-                                class="text-[10px] line-through opacity-30 font-normal">₹3,499</span></p>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <!-- Breadcrumbs & Quick sorting selector -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 bg-[#F5F5DC] p-4 rounded-3xl border border-stone-200/60 shadow-sm">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037] font-extrabold">Furniture Catalog</span>
+                    </nav>
+                    
+                    <div class="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
+                        <button onclick="toggleFilterSidebar()" class="lg:hidden bg-[#FDF5E6] border border-stone-200/80 rounded-xl px-4 py-2 text-xs font-black text-[#3E2723] flex items-center gap-2 shadow-sm">
+                            <ion-icon name="options-outline" class="text-sm text-[#C8A951]"></ion-icon>
+                            Filters
+                        </button>
+                        
+                        <div class="flex items-center gap-4">
+                            <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037] font-black">0</span> Products</p>
+                            <select id="sort-select" class="bg-[#FDF5E6] border border-[#D7CCC8]/30 rounded-xl px-4 py-2 text-xs font-black outline-none focus:border-[#C8A951] cursor-pointer transition-all text-[#3E2723]">
+                                <option value="popularity">Sort: Popularity</option>
+                                <option value="price-low">Sort: Price Low to High</option>
+                                <option value="price-high">Sort: Price High to Low</option>
+                                <option value="newest">Sort: Newest</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div
-                    class="bg-[#F5F5DC] border border-stone-100 rounded-2xl p-4 flex flex-col items-center gap-2 hover-lift cursor-pointer">
-                    <img src="https://via.placeholder.com/300x180" alt="Student Set"
-                        class="w-full object-cover rounded-xl h-40">
-                    <div class="w-full text-center space-y-1">
-                        <h4 class="font-black text-sm uppercase">Student Essentials</h4>
-                        <p class="text-[10px] font-bold opacity-60">Foldable Table + Rack</p>
-                        <p class="text-lg font-black">₹2,499* <span
-                                class="text-[10px] line-through opacity-30 font-normal">₹3,999</span></p>
+
+                <!-- Subcategory & Section horizontal quick filter pills -->
+                <div class="space-y-4 mb-8">
+                    <!-- Subcategory pills -->
+                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-stone-400 mr-2 flex-shrink-0">Subcategory:</span>
+                        <button onclick="selectQuickFilter('subcategories', 'All')" id="pill-sub-All" class="quick-pill active">All</button>
+                        <button onclick="selectQuickFilter('subcategories', 'Study Essentials')" id="pill-sub-Study-Essentials" class="quick-pill">Study Essentials</button>
+                        <button onclick="selectQuickFilter('subcategories', 'Furniture & Decor')" id="pill-sub-Furniture-Decor" class="quick-pill">Furniture & Decor</button>
+                        <button onclick="selectQuickFilter('subcategories', 'Home & Storage Essentials')" id="pill-sub-Home-Storage-Essentials" class="quick-pill">Home & Storage Essentials</button>
                     </div>
+
+                    <!-- Section pills -->
+                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-stone-400 mr-2 flex-shrink-0">Collection:</span>
+                        <button onclick="selectQuickFilter('sections', 'All')" id="pill-sec-All" class="quick-pill active">All</button>
+                        <button onclick="selectQuickFilter('sections', 'Daily Use Essentials')" id="pill-sec-Daily-Use-Essentials" class="quick-pill">Daily Use</button>
+                        <button onclick="selectQuickFilter('sections', 'Student Essentials')" id="pill-sec-Student-Essentials" class="quick-pill">Student Essentials</button>
+                        <button onclick="selectQuickFilter('sections', 'Premium Essentials')" id="pill-sec-Premium-Essentials" class="quick-pill">Premium Luxury</button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic product cards will be loaded here -->
+                </div>
+
+                <!-- EMPTY STATE -->
+                <div id="empty-state" class="hidden py-24 text-center bg-[#F5F5DC]/40 rounded-3xl border-2 border-dashed border-[#D7CCC8]/60 shadow-inner mt-4">
+                    <span class="text-5xl block mb-4">🛋️</span>
+                    <h3 class="text-xl font-black text-[#5D4037] uppercase tracking-tight">No furniture items match</h3>
+                    <p class="text-gray-400 text-xs mt-1 max-w-xs mx-auto font-bold uppercase tracking-wider">Try clearing some sidebar filters or adjusting the price threshold.</p>
+                    <button onclick="resetFilters()" class="mt-6 bg-[#5D4037] text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#3E2723] transition-all shadow-md">Clear All Filters</button>
                 </div>
             </div>
-        </section>
+        </div>
 
     </main>
 

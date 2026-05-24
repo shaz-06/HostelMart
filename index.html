@@ -21,6 +21,17 @@
             touch-action: manipulation;
         }
 
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-link:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .has-scrollbar::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -732,11 +743,16 @@
                         6</div>
                     <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
                 </a>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+                <a href="Travel.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
                     <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
                     <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
-                </div>
+                </a>
+                <a href="Footwear.html"
+                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="footsteps-outline" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Footwear</span>
+                </a>
                 <div
                     class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
                     <div
@@ -818,6 +834,13 @@
                 <!-- Profile & Cart -->
                 <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
                     <a href="/index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
+                    <a href="Premium.html" class="hover:text-[#8D6E63] transition-colors flex items-center gap-1.5 relative group">
+                        Premium
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8A951] opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#C8A951]"></span>
+                        </span>
+                    </a>
                     <div class="nav-item-wrapper">
                         <a href="javascript:void(0)" onclick="toggleMegaMenu(event)"
                             class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
@@ -834,6 +857,10 @@
                                 </div>
                                 <div class="mega-category-link" onmouseover="showMegaCategory('mega-hostel', this)">
                                     <span>Hostel Essentials</span>
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </div>
+                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-hostel-student', this)">
+                                    <span>Hostel & Student Essentials</span>
                                     <ion-icon name="chevron-forward-outline"></ion-icon>
                                 </div>
                                 <div class="mega-category-link" onmouseover="showMegaCategory('mega-study', this)">
@@ -929,6 +956,22 @@
                                         <span class="subcategory-name">Breakfast Items</span>
                                     </a>
                                 </div>
+                                <!-- Hostel & Student Essentials -->
+                                <div id="mega-hostel-student" class="subcategory-grid">
+                                    <a href="HomeUtility.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="construct-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Home Utility</span>
+                                    </a>
+                                    <a href="HouseholdStorage.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="archive-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Home & Storage Essentials</span>
+                                    </a>
+                                    <a href="Electronics.html" class="subcategory-item">
+                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                                        <span class="subcategory-name">Electronics & Tech</span>
+                                    </a>
+                                </div>
+
                                 <!-- Hostel -->
                                 <div id="mega-hostel" class="subcategory-grid">
                                     <a href="Mugs.html" class="subcategory-item">
@@ -1033,19 +1076,19 @@
                                         <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
                                         <span class="subcategory-name">Shorts</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Footwear.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Slippers</span>
+                                        <span class="subcategory-name">Footwear & Slippers</span>
                                     </a>
                                     <a href="Fashion.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
                                         <span class="subcategory-name">Watches</span>
                                     </a>
-                                    <a href="Fashion.html" class="subcategory-item">
+                                    <a href="Travel.html" class="subcategory-item">
                                         <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
                                         </div>
-                                        <span class="subcategory-name">Bags</span>
+                                        <span class="subcategory-name">Bags & Luggage</span>
                                     </a>
                                 </div>
                                 <!-- Mobiles -->
@@ -1177,6 +1220,15 @@
                     <span class="text-[10px] font-bold text-[#5D4037]">For You</span>
                 </a>
 
+                <a href="Premium.html" class="category-item flex flex-col items-center gap-1 group relative pb-1">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-tr from-[#5D4037] to-[#C8A951] text-[#FDFBF7] shadow-lg group-hover:scale-110 group-hover:shadow-[#C8A951]/40 transition-all duration-300">
+                        <img src="https://img.icons8.com/color/96/000000/crown.png" class="w-8 h-8 filter brightness-100 contrast-125" alt="Premium">
+                    </div>
+                    <span class="text-[10px] font-black text-gray-500 group-hover:text-[#C8A951] uppercase tracking-wide">Premium</span>
+                    <span class="absolute -top-1.5 -right-1.5 bg-[#C8A951] text-[#5D4037] text-[8px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider scale-90 border border-[#5D4037] shadow">Hot</span>
+                </a>
+
                 <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
                     <div
                         class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
@@ -1288,6 +1340,22 @@
                     </div>
                     <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
                 </a>
+
+                <a href="Travel.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/suitcase.png" class="w-8 h-8" alt="Bags & Travel">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Bags & Travel</span>
+                </a>
+
+                <a href="Footwear.html" class="category-item flex flex-col items-center gap-1 group">
+                    <div
+                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
+                        <img src="https://img.icons8.com/color/96/000000/sneakers.png" class="w-8 h-8" alt="Footwear">
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Footwear</span>
+                </a>
             </div>
         </div>
     </header>
@@ -1346,6 +1414,20 @@
                                 <a href="Food.html" class="block text-sm">Cold Drinks</a>
                             </div>
                         </div>
+                        <!-- Hostel & Student Essentials -->
+                        <div>
+                            <div class="flex justify-between items-center py-2 pr-4 cursor-pointer"
+                                onclick="toggleAccordion('mob-hostel-student')">
+                                <span class="font-bold text-[#5D4037]">Hostel & Student Essentials</span>
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </div>
+                            <div id="mob-hostel-student" class="hidden pl-4 space-y-2 py-2">
+                                <a href="HomeUtility.html" class="block text-sm">Home Utility</a>
+                                <a href="HouseholdStorage.html" class="block text-sm">Home & Storage Essentials</a>
+                                <a href="Electronics.html" class="block text-sm">Electronics & Tech</a>
+                            </div>
+                        </div>
+
                         <!-- Hostel -->
                         <div>
                             <div class="flex justify-between items-center py-2 pr-4 cursor-pointer"
@@ -1841,59 +1923,69 @@
             <div class="relative group/scroller">
                 <div id="shashank-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-4 snap-x">
                     <!-- Item 1: Red Shirt -->
-                    <div
-                        class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-[#D7CCC8]">
-                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80"
-                                class="w-full h-full object-cover" alt="Lauren Red Shirt">
+                    <a href="Lauren-Tshirt.html" class="product-link">
+                        <div
+                            class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-[#D7CCC8]">
+                            <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
+                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80"
+                                    class="w-full h-full object-cover" alt="Lauren Red Shirt">
+                            </div>
+                            <h3 class="font-bold text-sm text-[#5D4037]">Lauren Relaxed T-Shirt</h3>
+                            <p class="text-[#5D4037] font-black">₹1,499</p>
                         </div>
-                        <h3 class="font-bold text-sm text-[#5D4037]">Lauren Relaxed T-Shirt</h3>
-                        <p class="text-[#5D4037] font-black">₹1,499</p>
-                    </div>
+                    </a>
 
                     <!-- Item 2: Toy -->
-                    <div
-                        class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-[#D7CCC8]">
-                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
-                            <img src="https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=400&q=80"
-                                class="w-full h-full object-cover" alt="Small & Duck Toy">
+                    <a href="Duck-Toy-Set.html" class="product-link">
+                        <div
+                            class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-[#D7CCC8]">
+                            <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
+                                <img src="https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=400&q=80"
+                                    class="w-full h-full object-cover" alt="Small & Duck Toy">
+                            </div>
+                            <h3 class="font-bold text-sm text-[#5D4037]">Small & Duck Toy Set</h3>
+                            <p class="text-[#5D4037] font-black">₹799</p>
                         </div>
-                        <h3 class="font-bold text-sm text-[#5D4037]">Small & Duck Toy Set</h3>
-                        <p class="text-[#5D4037] font-black">₹799</p>
-                    </div>
+                    </a>
 
                     <!-- Item 3: Oil -->
-                    <div
-                        class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-[#D7CCC8]">
-                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
-                            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80"
-                                class="w-full h-full object-cover" alt="Motul Oil">
+                    <a href="Motul-7100.html" class="product-link">
+                        <div
+                            class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-[#D7CCC8]">
+                            <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
+                                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80"
+                                    class="w-full h-full object-cover" alt="Motul Oil">
+                            </div>
+                            <h3 class="font-bold text-sm text-[#5D4037]">Motul 7100 4T Oil</h3>
+                            <p class="text-[#5D4037] font-black">₹1,199</p>
                         </div>
-                        <h3 class="font-bold text-sm text-[#5D4037]">Motul 7100 4T Oil</h3>
-                        <p class="text-[#5D4037] font-black">₹1,199</p>
-                    </div>
+                    </a>
 
                     <!-- Item 4: Phone -->
-                    <div
-                        class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-[#D7CCC8]">
-                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
-                            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80"
-                                class="w-full h-full object-cover" alt="Galaxy AI Phone">
+                    <a href="Galaxy-AI-Phone.html" class="product-link">
+                        <div
+                            class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-[#D7CCC8]">
+                            <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
+                                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80"
+                                    class="w-full h-full object-cover" alt="Galaxy AI Phone">
+                            </div>
+                            <h3 class="font-bold text-sm text-[#5D4037]">Galaxy AI Smartphone</h3>
+                            <p class="text-[#5D4037] font-black">₹74,999</p>
                         </div>
-                        <h3 class="font-bold text-sm text-[#5D4037]">Galaxy AI Smartphone</h3>
-                        <p class="text-[#5D4037] font-black">₹74,999</p>
-                    </div>
+                    </a>
 
                     <!-- Item 5: SD Card -->
-                    <div
-                        class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-[#D7CCC8]">
-                        <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
-                            <img src="https://images.unsplash.com/photo-1544652478-6653e09f18a2?auto=format&fit=crop&w=400&q=80"
-                                class="w-full h-full object-cover" alt="SanDisk SD Card">
+                    <a href="SanDisk-128GB.html" class="product-link">
+                        <div
+                            class="min-w-[160px] md:min-w-[200px] snap-start bg-[#F5F5DC] rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-[#D7CCC8]">
+                            <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-[#FDF5E6]">
+                                <img src="https://images.unsplash.com/photo-1544652478-6653e09f18a2?auto=format&fit=crop&w=400&q=80"
+                                    class="w-full h-full object-cover" alt="SanDisk SD Card">
+                            </div>
+                            <h3 class="font-bold text-sm text-[#5D4037]">SanDisk 128GB MicroSD</h3>
+                            <p class="text-[#5D4037] font-black">₹1,299</p>
                         </div>
-                        <h3 class="font-bold text-sm text-[#5D4037]">SanDisk 128GB MicroSD</h3>
-                        <p class="text-[#5D4037] font-black">₹1,299</p>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Scroll Buttons -->
@@ -2240,175 +2332,187 @@
 
             <div class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
                 <!-- Card 1: Nature Power -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
-                    <div class="absolute top-4 left-4 z-10">
-                        <div
-                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
-                            <span class="italic">f</span>
-                        </div>
-                    </div>
+                <a href="Papaya-Aura-Soap.html" class="product-link">
                     <div
-                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="assets/images/suggested/soap1.png" class="max-w-full max-h-full object-contain"
-                            alt="Nature Power Papaya">
-                    </div>
-                    <div class="space-y-1.5">
+                        class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                        <div class="absolute top-4 left-4 z-10">
+                            <div
+                                class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                                <span class="italic">f</span>
+                            </div>
+                        </div>
                         <div
-                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
-                            <span>4.2</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <img src="assets/images/suggested/soap1.png" class="max-w-full max-h-full object-contain"
+                                alt="Nature Power Papaya">
                         </div>
-                        <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">nature power Papaya Aura S...</h3>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-[10px] text-gray-400 line-through">₹410</span>
-                            <span class="text-[14px] font-black text-[#5D4037]">₹295</span>
+                        <div class="space-y-1.5">
+                            <div
+                                class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                                <span>4.2</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">nature power Papaya Aura S...</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[10px] text-gray-400 line-through">₹410</span>
+                                <span class="text-[14px] font-black text-[#5D4037]">₹295</span>
+                            </div>
+                            <p class="text-[11px] font-black text-[#2874f0]">₹215 with UPI offer</p>
                         </div>
-                        <p class="text-[11px] font-black text-[#2874f0]">₹215 with UPI offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 2: USTRAA -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
-                    <div class="absolute top-4 left-4 z-10 flex flex-col gap-1">
-                        <div
-                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
-                            <span class="italic">f</span>
-                        </div>
-                        <div
-                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-r-full text-[8px] font-bold shadow-sm">
-                            Price History</div>
-                    </div>
+                <a href="Ustraa-Rebel-Soap.html" class="product-link">
                     <div
-                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="assets/images/suggested/soap2.png" class="max-w-full max-h-full object-contain"
-                            alt="USTRAA">
-                    </div>
-                    <div class="space-y-1.5">
+                        class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                        <div class="absolute top-4 left-4 z-10 flex flex-col gap-1">
+                            <div
+                                class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                                <span class="italic">f</span>
+                            </div>
+                            <div
+                                class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-r-full text-[8px] font-bold shadow-sm">
+                                Price History</div>
+                        </div>
                         <div
-                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
-                            <span>4.3</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <img src="assets/images/suggested/soap2.png" class="max-w-full max-h-full object-contain"
+                                alt="USTRAA">
                         </div>
-                        <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">USTRAA Rebel Cologne Soa...</h3>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-[10px] text-gray-400 line-through">₹399</span>
-                            <span class="text-[14px] font-black text-[#5D4037]">₹277</span>
+                        <div class="space-y-1.5">
+                            <div
+                                class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                                <span>4.3</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">USTRAA Rebel Cologne Soa...</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[10px] text-gray-400 line-through">₹399</span>
+                                <span class="text-[14px] font-black text-[#5D4037]">₹277</span>
+                            </div>
+                            <p class="text-[11px] font-black text-[#2874f0]">₹190 with UPI offer + more</p>
                         </div>
-                        <p class="text-[11px] font-black text-[#2874f0]">₹190 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 3: MORVIN Papaya -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
-                    <div class="absolute top-4 left-4 z-10">
-                        <div
-                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
-                            <span class="italic">f</span>
-                        </div>
-                    </div>
+                <a href="Morvin-Papaya-Soap.html" class="product-link">
                     <div
-                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="assets/images/suggested/soap3.png" class="max-w-full max-h-full object-contain"
-                            alt="MORVIN Papaya">
-                    </div>
-                    <div class="space-y-1.5">
+                        class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                        <div class="absolute top-4 left-4 z-10">
+                            <div
+                                class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                                <span class="italic">f</span>
+                            </div>
+                        </div>
                         <div
-                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
-                            <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <img src="assets/images/suggested/soap3.png" class="max-w-full max-h-full object-contain"
+                                alt="MORVIN Papaya">
                         </div>
-                        <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">MORVIN Papaya Whitening ...</h3>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-[10px] text-gray-400 line-through">₹528</span>
-                            <span class="text-[14px] font-black text-[#5D4037]">₹389</span>
+                        <div class="space-y-1.5">
+                            <div
+                                class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                                <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">MORVIN Papaya Whitening ...</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[10px] text-gray-400 line-through">₹528</span>
+                                <span class="text-[14px] font-black text-[#5D4037]">₹389</span>
+                            </div>
+                            <p class="text-[11px] font-black text-[#2874f0]">₹294 with UPI offer + more</p>
                         </div>
-                        <p class="text-[11px] font-black text-[#2874f0]">₹294 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 4: Nature Power Pack -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
-                    <div class="absolute top-4 left-4 z-10">
-                        <div
-                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
-                            <span class="italic">f</span>
-                        </div>
-                    </div>
+                <a href="NaturePower-Aura-Soap.html" class="product-link">
                     <div
-                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="assets/images/suggested/soap4.png" class="max-w-full max-h-full object-contain"
-                            alt="Nature Power Pack">
-                    </div>
-                    <div class="space-y-1.5">
+                        class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                        <div class="absolute top-4 left-4 z-10">
+                            <div
+                                class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                                <span class="italic">f</span>
+                            </div>
+                        </div>
                         <div
-                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
-                            <span>4.4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <img src="assets/images/suggested/soap4.png" class="max-w-full max-h-full object-contain"
+                                alt="Nature Power Pack">
                         </div>
-                        <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">nature power VR NNPP AUR...</h3>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-[10px] text-gray-400 line-through">₹790</span>
-                            <span class="text-[14px] font-black text-[#5D4037]">₹619</span>
+                        <div class="space-y-1.5">
+                            <div
+                                class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                                <span>4.4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">nature power VR NNPP AUR...</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[10px] text-gray-400 line-through">₹790</span>
+                                <span class="text-[14px] font-black text-[#5D4037]">₹619</span>
+                            </div>
+                            <p class="text-[11px] font-black text-[#2874f0]">₹534 with UPI offer</p>
                         </div>
-                        <p class="text-[11px] font-black text-[#2874f0]">₹534 with UPI offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 5: LA Organo -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
-                    <div class="absolute top-4 left-4 z-10">
-                        <div
-                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
-                            <span class="italic">f</span>
-                        </div>
-                    </div>
+                <a href="LAOrgano-Neem-Papaya.html" class="product-link">
                     <div
-                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="assets/images/suggested/soap5.png" class="max-w-full max-h-full object-contain"
-                            alt="LA Organo">
-                    </div>
-                    <div class="space-y-1.5">
+                        class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                        <div class="absolute top-4 left-4 z-10">
+                            <div
+                                class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                                <span class="italic">f</span>
+                            </div>
+                        </div>
                         <div
-                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
-                            <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <img src="assets/images/suggested/soap5.png" class="max-w-full max-h-full object-contain"
+                                alt="LA Organo">
                         </div>
-                        <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">LA Organo Neem & Papaya S...</h3>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-[10px] text-gray-400 line-through">₹598</span>
-                            <span class="text-[14px] font-black text-[#5D4037]">₹270</span>
+                        <div class="space-y-1.5">
+                            <div
+                                class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                                <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">LA Organo Neem & Papaya S...</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[10px] text-gray-400 line-through">₹598</span>
+                                <span class="text-[14px] font-black text-[#5D4037]">₹270</span>
+                            </div>
+                            <p class="text-[11px] font-black text-[#2874f0]">₹193 with UPI offer + more</p>
                         </div>
-                        <p class="text-[11px] font-black text-[#2874f0]">₹193 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 6: MORVIN Aloe -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
-                    <div class="absolute top-4 left-4 z-10">
-                        <div
-                            class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
-                            <span class="italic">f</span>
-                        </div>
-                    </div>
+                <a href="Morvin-AloeVera-Soap.html" class="product-link">
                     <div
-                        class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="assets/images/suggested/soap6.png" class="max-w-full max-h-full object-contain"
-                            alt="MORVIN Aloe">
-                    </div>
-                    <div class="space-y-1.5">
+                        class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                        <div class="absolute top-4 left-4 z-10">
+                            <div
+                                class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
+                                <span class="italic">f</span>
+                            </div>
+                        </div>
                         <div
-                            class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
-                            <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            class="w-full h-1/2 rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <img src="assets/images/suggested/soap6.png" class="max-w-full max-h-full object-contain"
+                                alt="MORVIN Aloe">
                         </div>
-                        <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">MORVIN Aloe E Soap</h3>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-[10px] text-gray-400 line-through">₹480</span>
-                            <span class="text-[14px] font-black text-[#5D4037]">₹330</span>
+                        <div class="space-y-1.5">
+                            <div
+                                class="flex items-center gap-1 bg-green-600 w-fit px-1.5 py-0.5 rounded text-white font-bold text-[10px] shadow-sm">
+                                <span>4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#5D4037] line-clamp-1">MORVIN Aloe E Soap</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[10px] text-gray-400 line-through">₹480</span>
+                                <span class="text-[14px] font-black text-[#5D4037]">₹330</span>
+                            </div>
+                            <p class="text-[11px] font-black text-[#2874f0]">₹247 with UPI offer</p>
                         </div>
-                        <p class="text-[11px] font-black text-[#2874f0]">₹247 with UPI offer</p>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -2433,8 +2537,8 @@
 
             <div id="shoes-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
                 <!-- Card 1: Asian Firefly -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="Asian-Firefly-04.html"
+                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
                     <div class="absolute top-4 left-4 z-10">
                         <div
                             class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
@@ -2459,11 +2563,11 @@
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹650 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 2: Asian Elasto -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="Asian-Elasto-02.html"
+                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
                     <div class="absolute top-4 left-4 z-10">
                         <div
                             class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
@@ -2488,11 +2592,11 @@
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹483 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 3: Sparx SL 9047 -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="Sparx-SL9047.html"
+                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
                     <div class="absolute top-4 left-4 z-10">
                         <div
                             class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
@@ -2516,11 +2620,11 @@
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹718 with UPI offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 4: Asian Grey -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="Asian-Grey-Sports.html"
+                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
                     <div class="absolute top-4 left-4 z-10">
                         <div
                             class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
@@ -2545,11 +2649,11 @@
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹483 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 5: Skitter -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="Skitter-Stylish.html"
+                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
                     <div class="absolute top-4 left-4 z-10">
                         <div
                             class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
@@ -2573,11 +2677,11 @@
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹508 with UPI offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 6: Sparx Grey (Placeholder) -->
-                <div
-                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="Sparx-SL194.html"
+                    class="min-w-[211.39px] h-[281.85px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
                     <div class="absolute top-4 left-4 z-10">
                         <div
                             class="bg-[#2874f0] text-white px-1.5 py-0.5 rounded-md text-[10px] font-black flex items-center gap-1 shadow-sm">
@@ -2601,7 +2705,7 @@
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹614 with UPI offer</p>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -2813,57 +2917,243 @@
                     <h2 class="text-2xl md:text-3xl font-black text-[#5D4037] tracking-tight">Student Essentials</h2>
                     <p class="text-sm text-gray-500 font-bold mt-1">Everything you need for a productive study session</p>
                 </div>
-                <a href="StudyEssentials.html" class="text-sm font-black text-[#8D6E63] hover:text-[#5D4037] transition-colors flex items-center gap-1 uppercase tracking-widest">
-                    View All <ion-icon name="arrow-forward"></ion-icon>
-                </a>
+                <div class="flex items-center gap-4">
+                    <div class="flex gap-2">
+                        <button
+                            onclick="document.getElementById('study-scroller').scrollBy({left: -300, behavior: 'smooth'})"
+                            class="bg-[#F5F5DC] border border-gray-200 text-[#5D4037] w-10 h-10 flex items-center justify-center rounded-full shadow-md hover:bg-[#FDF5E6] transition-all transform active:scale-95">
+                            <ion-icon name="chevron-back-outline" class="text-xl"></ion-icon>
+                        </button>
+                        <button
+                            onclick="document.getElementById('study-scroller').scrollBy({left: 300, behavior: 'smooth'})"
+                            class="bg-[#5D4037] text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg hover:bg-[#5D4037] transition-all transform hover:scale-110 active:scale-95">
+                            <ion-icon name="chevron-forward-outline" class="text-xl"></ion-icon>
+                        </button>
+                    </div>
+                    <a href="StudyEssentials.html" class="text-sm font-black text-[#8D6E63] hover:text-[#5D4037] transition-colors flex items-center gap-1 uppercase tracking-widest hidden md:flex">
+                        View All <ion-icon name="arrow-forward"></ion-icon>
+                    </a>
+                </div>
             </div>
 
             <div id="study-scroller" class="flex overflow-x-auto gap-6 no-scrollbar pb-8 snap-x">
-                <!-- Study products will be dynamically loaded here via script -->
+                <!-- Card 1: Portronics Highlighter Set -->
+                <a href="Portronics-Highlighter-Set.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Portronics Highlighter Set">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Portronics
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.5</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Portronics Highlighter Set</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹399</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹199</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 2: Kangaro Executive Diary -->
+                <a href="Kangaro-Executive-Diary.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Kangaro Executive Diary">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Kangaro
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.7</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Kangaro Executive Diary</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹499</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹249</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 3: Portronics RGB Desk Lamp -->
+                <a href="Portronics-RGB-DeskLamp.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Portronics RGB Desk Lamp">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Portronics
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Portronics RGB Desk Lamp</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,799</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹899</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 4: Philips RGB Desk Lamp -->
+                <a href="Philips-RGB-DeskLamp.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Philips RGB Desk Lamp">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Philips
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.6</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Philips RGB Desk Lamp</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹2,499</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹1,299</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">48% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 5: Wipro RGB Desk Lamp -->
+                <a href="Wipro-RGB-DeskLamp.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Wipro RGB Desk Lamp – Navy">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Wipro
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.5</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Wipro RGB Desk Lamp – Navy</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,999</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹999</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 6: Mi LED Desk Lamp -->
+                <a href="Mi-LED-DeskLamp.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1534073828943-f801091bb18c?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Mi LED Desk Lamp – White">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Mi
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.8</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Mi LED Desk Lamp – White</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹2,999</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹1,499</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 7: Portronics LED Desk Lamp -->
+                <a href="Portronics-LED-DeskLamp.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Portronics LED Desk Lamp">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Portronics
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.3</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Portronics LED Desk Lamp</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,199</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹599</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 8: Mi Clip-On Study Lamp -->
+                <a href="Mi-ClipOn-StudyLamp.html" 
+                   class="min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Mi Clip-On Study Lamp">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Mi
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.6</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Mi Clip-On Study Lamp</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹999</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹499</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
             </div>
         </section>
-
-        <script>
-            async function loadStudentEssentials() {
-                try {
-                    const response = await fetch('/api/products?section=Student Essentials');
-                    const products = await response.json();
-                    const featured = products.filter(p => p.featured).slice(0, 8);
-                    
-                    const scroller = document.getElementById('study-scroller');
-                    if (!scroller) return;
-                    
-                    scroller.innerHTML = featured.map(p => `
-                        <div class="min-w-[240px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="window.location.href='product/${p.slug}'">
-                            <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
-                                <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
-                                <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest">${p.brand}</div>
-                            </div>
-                            <div class="p-6 space-y-3">
-                                <h3 class="font-bold text-[#5D4037] text-sm line-clamp-1">${p.name}</h3>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-lg font-black text-[#5D4037]">₹${p.price}</span>
-                                    <div class="flex items-center gap-1 text-yellow-500 text-xs font-black">
-                                        <ion-icon name="star"></ion-icon>
-                                        <span>${p.rating.toFixed(1)}</span>
-                                    </div>
-                                </div>
-                                <button 
-                                    data-cart-action="add" 
-                                    data-product-slug="${p.slug}" 
-                                    data-product-name="${p.name}" 
-                                    data-product-price="₹${p.price}" 
-                                    data-product-image="${p.image}" 
-                                    data-product-brand="${p.brand}"
-                                    onclick="event.stopPropagation()"
-                                    class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5D4037] hover:text-white transition-all">Quick Add</button>
-                            </div>
-                        </div>
-                    `).join('');
-                } catch (e) { console.error(e); }
-            }
-            document.addEventListener('DOMContentLoaded', loadStudentEssentials);
-        </script>
 
         <!-- HOSTEL NEEDS SECTION -->
         <section id="hostel-needs" class="container mx-auto px-4 py-12 border-t border-[#D7CCC8]/30">
@@ -2877,7 +3167,221 @@
                 </a>
             </div>
             <div id="mugs-scroller" class="flex overflow-x-auto gap-6 no-scrollbar pb-8 snap-x">
-                <!-- Products will be dynamically loaded here via script -->
+                <!-- Card 1: Cello Rubber Coated Non-Slip Hangers -->
+                <a href="cello-rubber-coated-hangers.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Cello Rubber Coated Non-Slip Hangers">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Cello
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.5</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Cello Rubber Coated Non-Slip Hangers (Set of 10)</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹599</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹449</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">25% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 2: Nayasa Space-Saving Magic Hangers -->
+                <a href="nayasa-space-saving-hangers.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Nayasa Space-Saving Magic Hangers">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Nayasa
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.3</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Nayasa Space-Saving Magic Hanger</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹299</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹199</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">33% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 3: IKEA STAJLIG Hangers White -->
+                <a href="ikea-stajlig-hangers.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="IKEA STAJLIG Hangers White">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            IKEA
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">IKEA STAJLIG Hangers White</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹499</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹399</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">20% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 4: Amazon Basics Velvet Skirt Hangers -->
+                <a href="amazon-basics-velvet-hangers.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Amazon Basics Velvet Skirt Hangers">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Amazon Basics
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.6</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Amazon Basics Velvet Skirt Hangers</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹899</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹799</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">11% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 5: IKEA BUMERANG Wooden Hangers -->
+                <a href="ikea-bumerang-hangers.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="IKEA BUMERANG Wooden Hangers">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            IKEA
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.8</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">IKEA BUMERANG Wooden Hanger (Pack of 8)</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹599</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹499</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">17% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 6: Amazon Basics Slim Velvet Hangers -->
+                <a href="amazon-basics-slim-hangers.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Amazon Basics Slim Velvet Hangers">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Amazon Basics
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.7</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Amazon Basics Slim Velvet Hangers (Set of 30)</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹1,299</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹899</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">31% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 7: Nayasa Foldable Travel Hangers -->
+                <a href="nayasa-travel-hangers.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1616627187314-bc81e3586075?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Nayasa Foldable Travel Hangers">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Nayasa
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.4</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Nayasa Foldable Travel Hangers (Pack of 4)</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹199</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹149</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">25% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Card 8: Home Puff 360° Rotating Clips -->
+                <a href="home-puff-rotating-clips.html" 
+                   class="daily-use-card-link min-w-[250px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="https://images.unsplash.com/photo-1525909002-1b05e0c869d8?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             alt="Home Puff 360° Rotating Clips">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            Home Puff
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>4.3</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Home Puff 360° Rotating Clip Hanger</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 line-through">₹399</span>
+                            <span class="text-lg font-black text-[#5D4037]">₹279</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">30% OFF</span>
+                        </div>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
+                    </div>
+                </a>
             </div>
         </section>
 
@@ -2917,46 +3421,7 @@
         <section class="container mx-auto px-4 py-16">
 
         <script>
-            // Simple script to fetch and show featured items in 'Daily Use Essentials' section
-            async function loadDailyEssentials() {
-                try {
-                    const response = await fetch('/api/products?section=Daily Use Essentials');
-                    const products = await response.json();
-                    const featured = products.filter(p => p.featured).slice(0, 8);
-                    
-                    const scroller = document.getElementById('mugs-scroller');
-                    if (!scroller) return;
-                    
-                    scroller.innerHTML = featured.map(p => `
-                        <div class="min-w-[240px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="window.location.href='product/${p.slug}'">
-                            <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
-                                <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
-                                <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest">${p.brand}</div>
-                            </div>
-                            <div class="p-6 space-y-3">
-                                <h3 class="font-bold text-[#5D4037] text-sm line-clamp-1">${p.name}</h3>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-lg font-black text-[#5D4037]">₹${p.price}</span>
-                                    <div class="flex items-center gap-1 text-yellow-500 text-xs font-black">
-                                        <ion-icon name="star"></ion-icon>
-                                        <span>${p.rating}</span>
-                                    </div>
-                                </div>
-                                <button 
-                                    data-cart-action="add" 
-                                    data-product-slug="${p.slug}" 
-                                    data-product-name="${p.name}" 
-                                    data-product-price="₹${p.price}" 
-                                    data-product-image="${p.image}" 
-                                    data-product-brand="${p.brand}"
-                                    onclick="event.stopPropagation()"
-                                    class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5D4037] hover:text-white transition-all">Quick Add</button>
-                            </div>
-                        </div>
-                    `).join('');
-                } catch (e) { console.error(e); }
-            }
-            document.addEventListener('DOMContentLoaded', loadDailyEssentials);
+
 
             async function loadDailyGrocery() {
                 try {
@@ -2967,73 +3432,79 @@
                     const scroller = document.getElementById('grocery-scroller');
                     if (!scroller) return;
                     
-                    scroller.innerHTML = featured.map(p => `
-                        <div class="min-w-[240px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="window.location.href='product/${p.slug}'">
-                            <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
-                                <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
-                                <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest">${p.brand}</div>
-                            </div>
-                            <div class="p-6 space-y-3">
-                                <h3 class="font-bold text-[#5D4037] text-sm line-clamp-1">${p.name}</h3>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-lg font-black text-[#5D4037]">₹${p.price}</span>
-                                    <div class="flex items-center gap-1 text-yellow-500 text-xs font-black">
-                                        <ion-icon name="star"></ion-icon>
-                                        <span>${p.rating.toFixed(1)}</span>
-                                    </div>
+                    scroller.innerHTML = featured.map(p => {
+                        const productUrl = (window.location.protocol === 'file:') ? `ProductDetail.html?slug=${p.slug}` : `/product/${p.slug}`;
+                        return `
+                            <div class="min-w-[240px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="window.location.href='${productUrl}'">
+                                <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                                    <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
+                                    <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest">${p.brand}</div>
                                 </div>
-                                <button 
-                                    data-cart-action="add" 
-                                    data-product-slug="${p.slug}" 
-                                    data-product-name="${p.name}" 
-                                    data-product-price="₹${p.price}" 
-                                    data-product-image="${p.image}" 
-                                    data-product-brand="${p.brand}"
-                                    onclick="event.stopPropagation()"
-                                    class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5D4037] hover:text-white transition-all">Quick Add</button>
+                                <div class="p-6 space-y-3">
+                                    <h3 class="font-bold text-[#5D4037] text-sm line-clamp-1">${p.name}</h3>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-lg font-black text-[#5D4037]">₹${p.price}</span>
+                                        <div class="flex items-center gap-1 text-yellow-500 text-xs font-black">
+                                            <ion-icon name="star"></ion-icon>
+                                            <span>${p.rating.toFixed(1)}</span>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image}" 
+                                        data-product-brand="${p.brand}"
+                                        onclick="event.stopPropagation()"
+                                        class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5D4037] hover:text-white transition-all">Quick Add</button>
+                                </div>
                             </div>
-                        </div>
-                    `).join('');
+                        `;
+                    }).join('');
                 } catch (e) { console.error(e); }
             }
             document.addEventListener('DOMContentLoaded', loadDailyGrocery);
             
             async function loadElectronics() {
                 try {
-                    const response = await fetch('/api/products?section=Electronics');
+                    const response = await fetch('/api/products?section=Electronics,Tech Essentials');
                     const products = await response.json();
                     const featured = products.filter(p => p.featured).slice(0, 8);
                     
                     const scroller = document.getElementById('electronics-scroller');
                     if (!scroller) return;
                     
-                    scroller.innerHTML = featured.map(p => `
-                        <div class="min-w-[240px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="window.location.href='product/${p.slug}'">
-                            <div class="relative aspect-[4/5] overflow-hidden bg-gray-50 p-6">
-                                <img src="${p.image}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
-                                <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest">${p.brand}</div>
-                            </div>
-                            <div class="p-6 space-y-3">
-                                <h3 class="font-bold text-[#5D4037] text-sm line-clamp-1">${p.name}</h3>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-lg font-black text-[#5D4037]">₹${p.price.toLocaleString('en-IN')}</span>
-                                    <div class="flex items-center gap-1 text-yellow-500 text-xs font-black">
-                                        <ion-icon name="star"></ion-icon>
-                                        <span>${p.rating.toFixed(1)}</span>
-                                    </div>
+                    scroller.innerHTML = featured.map(p => {
+                        const productUrl = (window.location.protocol === 'file:') ? `ProductDetail.html?slug=${p.slug}` : `/product/${p.slug}`;
+                        return `
+                            <div class="min-w-[240px] md:min-w-[280px] bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden snap-start group hover:shadow-2xl transition-all duration-500 cursor-pointer" onclick="window.location.href='${productUrl}'">
+                                <div class="relative aspect-[4/5] overflow-hidden bg-gray-50 p-6">
+                                    <img src="${p.image}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
+                                    <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest">${p.brand}</div>
                                 </div>
-                                <button 
-                                    data-cart-action="add" 
-                                    data-product-slug="${p.slug}" 
-                                    data-product-name="${p.name}" 
-                                    data-product-price="₹${p.price}" 
-                                    data-product-image="${p.image}" 
-                                    data-product-brand="${p.brand}"
-                                    onclick="event.stopPropagation()"
-                                    class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5D4037] hover:text-white transition-all">Quick Add</button>
+                                <div class="p-6 space-y-3">
+                                    <h3 class="font-bold text-[#5D4037] text-sm line-clamp-1">${p.name}</h3>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-lg font-black text-[#5D4037]">₹${p.price.toLocaleString('en-IN')}</span>
+                                        <div class="flex items-center gap-1 text-yellow-500 text-xs font-black">
+                                            <ion-icon name="star"></ion-icon>
+                                            <span>${p.rating.toFixed(1)}</span>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image}" 
+                                        data-product-brand="${p.brand}"
+                                        onclick="event.stopPropagation()"
+                                        class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#5D4037] hover:text-white transition-all">Quick Add</button>
+                                </div>
                             </div>
-                        </div>
-                    `).join('');
+                        `;
+                    }).join('');
                 } catch (e) { console.error(e); }
             }
             document.addEventListener('DOMContentLoaded', loadElectronics);
@@ -3044,8 +3515,8 @@
         <section id="trending-deals" class="container mx-auto px-4 py-8">
             <div id="trending-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
                 <!-- Card 1: Apple Watch -->
-                <div
-                    class="min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="apple-watch-se-gps-cellular.html"
+                    class="product-card-link min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer block">
                     <div
                         class="w-full h-[150px] rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="assets/images/suggested/apple_watch_se.png"
@@ -3066,11 +3537,11 @@
                         </div>
                         <p class="text-[11px] font-black text-[#2874f0]">₹18,999 with Bank offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 2: Memory Card -->
-                <div
-                    class="min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="yajas-cosandisk-128gb-memory-card.html"
+                    class="product-card-link min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer block">
                     <div
                         class="w-full h-[150px] rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="assets/images/suggested/yajas_memory_card.png"
@@ -3084,11 +3555,11 @@
                             <span class="text-[14px] font-black text-[#5D4037]">₹563</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 3: AirPods Pro -->
-                <div
-                    class="min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="apple-airpods-pro-3.html"
+                    class="product-card-link min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer block">
                     <div
                         class="w-full h-[150px] rounded-xl overflow-hidden mb-3 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="assets/images/suggested/airpods_pro.png" class="max-w-full max-h-full object-contain"
@@ -3107,11 +3578,11 @@
                             <span class="text-[14px] font-black text-[#5D4037]">₹24,499</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 4: Engine Oil -->
-                <div
-                    class="min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl transition-all cursor-pointer">
+                <a href="palco-4t-dart-10w30.html"
+                    class="product-card-link min-w-[300px] h-[298px] bg-[#F5F5DC] rounded-2xl shadow-sm border border-[#D7CCC8] p-4 snap-start relative group hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer block">
                     <div class="absolute top-4 left-4 z-10">
                         <span
                             class="bg-gray-800/40 backdrop-blur-md text-white text-[8px] font-black px-1.5 py-0.5 rounded uppercase tracking-widest">AD</span>
@@ -3129,7 +3600,7 @@
                             <span class="text-[14px] font-black text-[#5D4037]">₹1,111</span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -3309,8 +3780,8 @@
 
             <div id="deals-scroller" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
                 <!-- Deal 1: Samsung Galaxy Z Fold5 -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Samsung-Galaxy-Z-Fold5.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="https://images.unsplash.com/photo-1691435431627-889816503c20?auto=format&fit=crop&w=400&q=80"
@@ -3331,11 +3802,11 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹1,60,999 with Bank offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 2: Angar Look Caps -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Angar-Look-Cap.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div class="absolute top-7 left-7 z-10">
                         <span
                             class="bg-gray-100 text-[#5D4037] text-[9px] font-black px-2 py-1 rounded-md shadow-sm">New
@@ -3355,11 +3826,11 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹103 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 3: Else & What T-Shirt -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Else-What-Tshirt.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80"
@@ -3374,11 +3845,11 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹288 with UPI offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 4: Mexican Lubricant -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Mexican-Lubricant.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div class="absolute top-7 right-7 z-10">
                         <span
                             class="bg-[#5D4037]/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
@@ -3398,7 +3869,7 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹173 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -3407,8 +3878,8 @@
         <section id="top-deals-2" class="container mx-auto px-4 py-8">
             <div id="deals-scroller-2" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
                 <!-- Deal 1: Samsung Galaxy Z Fold5 (New Price) -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Samsung-Galaxy-Z-Fold5.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="https://images.unsplash.com/photo-1691435431627-889816503c20?auto=format&fit=crop&w=400&q=80"
@@ -3429,11 +3900,11 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹1,50,999 with Bank offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 2: Good Friend Caps -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Good-Friend-Cap.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?auto=format&fit=crop&w=400&q=80"
@@ -3448,11 +3919,11 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹87 with UPI offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 3: LEXREX Trousers -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Lexrex-Loose-Fit.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=400&q=80"
@@ -3467,11 +3938,11 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹266 with UPI offer</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 4: Samsung Galaxy Z Flip6 -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Samsung-Galaxy-Z-Flip6.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                         <img src="https://images.unsplash.com/photo-1721332150382-d4114ee27cef?auto=format&fit=crop&w=400&q=80"
@@ -3492,7 +3963,7 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹1,05,840 with Bank offer</p>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -3501,11 +3972,11 @@
         <section id="top-deals-3" class="container mx-auto px-4 py-8">
             <div id="deals-scroller-3" class="flex overflow-x-auto gap-4 no-scrollbar pb-6 snap-x">
                 <!-- Deal 1: MOTUL Oil -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Motul-7100.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="https://images.unsplash.com/photo-1635773103338-922629b39213?auto=format&fit=crop&w=400&q=80"
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80"
                             class="max-w-full max-h-full object-contain" alt="MOTUL Oil">
                     </div>
                     <div class="space-y-2">
@@ -3517,18 +3988,18 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹1,350 with Bank offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 2: PL SUPER PALCO -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="palco-4t-dart-10w30.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div class="absolute top-7 left-7 z-10">
                         <span
                             class="bg-[#5D4037]/50 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-widest">AD</span>
                     </div>
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="https://images.unsplash.com/photo-1597838816882-4551b708b5cd?auto=format&fit=crop&w=400&q=80"
+                        <img src="assets/images/suggested/engine_oil_4pack.png"
                             class="max-w-full max-h-full object-contain" alt="PALCO Lubricants">
                     </div>
                     <div class="space-y-2">
@@ -3540,11 +4011,11 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹1,055 with Bank offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 3: Eriko Polo -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Eriko-Sporty-Polo.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div class="absolute bottom-32 left-5 z-10">
                         <span
                             class="bg-[#ff6161] text-white text-[9px] font-black px-2 py-1 rounded-md shadow-lg italic">#TexturedPolo</span>
@@ -3563,14 +4034,14 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹257 with UPI offer + more</p>
                     </div>
-                </div>
+                </a>
 
                 <!-- Deal 4: Samsung Galaxy Z Flip3 5G -->
-                <div
-                    class="min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl transition-all cursor-pointer">
+                <a href="Samsung-Galaxy-Z-Flip3.html"
+                    class="product-card-link min-w-[240px] md:min-w-[280px] bg-[#F5F5DC] rounded-[32px] shadow-sm border border-[#D7CCC8] p-5 snap-start relative group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 block">
                     <div
                         class="w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-[#F5F5DC] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <img src="https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=400&q=80"
+                        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=400&q=80"
                             class="max-w-full max-h-full object-contain" alt="Samsung Galaxy Z Flip3">
                     </div>
                     <div class="space-y-2">
@@ -3587,7 +4058,7 @@
                         </div>
                         <p class="text-xs font-black text-[#2874f0]">₹91,999 with Bank offer</p>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -3835,53 +4306,67 @@
                         <span class="w-2 h-6 bg-[#795548] rounded-full"></span> New Products
                     </h2>
                     <div class="product-grid grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
-                        <div
-                            class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
-                            <div class="relative aspect-[4/5] overflow-hidden">
+                        <!-- Card 1: Mens Winter Leather Jacket -->
+                        <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block relative cursor-pointer"
+                             onclick="window.location.href='product-details.html?id=mens-winter-leather-jacket'">
+                            <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
                                 <img src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=600&q=80"
-                                    alt="Product"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                                     alt="Mens Winter Leather Jacket">
                                 <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?auto=format&fit=crop&w=600&q=80"
-                                    alt="Hover" class="absolute inset-0 w-full h-full object-cover hover-img">
-                                <span
-                                    class="absolute top-4 left-4 bg-[#795548] text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">New</span>
-                                <div
-                                    class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
-                                    <button
-                                        class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon
-                                            name="heart-outline"></ion-icon></button>
-                                    <button
-                                        class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon
-                                            name="eye-outline"></ion-icon></button>
+                                     class="absolute inset-0 w-full h-full object-cover hover-img group-hover:scale-105 transition-transform duration-700" 
+                                     alt="Hover">
+                                <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                                    Lauren
+                                </div>
+                                <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                                    <span>4.0</span><ion-icon name="star" class="text-[8px]"></ion-icon>
                                 </div>
                             </div>
-                            <div class="p-4 sm:p-6 space-y-2">
-                                <p class="text-[10px] text-[#795548] font-black uppercase tracking-widest">Jacket</p>
-                                <h3 class="font-bold text-[#5D4037] truncate text-sm sm:text-base">Mens Winter Leather
-                                    Jacket</h3>
-                                <div class="flex items-center gap-1 text-yellow-400 text-[10px]"><ion-icon
-                                        name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
-                                        name="star"></ion-icon><ion-icon name="star"></ion-icon></div>
-                                <div class="flex items-center gap-2 font-black text-lg text-[#5D4037] mt-1">
-                                    <span>₹48.00</span> <del class="text-xs text-gray-300 font-normal">₹75.00</del>
+                            <div class="p-6 space-y-3">
+                                <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Mens Winter Leather Jacket</h3>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">₹75</span>
+                                    <span class="text-lg font-black text-[#5D4037]">₹48</span>
+                                    <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">36% OFF</span>
                                 </div>
+                                <p class="text-[11px] font-black text-[#2874f0]">₹41 with UPI offer</p>
+                                <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2"
+                                        onclick="event.stopPropagation(); window.location.href='product-details.html?id=mens-winter-leather-jacket'">
+                                    View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                                </button>
                             </div>
                         </div>
-                        <div
-                            class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500">
-                            <div class="relative aspect-[4/5] overflow-hidden">
+ 
+                        <!-- Card 2: Elite Sports Running Shoes -->
+                        <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block relative cursor-pointer"
+                             onclick="window.location.href='product-details.html?id=elite-sports-running-shoes'">
+                            <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
                                 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"
-                                    alt="Product" class="w-full h-full object-cover">
-                                <span
-                                    class="absolute top-4 left-4 bg-[#5D4037] text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">Sale</span>
-                            </div>
-                            <div class="p-4 sm:p-6 space-y-2">
-                                <p class="text-[10px] text-[#795548] font-black uppercase tracking-widest">Footwear</p>
-                                <h3 class="font-bold text-[#5D4037] truncate text-sm sm:text-base">Elite Sports Running
-                                    Shoes</h3>
-                                <div class="flex items-center gap-1 font-black text-lg text-[#5D4037] mt-1">
-                                    <span>₹99.00</span>
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                                     alt="Elite Sports Running Shoes">
+                                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=600&q=80"
+                                     class="absolute inset-0 w-full h-full object-cover hover-img group-hover:scale-105 transition-transform duration-700" 
+                                     alt="Hover">
+                                <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                                    Asian
                                 </div>
+                                <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                                    <span>4.3</span><ion-icon name="star" class="text-[8px]"></ion-icon>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">Elite Sports Running Shoes</h3>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">₹199</span>
+                                    <span class="text-lg font-black text-[#5D4037]">₹99</span>
+                                    <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">50% OFF</span>
+                                </div>
+                                <p class="text-[11px] font-black text-[#2874f0]">₹84 with UPI offer</p>
+                                <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2"
+                                        onclick="event.stopPropagation(); window.location.href='product-details.html?id=elite-sports-running-shoes'">
+                                    View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -3901,7 +4386,7 @@
                         <h3 class="font-bold text-[#5D4037] border-b pb-2 mb-3">Electronics & Gadgets</h3>
                         <ul class="space-y-2 text-sm text-gray-500">
                             <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Mobiles</li>
-                            <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Laptops</li>
+                            <li class="hover:text-[#795548] transition-colors cursor-pointer" onclick="window.location.href='/Laptops.html'">↳ Laptops</li>
                             <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Audio</li>
                             <li class="hover:text-[#795548] transition-colors cursor-pointer">↳ Smartwatches</li>
                         </ul>
@@ -4514,10 +4999,30 @@
                         delPrice: Math.floor(Math.random() * (2000 - 1600) + 1600),
                         discount: Math.random() > 0.5 ? "Sale" : "Hot",
                         rating: Math.floor(Math.random() * (5 - 3) + 3),
-                        images: {
-                            default: `https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80`,
-                            hover: `https://images.unsplash.com/photo-1592890288564-76628a30a657?auto=format&fit=crop&w=800&q=80`
-                        },
+                        images: (() => {
+                            const categoryImages = {
+                                "Mobiles": {
+                                    default: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
+                                    hover: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80"
+                                },
+                                "Laptops": {
+                                    default: "https://images.unsplash.com/photo-1517336714460-4c988814f4ff?auto=format&fit=crop&w=800&q=80",
+                                    hover: "https://images.unsplash.com/photo-1496181130204-755241524eab?auto=format&fit=crop&w=800&q=80"
+                                },
+                                "Audio": {
+                                    default: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+                                    hover: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=80"
+                                },
+                                "Smartwatches": {
+                                    default: "https://images.unsplash.com/photo-1544117518-30df57809b11?auto=format&fit=crop&w=800&q=80",
+                                    hover: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+                                }
+                            };
+                            return categoryImages[category] || {
+                                default: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
+                                hover: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80"
+                            };
+                        })(),
                         tags: [brand.toLowerCase(), category.toLowerCase(), ...model.toLowerCase().split(" ")]
                     });
                 });
@@ -4550,31 +5055,109 @@
             });
         }
 
+        function getProductUrl(product) {
+            const name = product.name.trim();
+            const mappings = {
+                "asian Firefly-04 Black Running Shoes": "Asian-Firefly-04.html",
+                "asian Elasto-02 Running Shoes": "Asian-Elasto-02.html",
+                "Sparx SL 9047 Running Shoes": "Sparx-SL9047.html",
+                "asian Grey Sports/Gym Shoes": "Asian-Grey-Sports.html",
+                "SKITTER SKITTER Stylish Shoes": "Skitter-Stylish.html",
+                "Sparx SL 194 Running Shoes": "Sparx-SL194.html",
+                "Portronics Highlighter Set": "Portronics-Highlighter-Set.html",
+                "Kangaro Executive Diary": "Kangaro-Executive-Diary.html",
+                "Portronics RGB Desk Lamp": "Portronics-RGB-DeskLamp.html",
+                "Philips RGB Desk Lamp": "Philips-RGB-DeskLamp.html",
+                "Wipro RGB Desk Lamp – Navy": "Wipro-RGB-DeskLamp.html",
+                "Wipro RGB Desk Lamp": "Wipro-RGB-DeskLamp.html",
+                "Mi LED Desk Lamp – White": "Mi-LED-DeskLamp.html",
+                "Mi LED Desk Lamp": "Mi-LED-DeskLamp.html",
+                "Portronics LED Desk Lamp": "Portronics-LED-DeskLamp.html",
+                "Mi Clip-On Study Lamp": "Mi-ClipOn-StudyLamp.html",
+                "nature power Papaya Aura Soap": "NaturePower-Aura-Soap.html",
+                "Ustraa Rebel Soap": "Ustraa-Rebel-Soap.html",
+                "Morvin Papaya Soap": "Morvin-Papaya-Soap.html",
+                "Morvin AloeVera Soap": "Morvin-AloeVera-Soap.html",
+                "LA Organo Neem Papaya": "LAOrgano-Neem-Papaya.html",
+                "Papaya Aura Soap": "Papaya-Aura-Soap.html",
+                "Samsung Galaxy Z Fold5": "Samsung-Galaxy-Z-Fold5.html",
+                "Samsung Galaxy Z Flip6": "Samsung-Galaxy-Z-Flip6.html",
+                "Samsung Galaxy Z Flip3 5G": "Samsung-Galaxy-Z-Flip3.html",
+                "Samsung Galaxy Z Flip3": "Samsung-Galaxy-Z-Flip3.html",
+                "MOTUL 7100 4T20W-50": "Motul-7100.html",
+                "Motul 7100": "Motul-7100.html",
+                "PL SUPER PALCO 4T DART 10W30": "palco-4t-dart-10w30.html",
+                "Good Friend Sports/Regular Cap": "Good-Friend-Cap.html",
+                "Good Friend Cap": "Good-Friend-Cap.html",
+                "LEXREX Men Loose Fit": "Lexrex-Loose-Fit.html",
+                "Eriko Men Sporty Polo Neck": "Eriko-Sporty-Polo.html",
+                "Angar Look Caps": "Angar-Look-Cap.html",
+                "Else & What Men Printed Round Neck T-Shirt": "Else-What-Tshirt.html",
+                "Mexican MX-10W30-SN-FS Lubricant": "Mexican-Lubricant.html",
+                "Mens Winter Leather Jacket": "Lauren-Tshirt.html",
+                "Elite Sports Running Shoes": "Asian-Grey-Sports.html"
+            };
+
+            if (mappings[name]) {
+                return mappings[name];
+            }
+
+            const slug = product.slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            if (window.location.protocol === 'file:') {
+                return `ProductDetail.html?slug=${slug}`;
+            } else {
+                return `/product/${slug}`;
+            }
+        }
+
+        function getBrandName(product) {
+            if (product.brand) return product.brand;
+            if (product.tags && product.tags.length > 0) {
+                return product.tags[0].charAt(0).toUpperCase() + product.tags[0].slice(1);
+            }
+            return product.name.split(' ')[0];
+        }
+
         function createProductHTML(product) {
-            const ratingHtml = Array(5).fill(0).map((_, i) =>
-                `<ion-icon name="${i < product.rating ? 'star' : 'star-outline'}"></ion-icon>`
-            ).join('');
-            const badgeHtml = product.discount ? `<span class="absolute top-4 left-4 bg-[#795548] text-white text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest shadow-lg">${product.discount}</span>` : '';
-            const delHtml = product.delPrice ? `<del class="text-xs text-gray-300 font-normal">₹${product.delPrice.toLocaleString('en-IN')}</del>` : '';
+            const brandName = getBrandName(product);
+            const ratingVal = product.rating || 4.5;
+            const delPrice = product.delPrice || 0;
+            const price = product.price;
+
+            let discountPercentHtml = '';
+            if (delPrice > price) {
+                const pct = Math.round((delPrice - price) / delPrice * 100);
+                discountPercentHtml = `<span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">${pct}% OFF</span>`;
+            }
+
+            const originalPriceHtml = delPrice ? `<span class="text-xs text-gray-400 line-through">₹${delPrice.toLocaleString('en-IN')}</span>` : '';
+            const upiPrice = Math.round(price * 0.85);
+            
+            const slug = product.slug || product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
             return `
-                <div class="product-card bg-[#F5F5DC] border border-[#D7CCC8] rounded-3xl overflow-hidden group shadow-sm hover:shadow-2xl transition-all duration-500" data-tags="${(product.tags || []).join(' ').toLowerCase()}">
-                    <div class="relative aspect-[4/5] overflow-hidden">
-                        <img src="${product.images.default}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <img src="${product.images.hover}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img">
-                        ${badgeHtml}
-                        <div class="absolute -right-16 top-4 group-hover:right-4 transition-all duration-300 flex flex-col gap-2">
-                            <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon name="heart-outline"></ion-icon></button>
-                            <button class="bg-[#F5F5DC]/90 backdrop-blur p-2.5 rounded-xl shadow-lg hover:bg-[#795548] hover:text-white transition-all transform hover:scale-110 active:scale-90"><ion-icon name="eye-outline"></ion-icon></button>
+                <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 block relative cursor-pointer" onclick="window.location.href='product-details.html?id=${slug}'" data-tags="${(product.tags || []).join(' ').toLowerCase()}">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                        <img src="${product.images.default}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <img src="${product.images.hover}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover hover-img group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                            ${brandName}
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
+                            <span>${ratingVal.toFixed(1)}</span><ion-icon name="star" class="text-[8px]"></ion-icon>
                         </div>
                     </div>
-                    <div class="p-4 sm:p-6 space-y-2">
-                        <p class="text-[10px] text-[#795548] font-black uppercase tracking-widest">${product.category}</p>
-                        <h3 class="font-bold text-[#5D4037] truncate text-sm sm:text-base">${product.name}</h3>
-                        <div class="flex items-center gap-1 text-yellow-400 text-[10px]">${ratingHtml}</div>
-                        <div class="flex items-center gap-2 font-black text-lg text-[#5D4037] mt-1">
-                            <span>₹${product.price.toLocaleString('en-IN')}</span> ${delHtml}
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-black text-[#5D4037] text-sm group-hover:text-[#8D6E63] transition-colors line-clamp-1">${product.name}</h3>
+                        <div class="flex items-center gap-2">
+                            ${originalPriceHtml}
+                            <span class="text-lg font-black text-[#5D4037]">₹${price.toLocaleString('en-IN')}</span>
+                            ${discountPercentHtml}
                         </div>
+                        <p class="text-[11px] font-black text-[#2874f0]">₹${upiPrice.toLocaleString('en-IN')} with UPI offer</p>
+                        <button class="w-full bg-[#F5F5DC] text-[#5D4037] py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-[#5D4037] group-hover:text-white transition-all duration-500 shadow-sm flex items-center justify-center gap-2" onclick="event.stopPropagation(); window.location.href='product-details.html?id=${slug}'">
+                            View Details <ion-icon name="arrow-forward-outline" class="text-xs"></ion-icon>
+                        </button>
                     </div>
                 </div>
             `;

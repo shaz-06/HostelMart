@@ -89,6 +89,21 @@
                 </div>
 
                 <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Age Group</h3>
+                    <div class="space-y-3" id="age-filters"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Capacity/Size</h3>
+                    <div class="space-y-3" id="capacity-filters"></div>
+                </div>
+
+                <div>
                     <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
                     <div class="flex flex-wrap gap-3" id="color-filters"></div>
                 </div>
@@ -148,6 +163,9 @@
         let filters = {
             brands: [],
             types: [],
+            materials: [],
+            ageGroups: [],
+            capacities: [],
             inkColors: [],
             packSizes: [],
             displayTypes: [],
@@ -160,10 +178,13 @@
         };
 
         const config = {
-            brands: ["Post-it", "Deli", "Oddy", "Kangaro", "Classmate", "Faber-Castell", "Casio", "Canon", "Texas Instruments", "Orpat", "Citizen", "Sharp", "Reynolds", "Cello", "Flair", "Pentonic", "Hauser", "Linc", "Camlin", "Navneet", "Portronics"],
-            types: ["Classic Sticky Notes", "Neon Sticky Notes", "Pastel Sticky Notes", "Transparent Sticky Notes", "Page Marker Sticky Notes", "Mini Sticky Notes", "Large Sticky Notes", "Lined Sticky Notes", "Shape Sticky Notes", "Multi-Color Sticky Note Packs", "Scientific Calculator", "Basic Calculator", "Financial Calculator", "Graphing Calculator", "Student Calculator", "Pocket Calculator", "Desktop Calculator", "Solar Calculator", "Engineering Calculator", "Exam Approved Calculator", "Ball Pen", "Gel Pen", "Roller Pen", "Fountain Pen", "Click Pen", "Ink Pen", "Exam Pen", "Multicolor Pen", "Premium Pen", "Refillable Pen", "Notebook", "Highlighter Set", "Sticky Notes", "Scientific Calculator", "Desk Lamp", "Pencil Box", "Geometry Box", "Whiteboard"],
+            brands: ["Post-it", "Deli", "Oddy", "Kangaro", "Classmate", "Faber-Castell", "Casio", "Canon", "Texas Instruments", "Orpat", "Citizen", "Sharp", "Reynolds", "Cello", "Flair", "Pentonic", "Hauser", "Linc", "Camlin", "Navneet", "Portronics", "Doms", "Milton", "Nataraj", "Maped", "Skybags", "Wildcraft", "American Tourister"],
+            types: ["Classic Sticky Notes", "Neon Sticky Notes", "Pastel Sticky Notes", "Transparent Sticky Notes", "Page Marker Sticky Notes", "Mini Sticky Notes", "Large Sticky Notes", "Lined Sticky Notes", "Shape Sticky Notes", "Multi-Color Sticky Note Packs", "Scientific Calculator", "Basic Calculator", "Financial Calculator", "Graphing Calculator", "Student Calculator", "Pocket Calculator", "Desktop Calculator", "Solar Calculator", "Engineering Calculator", "Exam Approved Calculator", "Ball Pen", "Gel Pen", "Roller Pen", "Fountain Pen", "Click Pen", "Ink Pen", "Exam Pen", "Multicolor Pen", "Premium Pen", "Refillable Pen", "Notebook", "Highlighter Set", "Sticky Notes", "Desk Lamp", "Pencil Box", "Geometry Box", "Whiteboard", "School Bags", "Water Bottles", "Lunch Boxes", "Crayons", "Color Pencils", "Erasers", "Sharpeners", "Scale Sets", "Glue Sticks", "Craft Kits", "Drawing Books", "Exam Pads", "Plastic Pencil Boxes", "Metal Pencil Boxes", "Zipper Pencil Pouches", "Cartoon Pencil Boxes", "Multi-Layer Pencil Boxes", "Kids Water Bottles", "Steel Bottles", "Sipper Bottles", "Leakproof Bottles", "Cartoon Bottles", "Backpack School Bags", "Trolley Bags", "Cartoon Bags", "Waterproof School Bags", "Laptop School Bags", "Wax Crayons", "Jumbo Crayons", "Washable Crayons", "Twistable Crayons", "Crayon Art Sets"],
+            materials: ["Plastic", "Metal", "Stainless Steel", "Copper", "Glass", "Wax", "Wood", "Rubber", "Steel", "Adhesive", "Mixed", "Paper", "Cardboard", "Polyester", "Nylon", "Canvas", "Tritan", "Polycarbonate", "PVC", "Non-toxic"],
+            capacities: ["Standard", "Large", "500 ml", "750 ml", "1 L", "10 L", "15 L", "20 L", "25 L", "30 L"],
+            ageGroups: ["3-5 Years", "6-10 Years", "11-15 Years", "15+ Years", "All Ages"],
             inkColors: ["Blue", "Black", "Red", "Green", "Multicolor"],
-            packSizes: ["Pack of 1", "Pack of 2", "Pack of 5", "Pack of 10", "Set of 20"],
+            packSizes: ["Pack of 1", "Pack of 2", "Pack of 3", "Pack of 5", "Pack of 10", "Pack of 12", "Pack of 20", "Pack of 24", "Pack of 48", "Set of 2", "Set of 20"],
             displayTypes: ["LCD", "Natural V.P.A.M", "Large Desktop Display", "High Resolution LCD", "Dual Line Display"],
             powerSources: ["Solar & Battery", "Battery Powered", "Solar Powered", "Dual Power"],
             sizes: ["3\"x3\"", "2\"x2\"", "3\"x5\"", "1.5\"x2\"", "Standard", "Mini", "Large"],
@@ -261,6 +282,36 @@
             clrFilter.innerHTML = Object.entries(config.colors).map(([name, hex]) => `
                 <div class="color-dot ${filters.colors.includes(name) ? 'active' : ''}" style="background-color: ${hex}" title="${name}" onclick="toggleFilter('colors', '${name}')"></div>
             `).join('');
+
+            const materialFilter = document.getElementById('material-filters');
+            if (materialFilter) {
+                materialFilter.innerHTML = config.materials.map(m => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('materials', '${m}')">
+                        <div class="custom-checkbox ${filters.materials.includes(m) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${m}</span>
+                    </div>
+                `).join('');
+            }
+
+            const ageFilter = document.getElementById('age-filters');
+            if (ageFilter) {
+                ageFilter.innerHTML = config.ageGroups.map(a => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('ageGroups', '${a}')">
+                        <div class="custom-checkbox ${filters.ageGroups.includes(a) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${a}</span>
+                    </div>
+                `).join('');
+            }
+
+            const capFilter = document.getElementById('capacity-filters');
+            if (capFilter) {
+                capFilter.innerHTML = config.capacities.map(c => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('capacities', '${c}')">
+                        <div class="custom-checkbox ${filters.capacities.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                    </div>
+                `).join('');
+            }
         }
 
         function toggleFilter(key, val) {
@@ -275,16 +326,19 @@
             let filtered = allProducts.filter(p => {
                 const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
                 const tMatch = filters.types.length === 0 || filters.types.includes(p.type);
+                const mMatch = filters.materials.length === 0 || (p.material && filters.materials.includes(p.material));
+                const aMatch = filters.ageGroups.length === 0 || (p.ageGroup && filters.ageGroups.includes(p.ageGroup));
                 const inkMatch = filters.inkColors.length === 0 || filters.inkColors.includes(p.inkColor);
                 const packMatch = filters.packSizes.length === 0 || filters.packSizes.includes(p.packSize);
                 const dispMatch = filters.displayTypes.length === 0 || filters.displayTypes.includes(p.displayType);
                 const pwrMatch = filters.powerSources.length === 0 || filters.powerSources.includes(p.powerSource);
                 const szMatch = filters.sizes.length === 0 || filters.sizes.includes(p.size);
                 const pgMatch = filters.pageCounts.length === 0 || filters.pageCounts.includes(p.pageCount);
-                const clrMatch = filters.colors.length === 0 || p.colors.some(c => filters.colors.includes(c));
+                const clrMatch = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c)));
+                const capMatch = filters.capacities.length === 0 || (p.capacity && filters.capacities.includes(p.capacity));
                 const pMatch = p.price <= filters.maxPrice;
                 const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase());
-                return bMatch && tMatch && inkMatch && packMatch && dispMatch && pwrMatch && szMatch && pgMatch && clrMatch && pMatch && qMatch;
+                return bMatch && tMatch && mMatch && aMatch && inkMatch && packMatch && dispMatch && pwrMatch && szMatch && pgMatch && clrMatch && capMatch && pMatch && qMatch;
             });
 
             const grid = document.getElementById('product-grid');
@@ -361,7 +415,7 @@
         }
 
         function resetFilters() {
-            filters = { brands: [], types: [], inkColors: [], packSizes: [], displayTypes: [], powerSources: [], sizes: [], pageCounts: [], colors: [], maxPrice: 10000, search: "" };
+            filters = { brands: [], types: [], materials: [], ageGroups: [], capacities: [], inkColors: [], packSizes: [], displayTypes: [], powerSources: [], sizes: [], pageCounts: [], colors: [], maxPrice: 10000, search: "" };
             document.getElementById('price-range').value = 10000;
             document.getElementById('price-max').innerText = "₹10000+";
             document.getElementById('top-search').value = "";

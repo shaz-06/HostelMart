@@ -13,15 +13,64 @@ const { verifyToken, verifyAdmin } = require('./middleware/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// MongoDB Connection
+// MongoDB Connection & Models
 const connectDB = require('./lib/mongodb');
 const Product = require('./models/Product');
 const Order = require('./models/Order');
 const User = require('./models/User');
 const Review = require('./models/Review');
 
-// Connect to Database
-connectDB();
+// Connect to Database and Auto-Seed if In-Memory Fallback is Active
+connectDB().then(async () => {
+    // Unconditionally seed premium boxers so they are guaranteed to exist in the database!
+    console.log("🌱 Seeding Premium Men's Boxer collection unconditionally...");
+    try {
+        const { seedBoxersWithoutExit } = require('./seed_boxers');
+        await seedBoxersWithoutExit();
+    } catch (err) {
+        console.error("❌ Men's Boxer seeding failed:", err.message);
+    }
+
+    if (global.isMockDB) {
+        console.log("🌱 Local Mock Database Active! Automatically seeding 75 storage & organization products...");
+        try {
+            const { seedDBWithoutExit } = require('./seed_storage_and_organizers');
+            await seedDBWithoutExit();
+            console.log("✅ Dynamic storage & organization products auto-seeding completed successfully.");
+        } catch (err) {
+            console.error("❌ Storage auto-seeding failed:", err.message);
+        }
+
+        console.log("🌱 Seeding Premium Essentials products dynamically in Mock DB...");
+        try {
+            const { seedPremiumWithoutExit } = require('./seed_premium_products');
+            await seedPremiumWithoutExit();
+            console.log("✅ Premium Essentials auto-seeding completed successfully.");
+        } catch (err) {
+            console.error("❌ Premium auto-seeding failed:", err.message);
+        }
+
+        console.log("🌱 Seeding Furniture & Space Saving products dynamically in Mock DB...");
+        try {
+            const { seedFurnitureWithoutExit } = require('./seed_furniture_products');
+            await seedFurnitureWithoutExit();
+            console.log("✅ Furniture & Space Saving auto-seeding completed successfully.");
+        } catch (err) {
+            console.error("❌ Furniture auto-seeding failed:", err.message);
+        }
+
+        console.log("🌱 Seeding Classmate Notebook products dynamically in Mock DB...");
+        try {
+            const { seedNotebooksWithoutExit } = require('./seed_notebooks');
+            await seedNotebooksWithoutExit();
+            console.log("✅ Classmate Notebook products auto-seeding completed successfully.");
+        } catch (err) {
+            console.error("❌ Classmate Notebook auto-seeding failed:", err.message);
+        }
+    }
+}).catch((err) => {
+    console.error("❌ Critical database connection error:", err.message);
+});
 
 // Middleware
 app.use(morgan('dev'));
@@ -288,7 +337,7 @@ const saveSubscription = (email) => {
 app.get('/api/products', async (req, res) => {
     try {
         await connectDB();
-        const { category, subcategory, brand, sort } = req.query;
+        const { category, subcategory, brand, sort, search } = req.query;
         let query = {};
         if (category) query.category = category;
         if (subcategory) {
@@ -299,9 +348,24 @@ app.get('/api/products', async (req, res) => {
             }
         }
         if (brand) query.brand = brand;
-        if (req.query.section) query.section = req.query.section;
+        if (req.query.section) {
+            if (req.query.section.includes(',')) {
+                query.section = { $in: req.query.section.split(',') };
+            } else {
+                query.section = req.query.section;
+            }
+        }
         if (req.query.slug) query.slug = req.query.slug;
         if (req.query.slugs) query.slug = { $in: req.query.slugs.split(',') };
+        const searchVal = search || req.query.q;
+        if (searchVal) {
+            query.$or = [
+                { name: { $regex: searchVal, $options: "i" } },
+                { brand: { $regex: searchVal, $options: "i" } },
+                { category: { $regex: searchVal, $options: "i" } },
+                { subcategory: { $regex: searchVal, $options: "i" } }
+            ];
+        }
 
         let productQuery = Product.find(query);
 
@@ -322,20 +386,15 @@ app.get('/api/products', async (req, res) => {
 app.get('/api/products/search', async (req, res) => {
     try {
         await connectDB();
-        const { q } = req.query;
-        if (!q) return res.json([]);
+        const search = req.query.search || req.query.q;
+        if (!search) return res.json([]);
 
-        // Search across multiple fields with case-insensitivity
-        const searchRegex = new RegExp(q, 'i');
         const products = await Product.find({
             $or: [
-                { name: searchRegex },
-                { brand: searchRegex },
-                { category: searchRegex },
-                { subcategory: searchRegex },
-                { section: searchRegex },
-                { description: searchRegex },
-                { keywords: searchRegex }
+                { name: { $regex: search, $options: "i" } },
+                { brand: { $regex: search, $options: "i" } },
+                { category: { $regex: search, $options: "i" } },
+                { subcategory: { $regex: search, $options: "i" } }
             ]
         }).limit(10); // Limit results for suggestions
 
@@ -349,7 +408,8 @@ app.get('/api/products/search', async (req, res) => {
 app.get('/api/products/slug/:slug', async (req, res) => {
     try {
         await connectDB();
-        const product = await Product.findOne({ slug: req.params.slug });
+        const escapedSlug = req.params.slug.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const product = await Product.findOne({ slug: { $regex: new RegExp("^" + escapedSlug + "$", "i") } });
         if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
         res.json(product);
     } catch (error) {
@@ -366,7 +426,8 @@ app.get('/product/:slug', (req, res) => {
 app.get('/api/products/similar/:slug', async (req, res) => {
     try {
         await connectDB();
-        const product = await Product.findOne({ slug: req.params.slug });
+        const escapedSlug = req.params.slug.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const product = await Product.findOne({ slug: { $regex: new RegExp("^" + escapedSlug + "$", "i") } });
         if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
 
         const similarProducts = await Product.find({

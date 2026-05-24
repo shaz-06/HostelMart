@@ -128,6 +128,11 @@
                 </div>
 
                 <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Output Power</h3>
+                    <div class="space-y-3" id="output-power-filters"></div>
+                </div>
+
+                <div>
                     <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Wattage</h3>
                     <div class="space-y-3" id="wattage-filters"></div>
                 </div>
@@ -219,6 +224,7 @@
             batteryCapacities: [],
             chargingSpeeds: [],
             outputPorts: [],
+            outputPowers: [],
             materials: [],
             adjustabilities: [],
             dpis: [],
@@ -230,13 +236,14 @@
         };
 
         const config = {
-            subcategories: ["Mobiles", "Laptops", "Audio", "Smartwatches"],
-            brands: ["Apple", "Samsung", "OnePlus", "Sony", "JBL", "boAt", "HP", "Dell", "Lenovo", "Asus", "Logitech", "Xiaomi"],
-            types: ["Smartphone", "Laptop", "Earbuds", "Bluetooth Speaker", "Smartwatch", "Power Bank", "Charger", "USB Hub", "Wireless Mouse", "Mechanical Keyboard", "Gaming Headset", "Laptop Cooling Pad", "Tablet Device"],
-            connectivities: ["Wireless", "Wired", "Bluetooth 5.0", "Bluetooth 5.2", "Bluetooth 5.3", "USB-C", "Wi-Fi", "5G"],
-            batteryLives: ["20 Hours", "30 Hours", "40 Hours", "50 Hours", "60 Hours"],
+            subcategories: ["Mobiles", "Laptops", "Audio", "Smartwatches", "Electronics & Tech"],
+            brands: ["Apple", "Samsung", "OnePlus", "Sony", "JBL", "boAt", "HP", "Dell", "Lenovo", "Asus", "Logitech", "Xiaomi", "Zebronics", "Mivi", "Marshall", "Realme", "Portronics", "Mi", "Philips", "Wipro", "Syska", "Epson", "Everycom", "Egate"],
+            types: ["Smartphone", "Laptop", "Earbuds", "Bluetooth Speaker", "Smartwatch", "Power Bank", "Charger", "USB Hub", "Wireless Mouse", "Mechanical Keyboard", "Gaming Headset", "Laptop Cooling Pad", "Tablet Device", "Portable Bluetooth Speakers", "Waterproof Speakers", "Party Speakers", "Mini Bluetooth Speakers", "RGB Speakers", "Smart Bluetooth Speakers", "Outdoor Speakers", "Bass Boost Speakers", "Soundbar Speakers", "Rechargeable Wireless Speakers", "RGB LED Strip Lights", "Smart LED Strips", "USB LED Strips", "Music Sync LED Lights", "Waterproof LED Strips", "Portable Projectors", "Smart Mini Projectors", "LED Projectors", "WiFi Projectors", "Android Mini Projectors"],
+            connectivities: ["Wireless", "Wired", "Bluetooth 5.0", "Bluetooth 5.1", "Bluetooth 5.2", "Bluetooth 5.3", "USB-C", "Wi-Fi", "5G"],
+            batteryLives: ["10 Hours", "15 Hours", "20 Hours", "24 Hours", "30 Hours", "40 Hours", "50 Hours", "60 Hours"],
             noiseCancellations: ["Active Noise Cancellation (ANC)", "Environmental Noise Cancellation (ENC)", "Hybrid ANC", "Passive Noise Isolation"],
             waterResistances: ["IPX4", "IPX5", "IPX7", "IP55", "Sweatproof"],
+            outputPowers: ["5W", "10W", "16W", "20W", "30W", "50W", "100W", "120W"],
             wattages: ["18W", "20W", "33W", "45W", "65W", "80W", "100W", "120W"],
             compatibilities: ["iOS & Android", "Type-C Devices", "Laptops & Smartphones", "Qi-Enabled Devices", "Universal"],
             batteryCapacities: ["5000mAh", "10000mAh", "12000mAh", "20000mAh", "30000mAh"],
@@ -263,7 +270,7 @@
         async function fetchProducts() {
             try {
                 const sort = document.getElementById('sort-select').value;
-                const res = await fetch(`/api/products?category=Electronics & Tech&sort=${sort}`);
+                const res = await fetch(`/api/products?subcategory=Mobiles,Laptops,Audio,Smartwatches,Electronics & Tech&sort=${sort}`);
                 allProducts = await res.json();
                 applyFiltersAndRender();
             } catch (e) {
@@ -327,6 +334,16 @@
                     <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${w}</span>
                 </div>
             `).join('');
+
+            const opFilter = document.getElementById('output-power-filters');
+            if (opFilter) {
+                opFilter.innerHTML = config.outputPowers.map(o => `
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('outputPowers', '${o}')">
+                        <div class="custom-checkbox ${filters.outputPowers.includes(o) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                        <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${o}</span>
+                    </div>
+                `).join('');
+            }
 
             const wFilter = document.getElementById('wattage-filters');
             wFilter.innerHTML = config.wattages.map(w => `
@@ -431,6 +448,7 @@
                 const batMatch = filters.batteryLives.length === 0 || filters.batteryLives.includes(p.batteryLife);
                 const noiseMatch = filters.noiseCancellations.length === 0 || filters.noiseCancellations.includes(p.noiseCancellation);
                 const waterMatch = filters.waterResistances.length === 0 || filters.waterResistances.includes(p.waterResistance);
+                const opMatch = filters.outputPowers.length === 0 || filters.outputPowers.includes(p.outputPower);
                 const wattMatch = filters.wattages.length === 0 || filters.wattages.includes(p.wattage);
                 const compMatch = filters.compatibilities.length === 0 || filters.compatibilities.includes(p.compatibility);
                 const capMatch = filters.batteryCapacities.length === 0 || filters.batteryCapacities.includes(p.batteryCapacity);
@@ -444,7 +462,7 @@
                 const clrMatch = filters.colors.length === 0 || p.colors.some(c => filters.colors.includes(c));
                 const priceMatch = p.price <= filters.maxPrice;
                 const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase()) || p.type.toLowerCase().includes(filters.search.toLowerCase());
-                return scMatch && bMatch && tMatch && cMatch && batMatch && noiseMatch && waterMatch && wattMatch && compMatch && capMatch && spdMatch && portMatch && matMatch && adjMatch && dpiMatch && swMatch && bkMatch && clrMatch && priceMatch && qMatch;
+                return scMatch && bMatch && tMatch && cMatch && batMatch && noiseMatch && waterMatch && opMatch && wattMatch && compMatch && capMatch && spdMatch && portMatch && matMatch && adjMatch && dpiMatch && swMatch && bkMatch && clrMatch && priceMatch && qMatch;
             });
 
             const grid = document.getElementById('product-grid');
@@ -523,7 +541,7 @@
                 subcategories: [], brands: [], types: [], connectivities: [], 
                 batteryLives: [], noiseCancellations: [], waterResistances: [],
                 wattages: [], compatibilities: [],
-                batteryCapacities: [], chargingSpeeds: [], outputPorts: [],
+                batteryCapacities: [], chargingSpeeds: [], outputPorts: [], outputPowers: [],
                 materials: [], adjustabilities: [],
                 dpis: [],
                 switchTypes: [], backlights: [],

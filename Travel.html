@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bags & Travel Essentials | HostelMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="address_global.js" defer></script>
+    <script src="auth_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
+    <script src="search_global.js" defer></script>
+    <link rel="stylesheet" href="search_styles.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #3E2723; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #C8A951 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #C8A951; border-radius: 10px; }
+        .product-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(93, 64, 55, 0.15); border-color: rgba(200, 169, 81, 0.4); }
+        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #D7CCC8; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; background: white; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; font-weight: bold; }
+        .custom-checkbox.active ion-icon { display: block; }
+        .color-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; cursor: pointer; transition: all 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); position: relative; }
+        .color-dot.active { transform: scale(1.2); box-shadow: 0 0 0 3px #C8A951; }
+        .quick-pill { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 16px; border-radius: 9999px; background-color: #F5F5DC; border: 1px solid #e7e5e4; color: #5D4037; transition: all 0.2s ease; white-space: nowrap; cursor: pointer; }
+        .quick-pill:hover { border-color: #C5A059; transform: translateY(-1px); }
+        .quick-pill.active { background-color: #5D4037; border-color: #5D4037; color: #FDFBF7; box-shadow: 0 4px 10px rgba(93, 64, 55, 0.15); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @media (max-width: 1023px) {
+            #filter-sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 50;
+                width: 300px;
+                height: 100vh;
+                max-height: 100vh;
+                background: #FDFBF7;
+                padding: 24px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                box-shadow: 20px 0 40px rgba(0,0,0,0.15);
+            }
+            #filter-sidebar.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- HEADER -->
+    <header class="bg-white sticky top-0 z-40 border-b border-[#D7CCC8]/40 shadow-sm">
+        <!-- Top Row: Portal Tabs -->
+        <div class="border-b border-gray-100 py-2 bg-gray-50 text-xs">
+            <div class="container mx-auto px-4 flex gap-4">
+                <a href="/index.html" class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm border border-gray-200 no-underline">
+                    <span class="font-black italic text-base flex items-center">
+                        <span class="text-[#8D6E63]">Hostel</span>
+                        <span class="text-[#C8A951] ml-1">Mart</span>
+                    </span>
+                </a>
+                <a href="/Minutes.html" class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <div class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">6</div>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
+                </a>
+                <a href="/Travel.html" class="bg-[#5D4037] px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-colors no-underline">
+                    <ion-icon name="airplane" class="text-white text-xl"></ion-icon>
+                    <span class="font-bold text-white text-sm italic">Travel</span>
+                </a>
+                <a href="/Footwear.html" class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
+                    <ion-icon name="walk-outline" class="text-[#8D6E63] text-xl"></ion-icon>
+                    <span class="font-bold text-[#5D4037] text-sm italic">Footwear</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Middle Row: Location -->
+        <div class="bg-[#F5F5DC] py-2 hidden md:block">
+            <div class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <a href="javascript:void(0)" onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037] group transition-all">
+                    <ion-icon name="location" class="text-sm group-hover:scale-125 transition-transform"></ion-icon>
+                    <span id="current-address">Add Delivery Address</span>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Search & Profile -->
+        <div class="bg-[#F5F5DC] py-4">
+            <div class="container mx-auto px-4 flex items-center justify-between gap-4 md:gap-12">
+                <!-- Mobile Menu Logo -->
+                <a href="/index.html" class="text-xl font-black text-[#5D4037] md:hidden">HostelMart</a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 relative group" id="search-container">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl z-10">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+                    <input type="search" id="product-search" placeholder="Search for premium bags, wallets, suitcases..."
+                        class="w-full bg-[#FFFDD0] border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium relative z-10"
+                        onfocus="showSearchDropdown()" autocomplete="off">
+
+                    <!-- Search Dropdown -->
+                    <div id="search-suggestions" class="search-dropdown" style="display: none;">
+                        <div id="recent-searches-list"></div>
+                        <div class="dropdown-section-title">Trending Searches</div>
+                        <div class="search-item" onclick="handleSearchClick('Wildcraft backpack')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">Wildcraft backpack</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('trolley bag')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">trolley bag</p>
+                        </div>
+                        <div class="search-item" onclick="handleSearchClick('leather wallet')">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <p class="item-text">leather wallet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile & Cart -->
+                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
+                    <a href="/Cart.html" class="relative group flex items-center">
+                        <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-sm">0</span>
+                    </a>
+                    <div id="auth-user-ui"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Banner Showcase -->
+        <div class="mb-12 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-r from-[#3E2723] to-[#5D4037] text-white p-8 md:p-12 shadow-xl border border-[#C8A951]/20">
+            <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 bg-[radial-gradient(#C8A951_2px,transparent_2px)] [background-size:20px_20px] pointer-events-none"></div>
+            <div class="max-w-xl relative z-10 space-y-4">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#C8A951]">Premium Backpacks & Suitcases</span>
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-none">Bags & Travel Essentials</h1>
+                <p class="text-xs md:text-sm text-gray-300 font-medium leading-relaxed">Upgrade your daily hostel transit and weekend getaways. Explore heavy-duty backpacks, ergonomic laptop bags, luxury wallets, and sturdy trolley cases engineered for durability.</p>
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <span class="bg-white/10 backdrop-blur-sm border border-white/10 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Free Express Shipping</span>
+                    <span class="bg-[#C8A951]/20 backdrop-blur-sm border border-[#C8A951]/30 text-[#C8A951] text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Genuine Official Warranty</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK FILTERS SECTION -->
+        <div class="mb-8 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-extrabold text-[#3E2723] tracking-tight">Quick Browse</h2>
+                <button onclick="toggleMobileFilters()" class="lg:hidden bg-[#5D4037] text-white px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-black uppercase tracking-wider">
+                    <ion-icon name="options-outline"></ion-icon>
+                    Filters
+                </button>
+            </div>
+            
+            <!-- Quick Pills (Horizontal scrollable) -->
+            <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                <div class="quick-pill active" id="pill-sub-all" onclick="selectQuickSub('All')">All Categories</div>
+                <div class="quick-pill" id="pill-sub-backpacks" onclick="selectQuickSub('Bags & Backpacks')">Bags & Backpacks</div>
+                <div class="quick-pill" id="pill-sub-travel" onclick="selectQuickSub('Travel Essentials')">Travel Essentials</div>
+                <div class="quick-pill" id="pill-sub-student" onclick="selectQuickSub('Student Essentials')">Student Essentials</div>
+                
+                <div class="w-px h-6 bg-[#D7CCC8]/40 self-center"></div>
+                
+                <div class="quick-pill" id="pill-sec-all" onclick="selectQuickSection('All')">All Sections</div>
+                <div class="quick-pill" id="pill-sec-student" onclick="selectQuickSection('Student Essentials')">Student Essentials</div>
+                <div class="quick-pill" id="pill-sec-travel" onclick="selectQuickSection('Travel Essentials')">Travel Essentials</div>
+                <div class="quick-pill" id="pill-sec-premium" onclick="selectQuickSection('Premium Essentials')">Premium Essentials</div>
+                <div class="quick-pill" id="pill-sec-daily" onclick="selectQuickSection('Daily Use Essentials')">Daily Use</div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-10">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full lg:w-72 flex-shrink-0 space-y-8 sticky top-28 h-fit max-h-[85vh] overflow-y-auto pr-4 no-scrollbar filter-sidebar">
+                <div class="flex items-center justify-between pb-4 border-b border-[#D7CCC8]/40">
+                    <h2 class="text-base font-black text-[#3E2723] uppercase tracking-tight flex items-center gap-2">
+                        <ion-icon name="options-outline" class="text-lg text-[#C8A951]"></ion-icon>
+                        Filters
+                    </h2>
+                    <button onclick="resetFilters()" class="text-[10px] font-black text-[#C8A951] uppercase tracking-widest hover:underline">Clear All</button>
+                    <button onclick="toggleMobileFilters()" class="lg:hidden text-2xl text-[#3E2723]"><ion-icon name="close-outline"></ion-icon></button>
+                </div>
+
+                <!-- Brand -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
+                </div>
+
+                <!-- Material -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
+                </div>
+
+                <!-- Capacity range pills -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Capacity Range</h3>
+                    <div class="grid grid-cols-2 gap-2" id="capacity-filters"></div>
+                </div>
+
+                <!-- Waterproof -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Waterproof</h3>
+                    <div class="space-y-3" id="waterproof-filters"></div>
+                </div>
+
+                <!-- Laptop Compatibility -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Laptop Sleeve</h3>
+                    <div class="space-y-3" id="laptop-filters"></div>
+                </div>
+
+                <!-- Color dots selection -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
+                    <div class="flex flex-wrap gap-2.5" id="color-filters"></div>
+                </div>
+
+                <!-- Pricing Range -->
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-black text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹20,000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="20000" step="500" class="w-full accent-[#5D4037]" value="20000">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CATALOG GRID -->
+            <div class="flex-1">
+                <!-- Sorting & Count Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4 bg-white p-4 rounded-3xl border border-[#D7CCC8]/30 shadow-sm">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037] no-underline">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037] font-extrabold">Bags & Accessories</span>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037] font-black">0</span> Products Found</p>
+                        <select id="sort-select" onchange="fetchProducts()" class="bg-[#FDF5E6] border border-[#D7CCC8]/30 rounded-xl px-4 py-2.5 text-xs font-black outline-none focus:border-[#C8A951] cursor-pointer transition-all text-[#3E2723]">
+                            <option value="popularity">Sort: Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="newest">New Arrivals</option>
+                            <option value="best-travel">Best Travel Bags</option>
+                            <option value="best-student">Best Student Bags</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Grid (Flipkart-style) -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                    <!-- Cards will be dynamically injected here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden text-center py-20 bg-white rounded-[2.5rem] border border-[#D7CCC8]/20 p-8 shadow-sm">
+                    <div class="w-24 h-24 bg-[#F5F5DC] rounded-full flex items-center justify-center mx-auto mb-6 text-[#C8A951]">
+                        <ion-icon name="bag-handle-outline" class="text-5xl"></ion-icon>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-[#3E2723] mb-2">No Matching Products Found</h3>
+                    <p class="text-xs text-gray-400 font-medium max-w-sm mx-auto mb-6">We couldn't find any bags or travel accessories matching your current filters. Try resetting your choices or sliding the price limit.</p>
+                    <button onclick="resetFilters()" class="bg-[#5D4037] text-white px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-wider hover:bg-[#8D6E63] transition-colors">Reset All Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Address Modal (Synchronized with global system) -->
+    <div id="address-modal" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border border-stone-200 shadow-2xl relative">
+            <button onclick="closeAddressModal()" class="absolute right-4 top-4 text-stone-500 hover:text-stone-800 text-2xl">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <h3 class="text-lg font-extrabold text-[#3E2723] mb-4">Set Delivery Address</h3>
+            <div class="space-y-4">
+                <button onclick="getUserGPSLocation()" class="w-full bg-[#5D4037] text-white py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-black uppercase tracking-wider">
+                    <ion-icon name="location-outline" class="text-sm"></ion-icon>
+                    Use Live GPS Location
+                </button>
+                <div class="relative flex py-2 items-center">
+                    <div class="flex-grow border-t border-gray-200"></div>
+                    <span class="flex-shrink mx-4 text-gray-400 text-[10px] font-black uppercase tracking-wider">Or Enter Address</span>
+                    <div class="flex-grow border-t border-gray-200"></div>
+                </div>
+                <input type="text" id="manual-street" placeholder="e.g. Hostel 4, Room 221" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-[#C8A951]">
+                <input type="text" id="manual-city" placeholder="e.g. IIT Campus, Bangalore" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-[#C8A951]">
+                <button onclick="saveManualAddress()" class="w-full bg-[#C8A951] text-white py-3 rounded-xl text-xs font-black uppercase tracking-wider">
+                    Save Address
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE LOGIC SCRIPTS -->
+    <script>
+        let allProducts = [];
+        let activeSub = "All";
+        let activeSection = "All";
+
+        let filters = {
+            brands: [],
+            materials: [],
+            capacities: [], // selected labels e.g. "< 10L"
+            waterproof: [],
+            laptop: [],
+            colors: [],
+            maxPrice: 20000,
+            search: ""
+        };
+
+        const config = {
+            brands: ["Skybags", "Wildcraft", "Safari", "Arctic Fox", "Fastrack", "Nike", "Adidas", "Puma", "Gear", "American Tourister", "VIP", "Samsonite", "Lavie", "Fastrack", "Mokobara", "Decathlon", "Dell", "HP", "Lenovo", "Targus"],
+            materials: ["Polyester", "Nylon", "Canvas", "Ballistic Nylon", "Faux Leather", "Ripstop", "Cordura", "Polycarbonate", "Vegan Leather", "Cotton Canvas", "Genuine Leather", "Oxford Fabric", "Carbon Fiber"],
+            capacities: [
+                { label: "< 10L", min: 0, max: 9 },
+                { label: "10L - 25L", min: 10, max: 25 },
+                { label: "26L - 45L", min: 26, max: 45 },
+                { label: "46L - 75L", min: 46, max: 75 },
+                { label: "> 75L", min: 76, max: 999 }
+            ],
+            waterproof: ["Yes", "Water-resistant", "No"],
+            laptop: ["Up to 13.3 inch", "Up to 14 inch", "Up to 15.6 inch", "Up to 16 inch", "Up to 17.3 inch", "No"],
+            colors: {
+                "Midnight Black": "#111111",
+                "Carbon Grey": "#36454F",
+                "Storm Blue": "#4682B4",
+                "Forest Green": "#2E8B57",
+                "Crimson Red": "#DC143C",
+                "Military Camo": "#4B5320",
+                "Coffee Brown": "#5C4033",
+                "Navy Blue": "#000080",
+                "Classic Tan": "#D2B48C",
+                "Pastel Pink": "#FFC0CB",
+                "Steel Grey": "#808080",
+                "Sunset Orange": "#FF8C00",
+                "Silver Ash": "#C0C0C0",
+                "Champagne Gold": "#F1E5AC",
+                "Neon Green": "#39FF14"
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFilterSidebarUI();
+            fetchProducts();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Price range slider listener
+            const slider = document.getElementById('price-range');
+            slider.addEventListener('input', (e) => {
+                filters.maxPrice = parseInt(e.target.value);
+                document.getElementById('price-max').innerText = filters.maxPrice === 20000 ? "₹20,000+" : `₹${filters.maxPrice.toLocaleString()}`;
+                applyFiltersAndRender();
+            });
+
+            // Listen to dynamic global search events or input keys
+            const searchInput = document.getElementById('product-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    filters.search = e.target.value.trim();
+                    applyFiltersAndRender();
+                });
+            }
+        }
+
+        async function fetchProducts() {
+            try {
+                const sort = document.getElementById('sort-select').value;
+                
+                // Construct base subcategories query to fetch only premium bags
+                const subcategoryQuery = "Bags & Backpacks,Travel Essentials,Student Essentials";
+                let url = `/api/products?subcategory=${subcategoryQuery}&sort=${sort}`;
+                
+                // Add sorting adjustments
+                if (sort === "best-travel") {
+                    url = `/api/products?subcategory=${subcategoryQuery}&section=Travel Essentials`;
+                } else if (sort === "best-student") {
+                    url = `/api/products?subcategory=${subcategoryQuery}&section=Student Essentials`;
+                }
+
+                const res = await fetch(url);
+                allProducts = await res.json();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Bags Error:", e);
+            }
+        }
+
+        function renderFilterSidebarUI() {
+            // Render Brands
+            document.getElementById('brand-filters').innerHTML = config.brands.slice(0, 10).map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                    <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}" id="check-brand-${b.replace(/\s+/g, '')}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            // Render Materials
+            document.getElementById('material-filters').innerHTML = config.materials.slice(0, 8).map(m => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('materials', '${m}')">
+                    <div class="custom-checkbox ${filters.materials.includes(m) ? 'active' : ''}" id="check-material-${m.replace(/\s+/g, '')}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${m}</span>
+                </div>
+            `).join('');
+
+            // Render Capacity Pills
+            document.getElementById('capacity-filters').innerHTML = config.capacities.map(c => `
+                <div class="border border-[#D7CCC8]/60 px-3 py-2.5 rounded-2xl flex items-center justify-center text-center cursor-pointer transition-all ${filters.capacities.includes(c.label) ? 'bg-[#5D4037] border-[#5D4037] text-white font-extrabold' : 'bg-white text-gray-500 hover:border-[#C5A059]'}" onclick="toggleCapacityFilter('${c.label}')">
+                    <span class="text-[10px] tracking-tight font-bold uppercase">${c.label}</span>
+                </div>
+            `).join('');
+
+            // Render Waterproof
+            document.getElementById('waterproof-filters').innerHTML = config.waterproof.map(w => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('waterproof', '${w}')">
+                    <div class="custom-checkbox ${filters.waterproof.includes(w) ? 'active' : ''}" id="check-wproof-${w.replace(/\s+/g, '')}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${w}</span>
+                </div>
+            `).join('');
+
+            // Render Laptop Comp
+            document.getElementById('laptop-filters').innerHTML = config.laptop.map(l => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('laptop', '${l}')">
+                    <div class="custom-checkbox ${filters.laptop.includes(l) ? 'active' : ''}" id="check-laptop-${l.replace(/[^a-zA-Z0-9]/g, '')}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${l}</span>
+                </div>
+            `).join('');
+
+            // Render Color dots
+            document.getElementById('color-filters').innerHTML = Object.entries(config.colors).map(([name, hex]) => `
+                <div class="color-dot ${filters.colors.includes(name) ? 'active' : ''}" style="background-color: ${hex};" title="${name}" onclick="toggleFilter('colors', '${name}')" id="dot-color-${name.replace(/\s+/g, '')}"></div>
+            `).join('');
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterSidebarUI();
+            applyFiltersAndRender();
+        }
+
+        function toggleCapacityFilter(label) {
+            const index = filters.capacities.indexOf(label);
+            if (index > -1) filters.capacities.splice(index, 1);
+            else filters.capacities.push(label);
+            renderFilterSidebarUI();
+            applyFiltersAndRender();
+        }
+
+        function selectQuickSub(sub) {
+            activeSub = sub;
+            document.querySelectorAll("[id^='pill-sub-']").forEach(pill => pill.classList.remove('active'));
+            if (sub === 'All') document.getElementById('pill-sub-all').classList.add('active');
+            else if (sub === 'Bags & Backpacks') document.getElementById('pill-sub-backpacks').classList.add('active');
+            else if (sub === 'Travel Essentials') document.getElementById('pill-sub-travel').classList.add('active');
+            else if (sub === 'Student Essentials') document.getElementById('pill-sub-student').classList.add('active');
+            applyFiltersAndRender();
+        }
+
+        function selectQuickSection(section) {
+            activeSection = section;
+            document.querySelectorAll("[id^='pill-sec-']").forEach(pill => pill.classList.remove('active'));
+            if (section === 'All') document.getElementById('pill-sec-all').classList.add('active');
+            else if (section === 'Student Essentials') document.getElementById('pill-sec-student').classList.add('active');
+            else if (section === 'Travel Essentials') document.getElementById('pill-sec-travel').classList.add('active');
+            else if (section === 'Premium Essentials') document.getElementById('pill-sec-premium').classList.add('active');
+            else if (section === 'Daily Use Essentials') document.getElementById('pill-sec-daily').classList.add('active');
+            applyFiltersAndRender();
+        }
+
+        function resetFilters() {
+            filters = {
+                brands: [],
+                materials: [],
+                capacities: [],
+                waterproof: [],
+                laptop: [],
+                colors: [],
+                maxPrice: 20000,
+                search: ""
+            };
+            activeSub = "All";
+            activeSection = "All";
+            document.getElementById('price-range').value = 20000;
+            document.getElementById('price-max').innerText = "₹20,000+";
+            
+            document.querySelectorAll("[id^='pill-sub-']").forEach(p => p.classList.remove('active'));
+            document.getElementById('pill-sub-all').classList.add('active');
+            document.querySelectorAll("[id^='pill-sec-']").forEach(p => p.classList.remove('active'));
+            document.getElementById('pill-sec-all').classList.add('active');
+
+            const searchInput = document.getElementById('product-search');
+            if (searchInput) searchInput.value = "";
+
+            renderFilterSidebarUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                // Subcategory Pill Match
+                const subMatch = activeSub === "All" || p.subcategory === activeSub;
+                
+                // Section Pill Match
+                const secMatch = activeSection === "All" || p.section === activeSection;
+
+                // Brand Match
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+
+                // Material Match
+                const mMatch = filters.materials.length === 0 || filters.materials.includes(p.material);
+
+                // Capacity Range Match
+                let capMatch = true;
+                if (filters.capacities.length > 0) {
+                    capMatch = false;
+                    if (p.capacity) {
+                        const numericCapacity = parseInt(p.capacity.replace(/[^0-9]/g, ''));
+                        if (!isNaN(numericCapacity)) {
+                            filters.capacities.forEach(lbl => {
+                                const matchedRange = config.capacities.find(c => c.label === lbl);
+                                if (matchedRange && numericCapacity >= matchedRange.min && numericCapacity <= matchedRange.max) {
+                                    capMatch = true;
+                                }
+                            });
+                        }
+                    }
+                }
+
+                // Waterproof Match
+                const wMatch = filters.waterproof.length === 0 || filters.waterproof.includes(p.waterproof);
+
+                // Laptop Sleeve Match
+                const lMatch = filters.laptop.length === 0 || filters.laptop.includes(p.laptopCompatibility);
+
+                // Color Dot Match
+                const cMatch = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c)));
+
+                // Price Match
+                const priceMatch = p.price <= filters.maxPrice;
+
+                // Keyword Search Match
+                const searchMatch = !filters.search || 
+                    p.name.toLowerCase().includes(filters.search.toLowerCase()) || 
+                    p.brand.toLowerCase().includes(filters.search.toLowerCase()) || 
+                    (p.description && p.description.toLowerCase().includes(filters.search.toLowerCase()));
+
+                return subMatch && secMatch && bMatch && mMatch && capMatch && wMatch && lMatch && cMatch && priceMatch && searchMatch;
+            });
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => {
+                    const priceFormatted = `₹${p.price.toLocaleString()}`;
+                    const originalFormatted = p.originalPrice ? `₹${p.originalPrice.toLocaleString()}` : '';
+                    
+                    return `
+                    <div class="product-card bg-white rounded-[2.5rem] border border-[#C8A951]/10 overflow-hidden group flex flex-col h-full shadow-sm hover:shadow-2xl">
+                        <!-- Card Image -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gray-50 cursor-pointer border-b border-[#D7CCC8]/20" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700" alt="${p.name}">
+                            ${p.discount ? `<span class="absolute top-6 left-6 bg-[#3E2723] text-white text-[9px] font-black px-4 py-2 rounded-2xl uppercase tracking-widest shadow-lg border border-[#C8A951]/20">${p.discount}</span>` : ''}
+                            <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <ion-icon name="star" class="text-yellow-500 text-xs"></ion-icon>
+                                <span class="text-xs font-black text-[#5D4037]">${p.rating}</span>
+                                <span class="text-[9px] font-bold text-gray-400">(${p.ratingsCount || 0})</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-6 flex flex-col flex-grow space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-black uppercase tracking-widest text-[#C8A951]">${p.brand}</span>
+                                <span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">${p.subcategory}</span>
+                            </div>
+
+                            <h3 class="text-sm font-extrabold text-[#3E2723] line-clamp-1 group-hover:text-[#5D4037] transition-colors cursor-pointer" onclick="window.location.href='/product/${p.slug}'">
+                                ${p.name}
+                            </h3>
+
+                            <!-- Technical Tags -->
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <span class="bg-[#FDFBF7] border border-[#D7CCC8]/30 text-gray-400 text-[8px] font-black px-2.5 py-1 rounded-md">${p.material}</span>
+                                ${p.capacity ? `<span class="bg-[#FDFBF7] border border-[#D7CCC8]/30 text-gray-400 text-[8px] font-black px-2.5 py-1 rounded-md">${p.capacity}</span>` : ''}
+                                ${p.waterproof === 'Yes' ? `<span class="bg-blue-50 border border-blue-100 text-blue-500 text-[8px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider">Waterproof</span>` : ''}
+                            </div>
+
+                            <p class="text-gray-400 font-medium text-[10px] leading-relaxed line-clamp-2">
+                                ${p.description}
+                            </p>
+
+                            <!-- Pricing -->
+                            <div class="pt-2 flex items-baseline gap-2">
+                                <span class="text-lg font-black text-[#5D4037]">${priceFormatted}</span>
+                                ${originalFormatted ? `<span class="text-xs text-gray-400 line-through font-bold">${originalFormatted}</span>` : ''}
+                            </div>
+
+                            <!-- Cart Controls -->
+                            <div class="pt-4 flex items-center gap-3 mt-auto">
+                                <button onclick="handleBuyNow('${p.slug}')" class="flex-1 bg-[#5D4037] text-white text-xs font-black uppercase tracking-wider py-3 rounded-2xl hover:bg-[#8D6E63] transition-colors shadow-md">
+                                    Buy Now
+                                </button>
+                                <button id="grid-btn-${p.slug}" data-product-slug="${p.slug}" data-product-name="${p.name}" data-product-price="${p.price}" data-product-image="${p.image}" data-product-brand="${p.brand}" class="cart-action-btn bg-white border border-[#D7CCC8] hover:border-[#5D4037] text-[#5D4037] w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm">
+                                    <ion-icon name="cart-outline" class="text-lg"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+
+                // Sync newly rendered cart actions
+                if (window.syncCartButtons) window.syncCartButtons();
+            }
+        }
+
+        function handleBuyNow(slug) {
+            window.location.href = `/product/${slug}?buyNow=true`;
+        }
+
+        function toggleMobileFilters() {
+            document.getElementById('filter-sidebar').classList.toggle('open');
+        }
+
+        function toggleMobileMenu() {
+            // Placeholder menu toggle
+        }
+
+        function openAddressModal() {
+            document.getElementById('address-modal').style.display = 'flex';
+        }
+
+        function closeAddressModal() {
+            document.getElementById('address-modal').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

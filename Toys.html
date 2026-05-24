@@ -1,1464 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toys & Baby Care - HostelMart</title>
+    <title>Toys & Kids Essentials | HostelMart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="address_global.js" defer></script>
+    <script src="cart_global.js" defer></script>
     <script src="auth_global.js" defer></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #FDFBF7;
-            color: #3E2723;
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .accent-gold {
-            color: #C5A059;
-        }
-
-        .accent-gold-bg {
-            background-color: #C5A059;
-        }
-
-        .dark-brown-bg {
-            background-color: #3E2723;
-        }
-
-        .hover-lift {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.1);
-        }
-
-        .category-item:hover .icon-box {
-            transform: translateY(-5px);
-            background-color: #F5F5DC;
-        }
-
-        .category-item.active .icon-box {
-            background-color: #F5F5DC;
-            border-bottom: 3px solid #5D4037;
-        }
-
-        .category-item.active span {
-            color: #5D4037;
-            font-weight: 900;
-        }
-
-        /* Arched cards for Mother's Day & Restock */
-        .arch-card {
-            background: #F5F5DC;
-            border-radius: 100px 100px 24px 24px;
-            border: 1px solid #FDE6E9;
-        }
-
-        /* Scalloped edge for budget buys */
-        .scallop {
-            mask-image: radial-gradient(circle at 10px 10px, transparent 10px, black 11px);
-            mask-size: 20px 20px;
-        }
-
-        /* Character Arc for Pop Culture Corner */
-        .char-arc {
-            background: linear-gradient(180deg, #D7CCC8 0%, #F5F5DC 100%);
-            border-radius: 120px 120px 24px 24px;
-        }
-
-        .toy-hero-blue {
-            background: linear-gradient(135deg, #F5F5DC 0%, #D7CCC8 100%);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.3s ease-out forwards;
-        }
-
-        /* Compact Category Navigation on Scroll */
-        #categories-section {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        #categories-section.scrolled {
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        #categories-section .icon-box {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            max-height: 50px;
-        }
-
-        #categories-section.scrolled .icon-box {
-            max-height: 0;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(-10px);
-        }
-
-        #categories-section.scrolled .category-item {
-            gap: 0;
-        }
-
-        #categories-section.scrolled span {
-            font-size: 11px;
-            color: #5D4037;
-        }
-
-        /* Redesigned Mega Menu Styles */
-        .mega-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            width: 1000px;
-            max-width: 95vw;
-            max-height: 80vh;
-            background: #FDFBF7;
-            border: 1px solid rgba(215, 204, 200, 0.5);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.15);
-            display: flex;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 50;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .nav-item-wrapper:hover .mega-menu,
-        .mega-menu.is-open {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(10px);
-            pointer-events: auto;
-        }
-
-        .mega-menu-left {
-            width: 280px;
-            background: #F5F5DC;
-            border-right: 1px solid rgba(215, 204, 200, 0.5);
-            padding: 20px 0;
-            overflow-y: auto;
-        }
-
-        .mega-menu-right {
-            flex: 1;
-            padding: 40px;
-            background: #FDFBF7;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #D7CCC8 #FDFBF7;
-        }
-
-        .mega-menu-right::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .mega-menu-right::-webkit-scrollbar-track {
-            background: #FDFBF7;
-        }
-
-        .mega-menu-right::-webkit-scrollbar-thumb {
-            background-color: #D7CCC8;
-            border-radius: 20px;
-        }
-
-        .mega-category-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 28px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #5D4037;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-transform: capitalize;
-            letter-spacing: 0.02em;
-        }
-
-        .mega-category-link:hover {
-            background: rgba(253, 245, 230, 0.8);
-            padding-left: 36px;
-        }
-
-        .mega-category-link.active {
-            background: #FDF5E6;
-            color: #8D6E63;
-            padding-left: 36px;
-            border-right: 4px solid #8D6E63;
-        }
-
-        .subcategory-grid {
-            display: none;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            animation: fadeInSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .subcategory-grid.active {
-            display: grid;
-        }
-
-        @keyframes fadeInSlide {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .subcategory-item {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 16px;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .subcategory-item:hover {
-            background: #F5F5DC;
-            border-color: #D7CCC8;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(93, 64, 55, 0.05);
-        }
-
-        .subcategory-icon {
-            width: 48px;
-            height: 48px;
-            background: #FDF5E6;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #8D6E63;
-            transition: all 0.3s ease;
-        }
-
-        .subcategory-item:hover .subcategory-icon {
-            background: #5D4037;
-            color: #FDFBF7;
-        }
-
-        .subcategory-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: #5D4037;
-            line-height: 1.4;
-        }
-
-        /* Mobile Accordion Content Customization */
-        .accordion-content.active {
-            display: block !important;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #5D4037; }
+        .filter-sidebar { scrollbar-width: thin; scrollbar-color: #D7CCC8 transparent; }
+        .filter-sidebar::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar::-webkit-scrollbar-thumb { background: #D7CCC8; border-radius: 10px; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(93, 64, 55, 0.15); }
+        .custom-checkbox { width: 18px; height: 18px; border: 2px solid #D7CCC8; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+        .custom-checkbox.active { background: #5D4037; border-color: #5D4037; }
+        .custom-checkbox ion-icon { color: white; display: none; font-size: 14px; }
+        .custom-checkbox.active ion-icon { display: block; }
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+        .mobile-filter-open { animation: slideIn 0.3s ease-out; }
     </style>
 </head>
-
 <body class="antialiased">
-
-    <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden overlay"></div>
-
-    <!-- ADDRESS MODAL -->
-    <div id="address-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
-        <div class="bg-[#F5F5DC] rounded-[2.5rem] shadow-[0_20px_50px_rgba(93,64,55,0.2)] max-w-2xl w-full relative overflow-hidden transform transition-all duration-500 scale-95 opacity-0"
-            id="address-container">
-            <button onclick="closeAddressModal()"
-                class="absolute top-6 right-6 text-2xl z-[110] p-2 hover:bg-gray-200/50 backdrop-blur-sm rounded-full transition-all">
-                <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="p-8 md:p-10 space-y-6">
-                <div class="text-center md:text-left">
-                    <h3 class="text-2xl font-black text-[#5D4037] mb-2">Delivery Address</h3>
-                    <p class="text-gray-500 text-sm font-medium">Choose your location on the map or enter manually</p>
-                </div>
-
-                <!-- Map Section -->
-                <div class="relative group">
-                    <div id="address-map" class="shadow-inner border border-[#D7CCC8]"></div>
-                    <button onclick="useGPS(event)"
-                        class="absolute bottom-4 right-4 z-[20] bg-white text-[#5D4037] p-3 rounded-xl shadow-lg hover:bg-[#F5F5DC] transition-all flex items-center gap-2 font-bold text-xs">
-                        <ion-icon name="locate-outline" class="text-lg"></ion-icon>
-                        Use GPS
-                    </button>
-                </div>
-
-                <!-- Manual Input Section -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">Street /
-                            Landmark</label>
-                        <input type="text" id="manual-street" placeholder="e.g. MG Road, Near Central Mall"
-                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-[#8D6E63] ml-1">City /
-                            Town</label>
-                        <input type="text" id="manual-city" placeholder="e.g. Bangalore"
-                            class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-xl px-4 py-3 outline-none text-sm font-semibold text-[#5D4037] focus:border-[#5D4037]">
-                    </div>
-                </div>
-
-                <button onclick="saveAddress(event)"
-                    class="w-full bg-[#5D4037] text-[#F5F5DC] py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-[#8D6E63] shadow-xl shadow-[#D7CCC8]/60 transition-all duration-300">
-                    Confirm Delivery Location
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- HEADER -->
-    <header class="bg-[#F5F5DC] sticky top-0 z-40 shadow-md">
-        <!-- Top Row: Tabs -->
-        <div class="bg-[#F5F5DC] border-b border-[#D7CCC8] py-3 hidden md:block">
-            <div class="container mx-auto px-4 flex gap-4">
-                <a href="/index.html"
-                    class="bg-[#FDF5E6] px-4 py-2 rounded-lg flex items-center gap-1 shadow-sm hover:shadow-md transition-all border border-gray-200">
-                    <span class="font-black italic text-base flex items-center">
-                        <span class="text-[#8D6E63]">Hostel</span>
-                        <span class="text-[#C8A951] ml-1">Mart</span>
-                    </span>
-                </a>
-                <a href="Minutes.html"
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors no-underline">
-                    <div
-                        class="bg-[#5D4037] text-white w-6 h-6 rounded flex items-center justify-center font-black text-[10px]">
-                        6</div>
-                    <span class="font-bold text-[#5D4037] text-sm italic">Minutes</span>
-                </a>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
-                    <ion-icon name="airplane" class="text-[#8D6E63] text-xl"></ion-icon>
-                    <span class="font-bold text-[#5D4037] text-sm italic">Travel</span>
-                </div>
-                <div
-                    class="bg-gray-100 px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
-                    <div
-                        class="bg-[#5D4037] text-white px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter">
-                        Xtra Saver</div>
-                    <span class="font-bold text-[#5D4037] text-sm italic">Grocery</span>
-                </div>
+    <header class="bg-[#F5F5DC] sticky top-0 z-50 border-b border-[#D7CCC8] shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></span>
+            </a>
+            <div class="flex-1 max-w-xl mx-8 hidden md:block relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><ion-icon name="search-outline"></ion-icon></div>
+                <input type="text" id="top-search" placeholder="Search toys, games..." class="w-full bg-[#FDF5E6] border border-[#D7CCC8] rounded-2xl pl-12 pr-4 py-2.5 outline-none focus:border-[#5D4037] transition-all text-sm font-medium">
             </div>
-        </div>
-
-        <!-- Middle Row: Location & Info -->
-        <div class="bg-[#F5F5DC] py-2 hidden md:block">
-            <div
-                class="container mx-auto px-4 flex justify-end items-center gap-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                <div onclick="openAddressModal()" class="flex items-center gap-1 cursor-pointer hover:text-[#5D4037]">
-                    <ion-icon name="location" class="text-sm"></ion-icon>
-                    <span id="current-address">Add Delivery Address</span>
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                </div>
-                <div class="bg-[#FDF5E6] px-2 py-1 rounded flex items-center gap-1 text-[#5D4037]">
-                    <ion-icon name="flash" class="text-yellow-500"></ion-icon>
-                    <span>0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Row: Search & Profile -->
-        <div class="bg-[#F5F5DC] pb-4">
-            <div class="container mx-auto px-4 flex items-center gap-4 md:gap-12">
-                <button onclick="toggleMobileMenu()" class="text-2xl md:hidden">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </button>
-                <div class="flex-1 relative group">
-                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#795548] text-xl"><ion-icon
-                            name="search-outline"></ion-icon></div>
-                    <input type="search" placeholder="Search for Products, Brands and More"
-                        class="w-full bg-[#F5F5DC]/50 border border-[#D7CCC8] rounded-xl pl-12 pr-4 py-2.5 md:py-3 outline-none focus:bg-[#F5F5DC] focus:ring-4 focus:ring-[#F5F5DC] transition-all text-sm font-medium">
-                </div>
-                <div class="flex items-center gap-4 md:gap-8 text-[#5D4037] font-bold text-sm">
-                    <a href="/index.html" class="hover:text-[#8D6E63] transition-colors">Home</a>
-                    <div class="nav-item-wrapper">
-                        <a href="javascript:void(0)" onclick="toggleMegaMenu(event)"
-                            class="hover:text-[#8D6E63] transition-colors py-4 inline-block">Categories</a>
-                        <div id="mega-menu" class="mega-menu shadow-2xl text-left">
-                            <div class="mega-menu-left">
-                                <div class="mega-category-link active"
-                                    onmouseover="showMegaCategory('mega-electronics', this)">
-                                    <span>Electronics</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-grocery', this)">
-                                    <span>Grocery & Snacks</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-hostel', this)">
-                                    <span>Hostel Essentials</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-study', this)">
-                                    <span>Study Essentials</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-beauty', this)">
-                                    <span>Beauty & Personal Care</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-fashion', this)">
-                                    <span>Fashion</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-mobiles', this)">
-                                    <span>Mobiles</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-appliances', this)">
-                                    <span>Home & Appliances</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-sports', this)">
-                                    <span>Sports & Fitness</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                                <div class="mega-category-link" onmouseover="showMegaCategory('mega-emergency', this)">
-                                    <span>Emergency / Fast Delivery</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </div>
-                            </div>
-                            <div class="mega-menu-right">
-                                <!-- Electronics -->
-                                <div id="mega-electronics" class="subcategory-grid active">
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="headset-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Earphones & Headphones</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flashlight-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Chargers & Cables</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="battery-charging-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Power Banks</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="volume-high-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Bluetooth Speakers</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="watch-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Smart Watches</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="hardware-chip-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Keyboards & Mouse</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="laptop-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Laptop Accessories</span>
-                                    </a>
-                                </div>
-                                <!-- Grocery -->
-                                <div id="mega-grocery" class="subcategory-grid">
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="fast-food-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Instant Noodles</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="pizza-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Chips & Snacks</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="ice-cream-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Chocolates</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="wine-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Cold Drinks</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="nutrition-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Biscuits</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Ice Cream</span>
-                                    </a>
-                                    <a href="Food.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Breakfast Items</span>
-                                    </a>
-                                </div>
-                                <!-- Hostel -->
-                                <div id="mega-hostel" class="subcategory-grid">
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bucket-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Buckets & Mugs</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Hangers</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bed-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Bedsheets</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-filter-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Pillows</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bag-handle-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Laundry Bags</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="lock-closed-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Locks</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="water-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Water Bottles</span>
-                                    </a>
-                                </div>
-                                <!-- Study -->
-                                <div id="mega-study" class="subcategory-grid">
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="book-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Notebooks</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="pencil-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Pens & Markers</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="calculator-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Calculators</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bookmark-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Sticky Notes</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="folder-open-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Files & Folders</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="clipboard-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Exam Pads</span>
-                                    </a>
-                                </div>
-                                <!-- Beauty -->
-                                <div id="mega-beauty" class="subcategory-grid">
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="sparkles-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Face Wash</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="color-palette-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Shampoo</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="rose-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Perfume</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="cut-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Trimmers</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="leaf-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Skin Care</span>
-                                    </a>
-                                    <a href="Beauty.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flask-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Hair Oil</span>
-                                    </a>
-                                </div>
-                                <!-- Fashion -->
-                                <div id="mega-fashion" class="subcategory-grid">
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="shirt-outline"></ion-icon></div>
-                                        <span class="subcategory-name">T-Shirts</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="snow-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Hoodies</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="walk-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Shorts</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="footsteps-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Slippers</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="time-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Watches</span>
-                                    </a>
-                                    <a href="Fashion.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="briefcase-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Bags</span>
-                                    </a>
-                                </div>
-                                <!-- Mobiles -->
-                                <div id="mega-mobiles" class="subcategory-grid">
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="phone-portrait-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Smartphones</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="refresh-circle-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Refurbished Phones</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="shield-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Phone Covers</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="qr-code-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Tempered Glass</span>
-                                    </a>
-                                    <a href="Mobile.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon
-                                                name="phone-landscape-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Mobile Stands</span>
-                                    </a>
-                                </div>
-                                <!-- Appliances -->
-                                <div id="mega-appliances" class="subcategory-grid">
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bulb-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Table Lamps</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="power-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Extension Boards</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="sync-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Mini Fans</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="cafe-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Electric Kettle</span>
-                                    </a>
-                                    <a href="Appliances.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flame-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Induction Stove</span>
-                                    </a>
-                                </div>
-                                <!-- Sports -->
-                                <div id="mega-sports" class="subcategory-grid">
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="barbell-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Dumbbells</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="body-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Yoga Mats</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="baseball-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Cricket</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="football-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Football</span>
-                                    </a>
-                                    <a href="Sports.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="bicycle-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Cycling</span>
-                                    </a>
-                                </div>
-                                <!-- Emergency -->
-                                <div id="mega-emergency" class="subcategory-grid">
-                                    <a href="Minutes.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="medkit-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Medicines</span>
-                                    </a>
-                                    <a href="Minutes.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="moon-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Late Night Snacks</span>
-                                    </a>
-                                    <a href="Books.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="create-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Stationery</span>
-                                    </a>
-                                    <a href="Electronics.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="flash-outline"></ion-icon></div>
-                                        <span class="subcategory-name">Chargers</span>
-                                    </a>
-                                    <a href="Home.html" class="subcategory-item">
-                                        <div class="subcategory-icon"><ion-icon name="umbrella-outline"></ion-icon>
-                                        </div>
-                                        <span class="subcategory-name">Umbrellas</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
-                        <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
-                        <span class="hidden md:inline">Cart</span>
-                    </a>
-                    <a href="Orders.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037]">
-                        <ion-icon name="location-outline" class="text-2xl md:text-xl"></ion-icon>
-                        <span class="hidden md:inline">Track Order</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <a href="Cart.html" class="flex items-center gap-2 cursor-pointer hover:text-[#5D4037] relative">
-            <ion-icon name="cart-outline" class="text-2xl md:text-xl"></ion-icon>
-            <span class="hidden md:inline">Cart</span>
-            <span
-                class="absolute -top-2 left-3 md:left-4 bg-[#5D4037] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">2</span>
-        </a>
-        </div>
-        </div>
-        </div>
-
-        <!-- CATEGORY NAVIGATION (Icons) -->
-        <div id="categories-section" class="bg-[#F5F5DC] border-t border-[#D7CCC8] overflow-x-auto no-scrollbar py-2">
-            <div class="container mx-auto px-4 flex items-center justify-between gap-6 whitespace-nowrap min-w-max">
-                <a href="/index.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/best-seller.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-[#5D4037]">For You</span>
+            <div class="flex items-center gap-6">
+                <a href="/Cart.html" class="relative group">
+                    <ion-icon name="cart-outline" class="text-2xl text-[#5D4037] group-hover:scale-110 transition-transform"></ion-icon>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#C8A951] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black">0</span>
                 </a>
-
-                <a href="Fashion.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/t-shirt.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Fashion</span>
-                </a>
-
-                <a href="Mobile.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/iphone.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Mobiles</span>
-                </a>
-
-                <a href="Beauty.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/194/194931.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Beauty</span>
-                </a>
-
-                <a href="Electronics.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/3659/3659899.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Electronics</span>
-                </a>
-
-                <a href="Home.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/lamp.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Home</span>
-                </a>
-
-                <a href="Appliances.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/monitor.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Appliances</span>
-                </a>
-
-                <a href="Toys.html" class="category-item active flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/teddy-bear.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Toys, ba...</span>
-                </a>
-
-                <a href="Food.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/honey.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Food & H...</span>
-                </a>
-
-                <a href="Auto.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Auto Acc...</span>
-                </a>
-
-                <a href="2 wheel.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/7133/7133611.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">2 Wheele...</span>
-                </a>
-
-                <a href="Sports.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/857/857455.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Sports & ...</span>
-                </a>
-
-                <a href="Books.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://cdn-icons-png.flaticon.com/128/3308/3308312.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Books & ...</span>
-                </a>
-
-                <a href="Furniture.html" class="category-item flex flex-col items-center gap-1 group">
-                    <div
-                        class="icon-box w-12 h-12 rounded-xl flex items-center justify-center text-gray-400 transition-all">
-                        <img src="https://img.icons8.com/color/96/000000/armchair.png" class="w-8 h-8" alt="">
-                    </div>
-                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-[#5D4037]">Furniture</span>
-                </a>
+                <div id="auth-user-ui"></div>
             </div>
         </div>
     </header>
 
-    <!-- 3. TOY SUB-CATEGORIES (Screenshot 15.33.54.jpg) -->
-    <div class="max-w-7xl mx-auto px-4 py-8 overflow-x-auto no-scrollbar">
-        <div class="flex gap-6 min-w-max">
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-3xl bg-[#831843] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-                        <line x1="9" x2="9.01" y1="9" y2="9" />
-                        <line x1="15" x2="15.01" y1="9" y2="9" />
-                    </svg>
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- SIDEBAR FILTERS -->
+            <aside id="filter-sidebar" class="w-full md:w-72 flex-shrink-0 space-y-8 hidden md:block">
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Brands</h3>
+                    <div class="space-y-3" id="brand-filters"></div>
                 </div>
-                <span class="text-[10px] font-bold">Get in Mins</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div
-                    class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2 group-hover:bg-blue-100 transition-colors">
-                    <img src="https://via.placeholder.com/64" alt="Art Kits" class="mix-blend-multiply opacity-80">
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Age Group</h3>
+                    <div class="flex flex-wrap gap-2" id="age-filters"></div>
                 </div>
-                <span class="text-[10px] font-bold">Art Kits</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/64" alt="Soft Toys" class="mix-blend-multiply opacity-80">
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Material</h3>
+                    <div class="space-y-3" id="material-filters"></div>
                 </div>
-                <span class="text-[10px] font-bold">Soft Toys</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/64" alt="Learning" class="mix-blend-multiply opacity-80">
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Size</h3>
+                    <div class="flex flex-wrap gap-2" id="size-filters"></div>
                 </div>
-                <span class="text-[10px] font-bold">Learning</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/64" alt="Stationery" class="mix-blend-multiply opacity-80">
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Battery Required</h3>
+                    <div class="flex flex-wrap gap-2" id="battery-filters"></div>
                 </div>
-                <span class="text-[10px] font-bold">Stationery</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                <div class="w-16 h-16 rounded-3xl bg-[#FDF5E6] flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/64" alt="Diapers" class="mix-blend-multiply opacity-80">
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Colors</h3>
+                    <div class="space-y-3" id="color-filters"></div>
                 </div>
-                <span class="text-[10px] font-bold">Diapers</span>
+
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#8D6E63] mb-4">Price Range</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-xs font-bold text-[#5D4037]">
+                            <span id="price-min">₹0</span>
+                            <span id="price-max">₹5000+</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="5000" step="100" class="w-full accent-[#5D4037]">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- PRODUCT CONTENT -->
+            <div class="flex-1">
+                <!-- BREADCRUMBS & SORT -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                    <nav class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                        <a href="/index.html" class="hover:text-[#5D4037]">Home</a>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <span class="text-[#5D4037]">Toys & Kids Essentials</span>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <p class="text-xs font-bold text-gray-400"><span id="result-count" class="text-[#5D4037]">0</span> Products Found</p>
+                        <select id="sort-select" class="bg-white border border-[#D7CCC8] rounded-xl px-4 py-2 text-xs font-bold outline-none focus:border-[#5D4037] cursor-pointer">
+                            <option value="popularity">Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="newest">New Arrivals</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- PRODUCT GRID -->
+                <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+                <!-- EMPTY STATE -->
+                <div id="empty-state" class="hidden py-20 text-center">
+                    <div class="text-6xl mb-4">🧸</div>
+                    <h3 class="text-xl font-black text-[#5D4037]">No matching toys found</h3>
+                    <p class="text-gray-400 text-sm mt-2">Try adjusting your filters or search term.</p>
+                    <button onclick="resetFilters()" class="mt-6 bg-[#5D4037] text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest">Reset All Filters</button>
+                </div>
             </div>
         </div>
-    </div>
-
-    <main class="max-w-7xl mx-auto px-4 py-4 space-y-12">
-
-        <!-- 4. HERO BANNERS (Screenshot 15.33.54.jpg) -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div
-                class="relative rounded-[40px] p-10 overflow-hidden toy-hero-blue text-white min-h-[300px] flex flex-col justify-center">
-                <div class="relative z-10 space-y-4">
-                    <div
-                        class="bg-[#F5F5DC] text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
-                        BIG BACHAT DAYS</div>
-                    <h2 class="text-4xl font-black leading-tight uppercase italic">Baby feeding needs <br>Up to 70% Off
-                    </h2>
-                    <p class="text-sm font-bold opacity-80">Sale is live!</p>
-                    <button
-                        class="bg-[#F5F5DC] text-[#5D4037] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Explore
-                        Now</button>
-                </div>
-                <div
-                    class="absolute right-10 top-1/2 -translate-y-1/2 w-56 h-40 bg-[#F5F5DC]/20 rounded-2xl border-4 border-white/20 hidden lg:block backdrop-blur-md">
-                </div>
-            </div>
-            <div
-                class="relative rounded-[40px] p-10 overflow-hidden toy-hero-blue text-white min-h-[300px] flex flex-col justify-center">
-                <div class="relative z-10 space-y-4">
-                    <div
-                        class="bg-[#F5F5DC] text-black px-3 py-1 rounded-lg font-black text-[10px] w-fit italic shadow-sm">
-                        BIG BACHAT DAYS</div>
-                    <h2 class="text-4xl font-black leading-tight uppercase italic">Diapers & more <br>From ₹49</h2>
-                    <p class="text-sm font-bold opacity-80">Live Now!</p>
-                    <button
-                        class="bg-[#F5F5DC] text-[#5D4037] px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest">Shop
-                        All</button>
-                </div>
-                <div class="absolute right-0 bottom-0 w-64 h-64 bg-[#F5F5DC]/10 rounded-full blur-[100px]"></div>
-            </div>
-        </section>
-
-        <!-- 5. MOTHER'S DAY SPECIALS (Screenshot 15.34.16.jpg) -->
-        <section
-            class="bg-[#FDF5E6] rounded-[40px] p-8 space-y-8 border border-[#D7CCC8] shadow-sm relative overflow-hidden">
-            <div class="absolute top-4 right-8 text-[#8D6E63] opacity-50"><svg xmlns="http://www.w3.org/2000/svg"
-                    width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                </svg></div>
-            <h3 class="text-xl font-black tracking-tight text-[#5D4037] border-l-4 border-[#FDF5E6]0 pl-4">Mother's Day
-                specials 🌸</h3>
-            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-2">
-                <div class="min-w-[180px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
-                        <img src="https://via.placeholder.com/120x150" alt="Carrier"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Min. 40% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-[#5D4037]">Carrier cuddlers</p>
-                </div>
-                <div class="min-w-[180px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
-                        <img src="https://via.placeholder.com/120x150" alt="Art Kits"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Up to 70% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-[#5D4037]">Art kits</p>
-                </div>
-                <div class="min-w-[180px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
-                        <img src="https://via.placeholder.com/120x150" alt="Pumps"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Up to 60% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-[#5D4037]">Breast pumps</p>
-                </div>
-                <div class="min-w-[180px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all">
-                        <img src="https://via.placeholder.com/120x150" alt="LEGO"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Min. 40% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-[#5D4037]">LEGO sets</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. POP CULTURE CORNER (Screenshot 15.35.38.jpg) -->
-        <section class="space-y-8">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Pop culture corner
-            </h3>
-            <div class="flex gap-8 overflow-x-auto no-scrollbar pb-4 px-2">
-                <div class="flex flex-col items-center gap-4 cursor-pointer group">
-                    <div
-                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#D7CCC8] to-[#F5F5DC]">
-                        <span
-                            class="text-white font-black text-2xl drop-shadow-lg group-hover:scale-110 transition-transform">Barbie</span>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[10px] font-bold text-stone-500 uppercase">Iconic dolls</p>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer group">
-                    <div
-                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#3E2723] to-[#5D4037]">
-                        <span
-                            class="text-white font-black text-lg drop-shadow-lg group-hover:scale-110 transition-transform">Harry
-                            Potter</span>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[10px] font-bold text-stone-500 uppercase">Wizarding world</p>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer group">
-                    <div
-                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#5D4037] to-[#8D6E63]">
-                        <span
-                            class="text-white font-black text-2xl drop-shadow-lg group-hover:scale-110 transition-transform">Spiderman</span>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[10px] font-bold text-stone-500 uppercase">Web slingers</p>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer group">
-                    <div
-                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#3E2723] to-[#5D4037]">
-                        <span
-                            class="text-white font-black text-2xl drop-shadow-lg group-hover:scale-110 transition-transform">Batman</span>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[10px] font-bold text-stone-500 uppercase">Gotham's hero</p>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer group">
-                    <div
-                        class="char-arc w-36 h-48 flex items-end justify-center pb-4 hover:scale-105 transition-transform bg-gradient-to-b from-[#FDF5E6]0 to-[#D7CCC8]">
-                        <span
-                            class="text-white font-black text-lg drop-shadow-lg group-hover:scale-110 transition-transform">Tom
-                            & Jerry</span>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[10px] font-bold text-stone-500 uppercase">Classic fun</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. INDOOR GAMES FOR SUMMER (Screenshot 15.35.18.jpg) -->
-        <section
-            class="bg-[#FDF5E6] rounded-[40px] p-8 space-y-8 border border-[#D7CCC8] shadow-sm relative overflow-hidden">
-            <div class="flex items-center justify-between relative z-10">
-                <h3
-                    class="text-xl font-black tracking-tight text-[#5D4037] border-l-4 border-[#FDF5E6]0 pl-4 uppercase italic">
-                    Indoor games for summer 🎲</h3>
-                <div class="flex gap-2">
-                    <button
-                        class="p-2 bg-[#F5F5DC] rounded-full border border-[#D7CCC8] hover:bg-[#D7CCC8] shadow-sm"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5">
-                            <path d="m15 18-6-6 6-6" />
-                        </svg></button>
-                    <button
-                        class="p-2 bg-[#F5F5DC] rounded-full border border-[#D7CCC8] hover:bg-[#D7CCC8] shadow-sm"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg></button>
-                </div>
-            </div>
-            <div class="flex gap-6 overflow-x-auto no-scrollbar pb-2 relative z-10">
-                <div class="min-w-[200px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
-                        <img src="https://via.placeholder.com/120x150" alt="Tents"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Min. 40% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-sky-950">Play tents</p>
-                </div>
-                <div class="min-w-[200px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
-                        <img src="https://via.placeholder.com/120x150" alt="Dolls"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Min. 40% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-sky-950">Dolls</p>
-                </div>
-                <div class="min-w-[200px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
-                        <img src="https://via.placeholder.com/120x150" alt="STEM"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Up to 70% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-sky-950">STEM toys</p>
-                </div>
-                <div class="min-w-[200px] space-y-4 cursor-pointer group">
-                    <div
-                        class="arch-card h-72 p-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-xl transition-all border-[#D7CCC8]">
-                        <img src="https://via.placeholder.com/120x150" alt="Cars"
-                            class="mix-blend-multiply transition-transform group-hover:scale-105">
-                        <div
-                            class="absolute bottom-0 left-0 w-full bg-[#FDF5E6]0 text-white py-2.5 text-[10px] font-black text-center uppercase">
-                            Min. 30% Off</div>
-                    </div>
-                    <p class="text-center font-bold text-xs text-sky-950">Toy cars & more</p>
-                </div>
-            </div>
-            <div class="absolute right-0 top-0 h-full w-48 opacity-10 pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
-                    fill="currentColor">
-                    <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
-                </svg>
-            </div>
-        </section>
-
-        <!-- 8. SUMMER ESSENTIALS (Screenshot 15.36.18.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#FDF5E6]0 pl-4">Summer essentials
-                ☀️</h3>
-            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                <div
-                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
-                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
-                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">
-                            Creams
-                            & lotions <br> From ₹57</div>
-                        <img src="https://via.placeholder.com/150x150" alt="Lotion"
-                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
-                    </div>
-                </div>
-                <div
-                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
-                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
-                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">
-                            Repellants <br> From ₹76</div>
-                        <img src="https://via.placeholder.com/150x150" alt="Repellant"
-                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
-                    </div>
-                </div>
-                <div
-                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
-                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
-                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">
-                            Massage oils <br> From ₹85</div>
-                        <img src="https://via.placeholder.com/150x150" alt="Oil"
-                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
-                    </div>
-                </div>
-                <div
-                    class="min-w-[200px] bg-[#D7CCC8]/30 border border-[#D7CCC8] rounded-[32px] overflow-hidden hover-lift group cursor-pointer">
-                    <div class="p-4 bg-[#F5F5DC]/50 flex flex-col items-center gap-4">
-                        <div class="bg-[#FDF5E6]0 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase">
-                            Absorbant sheets <br> From ₹75</div>
-                        <img src="https://via.placeholder.com/150x150" alt="Sheets"
-                            class="mix-blend-multiply group-hover:scale-110 transition-transform h-32">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 9. SHOP BY BUDGET (Screenshot 15.35.57.jpg) -->
-        <section class="space-y-6">
-            <h3 class="text-xl font-black uppercase tracking-widest border-l-4 border-[#3E2723] pl-4">Shop by budget
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
-                    <div
-                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
-                        <div class="text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
-                            <p class="text-3xl font-black tracking-tighter">₹99</p>
-                        </div>
-                        <div
-                            class="absolute -top-1 -right-1 w-6 h-6 bg-[#F5F5DC] rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
-                            🍋</div>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
-                    <div
-                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
-                        <div class="text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
-                            <p class="text-3xl font-black tracking-tighter">₹299</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
-                    <div
-                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
-                        <div class="text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">From</p>
-                            <p class="text-3xl font-black tracking-tighter">₹499</p>
-                        </div>
-                        <div
-                            class="absolute -top-1 -right-1 w-6 h-6 bg-[#F5F5DC] rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
-                            🍋</div>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
-                    <div
-                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
-                        <div class="text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Min.</p>
-                            <p class="text-3xl font-black tracking-tighter">40%</p>
-                            <p class="text-[10px] font-bold uppercase">Off</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
-                    <div
-                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
-                        <div class="text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Min.</p>
-                            <p class="text-3xl font-black tracking-tighter">50%</p>
-                            <p class="text-[10px] font-bold uppercase">Off</p>
-                        </div>
-                        <div
-                            class="absolute -top-1 -right-1 w-6 h-6 bg-[#F5F5DC] rounded-full border-2 border-[#FDFBF7] flex items-center justify-center text-[8px] font-black text-black">
-                            🍋</div>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform group">
-                    <div
-                        class="w-32 h-32 rounded-full bg-[#FDF5E6]0 flex items-center justify-center text-white relative shadow-lg group-hover:rotate-6 transition-transform">
-                        <div class="text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Min.</p>
-                            <p class="text-3xl font-black tracking-tighter">70%</p>
-                            <p class="text-[10px] font-bold uppercase">Off</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-[#FDF5E6] border-t border-stone-200 py-16 mt-12">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
-            <div class="col-span-1 space-y-4">
-                <h2 class="text-2xl font-black tracking-tighter text-[#3E2723]"><span
-                        class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></h2>
-                <p class="text-xs text-stone-500 font-bold uppercase tracking-widest leading-loose">Premium Toys & Baby
-                    Essentials. Safe, fun, and educational choices for the next generation.</p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Shop Categories</h4>
-                <ul class="text-xs font-bold space-y-2">
-                    <li><a href="/index.html" class="hover:text-[#C5A059]">Home</a></li>
-                    <li><a href="electronics.html" class="hover:text-[#C5A059]">Electronics</a></li>
-                    <li><a href="beauty.html" class="hover:text-[#C5A059]">Beauty</a></li>
-                    <li><a href="books.html" class="hover:text-[#C5A059]">Books</a></li>
-                </ul>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Support</h4>
-                <ul class="text-xs font-bold space-y-2">
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Track Order</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Returns</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Safety Policy</a></li>
-                    <li><a href="javascript:void(0)" class="hover:text-[#C5A059]">Contact</a></li>
-                </ul>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-[10px] font-black uppercase tracking-widest opacity-60">Social</h4>
-                <div class="flex justify-center md:justify-start gap-4">
-                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
-                    </div>
-                    <div class="w-8 h-8 rounded-lg bg-stone-200 cursor-pointer hover:bg-accent-gold transition-colors">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-stone-200 text-center">
-            <p class="text-[10px] font-bold text-stone-400">© 2026 <span class="text-[#8D6E63]">Hostel</span><span
-                    class="text-[#C8A951] ml-1">Mart</span> TOYS. QUALITY YOU CAN TRUST.</p>
+    <footer class="bg-[#F5F5DC] border-t border-[#D7CCC8] py-16 mt-20">
+        <div class="container mx-auto px-4 text-center space-y-4">
+            <h2 class="text-2xl font-black italic tracking-tighter"><span class="text-[#8D6E63]">Hostel</span><span class="text-[#C8A951] ml-1">Mart</span></h2>
+            <p class="text-xs text-gray-400 font-bold uppercase tracking-[0.2em]">Efficiency for your hostel life</p>
         </div>
     </footer>
 
-    <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-[#5D4037]/50 z-40 hidden backdrop-blur-sm"></div>
-
-    <!-- MOBILE MENU DRAWER -->
-    <div id="mobileMenu"
-        class="fixed inset-y-0 left-0 w-full sm:w-80 bg-[#F5F5DC] z-50 shadow-2xl translate-x-[-100%] transition-transform duration-300 ease-in-out overflow-y-auto">
-        <div class="p-6 border-b flex justify-between items-center bg-[#FDF5E6]">
-            <h2 class="text-xl font-black uppercase tracking-tight">Menu</h2>
-            <button onclick="toggleMobileMenu()"
-                class="text-3xl w-10 h-10 flex items-center justify-center bg-[#F5F5DC] rounded-full shadow-sm">
-                <ion-icon name="close-outline"></ion-icon>
-            </button>
-        </div>
-        <div class="p-6">
-            <ul class="space-y-6">
-                <li><a href="/index.html" class="font-bold text-lg border-b block pb-2 text-[#795548]">HOME</a></li>
-                <li>
-                    <div class="flex justify-between items-center cursor-pointer group"
-                        onclick="toggleAccordion('mob-categories')">
-                        <span
-                            class="font-bold uppercase text-[#5D4037] group-hover:text-[#795548] transition">CATEGORIES</span>
-                        <ion-icon name="add-outline" class="text-xl"></ion-icon>
-                    </div>
-                    <div id="mob-categories"
-                        class="hidden pl-4 pt-4 space-y-4 text-gray-500 border-l-2 border-[#D7CCC8] mt-2">
-                        <a href="Electronics.html" class="block hover:text-[#795548] font-medium">Electronics</a>
-                        <a href="Appliances.html" class="block hover:text-[#795548] font-medium">Home Appliances</a>
-                        <a href="Beauty.html" class="block hover:text-[#795548] font-medium">Beauty</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
     <script>
-        // Mega Menu Interaction Logic
-        function showMegaCategory(gridId, element) {
-            document.querySelectorAll('.subcategory-grid').forEach(grid => {
-                grid.classList.remove('active');
+        let allProducts = [];
+        let filters = {
+            brands: [],
+            ageGroups: [],
+            materials: [],
+            batteryRequirements: [],
+            sizes: [],
+            colors: [],
+            maxPrice: 5000,
+            search: ""
+        };
+
+        const config = {
+            brands: ["Funskool", "LEGO", "Barbie", "Hot Wheels", "Fisher-Price", "Nerf", "Hamleys", "Mee Mee", "Disney", "PlayShifu", "Webby", "Toyshine", "Little Genius", "Playgro"],
+            ageGroups: ["0-2 Years", "3-5 Years", "6-8 Years", "9-12 Years", "12+ Years", "All Ages"],
+            materials: ["Plastic", "Wood", "Fabric", "Metal", "Rubber", "Silicone", "Plush", "Velvet", "Cotton", "Polyester", "Organic Cotton"],
+            batteryRequirements: ["Yes", "No"],
+            sizes: ["Small", "Medium", "Large", "Giant"],
+            colors: ["Multicolor", "Red", "Blue", "Pink", "Yellow", "Green", "Brown", "White"]
+        };
+
+        async function init() {
+            renderFilterUI();
+            await fetchProducts();
+            setupEventListeners();
+        }
+
+        async function fetchProducts() {
+            try {
+                const sort = document.getElementById('sort-select').value;
+                const res = await fetch(`/api/products?subcategory=Toys %26 Kids Essentials&sort=${sort}`);
+                allProducts = await res.json();
+                applyFiltersAndRender();
+            } catch (e) {
+                console.error("Fetch Error:", e);
+            }
+        }
+
+        function renderFilterUI() {
+            const bFilter = document.getElementById('brand-filters');
+            bFilter.innerHTML = config.brands.map(b => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('brands', '${b}')">
+                    <div class="custom-checkbox ${filters.brands.includes(b) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${b}</span>
+                </div>
+            `).join('');
+
+            const aFilter = document.getElementById('age-filters');
+            aFilter.innerHTML = config.ageGroups.map(a => `
+                <button onclick="toggleFilter('ageGroups', '${a}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.ageGroups.includes(a) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-lg' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${a}</button>
+            `).join('');
+
+            const mFilter = document.getElementById('material-filters');
+            mFilter.innerHTML = config.materials.map(m => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('materials', '${m}')">
+                    <div class="custom-checkbox ${filters.materials.includes(m) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${m}</span>
+                </div>
+            `).join('');
+
+            const sFilter = document.getElementById('size-filters');
+            sFilter.innerHTML = config.sizes.map(s => `
+                <button onclick="toggleFilter('sizes', '${s}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.sizes.includes(s) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-lg' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${s}</button>
+            `).join('');
+
+            const batFilter = document.getElementById('battery-filters');
+            batFilter.innerHTML = config.batteryRequirements.map(b => `
+                <button onclick="toggleFilter('batteryRequirements', '${b}')" class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border-2 transition-all ${filters.batteryRequirements.includes(b) ? 'bg-[#5D4037] border-[#5D4037] text-white shadow-lg' : 'bg-white border-[#D7CCC8] text-[#5D4037] hover:border-[#5D4037]'}">${b}</button>
+            `).join('');
+
+            const colFilter = document.getElementById('color-filters');
+            colFilter.innerHTML = config.colors.map(c => `
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleFilter('colors', '${c}')">
+                    <div class="custom-checkbox ${filters.colors.includes(c) ? 'active' : ''}"><ion-icon name="checkmark-outline"></ion-icon></div>
+                    <span class="text-sm font-bold text-gray-500 group-hover:text-[#5D4037] transition-colors">${c}</span>
+                </div>
+            `).join('');
+        }
+
+        function toggleFilter(key, val) {
+            const index = filters[key].indexOf(val);
+            if (index > -1) filters[key].splice(index, 1);
+            else filters[key].push(val);
+            renderFilterUI();
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            let filtered = allProducts.filter(p => {
+                const bMatch = filters.brands.length === 0 || filters.brands.includes(p.brand);
+                const aMatch = filters.ageGroups.length === 0 || (p.ageGroup && filters.ageGroups.includes(p.ageGroup));
+                const mMatch = filters.materials.length === 0 || (p.material && filters.materials.includes(p.material));
+                const batMatch = filters.batteryRequirements.length === 0 || (p.batteryRequired && filters.batteryRequirements.includes(p.batteryRequired));
+                const sMatch = filters.sizes.length === 0 || (p.size && filters.sizes.includes(p.size));
+                const colMatch = filters.colors.length === 0 || (p.colors && p.colors.some(c => filters.colors.includes(c)));
+                const priceMatch = p.price <= filters.maxPrice;
+                const qMatch = !filters.search || p.name.toLowerCase().includes(filters.search.toLowerCase()) || p.brand.toLowerCase().includes(filters.search.toLowerCase());
+                return bMatch && aMatch && mMatch && batMatch && sMatch && colMatch && priceMatch && qMatch;
             });
-            document.getElementById(gridId).classList.add('active');
-            document.querySelectorAll('.mega-category-link').forEach(link => {
-                link.classList.remove('active');
+
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-[2.5rem] border border-[#D7CCC8]/40 overflow-hidden group transition-all duration-500 flex flex-col">
+                        <div class="relative aspect-square overflow-hidden bg-gray-50 cursor-pointer p-4" onclick="window.location.href='/product/${p.slug}'">
+                            <img src="${p.image}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700">
+                            ${p.discount ? `<span class="absolute top-4 left-4 bg-[#5D4037] text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">${p.discount}</span>` : ''}
+                            <div class="absolute inset-0 bg-[#5D4037]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">${p.brand}</span>
+                                <div class="flex items-center gap-1 text-yellow-500 text-[10px] font-bold">
+                                    <ion-icon name="star"></ion-icon>
+                                    <span>${p.rating.toFixed(1)}</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-[#5D4037] text-sm line-clamp-2 leading-snug cursor-pointer group-hover:text-[#8D6E63] transition-colors" onclick="window.location.href='/product/${p.slug}'">${p.name}</h3>
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                ${p.ageGroup ? `<span class="bg-[#F5F5DC] text-[#5D4037] text-[8px] font-black px-2 py-1 rounded-md uppercase">${p.ageGroup}</span>` : ''}
+                                ${p.batteryRequired === 'Yes' ? `<span class="bg-[#FDF5E6] text-[#C8A951] text-[8px] font-black px-2 py-1 rounded-md uppercase">Battery Req.</span>` : ''}
+                            </div>
+                            <div class="mt-auto pt-4 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-black text-[#5D4037]">₹${p.price}</span>
+                                    ${p.originalPrice ? `<del class="text-[10px] text-gray-300 font-bold">₹${p.originalPrice}</del>` : ''}
+                                </div>
+                                <div class="flex gap-2">
+                                    <button 
+                                        data-cart-action="add" 
+                                        data-mini="true" 
+                                        data-product-slug="${p.slug}" 
+                                        data-product-name="${p.name}" 
+                                        data-product-price="₹${p.price}" 
+                                        data-product-image="${p.image}" 
+                                        data-product-brand="${p.brand}"
+                                        class="w-10 h-10 bg-[#F5F5DC] text-[#5D4037] rounded-xl flex items-center justify-center hover:bg-[#5D4037] hover:text-white transition-all shadow-sm">
+                                        <ion-icon name="cart-outline" class="text-lg"></ion-icon>
+                                    </button>
+                                    <button onclick="window.location.href='/Checkout.html?slug=${p.slug}'" class="bg-[#5D4037] text-white px-4 h-10 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#3E2723] shadow-md shadow-[#D7CCC8]/50 transition-all">Buy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            if (window.syncCartButtons) window.syncCartButtons();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('sort-select').addEventListener('change', fetchProducts);
+            document.getElementById('top-search').addEventListener('input', (e) => {
+                filters.search = e.target.value;
+                applyFiltersAndRender();
             });
-            element.classList.add('active');
+            document.getElementById('price-range').addEventListener('input', (e) => {
+                filters.maxPrice = e.target.value;
+                document.getElementById('price-max').innerText = `₹${filters.maxPrice}${filters.maxPrice == 5000 ? '+' : ''}`;
+                applyFiltersAndRender();
+            });
         }
 
-        function toggleMegaMenu(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            const menu = document.getElementById('mega-menu');
-            if (menu) {
-                menu.classList.toggle('is-open');
-            }
+        function resetFilters() {
+            filters = { brands: [], ageGroups: [], materials: [], batteryRequirements: [], sizes: [], colors: [], maxPrice: 5000, search: "" };
+            document.getElementById('price-range').value = 5000;
+            document.getElementById('price-max').innerText = "₹5000+";
+            document.getElementById('top-search').value = "";
+            renderFilterUI();
+            applyFiltersAndRender();
         }
 
-        // Close Mega Menu when clicking outside
-        document.addEventListener('click', (e) => {
-            const menu = document.getElementById('mega-menu');
-            if (menu && menu.classList.contains('is-open')) {
-                const wrapper = document.querySelector('.nav-item-wrapper');
-                if (wrapper && !wrapper.contains(e.target)) {
-                    menu.classList.remove('is-open');
-                }
-            }
-        });
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const overlay = document.getElementById('overlay');
-            const isOpen = menu.style.transform === 'translateX(0px)';
-            if (!isOpen) {
-                menu.style.transform = 'translateX(0)';
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            } else {
-                menu.style.transform = 'translateX(-100%)';
-                overlay.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-            } else {
-                content.classList.add('hidden');
-            }
-        }
-
-        // Compact Category Navigation on Scroll (with Hysteresis)
-        let isScrolled = false;
-        window.addEventListener('scroll', () => {
-            const categoriesSection = document.getElementById('categories-section');
-            if (categoriesSection) {
-                const scrollY = window.scrollY;
-                if (!isScrolled && scrollY > 100) {
-                    categoriesSection.classList.add('scrolled');
-                    isScrolled = true;
-                } else if (isScrolled && scrollY < 40) {
-                    categoriesSection.classList.remove('scrolled');
-                    isScrolled = false;
-                }
-            }
-        }, { passive: true });
+        init();
     </script>
 </body>
-
 </html>
